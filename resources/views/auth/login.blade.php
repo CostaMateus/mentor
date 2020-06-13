@@ -1,84 +1,92 @@
-@extends('layouts.app')
+@extends('layouts.login')
+
+@section('css')
+    <style>        
+        body {
+            background-image: url("{{ asset('images/login/background.png') }}");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            /* color: #FFF; */
+            height: 100vh; 
+        }
+
+        .btn-mentor         { color: #FFF; background-color: #395A6A; border-color: #395A6A; }
+        .btn-mentor:hover   { color: #f5f5f5; background-color: #607A87; border-color: #607A87; }
+
+        .text-mentor        { color: #395A6A; }
+        a .text-mentor:hover { color: #2D4854; text-decoration: underline; }
+        #convite            { display: block; }
+    </style>
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body px-3 py-3">
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body p-3">
+                    <h3 class="card-title text-center">Mentor</h3>
+                    <h6 class="card-subtitle mb-3 text-muted text-center">Login</h6>
+                    
+                    <a href="/redirect" class="btn btn-mentor btn-block">
+                        <img src="{{ asset('images/g.png') }}" alt="" width="30" height="30" title="Bootstrap">
+                        Entrar com o Google
+                    </a>
+                    
                     @if (session('error'))
-                        <div class="text-danger text-center pb-3">
+                        <div class="text-danger text-center pt-1">
                             {{ session('error') }}
                         </div>
                     @endif
 
-                    <a href="/redirect" class="btn btn-primary col-12">
-                        <img src="{{ asset('images/g.png') }}" alt="" width="32" height="32" title="Bootstrap">
-                        Entrar com o Google
-                    </a>
+                    <a id="convite" href="#" class="card-link text-mentor mt-3">Tenho convite</a>
+                </div>
+            </div>
+        </div>
+    </div> 
 
-                    {{-- <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+    <div id="modal-convite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="t-convite" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="t-convite">Cadastro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form id="form-convite" class="form-group mb-0" action="#" method="POST">
+                        <div class="form-group">
+                            <small for="code" class="text-muted">Código de indicação *</small>
+                            <input type="text" id="code" class="form-control form-control-sm" name="code" placeholder="XX0123456789YY" required>
+                            <span id="span_code" class="invalid-feedback"></span>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                        <div class="form-group mb-0">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" class="btn btn-mentor btn-sm btn-block" >Validar</button>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form> --}}
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
+
+@section('scripts')
+    <script>
+        
+        $(document).on('click', '#convite', function() {
+            $('#modal-convite').modal('show');
+        });
+        $('#form-convite').on('submit', function (e) {
+            e.preventDefault();
+
+            console.log($('#form-convite').serialize());
+        });
+    </script>
+@endsection
+

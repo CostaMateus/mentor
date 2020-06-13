@@ -13,12 +13,15 @@
 
 Auth::routes(['register' => false]);
 
-Route::get('/redirect', 'UserController@redirect')->name('google.redirect');
-Route::get('/callback', 'UserController@callback')->name('google.callback');
+Route::get('/redirect', 'LoginController@redirect')->name('google.redirect');
+Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
 });
-
-
-Route::get('/home', 'HomeController@index')->name('home');

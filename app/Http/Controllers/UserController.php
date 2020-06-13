@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -106,66 +103,5 @@ class UserController extends Controller
             $user->save();
         }
         return $user;
-    }
-    
-    /**
-     * Autenticação Google
-     *
-     * @return void
-     */
-    public function redirect()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    /**
-     * Valida login, segundo retorno da autenticação google
-     *
-     * @return void
-     */
-    public function callback()
-    {
-        try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
-            $user       = User::where('email', $googleUser->email)->first();
-
-           
-            // Valida se usuário existe
-            if ($user) {
-
-                // Verifica primeiro acesso
-                if (is_null($user->google_id))
-                {
-                    $user->google_id         = $googleUser->id;
-                    $user->name              = $googleUser->name;
-                    $user->picture           = ($googleUser->avatar) ?: null;
-                    $user->email_verified_at = ($googleUser->user['email_verified']) ? now() : false;
-                    $user->verify            = 1;
-                    $user->save();
-                }
-
-                // Verifica se usuário está ativo
-                if ($user->active)
-                {
-                    Auth::loginUsingId($user->id);
-
-                    session()->put('user', $user);
-                    session()->save();
-                    
-                    return redirect('/');
-                }
-                else
-                {
-                    return redirect('login')->with('error', 'Usuário bloqueado!');
-                }
-            }
-            else
-            {
-                return redirect('login')->with('error', 'Usuário não cadastrado!');
-            }
-        }
-        catch (Exception $e) {
-            return redirect('login');
-        }
     }
 }
