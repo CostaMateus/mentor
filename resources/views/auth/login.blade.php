@@ -8,16 +8,15 @@
             background-position: center center;
             background-attachment: fixed;
             background-size: cover;
-            /* color: #FFF; */
             height: 100vh; 
         }
 
-        .btn-mentor         { color: #FFF; background-color: #395A6A; border-color: #395A6A; }
-        .btn-mentor:hover   { color: #f5f5f5; background-color: #607A87; border-color: #607A87; }
+        .btn-mentor          { color: #FFFFFF; background-color: #395A6A; border-color: #395A6A; }
+        .btn-mentor:hover    { color: #f5f5f5; background-color: #607A87; border-color: #607A87; }
 
-        .text-mentor        { color: #395A6A; }
+        .text-mentor         { color: #395A6A; }
         a .text-mentor:hover { color: #2D4854; text-decoration: underline; }
-        #convite            { display: block; }
+        #convite             { display: block; }
     </style>
 @endsection
 
@@ -30,7 +29,7 @@
                     <h6 class="card-subtitle mb-3 text-muted text-center">Login</h6>
                     
                     <a href="/redirect" class="btn btn-mentor btn-block">
-                        <img src="{{ asset('images/g.png') }}" alt="" width="30" height="30" title="Bootstrap">
+                        <img src="{{ asset('images/login/g.png') }}" alt="" width="30" height="30" title="Bootstrap">
                         Entrar com o Google
                     </a>
                     

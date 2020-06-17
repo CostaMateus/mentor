@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
 		<!-- Favicon site -->
-        <link rel="shortcut icon" href="{{ asset('images/circle.ico') }}" type="image/x-icon" />
+        <link rel="shortcut icon" href="{{ asset('images/login/circle.ico') }}" type="image/x-icon" />
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,7 +19,7 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         @yield('css')
 
-        <title>Login | {{ config('app.name', 'Laravel') }}</title>
+        <title>Login | {{ config('app.name', 'Mentor') }}</title>
     </head>
 
     <body>
