@@ -15,6 +15,7 @@ class TrophyController extends Controller
     public function index()
     {
         //
+        return view('adm.home');
     }
 
     /**

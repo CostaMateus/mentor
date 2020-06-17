@@ -491,7 +491,7 @@
             </div>
         </div> --}}
         
-        <div class="row mt-5">
+        <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">Dashboard</div>
@@ -503,9 +503,7 @@
         </div>
     </div>
 
-
-
-
+    {{-- Modal teste --}}
     <div id="default" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content">

@@ -22,4 +22,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('welcome');
 
     Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::get('/admin', function () {
+        return view('adm.home');
+    })->name('admin.home');
+
+    Route::resource('/leagues',  'LeagueController');
+    Route::resource('/teams',    'TeamController');
+    Route::resource('/players',  'PlayerController');
+    Route::resource('/trophies', 'TrophyController');
+
 });
