@@ -491,7 +491,7 @@
             </div>
         </div> --}}
         
-        <div class="row mt-2">
+        {{-- <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">Dashboard</div>
@@ -500,7 +500,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     {{-- Modal teste --}}
