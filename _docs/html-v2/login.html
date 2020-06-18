@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR" prefix="og: http://ogp.me/ns#">
+	<head>
+		<!-- Required meta tags -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		<meta name="theme-color" content="#395A6A">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		
+		<!-- Font Awesome Free CDN -->
+		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+		<!-- Favicon site -->
+		<link rel="shortcut icon" href="" type="image/x-icon" />
+
+		<meta name="author" content="Costa;">
+		<meta property="og:title" content="&copy; TheCoach" />
+		<meta property="og:description" content="&copy; TheCoach - management game" />
+
+		<meta property="og:image" content="http://" />
+		<meta property="og:image:secure_url" content="https://" />
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content=""> 
+		<meta property="og:image:height" content=""> 
+		
+		<meta property="og:url" content="" /> 
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="TheCoach" />
+
+		<script type="text/javascript"></script>
+		<style type="text/css" media="screen">
+			@font-face {
+				font-family: bsg;
+				src: url("/res/site/assets/fonts/BATTLEST.TTF");
+			}
+			.bsg {
+				font-family: bsg;
+				padding: 100px 0 50px 0;
+			}
+			.bsg h1 { font-size: 5rem; }
+			.bsg h3 { font-size: 2rem; }
+
+			 body {
+				background-image: url("/res/site/assets/images/logo/LoLSreen.png");
+				background-repeat: no-repeat;
+				background-position: top center;
+				background-attachment: fixed;
+				background-size: cover;
+			}
+
+			#section-login, #section-footer {
+				color: #FFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- INICIO LOGIN SECTION -->
+		<section id="sectioon-login" class="text-white">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 text-center bsg">
+						<h1>THE COACH</h1> 
+						<h3>be the best</h3> 
+					</div>
+					<div class="col-lg-4 col-8 mx-auto">
+						{if="$error != ''"}
+							<div class="alert alert-warning alert-block text-center" role="alert">
+								{$error}
+							</div>
+						{/if}
+						<form class="form-group" action="/login" method="post">
+							<div class="form-group">
+								<input type="text" class="form-control" id="inputLogin" placeholder="Login / Nick" 
+									name="deslogin" required autofocus >
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" id="inputPass" placeholder="Senha" 
+									name="despassword" required >
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<button type="submit" class="btn btn-primary btn-block">Entrar</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group text-p">
+								<div class="row">
+									<div class="text-left col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<a class="btn-link text-white" href="#"  data-toggle="modal" data-target="#registerModal" >Cadastrar</a>
+									</div>
+									<div class="text-right col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<a class="btn-link text-white" href="esqueci" role="button">Esqueci a senha</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FINAL LOGIN SECTION -->
+		
+
+		<!-- INICIO MODALS SECTION -->
+		<section class="section-modal">
+			<!-- Register modal start -->
+			<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="registerModalTitle">Cadastro</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body text-center">
+							<form class="form-group mb-0" action="" method="post">
+								<div class="form-group">
+									<input type="text" class="form-control" id="inputCode" placeholder="Código de indicação. Ex: BR123XXX456YYY789SP" 
+										name="code" required >
+								</div>
+								<div class="form-group mb-0">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<a class="btn btn-primary" href="/register" role="button">Validar</a>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Register modal end -->
+		</section>
+		<!-- FINAL MODAL SECTION -->
+
+
+		<!-- INICIO FOOTER SECTION -->
+		<section id="section-footer" class="mt-5 pt-5"> 
+			<div class="container">
+				<div class="row">
+					<div id="copyright" class="col-lg-7 col-12 mx-auto" >
+						<div class="px-2 py-2" >
+							<p class="text-center mt-3 mb-0">&copy; 2019 TheCoach | <small><a class="btn-link text-white" href="#">Mateus Costa</a></small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FINAL FOOTER SECTION -->
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	</body>
+</html>

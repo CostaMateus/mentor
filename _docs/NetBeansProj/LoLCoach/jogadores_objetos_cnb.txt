@@ -1,0 +1,7 @@
+﻿Pedro Marcari Lep 20 100 1500 150000 TOPO 
+Gustavo Alves Minerva 20 100 1500 150000 CAÇADOR 
+Thiago Sartori Tinowns 20 100 1500 150000 MEIO 
+Pablo Bellini pbO 20 100 1500 150000 ATIRADOR 
+Willyan Bonpam Wos 20 100 1500 150000 SUPORTE 
+Jefferson Edwards Devo 20 100 1500 150000 TOPO 
+Guilherme Buono Vash 20 100 1500 150000 MEIO 

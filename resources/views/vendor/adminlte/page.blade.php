@@ -9,6 +9,11 @@
 @endif
 
 @section('adminlte_css')
+    <style>
+        .nav-pills .nav-link:not(.active):hover {
+            color: #395A6A !important;
+        }
+    </style>
     @stack('css')
     @yield('css')
 @stop

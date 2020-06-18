@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR" prefix="og: http://ogp.me/ns#">
+	<head>
+		<!-- Required meta tags -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<!-- Font Awesome Free CDN -->
+		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+		<!-- Favicon site -->
+		<link rel="shortcut icon" href="" type="image/x-icon" />
+
+		<meta name="author" content="Costa;">
+		<meta property="og:title" content="&copy; TheCoach" />
+		<meta property="og:description" content="&copy; TheCoach - management game" />
+
+		<meta property="og:image" content="http://" />
+		<meta property="og:image:secure_url" content="https://" />
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content=""> 
+		<meta property="og:image:height" content=""> 
+		
+		<meta property="og:url" content="" /> 
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="TheCoach" />
+
+		<script type="text/javascript" ></script>
+		<style type="text/css" media="screen">
+		
+			.customScrollbar::-webkit-scrollbar { width:10px; height:10px; }
+			.customScrollbar::-webkit-scrollbar-track { background: #EEE; }
+			.customScrollbar::-webkit-scrollbar-thumb { background: #AAA; }
+			.customScrollbar::-webkit-scrollbar-thumb:hover { background: #888; }
+
+			/* MENU */
+			#section-menu #menu-md{
+				color: #FFF;
+				padding: 14px 15px; 
+				text-decoration: none;
+			}
+			#section-menu #menu-md:hover{
+				color: #6D6E71;
+				background-color: #FFF;
+				text-decoration: underline;
+			}
+			#section-menu .navbar {
+				padding: 0 !important;
+				background-color: #0C3448 !important;
+			}
+			#section-menu .nav-link {
+				padding: 14px 7px;
+			}
+			#section-menu #navbar-main ul li a {
+				color: #FFF;
+			}
+			#section-menu #navbar-main ul li div a {
+				color: #6D6E71;
+			}
+			#section-menu #navbar-main ul li a:hover {
+				color: #6D6E71;
+				background-color: #FFF;
+			}
+			#section-menu #navbar-main ul li div a:hover {
+				color: #FFF;
+				background-color: #54707E;
+			}
+			#section-menu #navbar-main .dropdown-menu {
+				padding: 0 !important;
+				margin: -.05rem 0 0;
+				border: none !important;
+			} 
+			#section-menu #navbar-main .dropdown-item {
+				padding: .75rem 1rem;
+			} 
+			#section-menu #navbar-main .dropdown-divider {
+				margin: 0!important;
+			}
+			#section-menu #navbar-main .navbar-brand  {
+				padding: 11px 0 11px 15px !important;
+			}
+			#section-menu #navbar-main .botao  {
+				margin: 6px 15px !important;
+			}
+
+			/* CONTEUDO */
+			@media (min-width: 992px) {				
+				/* .5=8px, 1=16px */
+				#section-conteudo #infosTeam { 		padding:.50rem .25rem .25rem .50rem ; }
+				#section-conteudo #playersTable { 	padding:.50rem .50rem .25rem .25rem; }
+				#section-conteudo #infosPlayer { 	padding:.25rem .25rem .25rem .50rem; }
+				#section-conteudo #infosNextGame { 	padding:.25rem; } 
+				#section-conteudo #infosAdm { 		padding:.25rem .50rem .25rem .25rem; }
+
+				#section-header #header { 			padding:.50rem  0     .25rem  0; }
+				#section-perfil #img-perfil { 		padding:.25rem .25rem .25rem  0; }
+				#section-perfil #pass-perfil { 		padding:.25rem  0     .25rem .25rem; }
+				#section-perfil #gerais-perfil { 	padding:.25rem .25rem .25rem  0; }
+				#section-perfil #delete-perfil { 	padding:.25rem  0     .25rem .25rem; }
+
+				#section-conteudo #infosTeam > :first-child, 
+				#section-conteudo #playersTable > :first-child { height: 400px; }
+
+				#section-conteudo #infosPlayer > :first-child, 
+				#section-conteudo #infosNextGame > :first-child, 
+				#section-conteudo #infosAdm > :first-child { height: 320px; }
+
+				#section-perfil #img-perfil > :first-child, 
+				#section-perfil #pass-perfil > :first-child { height: 279px; }
+
+				#section-perfil #gerais-perfil > :first-child, 
+				#section-perfil #delete-perfil > :first-child { height: 333px; }
+
+				#section-conteudo #infosPlayer #subInfosPlayer > div:last-child { padding: .5rem 0 0 0; }
+			}
+			@media (min-width: 768px) and (max-width: 991px) {
+				#section-menu #navbar-main .navbar-collapse { height:300px; overflow-y:scroll; }
+				
+				#section-conteudo #infosTeam { 		padding:.50rem .25rem .25rem .50rem; }
+				#section-conteudo #playersTable { 	padding:.50rem .50rem .25rem .25rem; }
+				#section-conteudo #infosPlayer { 	padding:.25rem .25rem .25rem .50rem; }
+				#section-conteudo #infosNextGame { 	padding:.25rem .50rem .25rem .25rem; } 
+				#section-conteudo #infosAdm { 		padding:.25rem .50rem .25rem .50rem; }
+
+				#section-header #header { 			padding:.50rem  0     .25rem  0; }
+				#section-perfil #img-perfil { 		padding:.25rem .25rem .25rem  0; }
+				#section-perfil #pass-perfil { 		padding:.25rem  0     .25rem .25rem; }
+				#section-perfil #gerais-perfil { 	padding:.25rem .25rem .25rem  0; }
+				#section-perfil #delete-perfil { 	padding:.25rem  0     .25rem .25rem; }
+
+				#section-conteudo #infosTeam > :first-child{ height: 400px; }
+				
+				#section-conteudo #infosNextGame > :first-child { height: 502px; }
+				
+				#section-perfil #img-perfil > :first-child, 
+				#section-perfil #pass-perfil > :first-child { height: 283px; }
+
+				#section-perfil #gerais-perfil > :first-child, 
+				#section-perfil #delete-perfil > :first-child { height: 333px; }
+				
+				#section-conteudo #infosPlayer #subInfosPlayer div { padding: 1rem 0 0 0; }
+			}
+			@media (max-width: 767px) {	
+				#section-menu #navbar-main .navbar-collapse { height:300px; overflow-y:scroll; }
+
+				#section-conteudo #infosTeam { 		padding: 1rem  1rem .50rem 1rem; }
+				#section-conteudo #playersTable, 
+				#section-conteudo #infosPlayer, 
+				#section-conteudo #infosNextGame { 	padding:.50rem 1rem; } 
+				#section-conteudo #infosAdm { 		padding:.50rem 1rem .50rem 1rem; } 
+
+				#section-header #header { 			padding:.50rem 0    .25rem 0; }
+				#section-perfil #img-perfil { 		padding:.25rem 0; }
+				#section-perfil #pass-perfil { 		padding:.25rem 0; }
+				#section-perfil #gerais-perfil { 	padding:.25rem 0; }
+				#section-perfil #delete-perfil { 	padding:.25rem 0; }
+
+				#section-conteudo #infosPlayer #subInfosPlayer div { padding: 1rem 0 0 0; }
+			}
+			
+
+			#section-conteudo #infosPlayer .row img {
+				max-height: 100px;
+			}
+			#section-conteudo #infosTeam > div:first-child, 
+			#section-conteudo #playersTable > div:first-child, 
+			#section-conteudo #infosPlayer > div:first-child, 
+			#section-conteudo #infosNextGame > div:first-child, 
+			#section-conteudo #infosAdm > div:first-child,
+			#section-header #header >div:first-child, 
+			#section-perfil #img-perfil >div:first-child, 
+			#section-perfil #pass-perfil >div:first-child, 
+			#section-perfil #gerais-perfil >div:first-child, 
+			#section-perfil #delete-perfil >div:first-child 
+			{ background-color:#F2F2F2; border-radius:4px; }
+
+			/* TABELA */ 
+			#section-conteudo #playersTable .table .icon-a, 
+			#section-conteudo #playersTable .table .icon-b, 
+			#section-conteudo #playersTable .table .icon-c, 
+			#section-conteudo #playersTable .table .icon-d, 
+			#section-conteudo #playersTable .table .icon-e {
+				padding: 6px 12px;
+			}
+			#section-conteudo #playersTable .table .icon-a {
+				width: 5%;
+				text-align: center;
+			}
+			#section-conteudo #playersTable .table .icon-b {
+				width: 15%;
+			}
+			#section-conteudo #playersTable .table .icon-c {
+				width: 25%;
+			}
+			#section-conteudo #playersTable .table .icon-d {
+				width: 10%;
+				text-align: center;
+			}  
+			#section-conteudo #playersTable .table .icon-e {
+				width: 25%;
+				text-align: center;
+			}
+
+			/* INICIO configs comuns */ 
+			#section-modal .tbSchedule table tr th {
+				padding-left: 0 !important;
+				padding-right: 0 !important;
+			} 
+			#section-modal .tbSchedule table tr > :last-child {
+				padding-right: 12px !important;
+			}
+
+			#section-conteudo .tbSchedule table tr,
+			#section-modal .tbSchedule table tr
+			{ width:100%; display:inline-table; table-layout:fixed; }
+			#section-conteudo .tbSchedule table tbody, 
+			#section-modal .tbSchedule table tbody 
+			{ overflow-y:scroll; display:block; }
+			/* FINAL configs comuns */
+
+			/* INICIO Tamanhos */
+			#section-conteudo #playersTable table tbody { height:348px; }
+			#section-modal #tbMyTeamSchedule table tbody, 
+			#section-modal #tbLeagueSchedule table tbody, 
+			#section-modal #tbRRSchedule table tbody, 
+			#section-modal #tbMSISchedule table tbody, 
+			#section-modal #tbWCSchedule table tbody { height:500px; }
+			#section-modal #tbTeamFinances table tbody {height:350px; }
+
+			@media (min-width: 992px) { 
+				#section-modal .tbSchedule table tbody { width:810px; } 
+			}
+			@media (min-width: 576px) and (max-width: 991px) { 
+				#section-modal .tbSchedule table tbody { width:510px; } 
+			}
+			@media (max-width: 575px) { 
+				#section-modal .tbSchedule table tbody { width:569px; } 
+			}
+			/* FINAL Tamanhos */
+
+			#section-modal .tbSchedule .tb-day:hover { background-color:transparent; }
+			#section-modal .tbSchedule .tb-icon { width: 7%; padding:0!important; }
+			#section-modal .tbSchedule .tb-r { width: 15%; }
+			#section-modal .tbSchedule .tb-date, 
+			#section-modal .tbSchedule .tb-team1, 
+			#section-modal .tbSchedule .tb-team2 { width: 15%; }
+			#section-modal .tbSchedule .tb-comp { width: 20%; }
+			#section-modal .tbSchedule .tb-team1 { text-align: left; }
+			#section-modal .tbSchedule .tb-team2 { text-align: right; }
+			#section-modal .tbSchedule .tb-date, 
+			#section-modal .tbSchedule .tb-icon, 
+			#section-modal .tbSchedule .tb-r, 
+			#section-modal .tbSchedule .tb-comp { text-align: center; } 
+
+			#section-modal .tbSchedule .tb-title { width: 50%; text-align: right; }
+			#section-modal .tbSchedule .tb-value { width: 50%; text-align: left; }
+
+			#section-modal #tbCarreira .tb-year, 
+			#section-modal #tbCarreira .tb-team, 
+			#section-modal #tbCarreira .tb-game { text-align: center; width: 33%; }
+
+
+			#section-modal #tbTeamFinances .bg-info { background-color:#B9E2E9!important; }
+			#section-modal #tbTeamFinances .bg-success { background-color:#BEE4C7!important; }
+			#section-modal #tbTeamFinances .bg-warning, 
+			#section-modal #loanModal .btn-warning { background-color:#FFECB4!important; }
+
+			#section-modal #tbRanking table .tb-icon img { width:30px; }
+			#section-modal #tbRanking table .tb-icon { padding:10px 0px 10px 7px; margin:auto 0; }
+			#section-modal #tbRanking table .tb-icon, 
+			#section-modal #tbRanking table .tb-position { text-align:center; width:5%; }
+			#section-modal #tbRanking table .tb-color { width:.25%; padding:0 1.5px; } 
+			#section-modal #tbRanking table .tb-name { text-align:left; width:50%; }
+			#section-modal #tbRanking table .tb-ps { text-align:center; width:10%; }
+
+			#section-modal #tbRanking .color-final { width:5%; background-color: #56B600; }
+			#section-modal #tbRanking .color-climbing { width:5%; background-color: #9F2487; }
+			#section-modal #tbRanking .color-pre-climbing { width:5%; background-color: #2B2FD0; }
+			#section-modal #tbRanking .color-promotion { width:5%; background-color: #7f7871; }
+			#section-modal #tbRanking .color-demotion { width:5%; background-color: #DC3545; }
+
+			#section-modal .modal-footer .color-final { color:#56B600; }
+			#section-modal .modal-footer .color-climbing { color:#9F2487; }
+			#section-modal .modal-footer .color-pre-climbing { color:#2B2FD0; }
+			#section-modal .modal-footer .color-promotion { color:#7f7871; }
+			#section-modal .modal-footer .color-demotion { color:#DC3545; }
+
+			#section-modal #link-redes a {
+				text-decoration:  none;
+			}
+			#section-modal #link-redes a svg {
+				color: #909294;
+			}
+			#section-modal #link-redes a:hover svg {
+				color: #212529; 
+			}
+
+			#section-footer, #section-footer a { background-color:#395A6A; color:#E0E0E0; }
+			#section-footer a { text-decoration: underline; }
+
+		</style>
+	</head>
+	
+	<body style="background-color: #395A6A;">
+		<!-- PageNotBuild section start -->
+		<section id="login" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 text-center my-5 py-5">
+						<h1 class="my-5 text-light"><u>Página em desenvolvimento!!!</u></h1>
+						<a class="btn btn-secondary text-center" href="home.html">VOLTAR</a> 
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- PageNotBuild section end -->
+
+
+		<!-- FOOTER SECTION -->
+		<section id="section-footer" class="mt-5 pt-5"> 
+			<div class="container-fluid">
+				<div class="row">
+					<div id="copyright" class="col-lg-6 col-md-12 col-12 mx-auto" >
+						<div class="px-2 py-2" >
+							<h5 class="text-center mb-1">TheCoach</h5>
+							<p class="text-left mb-1">
+								&emsp;&emsp;<strong>TheCoach</strong> é um site de fãs, não tendo nenhuma participação em qualquer etapa de produção ou comercialização de nenhum dos campeonatos oficiais de <strong>League of Legends</strong>. Tem como objetivo proporcionar uma plataforma diferenciada de entretenimento para o público fã de League of Legends (<strong>LoL</strong>), com seus times e jogadores preferidos. Respeitando os respectivos direitos autorais, de propriedade da empresa <strong>Riot Games</strong>.
+							</p>
+							<p class="text-center mt-3 mb-0">&copy; 2019 TheCoach | <a class="btn-link" href="#">Mateus Costa</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FOOTER SECTION -->
+
+
+		<!-- Scripts -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	</body>
+</html>

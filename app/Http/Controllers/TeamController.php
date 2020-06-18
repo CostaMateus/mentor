@@ -14,7 +14,6 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
         return view('adm.home');
     }
 
@@ -47,7 +46,9 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+        dd($team->load('trophies'));
+
+        return view('team.show', ['team' => $team]);
     }
 
     /**

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+		<!-- Personal CSS -->
+		<link rel="stylesheet" href="css/style.css" >
+
+		<!-- Font Awesome Free CDN -->
+		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+		<title>The Coach - be the best!</title>
+		<style type="text/css" media="screen">
+			#minimapa {
+				background-image: url("images/map/minimapa.png");
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				position: relative;
+				height: 400px;
+			}
+			#minimapa img { 
+				position: absolute;
+			}
+			
+			@media (min-width: 992px) {
+				#minimapa #top { top: 12.0%; right:   auto; bottom: auto; left: 04.0%; }
+				#minimapa #jun { top: 29.0%; right:   auto; bottom: auto; left: 20.5%; }
+				#minimapa #mid { top: 45.0%; right:   auto; bottom: auto; left: 40.0%; }
+				#minimapa #adc { top:  auto; right:  06.0%; bottom:  11%; left:  auto; }
+				#minimapa #sup { top:  auto; right:  19.5%; bottom:  05%; left:  auto; }
+			}
+			@media (min-width: 1200px) {
+				#minimapa #top { top: 15.0%; right:   auto; bottom:  auto; left: 04.0%; }
+				#minimapa #jun { top: 31.0%; right:   auto; bottom:  auto; left: 20.5%; }
+				#minimapa #mid { top: 45.0%; right:   auto; bottom:  auto; left: 40.0%; }
+				#minimapa #adc { top:  auto; right:  06.0%; bottom: 11.0%; left:  auto; }
+				#minimapa #sup { top:  auto; right:  20.2%; bottom: 05.0%; left:  auto; }
+			}
+
+			.playerSelected { font-weight: bold; text-decoration: underline; }
+			
+			#rowPlayers div div:hover {
+				background-color: rgba(0,0,0,0.2);
+			}
+		</style>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+		<script type="text/javascript">
+			function trocaEscala(id1, posi, name) {
+				var el1 = document.getElementById(id1);
+				var el2 = document.getElementById(posi);
+
+				for (i = 1; i <= 12; i++) {
+					var e = 'p' + i;
+					if ((id1 != e)) {
+						var el3 = document.getElementById('p'+i);
+						if (el3.src == ('file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/pos/' + posi + '1.png')) {
+							el3.src = 'file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/pos/' + posi + '2.png';
+							document.getElementById('dp' + i).className = "col-xl-2 col-lg-3 ";
+						}
+					} else if (el1.src == ('file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/pos/' + posi + '1.png')) {
+						el1.src = 'file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/pos/' + posi + '2.png';
+						el2.src = 'file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/players_icon/mask.png';
+						document.getElementById('d' + id1).className = "col-xl-2 col-lg-3 ";
+					} else if (el1.src == ('file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/pos/' + posi + '2.png')) {
+						el1.src = 'file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/pos/' + posi + '1.png';
+						el2.src = 'file:///C:/Users/Eu/Documents/LoLCoachProjects/web/images/players_icon/' + name + '.png';
+						document.getElementById('d' + id1).className = "col-xl-2 col-lg-3 playerSelected";
+					}
+				} 
+			}
+		</script>
+	</head>
+
+	<body id="body">
+		<!-- CONTENT section start -->
+		<section id="login" class="section d-xl-block d-lg-block d-none ">
+			<div class="container">
+				<br><br><br>
+				<div class="row">
+					<div id="minimapa" class="col-xl-4 col-lg-5 ">
+						<img id="top" src="images/players_icon/ayel.png" width="55"/>
+						<img id="jun" src="images/players_icon/shini.png" width="55"/>
+						<img id="mid" src="images/players_icon/envy.png" width="55"/>
+						<img id="adc" src="images/players_icon/absolut.png" width="55"/>
+						<img id="sup" src="images/players_icon/ziriguidun.png" width="55"/>
+					</div>
+					<div id="rowPlayers" class="col-xl-8 col-lg-7 text-center">
+						<div class="row">
+							<div id='dp1' class="col-xl-2 col-lg-3 playerSelected" onclick="trocaEscala('p1', 'top', 'ayel');" >
+								<img id="p1" src="images/pos/top1.png" class="rounded mx-auto d-block" width="70"/>
+								<p>AYEL<br>100%</p>
+							</div>
+							<div id='dp2' class="col-xl-2 col-lg-3 playerSelected" onclick="trocaEscala('p2', 'jun', 'shini');" >
+								<img id="p2" src="images/pos/jun1.png" class="rounded mx-auto d-block" width="70"/>
+								<p>SHINI<br>90%</p>
+							</div>
+							<div id='dp3' class="col-xl-2 col-lg-3 playerSelected" onclick="trocaEscala('p3', 'mid', 'envy');" >
+								<img id="p3" src="images/pos/mid1.png" class="rounded mx-auto d-block" width="70"/>
+								<p>ENVY<br>80%</p>
+							</div>
+							<div id='dp4' class="col-xl-2 col-lg-3 playerSelected" onclick="trocaEscala('p4', 'adc', 'absolut');" >
+								<img id="p4" src="images/pos/adc1.png" class="rounded mx-auto d-block" width="70"/>
+								<p>ABSOLUT<br>70%</p>
+							</div>
+							<div id='dp5' class="col-xl-2 col-lg-3 playerSelected" onclick="trocaEscala('p5', 'sup', 'ziriguidun');" >
+								<img id="p5" src="images/pos/sup1.png" class="rounded mx-auto d-block" width="70"/>
+								<p>ZIRIGUIDUN<br>60%</p>
+							</div>
+							<div id='dp11' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p11', 'jun', 'hersir');" >
+								<img id="p11" src="images/pos/jun2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>HERSIR<br>100%</p>
+							</div>
+							<div id='dp12' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p12', 'sup', 'kemns');" >
+								<img id="p12" src="images/pos/sup2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>KEMNS<br>100%</p>
+							</div>
+							<div id='dp6' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p6', 'mid', 'marf');" >
+								<img id="p6" src="images/pos/mid2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>MARF<br>50%</p>
+							</div>
+							<div id='dp7' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p7', 'top', 'verto');" >
+								<img id="p7" src="images/pos/top2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>VERTO<br>40%</p>
+							</div>
+							<div id='dp8' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p8', 'adc', 'snk');" >
+								<img id="p8" src="images/pos/adc2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>SNK<br>30%</p>
+							</div>
+							<div id='dp9' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p9', 'top', 'daniels');" >
+								<img id="p9" src="images/pos/top2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>DANIELS<br>20%</p>
+							</div>
+							<div id='dp10' class="col-xl-2 col-lg-3 " onclick="trocaEscala('p10', 'top', 'tchubs');" >
+								<img id="p10" src="images/pos/top2.png" class="rounded mx-auto d-block" width="70"/>
+								<p>TCHUBS<br>20%</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xl-4 col-lg-5 text-center">
+						<div class="row">
+							<div class="col-xl-12 col-lg-12 " style="padding-top: 7px;">
+								<a class="btn btn-secondary btn-lg btn-block" href="home.html">VOLTAR</a>
+								<a class="btn btn-light btn-lg btn-block" href="#" role="button">JOGAR</a>  
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-8 col-lg-7 ">
+						<form>
+							<div class="row">
+								<div class="col-xl-1 col-lg-1 "></div>
+								<div class="col-xl-5 col-lg-5 ">
+									<div class="form-group">
+										<label for="sistema" class="col-form-label" >Estilo de jogo: </label>
+										<select class="custom-select form-control" id="sistema">
+											<option value="1" >Team fight</option>
+											<option value="2" >Objetivos</option>
+											<option value="3" >Pressão no Topo/Meio</option>
+											<option value="4" >Pressão no Selva</option>
+											<option value="5" >Pressão na rota Inferior</option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label for="sistema" class="col-form-label" >Pressão de jogo: </label>
+										<select class="custom-select form-control" id="sistema">
+											<option value="1" >Leve</option>
+											<option value="2" >Pesada</option>
+											<option value="3" >Muito pesada</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xl-5 col-lg-5 ">
+									<div class="form-group">
+										<label for="sistema" class="col-form-label" >Jogar em função: </label>
+										<select class="custom-select form-control" id="sistema">
+											<option value="1" >do Topo e Caçador</option>
+											<option value="2" >do Meio e Caçador</option>
+											<option value="3" >do Topo e Meio</option>
+											<option value="4" >da rota Inferior</option>
+											<option value="5" >do Caçador</option>
+											<option value="6" >do Topo</option>
+											<option value="7" >do Meio</option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label for="sistema" class="col-form-label" >Capitão: </label>
+										<select class="custom-select form-control" id="sistema">
+											<option value="1" >AYEL</option>
+											<option value="2" >SHINI</option>
+											<option value="3" >ENVY</option>
+											<option value="4" >ABSOLUT</option>
+											<option value="5" >ZIRIGUIDUN</option>
+											<option value="6" >MARF</option>
+											<option value="7" >VERTO</option>
+											<option value="8" >SNK</option>
+											<option value="9" >DANIELS</option>
+											<option value="10" >TCHUBS</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xl-1 col-lg-1 "></div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- CONTENT section end -->
+		<section class="d-block d-xl-none d-lg-none ">
+			<div class="row">
+				<div class="col-xl-12 text-center">
+					<br>
+					<div class="alert alert-warning" role="alert">
+						<h4 class="alert-heading">Desculpe-nos o incoveniente!</h4>
+						<br>
+						<p>
+							Desde já pedimos perdão e a sua compreensão.<br>
+							O jogo funciona adequedamente em resoluções superiores a 992 pixels de largura<br>
+							Porém estamos trabalhando para suportar resoluções menores.<br>
+							Mais informações em breve.
+						</p>
+						<p>Equipe TheCoach!.</p>
+						<br>
+						<a class="alert-link" href="login.html">Sair</a> 
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- FOOTER section start -->
+		<section id="footer">
+			<div class="container text-center">
+				<p><br><br>&copy; 2018 TheCoach&trade; </p>
+			</div>
+		</section>
+		<!-- FOOTER section end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	</body>
+</html>

@@ -1,0 +1,222 @@
+
+	/* config geral start */
+		body { 
+			color: #FFF; 
+			background-image: url("../images/bg/cover.png") !important;
+			background-repeat: no-repeat;
+			background-position: top center;
+			background-attachment: fixed;
+			background-size: cover;
+			/* background-color: #FFF !important;  */
+		}
+		/* #navmain { background-color: #083449 !important; } */
+		/* #navmain { background-color: #0E3A50 !important; } */
+		#navmain { background-color: #0C3448 !important; }
+		#navmain div div a:hover { color: #FFF !important; background-color: #083449 !important; }
+		@media (max-width: 991px) {	#navmain { display: none; } }
+	/* config geral end */
+	
+	/* config para todas tabelas start*/
+		tr { width: 100%; display: inline-table; table-layout: fixed; }
+		#customScrollbar::-webkit-scrollbar, .customScrollbar::-webkit-scrollbar { width: 10px; }
+		#customScrollbar::-webkit-scrollbar-track, .customScrollbar::-webkit-scrollbar-track { background: #EEE; }
+		#customScrollbar::-webkit-scrollbar-thumb, .customScrollbar::-webkit-scrollbar-thumb { background: #AAA; }
+		#customScrollbar::-webkit-scrollbar-thumb:hover, .customScrollbar::-webkit-scrollbar-thumb:hover { background: #888; }
+	/* config para todas tabelas end*/
+	
+	/* Tabela principal-players start*/
+		#tbPlayers { height: 400px; display: -moz-groupbox; }
+
+		#tbPlayers thead { width: 100%; }
+		#tbPlayers tbody { overflow-y: scroll; height: 350px; width: 100%; }
+		
+		#tbPlayers #tb-head .tb-scaled, #tbPlayers #tb-head .tb-position, 
+		#tbPlayers #tb-head .tb-name, #tbPlayers #tb-head .tb-force, 
+		#tbPlayers #tb-head .tb-energy, #tbPlayers #tb-head .tb-salary, 
+		#tbPlayers #tb-head .tb-pass, #tbPlayers #tb-head .tb-kda, 
+		#tbPlayers #tb-head .tb-age { text-align: center; }
+
+		#tbPlayers .tb-scaled, #tbPlayers .tb-force, 
+		#tbPlayers .tb-energy, #tbPlayers .tb-kda, 
+		#tbPlayers .tb-age { text-align: center; }
+		
+		#tbPlayers #tb-head .tb-salary, #tbPlayers #tb-head .tb-pass,
+		#tbPlayers .tb-salary, #tbPlayers .tb-pass { text-align: right; }
+
+		#tbPlayers thead th, #tbPlayers tbody td {
+			padding: .5em !important;
+		}
+		
+		.tb-name { width: 30%; }
+		.tb-scaled { width: 3.5%; }
+		.tb-kda, .tb-age, .tb-force { width: 6%; }
+		.tb-position, .tb-energy, .tb-salary, .tb-pass { width: 10%; }
+
+		.rowSelected { font-weight: bold; text-decoration: underline; }
+	/* Tabela principal-players end*/			
+
+	/* Tabela calendario time start */
+		.tb-row { position: relative; }
+		.tb-icon { width: 6%; padding: 0em !important; position: absolute; top: 50%; transform: translate(0, -50%); }
+		.tb-r { width: 10%; }
+		.tb-date { width: 15%; }
+		.tb-team1, .tb-team2 { width: 15%; }
+		.tb-comp { width: 20%; }
+		.tb-public { width: 10%; }
+		.tb-team1 { text-align: left; }
+		.tb-team2, .tb-public { text-align: right; }
+		.tb-date, .tb-icon, .tb-r, .tb-comp { text-align: center; }
+
+		#tbMyTeamSchedule, #tbLeagueSchedule, #tbRRSchedule, 
+		#tbMSISchedule, #tbWCSchedule {
+			height: 600px;
+			display: -moz-groupbox; 
+		}
+		#tbMyTeamSchedule tbody, #tbLeagueSchedule tbody, #tbRRSchedule tbody, 
+		#tbMSISchedule tbody, #tbWCSchedule tbody {
+			overflow-y: scroll;      
+			height: 552px;
+			width: 100%;
+			position: absolute;
+		}
+
+		#tbCarreira { height: 300px; display: -moz-groupbox; }
+		#tbCarreira tbody { overflow-y: scroll; height: 250px; width: ; position: absolute; }
+		#tbCarreira .tb-year, 
+		#tbCarreira .tb-team, 
+		#tbCarreira thead .tb-game { text-align: center; }
+		#tbCarreira tbody .tb-game { text-align:  right; padding: .75em 1.75em .75em .75em; }
+
+		#tbMyTeamSchedule .tb-tr-white:hover, #tbLeagueSchedule .tb-tr-white:hover, 
+		#tbRRSchedule .tb-tr-white:hover, #tbMSISchedule .tb-tr-white:hover, 
+		#tbWCSchedule .tb-tr-white:hover { 
+			background-color: rgba(0,0,0,0) !important; 
+		}
+		#tbMyTeamSchedule .tb-tr-week, #tbMyTeamSchedule .tb-tr-week:hover, 
+		#tbLeagueSchedule .tb-tr-week, #tbLeagueSchedule .tb-tr-week:hover, 
+		#tbRRSchedule .tb-tr-week, #tbRRSchedule .tb-tr-week:hover, 
+		#tbMSISchedule .tb-tr-week, #tbMSISchedule .tb-tr-week:hover, 
+		#tbWCSchedule .tb-tr-week, #tbWCSchedule .tb-tr-week:hover { 
+			background-color: rgba(0,0,0,.05); 
+		}
+
+	/* Tabela calendario time end */
+	
+	/* Tabela finanças time start*/
+		#teamFinancesModal table tbody tr .tb-title, #teamFinancesModal #tb-head .tb-title { text-align: right; }
+		#teamFinancesModal table tbody tr .tb-value, #teamFinancesModal #tb-head .tb-value { text-align: left; }
+	/* Tabela finanças time end*/
+
+	/* Tabela patrocinios time start */
+		#sponsorsModal .tb-letter, #sponsorsModal .tb-position,
+		#sponsorsModal .tb-brand, #sponsorsModal .tb-value { padding: .75em .25em !important; }
+
+		#sponsorsModal .tb-letter { width: 1%; }
+		#sponsorsModal .tb-position { width: 8%; text-align: left; }
+		#sponsorsModal .tb-brand { width: 6%; }
+		#sponsorsModal .tb-value { width: 5%; }
+		
+		#sponsorsModal .tb-letter, #sponsorsModal .tb-brand { text-align: center; }
+		#sponsorsModal .tb-value { text-align: right; }
+	/* Tabela patrocinios time end */
+
+	/* Quadrantes config start*/
+		/*  0.0625em == 1px   */
+		/*  0.125 em == 2px   */
+		/*  0.25  em == 4px   */
+		/*  0.50  em == 8px   */
+		/*  0.75  em == 12px  */
+		/*  1.00  em == 16px  */
+		/*  1.25  em == 20px  */
+		/* 10.00  em == 160px */
+		/* 30.00  em == 480px */
+		#quad1A, .quad1B, #quad2B { padding-right: 1.25em; /*  */ }
+		#quad2A, #quad2B, #quad3B { padding-left: 1.25em; /* 20px */ }
+		#quad1A, #quad2A { padding-bottom: .3125em; /* 5px */ }
+		.quad1B, #quad2B, #quad3B { padding-top: .3125em; /* 5px */ padding-bottom: 1em; /* 64px */ height: 25.25em; /* 404px */ }
+		#quad1A #inQuad1A  { height: 26.063em; /* 416px */ }
+		.quad1B .inQuad1B, #quad2B #inQuad2B, #quad3B #inQuad3B { height: 25.25em; /* 404px */ }
+
+		.quad1B .inQuad1B .caracts p, .quad1B .inQuad1B div div img { margin-bottom: .5em !important; }
+		.quad1B .inQuad1B .row, #quad2B #inQuad2B .row, #quad3B #inQuad3B .row { padding-top: 15px !important; } 
+		#quad1A #inQuad1A .row { padding-top: 15px !important; }
+
+		#quad1A #inQuad1A { padding-bottom: 15px; }
+	/* Quadrantes config end */
+
+	/* Todos modais config start */
+		.modal { color: #212529 !important; }
+		.modal .redes a { text-decoration:none; padding: 0 5px; }
+		
+		#preferencesModal .modal-footer, 
+		#resignationModal .modal-footer, 
+		#logoutModal .modal-footer, 
+		#friendlyModal .modal-footer, 
+		#rankingModal .modal-footer { justify-content: center !important; }
+
+		#myTeamScheduleModal .modal-body, 
+		#leagueScheduleModal .modal-body, 
+		#rrModal .modal-body, 
+		#msiModal .modal-body, 
+		#wcModal .modal-body,
+		#rankingModal .modal-body, 
+		#playerHistoryModal .modal-body { padding: 0 !important; }
+
+		#myTeamScheduleModal .table, 
+		#leagueScheduleModal .table, 
+		#rrModal .table, 
+		#msiModal .table, 
+		#wcModal .table, 
+		#rankingModal .table, 
+		#playerHistoryModal .table { margin-bottom: 0 !important; }
+
+		#myTeamScheduleModal .modal-footer { justify-content: flex-end !important; }
+		#myTeamScheduleModal .modal-footer p { font-size: .75em; margin-bottom: 0 !important; }
+
+		#tbRanking .tb-position, #tbRanking .tb-psvd { text-align: center; width: 8%; }
+		#tbRanking .tb-color, #tbRanking .tb-name { text-align: left; }
+		#tbRanking .tb-name { width: 30%; }
+		#tbRanking .tb-color { width: .5%; }
+		#tbRanking .color-final { background-color: #56B600; }
+		#tbRanking .color-climbing { background-color: #9F2487; }
+		#tbRanking .color-pre-climbing { background-color: #2B2FD0; }
+		#tbRanking .color-promotion { background-color: #7f7871; }
+		#tbRanking .color-demotion { background-color: #DC3545; }
+
+		#rankingModal .color-final { color: #56B600; }
+		#rankingModal .color-climbing { color: #9F2487; }
+		#rankingModal .color-pre-climbing { color: #2B2FD0; }
+		#rankingModal .color-promotion { color: #7f7871; }
+		#rankingModal .color-demotion { color: #DC3545; }
+	/* Todos modais config end */
+
+	/* Page times.html start */
+		#navteam ul a { padding: .5em !important; }
+		#navteam ul a:hover svg { color: #FFF !important; }
+
+		#lateral {    padding-right: 1.2500em; }
+		#lateralSup { margin-bottom:  .3125em; }
+		#lateralInf { margin-top:     .3125em; }
+
+		#principal { padding-left: 1.2500em; }
+		#principalSup { margin-bottom:  .3125em; padding: .625em !important; }
+		#principalInf { margin: .3125em 0; padding: .625em !important; }
+		#principalInf table { margin-bottom: 0 !important; }
+		#principal p { margin-bottom: 0 !important; }
+		#info, #carreira{ padding: 15px 0; }
+		#tbCarr td, #tbCarr th { padding: .25em .75em !important; }
+		#lateralSup { height: 311px; overflow-y: scroll; }
+		#lateralInf { height: 311px; }
+		#lateralInf #carreira table { overflow-y: scroll; }
+		#tbCarr { height: 184px; }
+		#accordion { padding: 11px 0; }
+		#accordion .ligas { padding: 5px 0; }
+		#accordion .ligas a { color: #FFF; padding: 3px 5px; }
+		#accordion .ligas a:hover { text-decoration: none; }
+		#accordion .ligaSelected { font-weight: bold; padding: 3px 5px; color: #212529 !important; background-color: #FFF; border-radius: .125rem; }
+		#accordion div ul { display: inline-block; list-style-type: none; margin: 0; padding-left: 30px; }
+		#accordion div ul li{ margin: 0; padding: 3px 5px; }
+		#accordion div ul li:hover{ color: #212529; background-color: #FFF; border-radius: .25rem; }
+		#accordion div ul li.active{ color: #212529; background-color: #FFF; border-radius: .25rem; }
+		#championsModal div div .modal-body { overflow-y: scroll; height: 552px; }
+	/* Page times.html end */

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+		<title>The Coach - be the best!</title>
+		<style type="text/css" media="screen">
+			@font-face {
+				font-family: bsg;
+				src: url(BATTLEST.TTF);
+			}
+			#body {	background-color: #235A7B; color: #FFF; }
+			.bsg { padding: 1.25em 0; }
+			.bsg h1, .bsg a { font-family: bsg;	/* text-decoration: underline; */ }
+		</style>
+	</head>
+
+	<body id="body">
+		<!-- CONTENT section start -->
+		<section id="login" class="section">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-12 bsg">
+						<h1>FORMATO DO CAMPEONATO</h1>
+						<div class="row">
+							<div class="col-xl-8 col-lg-8 ">
+								<form>
+									<div class="form-group row">
+										<label for="sistema" class="col-xl-4 col-lg-4 col-12 col-form-label" >Sistema de disputa: </label>
+										<div class="col-xl-6 col-lg-7 col-12 ">
+											<select class="form-control" id="sistema">
+												<option value="0" >Selecione o sistema</option>
+												<option value="1" >1ª divisão apenas</option>
+												<option value="2" >1ª e 2ª divisão</option>
+											</select>
+										</div>
+										<div class="col-xl-2 col-lg-1 "></div>
+										<div class="col-xl-4 col-lg-4 "></div>
+										<small class="form-text col-xl-8 col-lg-8 col-12 ">
+											<p>
+												-1ª divisão apenas (Championship Series)<br>
+												-1ª e 2ª divisão (Champ. Series e Challenger Series)
+											</p>
+										</small>
+									</div>
+									<div class="form-group row">
+										<label for="formato" class="col-xl-4 col-lg-4 col-12 col-form-label" >Formato de disputa: </label>
+										<div class="col-xl-6 col-lg-7 col-12">
+											<select class="form-control" id="formato">
+												<option value="0" >Selecione o formato </option>
+												<option value="1" >1 - Pontos corridos (MD3 e MD5)</option>
+												<option value="2" >2 - Pontos corridos (MD2 e MD5)</option>
+												<option value="3" >3 - Pontos corridos (MD3)</option>
+												<option value="4" >4 - Mata-mata (MD5)</option>
+											</select>
+										</div>
+										<div class="col-xl-2 col-lg-1 "></div>
+										<div class="col-xl-4 col-lg-4 "></div>
+										<small class="form-text col-xl-8 col-lg-8 col-12">
+											<p>
+												1 - Pontos corridos: ida e volta (MD3), playoffs 4 melhores (MD5)<br>
+												2 - Pontos corridos: simples (MD2), playoffs 4 melhorers (MD5)<br>
+												3 - Pontos corridos: simples ida e volta (MD3)<br>
+												4 - Mata-mata: jogos (MD5)<br>
+											</p>
+										</small>
+									</div>
+									<div class="form-group row">
+										<label for="formato" class="col-xl-4 col-lg-4 col-12 col-form-label" >Ligas que serão de disputas: </label>
+										<br>
+										<div class="col-xl-4 col-lg-4 col-12 ">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="1" id="eulcs">
+												<label class="form-check-label" for="eulcs">
+													EU LCS
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="2" id="nalcs">
+												<label class="form-check-label" for="nalcs">
+													NA LCS
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="3" id="lck">
+												<label class="form-check-label" for="lck">
+													LCK
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="4" id="lms">
+												<label class="form-check-label" for="lms">
+													LMS
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="5" id="lpl">
+												<label class="form-check-label" for="lpl">
+													LPL
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="6" id="cblol" checked >
+												<label class="form-check-label" for="cblol">
+													CBLOL
+												</label>
+											</div>
+										</div>
+										<div class="col-xl-4 col-lg-4 "></div>
+									</div>
+								</form>
+
+								<!-- rascunho -->
+								<p class="d-none">
+									<u>Legenda sistema:</u><br>
+									- 1ª divisão apenas: Championship Series <br>
+									- 1ª e 2ª divisão: Championship Series e Challenger Series <br>
+									<br>
+									<u>Legenda formato:</u><br>
+									1 - Pontos corridos: jogos de ida e volta MD3, playoffs MD5 <br>
+									2 - Pontos corridos: jogos simples MD2, playoffs MD5 <br>
+									3 - Pontos corridos: jogos de ida e volta MD3 <br>
+									4 - Mata-mata: jogos MD5
+								</p>
+							</div>
+							<div class="col-xl-4 col-lg-4 "></div>
+						</div>
+					</div>
+					<div class="col-12 text-right bsg">						
+						<a class="btn btn-secondary " href="index.html">VOLTAR</a> 
+						<a class="btn btn-info " href="novo2.html">SEQUIR</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- CONTENT section end -->
+
+		<!-- FOOTER section start -->
+		<section id="footer">
+			<div class="container text-center">
+				<p class="text-center mt-3 mb-0">&copy; 2019 TheCoach | <a class="btn-link" href="#">Mateus Costa</a></p>
+			</div>
+		</section>
+		<!-- FOOTER section end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	</body>
+</html>

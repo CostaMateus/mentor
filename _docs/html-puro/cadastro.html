@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+		<title>The Coach - be the best!</title>
+
+		<style type="text/css" media="screen">
+			@font-face {
+				font-family: bsg;
+				src: url("fonts/BATTLEST.TTF");
+			}
+			.bsg {
+				font-family: bsg;
+				padding: 70px 0 50px 0;
+			}
+			.bsg h1 { font-size: 5rem; }
+			.bsg h3 { font-size: 2.5rem; }
+
+			body {
+				background-image: url("images/logo/LoLSreen.png");
+				background-repeat: no-repeat;
+				background-position: top center;
+				background-attachment: fixed;
+				background-size: cover;
+				/* color: #FFF; */
+				color: #F5F5F5;
+			}
+			
+			#login h5 {
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- LOGIN section start -->
+		<section id="login" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 text-center bsg">
+						<h1>THE COACH</h1> 
+						<h3>be the best</h3> 
+					</div>
+					<div class="col-xl-4 col-lg-4 col-2 "></div>
+					<div class="col-xl-4 col-lg-4 col-8 ">
+						
+						<h5 class="text-center">Bem-vindo, {$name}!</h5>
+
+						<form class="form-group" action="" method="post">
+							<div class="form-group">
+								<input type="text" class="form-control" id="inputName" placeholder="Nome" 
+									name="name" required autofocus >
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" id="inputLastName" placeholder="Sobrenome" 
+									name="lastName" required autofocus >
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" id="inputLogin" placeholder="Login / Nick" 
+									name="login" required >
+							</div>
+							<div class="form-group">
+								<input type="mail" class="form-control" id="inputEmail" placeholder="E-mail" 
+									name="email" required autofocus >
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" id="inputPass" placeholder="Senha" 
+									name="pass" required >
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" id="inputPassCf" placeholder="Confirmação de Senha" 
+									name="passCf" required >
+							</div>
+							<!-- <div class="form-group">
+								<input type="hidden" class="form-control" id="inputCode" placeholder="Código de indicação. Ex: BR123456SP" 
+									name="code" required >
+							</div> -->
+							<div class="form-group">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<a class="btn btn-primary btn-block" href="#" role="button">Cadastrar</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-2 "></div>
+				</div>
+			</div>
+		</section>
+		<!-- LOGIN section end -->
+
+		<!-- FOOTER section start -->
+		<section id="footer">
+			<div class="container text-center">
+				<p><br><br>&copy; 2019 TheCoach</p>
+			</div>
+		</section>
+		<!-- FOOTER section end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	</body>
+</html>

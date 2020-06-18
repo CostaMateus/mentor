@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+		<title>The Coach - be the best!</title>
+		<style type="text/css" media="screen">
+			@font-face {
+				font-family: bsg;
+				src: url(BATTLEST.TTF);
+			}
+			#body {	background-color: #235A7B; color: #FFF; }
+			.bsg { padding: 1.25em 0; }
+			.bsg h1, .bsg h3, .bsg a { font-family: bsg;	/* text-decoration: underline; */ }
+			.form-group.bsg { margin: 0 !important; }
+			.selectTeam { padding-bottom: 1em; }
+		</style>
+	</head>
+
+	<body id="body">
+		<!-- CONTETNT section start -->
+		<section id="login" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 bsg">
+						<h1>ESCOLHA A LIGA</h1>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-12">
+								<form>
+									<div class="form-group row">
+										<label for="sistema" class="col-xl-4 col-lg-4 col-form-label" >Treinar na Liga: </label>
+										<div class="col-xl-8 col-lg-8 ">
+											<select class="form-control" id="sistema">
+												<option value="0" >Selecione a Liga</option>
+												<option value="1" >EU LCS</option>
+												<option value="2" >NA LCS</option>
+												<option value="3" >LCK</option>
+												<option value="4" >LMS</option>
+												<option value="5" >LPL</option>
+												<option value="6" selected >CBLOL</option>
+											</select>
+										</div>
+										<small class="form-text col-xl-4 col-lg-4"></small>
+										<small class="form-text col-xl-8 col-lg-8 ">
+											<p>Exibindo apenas as Ligas selecionadas no passo anterior!</p>
+										</small>
+									</div>
+								</form>
+							</div>
+							<div class="col-xl-6 col-lg-6"></div>
+						</div>
+					</div>
+
+					<form class="form-group col-12 bsg">
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-12 selectTeam">
+								<h3>CAMPEONATO BRASILEIRO</h3>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="cnb" value="1" >
+									<label class="form-check-label" for="cnb">
+										CNB e-Sports Club
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="pain" value="4" >
+									<label class="form-check-label" for="pain">
+										Flamengo eSports
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="intz" value="2" checked>
+									<label class="form-check-label" for="intz">
+										INTZ e-Sports Club
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="kabum" value="3" >
+									<label class="form-check-label" for="kabum">
+										KaBuM! e-Sports
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="prog" value="5" >
+									<label class="form-check-label" for="prog">
+										ProGaming Esports
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="redc" value="6" >
+									<label class="form-check-label" for="redc">
+										Red Canids
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="teamone" value="7" >
+									<label class="form-check-label" for="teamone">
+										RPG
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="keyd" value="8" >
+									<label class="form-check-label" for="keyd">
+										Vivo Keyd
+									</label>
+								</div>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-12 selectTeam">
+								<h3>CIRCUITO DESAFIANTE</h3>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="5fox" value="9" >
+									<label class="form-check-label" for="5fox">
+										5Fox
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="bigg" value="10" >
+									<label class="form-check-label" for="bigg">
+										Big Gods
+									</label>
+								</div>
+								<!-- <div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="iron" value="13" >
+									<label class="form-check-label" for="iron">
+										Iron Hawks
+									</label>
+								</div> 
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="remo" value="15" >
+									<label class="form-check-label" for="remo">
+										Remo Brave e-Sports
+									</label>
+								</div>-->
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="flamengo" value="11" >
+									<label class="form-check-label" for="flamengo">
+										Operation Kino
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="idm" value="12" >
+									<label class="form-check-label" for="idm">
+										Pain Gaming
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="opk" value="14" >
+									<label class="form-check-label" for="opk">
+										Redemption Gaming
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="tshow" value="16" >
+									<label class="form-check-label" for="tshow">
+										Submarino Stars
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="tshow" value="16" >
+									<label class="form-check-label" for="tshow">
+										Team One
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="times-form" id="tshow" value="16" >
+									<label class="form-check-label" for="tshow">
+										WP Gaming
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<div class="col-xl-12 col-lg-12 bsg d-none">
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 ">
+								<form>
+									<div class="form-group row">
+										<label for="sistema" class="col-xl-4 col-lg-4 col-form-label" id="nomeTecnico" >Nome e sobrenome: </label>
+										<div class="col-xl-8 col-lg-8 ">
+											<input type="text" class="form-control" aria-describedby="nomeTecnico" value="Mateus Costa" placeholder="Seu nome e sobrenome">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="sistema" class="col-xl-4 col-lg-4 col-form-label" id="nomeTecnico" >Nick: </label>
+										<div class="col-xl-8 col-lg-8 ">
+											<input type="text" class="form-control" aria-describedby="nomeTecnico" value="kemns" placeholder="Seu nick">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-xl-6 col-lg-6 "></div>
+						</div>
+					</div>
+
+					<div class="col-xl-12 col-lg-12 text-right bsg">
+						<a class="btn btn-secondary " href="novo1.html">VOLTAR</a> 
+						<a class="btn btn-info " href="home.html">INICIAR</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- CONTETNT section end -->
+
+		<!-- FOOTER section start -->
+		<section id="footer">
+			<div class="container text-center">
+				<p class="text-center mt-3 mb-0">&copy; 2019 TheCoach | <a class="btn-link" href="#">Mateus Costa</a></p>
+			</div>
+		</section>
+		<!-- FOOTER section end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	</body>
+</html>

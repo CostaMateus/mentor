@@ -1,0 +1,13 @@
+﻿Anotações
+
+-Times tem:
+	-Nome completo 	(INTZ e-Sports Club)
+	-Siglas 	(ITZ)
+
+-Sistema de qualidades dos jogadores
+	Fulano eh 9/10 em farm
+	fulano eh 10/10 em farm (ai tu bota ele pra virar main nasus ou algo assim)
+	5/10 em tf
+	etc
+
+-Sistema de fazer os picks/bans

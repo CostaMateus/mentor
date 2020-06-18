@@ -1,0 +1,7 @@
+﻿Vinícius Marinheiro B4DD 20 100 1500 150000 TOPO 
+Fernando Aoki Ferchu 20 100 1500 150000 CAÇADOR 
+Marcos Ferraz Krastyel 20 100 1500 150000 MEIO 
+Matheus Lima Theusma 20 100 1500 150000 ATIRADOR 
+Denilson Oliveira Ceos 20 100 1500 150000 SUPORTE 
+Daniel Drummond Danagorn 20 100 1500 150000 CAÇADOR 
+Igor Lima Duds 20 100 1500 150000 ATIRADOR 

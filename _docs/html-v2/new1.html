@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR" prefix="og: http://ogp.me/ns#">
+	<head>
+		<!-- Required meta tags -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		<meta name="theme-color" content="#395A6A">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		
+		<!-- Font Awesome Free CDN -->
+		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+		<!-- Favicon site -->
+		<link rel="shortcut icon" href="" type="image/x-icon" />
+
+		<meta name="author" content="Costa;">
+		<meta property="og:title" content="&copy; TheCoach" />
+		<meta property="og:description" content="&copy; TheCoach - management game" />
+
+		<meta property="og:image" content="http://" />
+		<meta property="og:image:secure_url" content="https://" />
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content=""> 
+		<meta property="og:image:height" content=""> 
+		
+		<meta property="og:url" content="" /> 
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="TheCoach" />
+
+		<script type="text/javascript"></script>
+		<style type="text/css" media="screen">
+			@font-face {
+				font-family: bsg;
+				src: url("/res/site/assets/fonts/BATTLEST.TTF");
+			}
+
+			.bsg { font-family: bsg; font-size: 2.5rem; }
+
+			body {
+				background-color: #395A6A;
+			}
+
+			#section-novo, #section-footer {
+				color: #FFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- INICIO NOVO SECTION -->
+		<section id="section-novo" class="">
+			<div class="container">
+				<div class="row">
+					<h1 class="col-12 pt-3 bsg">FORMATO DO CAMPEONATO</h1>
+					<div class="col-12 mx-auto">
+						<form class="form-group" action="/new1" method="post">
+							<div class="form-group pb-2">
+								<label for="sistema" class="" >Sistema de disputa: </label>
+								<select class="form-control col-md-6 col-12" id="sistema" name="sistema">
+									<option value="0" selected >Todas divisões</option>
+									<option value="1" >1ª divisão apenas</option>
+									<option value="2" >1ª e 2ª divisão apenas</option>
+								</select>
+								<!-- <small class="form-text">
+									<p>
+										-1ª divisão apenas (Championship Series)<br>
+										-1ª e 2ª divisão (Champ. Series e Challenger Series)
+									</p>
+								</small> -->
+							</div>
+							<div class="form-group pb-2">
+								<label for="formato" >Formato de disputa: </label>
+								<select class="form-control col-md-6 col-12" id="formato" name="formato">
+									<option value="1" >1 - Pontos corridos (MD3 e MD5)</option>
+									<option value="2" selected >2 - Pontos corridos (MD1 e MD5)</option>
+									<option value="3" >3 - Pontos corridos (MD5)</option>
+									<option value="4" >4 - Mata-mata (MD5)</option>
+								</select>
+								<small class="form-text">
+									<p>
+										1 - Pontos corridos: ida e volta (MD3), playoffs 4 melhores (MD5)<br>
+										2 - Pontos corridos: simples (MD1), playoffs 4 melhorers (MD5)<br>
+										3 - Pontos corridos: simples ida e volta (MD5)<br>
+										4 - Mata-mata: jogos (MD5)<br>
+									</p>
+								</small>
+							</div>
+							<div class="form-group">
+								<label for="ligas" >Ligas que serão de disputas: 
+									<small class="form-text mt-0">
+											Selecione ao menos um campeonato<br>
+											Os campeonatos não selecionados não serão jogáveis
+									</small>
+								</label>
+
+								{loop="$leagues"}
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" 
+											value="{$value.idleague}" id="{$value.desinitials}" name="league_list[]" 
+											{if="$value.idleague == 1"}checked{/if} >
+									<label class="form-check-label" for="{$value.desinitials}" >
+										{$value.desinitials} - {$value.desname} - {$value.desregion}
+									</label>
+								</div>
+								{/loop}
+							</div>
+							<div class="btn-group float-right" role="group" aria-label="">
+								<a role="button" class="btn btn-secondary" href="/menu" >Voltar</a>
+								<button type="submit" class="btn btn-info" >Continuar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FINAL NOVO SECTION -->
+
+
+		<!-- INICIO FOOTER SECTION -->
+		<section id="section-footer" class="mt-3"> 
+			<div class="container">
+				<div class="row">
+					<div id="copyright" class="col-lg-7 col-12 mx-auto" >
+						<div class="py-2" >
+							<p class="text-center mb-0">&copy; 2019 TheCoach | <small><a class="btn-link text-white" href="#">Mateus Costa</a></small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FINAL FOOTER SECTION -->
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	</body>
+</html>

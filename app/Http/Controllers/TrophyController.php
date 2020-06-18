@@ -14,7 +14,6 @@ class TrophyController extends Controller
      */
     public function index()
     {
-        //
         return view('adm.home');
     }
 
@@ -36,7 +35,12 @@ class TrophyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'image' => 'string',
+        ]);
+
+        return Trophy::create($validatedData);
     }
 
     /**
@@ -47,7 +51,7 @@ class TrophyController extends Controller
      */
     public function show(Trophy $trophy)
     {
-        //
+        return $trophy;
     }
 
     /**
@@ -70,7 +74,15 @@ class TrophyController extends Controller
      */
     public function update(Request $request, Trophy $trophy)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'image' => 'string'
+        ]);
+
+        $trophy->fill($validatedData);
+        $trophy->save();
+
+        return $trophy;
     }
 
     /**
@@ -81,6 +93,8 @@ class TrophyController extends Controller
      */
     public function destroy(Trophy $trophy)
     {
-        //
+        $trophy->delete();
+
+        return $trophy;
     }
 }

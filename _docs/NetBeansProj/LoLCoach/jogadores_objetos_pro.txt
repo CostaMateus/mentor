@@ -1,0 +1,7 @@
+﻿Mateus Neves SkyBart 20 100 1500 150000 TOPO 
+João Vitor Zuão 20 100 1500 150000 CAÇADOR 
+Bruno Miyagushi Goku 20 100 1500 150000 MEIO 
+Lucas Rentechen LUSKKA 20 100 1500 150000 ATIRADOR 
+Matheus Leirião Professor 20 100 1500 150000 SUPORTE 
+Filipe Brombilla Ranger 20 100 1500 150000 CAÇADOR 
+Filipe Vaz fbk1 20 100 1500 150000 TOPO  

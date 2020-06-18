@@ -1,0 +1,7 @@
+﻿Álvaro Martins VVert 20 100 1500 150000 TOPO 
+Alanderson Meirelles 4LaN 20 100 1500 150000 CAÇADOR 
+Bruno Pereira Brucer 20 100 1500 150000 MEIO 
+Luis Carvalho Absolut 20 100 1500 150000 ATIRADOR 
+Ygor Freitas RedBert 20 100 1500 150000 SUPORTE 
+João Piola Marf 20 100 1500 150000 MEIO 
+Gabriel Dallaruvera Bielz 20 100 1500 150000 TOPO 

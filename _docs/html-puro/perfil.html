@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="pt-BR" prefix="og: http://ogp.me/ns#">
+	<head>
+		<!-- Required meta tags -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0">
+		<meta name="theme-color" content="#395A6A">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<!-- Font Awesome Free CDN -->
+		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+		<!-- Favicon site -->
+		<link rel="shortcut icon" href="" type="image/x-icon" />
+
+		<meta name="author" content="Costa;">
+		<meta property="og:title" content="TheCoach&trade;" />
+		<meta property="og:description" content="TheCoach&trade; - management game" />
+
+		<meta property="og:image" content="http://" />
+		<meta property="og:image:secure_url" content="https://" />
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content=""> 
+		<meta property="og:image:height" content=""> 
+		
+		<meta property="og:url" content="" /> 
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="TheCoach" />
+
+		<script type="text/javascript"></script>
+		<style type="text/css" media="screen">
+
+			.customScrollbar::-webkit-scrollbar { width:10px; height:10px; }
+			.customScrollbar::-webkit-scrollbar-track { background: #EEE; }
+			.customScrollbar::-webkit-scrollbar-thumb { background: #AAA; }
+			.customScrollbar::-webkit-scrollbar-thumb:hover { background: #888; }
+
+			/* MENU */
+			#section-menu #menu-md { color:#FFF; padding:14px 15px; text-decoration:none; }
+			#section-menu #menu-md:hover { color:#6D6E71; background-color:#FFF; text-decoration:underline; }
+			#section-menu .navbar { padding:0 !important; background-color:#0C3448 !important; }
+			#section-menu .nav-link { padding:14px 7px; }
+			#section-menu #navbar-main ul li a { color:#FFF; }
+			#section-menu #navbar-main ul li div a { color:#6D6E71; }
+			#section-menu #navbar-main ul li a:hover { color:#6D6E71; background-color:#FFF; }
+			#section-menu #navbar-main ul li div a:hover { color:#FFF; background-color:#54707E; }
+			#section-menu #navbar-main .dropdown-menu { padding:0 !important; margin:-.05rem 0 0; border:none !important; } 
+			#section-menu #navbar-main .dropdown-item { padding:.75rem 1rem; } 
+			#section-menu #navbar-main .dropdown-divider { margin:0!important; }
+			#section-menu #navbar-main .navbar-brand  { padding:11px 0 11px 15px !important; }
+			#section-menu #navbar-main .botao { margin:6px 15px !important; }
+
+			/* CONTEUDO */
+			@media (min-width: 992px) {				
+				/* .5=8px, 1=16px */
+				#section-conteudo #infosTeam { 		padding:.50rem .25rem .25rem .50rem ; }
+				#section-conteudo #playersTable { 	padding:.50rem .50rem .25rem .25rem; }
+				#section-conteudo #infosPlayer { 	padding:.25rem .25rem .25rem .50rem; }
+				#section-conteudo #infosNextGame { 	padding:.25rem; } 
+				#section-conteudo #infosAdm { 		padding:.25rem .50rem .25rem .25rem; }
+
+				#section-header #header { 			padding:.50rem  0     .25rem  0; }
+				#section-perfil #img-perfil { 		padding:.25rem .25rem .25rem  0; }
+				#section-perfil #pass-perfil { 		padding:.25rem  0     .25rem .25rem; }
+				#section-perfil #gerais-perfil { 	padding:.25rem .25rem .25rem  0; }
+				#section-perfil #delete-perfil { 	padding:.25rem  0     .25rem .25rem; }
+
+				#section-times #lateral-superior { 		padding:.50rem .25rem .25rem .50rem; }
+				#section-times #lateral-inferior { 		padding:.25rem .25rem .25rem .50rem; }
+				#section-times #principal-superior { 	padding:.50rem .50rem .25rem .25rem; }
+				#section-times #principal-inferior { 	padding:.25rem .50rem .25rem .25rem; }
+
+				#section-conteudo #infosTeam > :first-child, 
+				#section-conteudo #playersTable > :first-child { height: 400px; }
+
+				#section-conteudo #infosPlayer > :first-child, 
+				#section-conteudo #infosNextGame > :first-child, 
+				#section-conteudo #infosAdm > :first-child { height: 320px; }
+
+				#section-perfil #img-perfil > :first-child, 
+				#section-perfil #pass-perfil > :first-child { height: 279px; }
+
+				#section-perfil #gerais-perfil > :first-child, 
+				#section-perfil #delete-perfil > :first-child { height: 333px; }
+
+				#section-times #lateral-superior #ligas { height: 418px; overflow-y: scroll; }
+				#section-times #lateral-inferior #infosPlayer { height: 330px; overflow-y: scroll; }
+				#section-times #principal-superior #infosTime { height: 164px; }
+				#section-times #principal-inferior > :first-child { height: 584px; overflow-y: scroll; }
+
+				#section-conteudo #infosPlayer #subInfosPlayer > div:last-child { padding: .5rem 0 0 0; }
+			}
+			@media (min-width: 768px) and (max-width: 991px) {
+				#section-menu #navbar-main .navbar-collapse { height:300px; overflow-y:scroll; }
+				
+				#section-conteudo #infosTeam { 		padding:.50rem .25rem .25rem .50rem; }
+				#section-conteudo #playersTable { 	padding:.50rem .50rem .25rem .25rem; }
+				#section-conteudo #infosPlayer { 	padding:.25rem .25rem .25rem .50rem; }
+				#section-conteudo #infosNextGame { 	padding:.25rem .50rem .25rem .25rem; } 
+				#section-conteudo #infosAdm { 		padding:.25rem .50rem .25rem .50rem; }
+
+				#section-header #header { 			padding:.50rem  0     .25rem  0; }
+				#section-perfil #img-perfil { 		padding:.25rem .25rem .25rem  0; }
+				#section-perfil #pass-perfil { 		padding:.25rem  0     .25rem .25rem; }
+				#section-perfil #gerais-perfil { 	padding:.25rem .25rem .25rem  0; }
+				#section-perfil #delete-perfil { 	padding:.25rem  0     .25rem .25rem; }
+
+				#section-times #lateral-superior { 		padding:.50rem .25rem .25rem .50rem; }
+				#section-times #lateral-inferior { 		padding:.25rem .25rem .25rem .50rem; }
+				#section-times #principal-superior { 	padding:.50rem .50rem .25rem .25rem; }
+				#section-times #principal-inferior { 	padding:.25rem .50rem .25rem .25rem; }
+
+				#section-conteudo #infosTeam > :first-child, 
+				#section-conteudo #playersTable > :first-child { height: 400px; }
+				
+				#section-conteudo #infosPlayer > :first-child, 
+				#section-conteudo #infosNextGame > :first-child { height: 462px; }
+				
+				#section-perfil #img-perfil > :first-child, 
+				#section-perfil #pass-perfil > :first-child { height: 283px; }
+
+				#section-perfil #gerais-perfil > :first-child, 
+				#section-perfil #delete-perfil > :first-child { height: 333px; }
+				
+				#section-times #lateral-superior #ligas { height: 418px; overflow-y: scroll; }
+				#section-times #lateral-inferior #infosPlayer { height: 354px; overflow-y: scroll; }
+				#section-times #principal-superior #infosTime { height: 164px; }
+				#section-times #principal-inferior > :first-child { height: 608px; overflow-y: scroll; }
+
+				#section-conteudo #infosPlayer #subInfosPlayer div { padding: 1rem 0 0 0; }
+
+				#section-times #lateral-superior .liga-times .sigla .n1, 
+				#section-times #lateral-superior .liga-times .sigla .n2 { display:inline; }
+			}
+			@media (max-width: 767px) {	
+				#section-menu #navbar-main .navbar-collapse { height:300px; overflow-y:scroll; }
+
+				#section-conteudo #infosTeam { 		padding: 1rem  1rem .50rem 1rem; }
+				#section-conteudo #playersTable, 
+				#section-conteudo #infosPlayer, 
+				#section-conteudo #infosNextGame { 	padding:.50rem 1rem; } 
+				#section-conteudo #infosAdm { 		padding:.50rem 1rem; } 
+				
+				#section-conteudo #infosPlayer #subInfosPlayer div { padding: 1rem 0 0 0; }
+
+				#section-header #header { 			padding:.50rem 0    .25rem 0; }
+				#section-perfil #img-perfil { 		padding:.25rem 0; }
+				#section-perfil #pass-perfil { 		padding:.25rem 0; }
+				#section-perfil #gerais-perfil { 	padding:.25rem 0; }
+				#section-perfil #delete-perfil { 	padding:.25rem 0; }
+
+				#section-times #lateral-superior { 		padding:  1rem 1rem .50rem 1rem; }
+				#section-times #lateral-inferior { 		padding:.50rem 1rem; display: none; }
+				#section-times #principal-superior { 	padding:.50rem 1rem; }
+				#section-times #principal-inferior { 	padding:.50rem 1rem; }
+
+				#section-times #lateral-superior #ligas { height: 300px; overflow-y: scroll; }
+
+				#section-times #lateral-superior .liga-times .sigla .n1, 
+				#section-times #lateral-superior .liga-times .sigla .n2 { display:inline; }
+			}
+			
+
+			#section-conteudo #infosPlayer .row img {
+				max-height: 100px;
+			}
+			/* home.html */
+			#section-conteudo #infosTeam > div:first-child, 
+			#section-conteudo #playersTable > div:first-child, 
+			#section-conteudo #infosPlayer > div:first-child, 
+			#section-conteudo #infosNextGame > div:first-child, 
+			#section-conteudo #infosAdm > div:first-child,
+			/* perfil.html */
+			#section-header #header >div:first-child, 
+			#section-perfil #img-perfil >div:first-child, 
+			#section-perfil #pass-perfil >div:first-child, 
+			#section-perfil #gerais-perfil >div:first-child, 
+			#section-perfil #delete-perfil >div:first-child, 
+			/* times.html */
+			#section-times #lateral-superior >div:first-child, 
+			#section-times #lateral-inferior >div:first-child,
+			#section-times #principal-superior >div:first-child, 
+			#section-times #principal-inferior >div:first-child 
+			{ background-color:#F2F2F2; }
+
+
+			/* TABELA */ 
+			#section-conteudo #playersTable .table th, 
+			#section-conteudo #playersTable .table td, 
+			#section-times #principal-inferior .table th, 
+			#section-times #principal-inferior .table tb 
+			{ padding: 6px 12px; }
+
+			#section-conteudo #playersTable .table .icon-a, 
+			#section-times #principal-inferior .table .icon-a {
+				width: 5%;
+				text-align: center;
+			}
+			#section-conteudo #playersTable .table .icon-b, 
+			#section-times #principal-inferior .table .icon-b, 
+			#section-times #principal-inferior .table .icon-e {
+				width: 15%;
+			}
+			#section-conteudo #playersTable .table .icon-c, 
+			#section-times #principal-inferior .table .icon-c {
+				width: 25%;
+			}
+			#section-conteudo #playersTable .table .icon-d {
+				width: 10%;
+				text-align: center;
+			}  
+			#section-conteudo #playersTable .table .icon-e {
+				width: 25%;
+				text-align: center;
+			}
+			
+			#section-times #principal-inferior .table .icon-d, 
+			#section-times #principal-inferior .table .icon-f, 
+			#section-times #principal-inferior .table .icon-g, 
+			#section-times #principal-inferior .table .icon-h {
+				width: 10%;
+				text-align: center;
+			}
+			
+			#section-times #principal-inferior .table tr.active { 
+				background-color: rgba(0,0,0,.075); 
+			}
+
+			#section-conteudo .tbSchedule table tr,
+			#section-modal .tbSchedule table tr
+			{ width:100%; display:inline-table; table-layout:fixed; }
+			#section-conteudo .tbSchedule table tbody, 
+			#section-modal .tbSchedule table tbody 
+			{ overflow-y:scroll; display:block; }
+
+			/* INICIO Tamanhos */
+			#section-conteudo #playersTable table tbody { height:348px; }
+			#section-modal #tbMyTeamSchedule table tbody, 
+			#section-modal #tbLeagueSchedule table tbody, 
+			#section-modal #tbRRSchedule table tbody, 
+			#section-modal #tbMSISchedule table tbody, 
+			#section-modal #tbWCSchedule table tbody { height:500px; }
+			#section-modal #tbTeamFinances table tbody {height:350px; }
+
+			@media (min-width: 992px) { 
+				#section-modal .tbSchedule table tbody { width:810px; } 
+			}
+			@media (min-width: 576px) and (max-width: 991px) { 
+				#section-modal .tbSchedule table tbody { width:510px; } 
+			}
+			@media (max-width: 575px) { 
+				/* #section-modal .tbSchedule table tbody { width:557px; } */
+				#othersScheduleModal .modal-header img, 
+				.tbSchedule .tb-date, .tbSchedule .tb-comp { display: none; }
+				.tbSchedule .tb-icon, .tbSchedule .tb-r, 
+				.tbSchedule .tb-team1, .tbSchedule .tb-team2 
+				{ width: 10%; }
+			}
+			/* FINAL Tamanhos */
+
+			.tbSchedule .tb-day td
+			{ padding:6px 12px !important; }
+			.tbSchedule .tb-day:hover 
+			{ background-color:transparent; padding:6px 12px !important; }
+			.tbSchedule .tb-icon 
+			{ width:10%; padding:3px 0 !important; }
+			.tbSchedule .tb-icon img 
+			{ max-width:50px; }
+			.tbSchedule .tb-r, .tbSchedule .tb-date, 
+			.tbSchedule .tb-team1, .tbSchedule .tb-team2, 
+			.tbSchedule .tb-comp 
+			{ width:15%; }
+			.tbSchedule .tb-team1 
+			{ text-align:left; }
+			.tbSchedule .tb-team2 
+			{ text-align:right; }
+			.tbSchedule .tb-date, .tbSchedule .tb-icon, 
+			.tbSchedule .tb-r, .tbSchedule .tb-comp 
+			{ text-align:center; } 
+			.tbSchedule .tb-icon, .tbSchedule .tb-r, 
+			.tbSchedule .tb-date, .tbSchedule .tb-team1, 
+			.tbSchedule .tb-team2, .tbSchedule .tb-comp 
+			{ vertical-align:middle !important; }
+
+			#section-modal .tbSchedule .tb-title { width:50%; text-align:right; }
+			#section-modal .tbSchedule .tb-value { width:50%; text-align:left; }
+
+			#section-modal #tbCarreira .tb-year, 
+			#section-modal #tbCarreira .tb-team, 
+			#section-modal #tbCarreira .tb-game { text-align:center; width:33%; }
+
+
+			#section-modal #tbTeamFinances .bg-info { background-color:#B9E2E9!important; }
+			#section-modal #tbTeamFinances .bg-success { background-color:#BEE4C7!important; }
+			#section-modal #tbTeamFinances .bg-warning, 
+			#section-modal #loanModal .btn-warning { background-color:#FFECB4!important; }
+
+			#section-modal #tbRanking table .tb-icon img { width:30px; }
+			#section-modal #tbRanking table .tb-icon { padding:10px 0px 10px 7px; margin:auto 0; }
+			#section-modal #tbRanking table .tb-icon, 
+			#section-modal #tbRanking table .tb-position { text-align:center; width:5%; }
+			#section-modal #tbRanking table .tb-color { width:.25%; padding:0 1.5px; } 
+			#section-modal #tbRanking table .tb-name { text-align:left; width:50%; }
+			#section-modal #tbRanking table .tb-ps { text-align:center; width:10%; }
+
+			#section-modal #tbRanking .color-final { width:5%; background-color:#56B600; }
+			#section-modal #tbRanking .color-climbing { width:5%; background-color:#9F2487; }
+			#section-modal #tbRanking .color-pre-climbing { width:5%; background-color:#2B2FD0; }
+			#section-modal #tbRanking .color-promotion { width:5%; background-color:#7f7871; }
+			#section-modal #tbRanking .color-demotion { width:5%; background-color:#DC3545; }
+
+			#section-modal .modal-footer .color-final { color:#56B600; }
+			#section-modal .modal-footer .color-climbing { color:#9F2487; }
+			#section-modal .modal-footer .color-pre-climbing { color:#2B2FD0; }
+			#section-modal .modal-footer .color-promotion { color:#7f7871; }
+			#section-modal .modal-footer .color-demotion { color:#DC3545; }
+			
+			/* modal links redes - times infos */
+			#section-modal #link-redes a, 
+			#section-times #infosTime #links-svg a { text-decoration:none; }
+			#section-modal #link-redes a svg, 
+			#section-times #infosTime #links-svg a svg { color:#909294; }
+			#section-modal #link-redes a:hover svg, 
+			#section-times #infosTime #links-svg a:hover svg { color:#212529; }
+
+			#section-footer, #section-footer a { background-color:#395A6A; color:#E0E0E0; }
+			#section-footer a { text-decoration:underline; }
+
+			@media (min-width: 1149px) {
+				#section-times #lateral-superior .liga-times .sigla .n1, 
+				#section-times #lateral-superior .liga-times .sigla .n2 { display:inline; }
+			}
+			@media (min-width: 926px) and (max-width: 1148px) { 
+				#section-times #lateral-superior .liga-times .sigla .n2 { display:none; }
+			}
+			@media (min-width: 768px) and (max-width: 925px) {
+				#section-times #lateral-superior .liga-times .sigla .n1 { display:none; }
+			}
+			@media (max-width: 767px) {
+				#section-times #lateral-superior .liga-times .sigla .n1, 
+				#section-times #lateral-superior .liga-times .sigla .n2 { display:inline; }
+			}
+			#section-times #lateral-superior #ligas .accordion > .liga-times:first-child 
+			{ padding:0 0 .25rem 0; }
+			#section-times #lateral-superior #ligas .accordion > .liga-times:last-child 
+			{ padding:.25rem 0 0 0; }
+			#section-times #lateral-superior #ligas .accordion > .liga-times:not(:first-child):not(:last-child) 
+			{ padding:.25rem 0; }
+			#section-times #lateral-superior #ligas .accordion .liga-times:hover .sigla 
+			{ background-color:#FFF; border-radius:4px; cursor:pointer; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .sigla.active 
+			{ background-color:#FFF; border-radius:4px;}
+			#section-times #lateral-superior #ligas .accordion .liga-times .sigla img 
+			{ margin:.25rem; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .sigla a 
+			{ text-decoration:none; color:#000; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .list-group .item-list 
+			{ list-style:none; padding:.25rem; background-color:#FFF; border-radius:4px; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .list-group .item-list:hover 
+			{ background-color:transparent; cursor:pointer; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .list-group .item-list.active 
+			{ background-color:transparent; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .list-group > .item-list:first-child 
+			{ margin:.25rem 0 0 2.2rem; }
+			#section-times #lateral-superior #ligas .accordion .liga-times .list-group > .item-list:not(:first-child) 
+			{ margin: 0 0 0 2.2rem; }
+			
+
+			#section-times #lateral-inferior #infosPlayer ul li:hover 
+			{ cursor:pointer; }
+			#section-times #lateral-inferior #infosPlayer ul li a 
+			{ color:#000; }
+			#section-times #lateral-inferior #infosPlayer table th,
+			#section-times #lateral-inferior #infosPlayer table td 
+			{ padding:6px 12px !important; }
+
+			#section-times .liga-times .sigla img, 
+			#section-times ul li img, 
+			#othersScheduleModal .modal-header img, 
+			.tbSchedule .tb-icon img 
+			{ background-color:#ABB9C0; border-radius:4px; }
+			#principal-superior #infosTime img, 
+			#section-conteudo #infosTeam #infos img, 
+			#section-conteudo #infosNextGame #nextGame img
+			{ background-color:#ABB9C0; border-radius:10px; max-height:140px; max-width:140px; }
+
+
+		</style>
+	</head>
+	
+	<body data-spy="scroll" data-offset="100" data-target="#navbar-main" style="background-color: #395A6A;">
+
+		<!-- INICIO MENU SECTION -->
+		<section id="section-menu" class="">
+			<nav id="navbar-main" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+				<a class="navbar-brand" href="home.html"  height="30" >
+					<!-- <img class="" src="../images/logo/logo_b.png" width="" height="24" alt="TheCoach!" > -->
+					<img class="" src="images/logo/logo_b.png" width="" height="24" alt="TheCoach!" >
+				</a> 
+				
+				<button class="navbar-toggler botao" type="button" data-toggle="collapse" 
+						data-target="#navbarMain" aria-controls="navbarMain" 
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarMain">
+					<ul class="navbar-nav mx-auto">
+						<!-- home -->
+						<li class="nav-item active">
+							<a class="nav-link " href="home.html">Home</a>
+						</li>
+
+						<!-- options -->
+						<li class="nav-item dropdown ">
+							<a class="nav-link dropdown-toggle" href="#" id="optionsDropdown" 
+								role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Opções
+							</a>
+							<div class="dropdown-menu" aria-labelledby="optionsDropdown">
+								<a class="dropdown-item" href="perfil.html" >Meu perfil</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item  " href="index.html">Menu principal</a>
+								<a class="dropdown-item  " href="" data-toggle="modal" data-target="#preferencesModal" >Preferências</a>
+								<a class="dropdown-item  " href="" data-toggle="modal" data-target="#resignationModal" >Pedir demissão</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item  " href="" data-toggle="modal" data-target="#aboutTheGameModal" >Sobre o jogo</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item  " href="" data-toggle="modal" data-target="#logoutModal" >Logout</a>
+							</div>
+						</li>
+
+						<!-- calendar -->
+						<li class="nav-item dropdown  ">
+							<a class="nav-link  dropdown-toggle" href="#" id="calendarDropdown" 
+								role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Canlendário
+							</a>
+							<div class="dropdown-menu" aria-labelledby="calendarDropdown">
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#myTeamScheduleModal" 
+									title="INTZ" >Jogos do time</a>
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#leagueScheduleModal" 
+									title="CBLOL" >Tabela jogos CBLOL</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#othersScheduleModal" 
+									title="CBLOL" >Tabela outras Ligas</a>
+								<div class="dropdown-divider"></div>
+								<!-- <a class="dropdown-item " href="" data-toggle="modal" data-target="#rrModal" 
+									title="Rift Rivals" >Tabela jogos da RR</a> -->
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#msiModal" 
+									title="Mid Season Invitational" >Tabela jogos da MSI</a>
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#wcModal" 
+									title="World Championship" >Tabela jogos WC</a>
+								<!-- <div class="dropdown-divider"></div>
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#friendlyModal" >Amistosos</a> -->
+							</div>
+						</li>
+
+						<!-- finances -->
+						<li class="nav-item dropdown  ">
+							<a class="nav-link dropdown-toggle" href="#" id="financesDropdown" 
+								role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Finanças
+							</a>
+							<div class="dropdown-menu" aria-labelledby="financesDropdown">
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#teamFinancesModal" >Finanças do time</a>
+								<a class="dropdown-item " href="" data-toggle="modal" data-target="#loanModal" >Empréstimo bancário</a>
+								<!-- <a class="dropdown-item " href="" data-toggle="modal" data-target="#sponsorsModal" >Patrocinadores</a> -->
+								<!-- <a class="dropdown-item " href="zzNaoProj.html" >Loja</a> -->
+							</div>
+						</li>
+
+						<!-- ranking -->
+						<li class="nav-item">
+							<a class="nav-link  " href="" data-toggle="modal" data-target="#rankingModal" >Classificação</a>
+						</li>
+
+						<!-- trainings -->
+						<li class="nav-item dropdown d-none">
+							<a class="nav-link dropdown-toggle" href="#" id="trainingsDropdown" 
+							role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Treinos
+							</a>
+							<div class="dropdown-menu" aria-labelledby="trainingsDropdown">
+								<a class="dropdown-item" href="zzNaoProj.html">Treino individual</a>
+								<a class="dropdown-item" href="zzNaoProj.html">Treino em time</a>
+							</div>
+						</li>
+
+						<!-- streaming -->
+						<!-- <li class="nav-item">
+							<a class="nav-link " href="zzNaoProj.html">Streaming</a>
+						</li> -->
+
+						<!-- teams -->
+						<li class="nav-item">
+							<a class="nav-link " href="times.html">Times</a>
+						</li>
+
+						<!-- search -->
+						<li class="nav-item">
+							<a class="nav-link " href="zzNaoProj.html">Busca</a>
+						</li>
+
+						<!-- historical -->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="historicalDropdown" 
+								role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Históricos
+							</a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="historicalDropdown">
+								<a class="dropdown-item" href="zzNaoProj.html">Campeões</a>
+								<a class="dropdown-item" href="zzNaoProj.html">Históricos de confrontos</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="zzNaoProj.html">Rankings de coachs</a>
+								<a class="dropdown-item" href="zzNaoProj.html">Rankings de times</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="zzNaoProj.html">Tranferências de coachs</a>
+								<a class="dropdown-item" href="zzNaoProj.html">Tranferências de jogadores</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="zzNaoProj.html">Time da rodada</a>
+								<a class="dropdown-item" href="zzNaoProj.html">Time da Etapa</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</section>
+		<!-- FINAL MENU SECTION -->
+
+
+		<!-- HEADER SECTION -->
+		<section id="section-header" class="mt-1 pt-5"> 
+			<div class="container">
+				<div class="row">
+					<div id="header" class="col-12" >
+						<div class="px-2 py-2" >
+							<h2 class="text-center mb-1">Detalhes da conta</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- HEADER SECTION -->
+
+
+		<!-- INICIO PERFIL SECTION -->
+		<section id="section-perfil" class="">
+			<div class="container">
+				<div class="row">
+					<!-- INICIO IMAGEM TIME -->
+					<!-- <div id="img-perfil" class="col-lg-6 col-md-6 col-12 " >
+						<div id="imge" class="px-2 py-2">
+							<h4 class="text-center">Imagem</h4>
+							<h6 class="mt-2 mb-2 text-center text-muted">Clique na foto para escolher uma nova.</h6>
+							<form action="" method="post" enctype="multipart/form-data">
+								<div class="form-group mb-0">
+									<div class="row pt-2">
+										<label for="file" class="col-lg-4 text-center my-0 py-0">
+											<img id="image-preview" class="bg-dark rounded-circle py-0" 
+												src="images/players/unknown.png" alt="" width="150" height="150">
+										</label>
+										<div class="col-lg-8 my-auto input-group pt-2">
+											<div class="custom-file">
+												<label class="custom-file-label" for="file">Procurar</label>
+												<input type="file" class="custom-file-input" id="file" name="desimage" value="{$user.desimage}" >
+											</div>
+											<div class="input-group-append">
+												<button type="submit" class="btn btn-info ">Salvar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<script>
+							// document.querySelector('#file').addEventListener('change', function(){
+							// 	var file = new FileReader();
+							// 	file.onload = function() {
+							// 		document.querySelector('#image-preview').src = file.result;
+							// 	}
+							// 	file.readAsDataURL(this.files[0]);
+							// });
+						</script>
+					</div> -->
+					<!-- FINAL IMAGEM TIME -->
+
+					<!-- INICIO PASSWORD TIME -->
+					<div id="pass-perfil" class="col-lg-4 col-md-4 col-12 " >
+						<div id="pass" class="px-2 py-2">
+							<div class="row py-0" >
+								<div class="col-12 ">
+									<h4 class="text-center">Mudança de senha</h4>
+									<h6 class="text-center text-muted mb-2">Insira uma senha para alterá-la.</h6>
+									<form action="" method="post" >
+										<div class="form-group">
+											<!-- <label for="passw1" class="control-label">Senha atual:</label> -->
+											<div class="control-group ">
+												<div class="controls">
+													<input type="password" class="form-control" id="passw1" name="despassword" placeholder="Digite a senha atual" >
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<!-- <label for="passw2" class="control-label">Nova senha:</label> -->
+											<div class="control-group ">
+												<div class="controls">
+													<input type="password" class="form-control" id="passw2" name="passw1" placeholder="Digite a nova senha" >
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<!-- <label for="passw3" class="control-label">Confirmação de senha:</label> -->
+											<div class="control-group ">
+												<div class="controls">
+													<input type="password" class="form-control" id="passw3" name="passw2" placeholder="Confirme a nova senha" >
+												</div>
+											</div>
+										</div>
+										<div class="">
+											<button type="submit" class="btn btn-info float-right">Salvar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- FINAL PASSWORD TIME -->
+					
+					<!-- INICIO GERAIS TIME -->
+					<div id="gerais-perfil" class="col-lg-4 col-md-4 col-12 " >
+						<div id="geral" class="px-2 py-2">
+							<div class="row py-0" >
+								<div class="col-12 ">
+									<h4 class="text-center">Dados gerais</h4>
+									<h6 class="text-center text-muted mb-2">Insira outros dados para alterá-los</h6>
+									<form action="/admin/account" method="post" >
+										<div class="form-group">
+											<!-- <label for="name" class="control-label">Nome</label> -->
+											<input type="text" class="form-control" id="name" name="desname" placeholder="Digite o nome" value="">
+										</div>
+										<div class="form-group">
+											<!-- <label for="lastname" class="control-label">Sobrenome</label> -->
+											<input type="text" class="form-control" id="lastname" name="deslastname" placeholder="Digite o sobrenome" value="">
+										</div>
+										<div class="form-group">
+											<!-- <label for="login" class="control-label">Login / Nick</label> -->
+											<input type="text" class="form-control" id="login" name="deslogin" placeholder="Digite o login" value="">
+										</div>
+										<div class="form-group">
+											<!-- <label for="email" class="control-label">E-mail</label> -->
+											<input type="email" class="form-control" id="email" name="desemail" placeholder="Digite o e-mail" value="">
+										</div>
+										<div class="">
+											<button type="submit" class="btn btn-info float-left">Salvar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- FINAL GERAIS TIME -->
+
+					<!-- INICIO DELETE TIME -->
+					<div id="delete-perfil" class="col-lg-4 col-md-4 col-12 " >
+						<div id="delte" class="px-2 py-2">
+							<div class="row py-0" >
+								<div class="col-12 ">
+									<h4 class="text-center text-danger">Apagar conta</h4>
+									<h6 class="text-center text-muted mb-2">Deseja realmente apagar a conta?</h6>
+									<form action="" method="post" >
+										<div class="form-group">
+											<div class="control-group password optional user_password">
+												<div class="controls">
+													<input type="password" class="form-control is-invalid" id="despassword" name="despassword" placeholder="Digite a senha para confirmar" >
+												</div>
+											</div>
+										</div>
+										<div class="">
+											<button type="submit" class="btn btn-danger float-right">Apagar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- FINAL DELETE TIME -->
+				</div>
+			</div>
+		</section>
+		<!-- FINAL PERFIL SECTION -->
+
+
+		<!-- INICIO MODALS SECTION -->
+		<section id="section-modal" class="">
+			<!-- INICIO OPCOES MENU -->
+				<!-- inicio Preferencias Modal -->
+				<div class="modal fade" id="preferencesModal" tabindex="-1" role="dialog" 
+					aria-labelledby="preferencesModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="preferencesModalTitle">Preferências</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body row px-0 pb-0">
+								<div class="col-10 mx-auto">
+									<h6 class="text-center" >Notificações</h6>
+									<form>
+										<div class="form-group row">
+											<label for="notMuCoach" class="col-xl-6 col-lg-6 col-form-label" >Mudança de coach: </label>
+											<div class="col-xl-6 col-lg-6 ">
+												<select class="form-control" id="notMuCoach">
+													<option value="0" >Não</option>
+													<option value="1" >Sim</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="notTerCont" class="col-xl-6 col-lg-6 col-form-label" >Término de contrato: </label>
+											<div class="col-xl-6 col-lg-6 ">
+												<select class="form-control" id="notTerCont">
+													<option value="0" >Não</option>
+													<option value="1" >Sim</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="notTerCont" class="col-xl-6 col-lg-6 col-form-label" >Mídia: </label>
+											<div class="col-xl-6 col-lg-6 ">
+												<select class="form-control" id="notTerCont">
+													<option value="0" >Não</option>
+													<option value="1" >Sim</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="attContr" checked >
+											<label class="form-check-label" for="attContr" >
+												Atualizar automaticamente contratos encerrados
+											</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="2" id="sonsjgs">
+											<label class="form-check-label" for="sonsjgs">
+												Sons nos eventos dos jogos
+											</label>
+										</div>
+									</form>
+								</div>
+								<div class="col-10 mx-auto pt-3">
+									<h6 class="text-center" >Visualização da Ligas</h6>
+									<p class="text-left mb-2" >Visualizar partidas das ligas mesmo sem time humano:</p>
+									<form>
+										<div class="row">
+											<div class="col-3 mx-auto ">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="6" id="CBLOL" checked >
+													<label class="form-check-label" for="CBLOL">CBLOL</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="2" id="nalcs">
+													<label class="form-check-label" for="nalcs">LCS</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="1" id="eulcs">
+													<label class="form-check-label" for="eulcs">LEC</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="3" id="lck">
+													<label class="form-check-label" for="lck">LCK</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="4" id="lms">
+													<label class="form-check-label" for="lms">LJL</label>
+												</div>
+											</div>
+											<div class="col-3 mx-auto ">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="4" id="lms">
+													<label class="form-check-label" for="lms">LLA</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="4" id="lms">
+													<label class="form-check-label" for="lms">LMS</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="5" id="lpl">
+													<label class="form-check-label" for="lpl">LPL</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="5" id="lpl">
+													<label class="form-check-label" for="lpl">OPL</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="5" id="lpl">
+													<label class="form-check-label" for="lpl">TCL</label>
+												</div>
+											</div>
+
+											<div class="col-12 ">
+												<br>
+												<p class="text-left mb-2" >Competições sem time humano:</p>
+												<div class="form-group row">
+													<label for="notMuCoach" class="col-xl-6 col-lg-6 col-form-label" >Rift Rivals: </label>
+													<div class="col-xl-6 col-lg-6 ">
+														<select class="form-control" id="notMuCoach">
+															<option value="0" selected >Resultados</option>
+															<option value="1" >Partidas</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="notMuCoach" class="col-xl-6 col-lg-6 col-form-label" >Mid Seaon Invitational: </label>
+													<div class="col-xl-6 col-lg-6 ">
+														<select class="form-control" id="notMuCoach">
+															<option value="0" selected >Resultados</option>
+															<option value="1" >Partidas</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="notTerCont" class="col-xl-6 col-lg-6 col-form-label" >World Championship: </label>
+													<div class="col-xl-6 col-lg-6 ">
+														<select class="form-control" id="notTerCont">
+															<option value="0" selected >Resultados</option>
+															<option value="1" >Partidas</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a href="home.html" class="btn btn-info">Salvar</a>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Preferencias Modal -->
+
+				<!-- inicio Demissao Modal -->
+				<div class="modal fade" id="resignationModal" tabindex="-1" role="dialog" 
+					aria-labelledby="resignationModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="resignationModalTitle">Pedido de demissão</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body text-center">
+								<i class="fas fa-question-circle fa-lg" style="color: #DC3545;"></i> 
+								Deseja realmente ser demitido?
+							</div>
+							<div class="modal-footer">
+								<a href="index.html" class="btn btn-danger">Sim</a>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Demissao Modal -->
+
+				<!-- inicio Sobre o Jogo Modal -->
+				<div class="modal fade" id="aboutTheGameModal" tabindex="-1" role="dialog" 
+					aria-labelledby="aboutTheGameModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="aboutTheGameModalTitle">TheCoach</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body text-left "> 
+								<p>
+									&emsp;&emsp;<strong>TheCoach</strong> é um site de fãs, não tendo nenhuma participação em qualquer etapa de produção ou comercialização de nenhum dos campeonatos oficiais de <strong>League of Legends</strong>. 
+								</p>
+								<p>
+									&emsp;&emsp;O jogo baseado em sistemas Web, foi desenvolvido por dois fãs de League of Legends, sendo gratuito, podendo sofrer alterações a qualquer momento sem aviso prévio. Todos os direitos relativos ao sistema do jogo, utilização do software e da base de dados, são de propriedade da equipe TheCoach, nos termos dos art 1º e 2º da Lei Brasileira de Proteção ao Software – <strong>Lei Federal n.º 9.609/98</strong>. 
+								</p>
+								<p>
+									&emsp;&emsp;Tem como objetivo proporcionar uma plataforma diferenciada de entretenimento para o público fã de League of Legends (<strong>LoL</strong>), com seus times e jogadores preferidos. Respeitando os respectivos direitos autorais, de propriedade da empresa <strong>Riot Games</strong>.
+								</p>
+								<p>
+									&emsp;&emsp;TheCoach é um jogo de gerenciamento de clubes profissionais de LoL. Baseado no similar <a class="btn-link" href="http://www.brasfoot.com/" >Brasfoot</a> (super recomendado). 
+								</p>
+								<p>
+									&emsp;&emsp;O usuário, no papel de técnico da equipe, tem como objetivo tornar-se o melhor em sua função no mundo do eSport de LoL, alternando-se na administração tática e financeira de sua equipe. 
+								</p>
+								<p>
+									&emsp;&emsp;Para mais informações, dúvidas e sugestões, siga-nos nas redes sociais. Fique por dentro de todas as novidades:
+								</p>
+								
+								<div id="link-redes" class="col-12 mx-auto text-center mb-3">
+									<a href="#" target="_blank" >
+										<i class="fab fa-facebook-square fa-4x"></i>
+									</a>
+									<a href="#" target="_blank" >
+										<i class="fab fa-instagram fa-4x"></i>
+									</a>
+									<a href="#" target="_blank" >
+										<i class="fab fa-twitter-square fa-4x"></i>
+									</a>
+								</div>
+								<p class="text-center mb-0">&copy; 2019 TheCoach</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Sobre o Jogo Modal -->
+
+				<!-- inicio Logout Modal -->
+				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="logoutModalTitle">Logout</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body text-center">
+								<i class="fas fa-exclamation-circle fa-lg" style="color: #F0AD4E;"></i> 
+								Deseja realmente sair?
+							</div>
+							<div class="modal-footer">
+								<a href="login.html" class="btn btn-light">Sair</a>
+								<a href="index.html" class="btn btn-info">Menu</a>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Logout Modal -->
+			<!-- FINAL  OPCOES MENU -->
+
+			<!-- INICIO CALENDARIO MENU -->
+				<!-- inicio Calendario Meu Time Modal -->
+				<div class="modal fade" id="myTeamScheduleModal" tabindex="-1" role="dialog" 
+					aria-labelledby="myTeamScheduleModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myTeamScheduleModalTitle">Calendário FLA</h5>
+								<div class="col-lg-3 col-6">
+									<select class="form-control" id="">
+										<option value="0" selected >Todos</option>
+										<option value="1" >CBLOL</option>
+										<option value="2" >RR</option>
+										<option value="3" >MSI</option>
+										<option value="4" >WC</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbMyTeamSchedule" class="tbSchedule modal-body row px-0 py-0">
+								<div class="table-responsive col-12">
+									<table class="table table-borderless table-hover mb-0">
+										<tbody class="customScrollbar">
+											<tr class="">
+												<td class="tb-date"   >12/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r text-success " >1 x 0</td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_kbm.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >13/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r text-success" >1 x 0</td>
+												<td class="tb-team2"  >PRG</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_prg.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >19/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_up.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >UP</td>
+												<td class="tb-r text-success" >0 x 1</td>
+												<td class="tb-team2"  >FLA</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >20/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_rdp.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >RDP</td>
+												<td class="tb-r text-success" >0 x 1</td>
+												<td class="tb-team2"  >FLA</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r "     > x </td>
+												<td class="tb-team2"  >ITZ</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_itz.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r "     > x </td>
+												<td class="tb-team2"  >VK</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_vk.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >02/02</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r "     > x </td>
+												<td class="tb-team2"  >CNB</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_cnb.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >03/02</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_kbm.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >KBM</td>
+												<td class="tb-r "     > x </td>
+												<td class="tb-team2"  >FLA</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   >CBLOL</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Calendario Meu Time Modal -->
+
+				<!-- inicio Calendario Minha Liga Modal -->
+				<div class="modal fade" id="leagueScheduleModal" tabindex="-1" role="dialog" 
+					aria-labelledby="leagueScheduleModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="leagueScheduleModalTitle">Calendário CBLOL</h5>
+								<div class="col-lg-4 col-6">
+									<select class="form-control" id="">
+										<option value="1" selected >Fase regular</option>
+										<option value="2" >Escalada</option>
+										<option value="3" >Final</option>
+										<option value="4" >Série de Promoção</option>
+										<option value="5" >Série de Acesso</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbLeagueSchedule" class="tbSchedule modal-body row px-0 py-0">
+								<div class="table-responsive col-12 ">
+									<table class="table table-borderless table-hover mb-0">
+										<tbody class="customScrollbar">
+											<!-- Semana 1 Dia 1 -->
+											<tr class="tb-day text-center">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S1 D1</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >12/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r text-info"      >1 x 0</td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_kbm.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >12/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_vk.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >VK</td>
+												<td class="tb-r"      >0 x 1</td>
+												<td class="tb-team2"  >UP</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_up.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >12/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_prg.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >PRG</td>
+												<td class="tb-r"      >0 x 1</td>
+												<td class="tb-team2"  >RDP</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_rdp.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >12/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_itz.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >ITZ</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >CNB</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_cnb.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+
+											<!-- Semana 1 Dia 2 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S1 D2</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >13/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_up.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >UP</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_kbm.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >13/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_vk.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >VK</td>
+												<td class="tb-r"      >0 x 1</td>
+												<td class="tb-team2"  >CNB</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_cnb.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >13/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_rdp.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >RDP</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >ITZ</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_itz.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >13/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_fla.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r text-info"    >1 x 0</td>
+												<td class="tb-team2"  >PRG</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_prg.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+
+											<!-- Semana 2 Dia 1 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S2 D1</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >19/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >RDP</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >CNB</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >19/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >ITZ</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >PRG</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >19/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >UP</td>
+												<td class="tb-r text-info"    >0 x 1</td>
+												<td class="tb-team2"  >FLA</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >19/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >VK</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+
+											<!-- Semana 2 Dia 2 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S2 D2</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >20/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >UP</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >PRG</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >20/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >RDP</td>
+												<td class="tb-r text-info"    >0 x 1</td>
+												<td class="tb-team2"  >FLA</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >20/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CNB</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >20/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >VK</td>
+												<td class="tb-r"      >1 x 0</td>
+												<td class="tb-team2"  >ITZ</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+
+											<!-- Semana 3 Dia 1 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S3 D1</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >VK</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >PRG</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >RDP</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r text-info"    > x </td>
+												<td class="tb-team2"  >ITZ</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CNB</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >UP</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+
+											<!-- Semana 3 Dia 2 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S3 D2</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >ITZ</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >KBM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CNB</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >PRG</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLA</td>
+												<td class="tb-r text-info"    > x </td>
+												<td class="tb-team2"  >VK</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >RDP</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >UP</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/cblol_.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Calendario Minha Liga Modal -->
+
+				<!-- inicio Calendario Outras Ligas Modal -->
+				<div class="modal fade" id="othersScheduleModal" tabindex="-1" role="dialog" 
+					aria-labelledby="othersScheduleModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title pr-3" id="othersScheduleModalTitle">Calendário LCS</h5>
+								<img src="images/leagues/lcs.png" min-width="35" width="35" max-width="35" >
+								<div class="col-lg-4 col-6">
+									<select class="form-control" id="">
+										<option value="0" >CBLOL</option>
+										<option value="1" selected >LCS</option>
+										<option value="2" >LEC</option>
+										<option value="3" >LCK</option>
+										<option value="4" >TCL</option>
+										<option value="5" >LJL</option>
+										<option value="6" >LLA</option>
+										<option value="7" >LMS</option>
+										<option value="8" >LPL</option>
+										<option value="9" >OPL</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbLeagueSchedule" class="tbSchedule modal-body row px-0 py-0">
+								<div class="table-responsive col-12 ">
+									<table class="table table-borderless table-hover mb-0">
+										<tbody class="customScrollbar">
+											<!-- Semana 1 Dia 1 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S1 D1</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_tl.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >TL</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >C9</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_c9.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_100.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >100</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >TSM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_tsm.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_clg.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CLG</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >OPT</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_opt.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_fly.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FLY</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >GGS</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_ggs.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >26/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_cg.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CG</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >FOX</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_fox.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+
+											<!-- Semana 1 Dia 2 -->
+											<tr class="tb-day text-center mt-3">
+												<td class="tb-date"   ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-team1"  ></td>
+												<td class="tb-r"      >S1 D2</td>
+												<td class="tb-team2"  ></td>
+												<td class="tb-icon"   ></td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_opt.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >OPT</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >FLY</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_fly.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_c9.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >C9</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >100</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_100.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_clg.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CLG</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >TL</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_tl.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_cg.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >CG</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >TSM</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_tsm.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >27/01</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_fox.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >FOX</td>
+												<td class="tb-r"      > x </td>
+												<td class="tb-team2"  >GGS</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/lcs_ggs.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Calendario Outras Ligas Modal -->
+
+				<!-- inicio Calendario Rift Rivals Modal -->
+				<!-- <div class="modal fade" id="rrModal" tabindex="-1" role="dialog" 
+					aria-labelledby="rrModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="rrModalTitle">Calendário Rift Rivals</h5>
+								<div class="col-lg-4 col-6">
+									<select class="form-control" id="">
+										<option value="1" selected >Fase de grupos</option>
+										<option value="2" >Quartas</option>
+										<option value="3" >Semi-finais</option>
+										<option value="4" >Final</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbRRSchedule"  class="tbSchedule modal-body row px-0 py-0">
+								<div class="table-responsive col-12 ">
+									<table class="table table-borderless table-hover mb-0">
+										<thead class="">
+											<tr>
+												<th class="tb-date"   >Data</th>
+												<th class="tb-icon"   > </th>
+												<th class="tb-team1"  > </th>
+												<th class="tb-r"      > </th>
+												<th class="tb-team2"  > </th>
+												<th class="tb-icon"   > </th>
+												<th class="tb-comp"   > </th>
+											</tr>
+										</thead>
+										<tbody class="customScrollbar">
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-default"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- final  Calendario Rift Rivals Modal -->
+
+				<!-- inicio Calendario MSI Modal -->
+				<div class="modal fade" id="msiModal" tabindex="-1" role="dialog" 
+					aria-labelledby="msiModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="msiModalTitle">Calendário Mid Season Invitational</h5>
+								<div class="col-lg-4 col-6">
+									<select class="form-control" id="">
+										<option value="1" selected >Fase de grupos</option>
+										<option value="2" >Quartas</option>
+										<option value="3" >Semi-finais</option>
+										<option value="4" >Final</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbMSISchedule" class="tbSchedule modal-body row px-0 py-0">
+								<div class="table-responsive col-12 ">
+									<table class="table table-borderless table-hover mb-0">
+										<thead class="">
+											<tr>
+												<th class="tb-date"   >Data</th>
+												<th class="tb-icon"   > </th>
+												<th class="tb-team1"  > </th>
+												<th class="tb-r"      > </th>
+												<th class="tb-team2"  > </th>
+												<th class="tb-icon"   > </th>
+												<th class="tb-comp"   > </th>
+											</tr>
+										</thead>
+										<tbody class="customScrollbar">
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-primary"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-secondary"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-success"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr class="text-center tb-tr-white">
+												<td colspan="7"></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-info"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-warning"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-danger"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Calendario MSI Modal -->
+
+				<!-- inicio Calendario WC Modal-->
+				<div class="modal fade" id="wcModal" tabindex="-1" role="dialog" 
+					aria-labelledby="wcModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="wcModalTitle">Calendário World Championship</h5>
+								<div class="col-lg-4 col-6">
+									<select class="form-control" id="">
+										<option value="1" selected >Fase de grupos</option>
+										<option value="2" >Quartas</option>
+										<option value="3" >Semi-finais</option>
+										<option value="4" >Final</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbWCSchedule" class="tbSchedule modal-body row px-0 py-0">
+								<div class="table-responsive col-12">
+									<table class="table table-borderless table-hover mb-0">
+										<thead class="">
+											<tr>
+												<th class="tb-date"   >Data</th>
+												<th class="tb-icon"   > </th>
+												<th class="tb-team1"  > </th>
+												<th class="tb-r"      > </th>
+												<th class="tb-team2"  > </th>
+												<th class="tb-icon"   > </th>
+												<th class="tb-comp"   > </th>
+											</tr>
+										</thead>
+										<tbody class="customScrollbar">
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-primary"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-primary"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr class="text-center tb-tr-white">
+												<td colspan="7"></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-success"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-success"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr class="text-center tb-tr-white">
+												<td colspan="7"></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-info"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-info"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr class="text-center tb-tr-white">
+												<td colspan="7"></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-danger"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+											<tr>
+												<td class="tb-date"   >??/??</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-team1"  >???</td>
+												<td class="tb-r text-danger"      > x </td>
+												<td class="tb-team2"  >???</td>
+												<td class="tb-icon" >
+													<img src="images/leagues/teams/mask.png" class="img-fluid" />
+												</td>
+												<td class="tb-comp"   ></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Calendario WC Modal -->
+
+				<!-- inicio Amistosos Modal -->
+					<!-- <div class="modal fade" id="friendlyModal" tabindex="-1" role="dialog" aria-labelledby="friendlyModalTitle" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="friendlyModalTitle">Marcar amistoso</h5>
+
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body row">
+									<div class="col-xl-12 col-lg-12 ">
+										<form>
+											<div class="form-group row">
+												<div class="col-xl-1 col-lg-1 "></div>
+												<label for="dataDisponivel" class="col-xl-4 xol-lg-4 col-form-label" >Escolha uma data disponível: </label>
+												<div class="col-xl-6 col-lg-6 ">
+													<select class="form-control" id="dataDisponivel">
+														<option value="0" >24/02/18</option>
+														<option value="1" >26/02/18</option>
+														<option value="2" >28/02/18</option>
+														<option value="3" >29/02/18</option>
+													</select>
+												</div>
+												<div class="col-xl-1 col-lg-1 "></div>
+											</div>
+											<div class="form-group row">
+												<div class="col-xl-1 col-lg-1 "></div>
+												<label for="regiaoTime" class="col-xl-4 col-lg-4 col-form-label" >Escolha uma Liga: </label>
+												<div class="col-xl-6 col-lg-6 ">
+													<select class="form-control" id="regiaoTime">
+														<option value="0" >Selecione uma Liga</option>
+														<option value="1" >EU LCS</option>
+														<option value="2" >EU NA</option>
+														<option value="3" >LCK</option>
+														<option value="4" >LMS</option>
+														<option value="5" >LPL</option>
+														<option value="6" selected >CBLOL</option>
+													</select>
+												</div>
+												<div class="col-xl-1 col-lg-1 "></div>
+											</div>
+											<div class="form-group row">
+												<div class="col-xl-1 col-lg-1 "></div>
+												<label for="time" class="col-xl-4 col-lg-4 col-form-label" >Escolha um time: </label>
+												<div class="col-xl-6 col-lg-6 ">
+													<select class="form-control" id="time">
+														<option value="0" >Selecione um time</option>
+														<option value="9" >5Fox</option>
+														<option value="10" >Big Gods</option>
+														<option value="1" >CNB e-Sports Club</option>
+														<option value="11" selected >Flamengo eSports</option>
+														<option value="12" >IDM Gaming</option>
+														<option value="13" >Iron Hawks</option>
+														<option value="3" >KaBuM! e-Sports</option>
+														<option value="14" >Operation Kino</option>
+														<option value="4" >paiN Gaming</option>
+														<option value="5" >ProGaming Esports</option>
+														<option value="6" >Red Canids Corinthians</option>
+														<option value="15" >Remo Brave e-Sports</option>
+														<option value="16" >T Show Esports Club</option>
+														<option value="7" >Team One e-Sports</option>
+														<option value="8" >Vivo Keyd</option>
+													</select>
+												</div>
+												<div class="col-xl-1 col-lg-1 "></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a href="home.html" class="btn btn-info">Propor amistoso</a>
+									<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				<!-- final  Amistosos Modal -->
+			<!-- FINAL  CALENDARIO MENU -->
+
+			<!-- INICIO FINANÇAS MENU -->
+				<!-- inicio Finanças do Time Modal -->
+				<div class="modal fade" id="teamFinancesModal" tabindex="-1" role="dialog" 
+					aria-labelledby="teamFinancesModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="teamFinancesModalTitle">Finanças do time - 2019</h5>
+
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbTeamFinances" class="tbSchedule modal-body row px-0 py-0">
+								<!-- tabela de receita -->
+								<div class="table-responsive col-12 ">
+									<table class="table table-borderless table-hover mb-0">
+										<tbody class="customScrollbar">
+											<tr class="text-success">
+												<th class="tb-title" >Receita</th>
+												<th class="tb-value" >Valor (R$)</th>
+											</tr>
+											<tr>
+												<td class="tb-title" >Venda de jogadores:</td>
+												<td class="tb-value" >113 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Prêmio:</td>
+												<td class="tb-value" >250 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Patrocinio</td>
+												<td class="tb-value" >120 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Sócio Torcedor:</td>
+												<td class="tb-value" >12 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Loja:</td>
+												<td class="tb-value" >60 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" ><strong>Total receita</strong>:</td>
+												<td class="tb-value" >455 mil</td>
+											</tr>
+											<tr class="text-warning mt-4">
+												<th class="tb-title" >Despesa</th>
+												<th class="tb-value" >Valor (R$)</th>
+											</tr>
+											<tr>
+												<td class="tb-title" >Compra de jogadores:</td>
+												<td class="tb-value" >7 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Juros empréstimo:</td>
+												<td class="tb-value" >0</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Multa rescisão:</td>
+												<td class="tb-value" >0</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Game House:</td>
+												<td class="tb-value" >60 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Salários:</td>
+												<td class="tb-value" >228 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Diversos:</td>
+												<td class="tb-value" >12 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" ><strong>Total despesas</strong>:</td>
+												<td class="tb-value" ><strong>307 mil</strong></td>
+											</tr>
+											<tr class="text-info mt-4">
+												<th class="tb-title" >Balanço mês</th>
+												<th class="tb-value" >Valor (R$)</th>
+											</tr>
+											<tr>
+												<td class="tb-title" >Receita:</td>
+												<td class="tb-value" >455 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" >Despesa:</td>
+												<td class="tb-value" >307 mil</td>
+											</tr>
+											<tr>
+												<td class="tb-title" ><strong>Saldo</strong>:</td>
+												<td class="tb-value" ><strong>148 mil</strong></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Finanças do Time Modal -->
+
+				<!-- inicio Patrocinadores Modal -->
+					<!-- <div class="modal fade" id="sponsorsModal" tabindex="-1" role="dialog" aria-labelledby="sponsorsModalTitle" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="sponsorsModalTitle">Patrocinio mensal</h5>
+
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body row">
+									<div class="col-xl-6 col-lg-6 ">
+										<div class="row" >
+											<div class="col-xl-12 col-lg-12 text-center">
+												<br>
+												<p>Frente</p>
+												<img src="images/shirt/cPatrocinioFrente1.png" alt="" >
+											</div>
+											<div class="col-xl-12 col-lg-12 ">
+												<br>
+												<table class="table table-responsive table-borderless table-hover">
+													<tbody id="customScrollbar">
+														<tr>
+															<td class="tb-letter" >A</td>
+															<td class="tb-position" >Manga direita</td>
+															<td class="tb-brand" >Lupo</td>
+															<td class="tb-value" >2 mil</td>
+														</tr>
+														<tr>
+															<td class="tb-letter" >B</td>
+															<td class="tb-position" >Manga esquerda</td>
+															<td class="tb-brand" >Lupo</td>
+															<td class="tb-value" >2 mil</td>
+														</tr>
+														<tr>
+															<td class="tb-letter" >C</td>
+															<td class="tb-position" >Peito direita</td>
+															<td class="tb-brand" >Adidas</td>
+															<td class="tb-value" >500 mil</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="col-xl-6 col-lg-6 ">
+										<div class="row" >
+											<div class="col-xl-12 col-lg-12 text-center">
+												<br>
+												<p>Costas</p>
+												<img src="images/shirt/cPatrocinioCosta1.png" alt="" >
+											</div>
+											<div class="col-xl-12 col-lg-12 ">
+												<br>
+												<table class="table table-responsive table-borderless table-hover ">
+													<tbody id="customScrollbar">
+														<tr>
+															<td class="tb-letter" >F</td>
+															<td class="tb-position" >Superior</td>
+															<td class="tb-brand" >Lupo</td>
+															<td class="tb-value" >2 mil</td>
+														</tr>
+														<tr>
+															<td class="tb-letter" >G</td>
+															<td class="tb-position" >Centro</td>
+															<td class="tb-brand" > -- </td>
+															<td class="tb-value" >0 mil</td>
+														</tr>
+														<tr>
+															<td class="tb-letter" >H</td>
+															<td class="tb-position" >Inferior</td>
+															<td class="tb-brand" > -- </td>
+															<td class="tb-value" >0 mil</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				<!-- final  Patrocinadores Modal -->
+				
+				<!-- inicio Emprestimo Modal -->
+				<div class="modal fade" id="loanModal" tabindex="-1" role="dialog" 
+					aria-labelledby="loanModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="loanModalTitle">Empréstimo</h5>
+
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body row">
+								<div class="col-lg-8 col-12 mx-auto">
+									<h4>Limite atual por empréstimo: R$ 150.000,00</h4>
+									<h4>Juros mensais por empréstimo: R$ 1.500,00</h4>
+									<h4><strong>Valor em caixa: R$ 148.000,00</strong></h4>
+									<br>
+								</div>
+								<div class="col-lg-8 col-12 mx-auto card text-center" style="color:#000;">
+									<div class="card-body">
+										<h4>Empréstimo acumulado: R$ 0,00</h4>
+										<h4>Juros acumulado: R$ 0,00</h4>
+										<br>
+										<button type="button" class="btn btn-warning">Pegar R$ 50 mil</button>
+										<button type="button" class="btn btn-light">Pagar R$ 50 mil</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Emprestimo Modal -->
+			<!-- FINAL  FINANÇAS MENU -->
+
+			<!-- INICIO CLASSIFICAÇAO MENU -->
+				<div class="modal fade" id="rankingModal" tabindex="-1" role="dialog" 
+					aria-labelledby="rankingModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="rankingModalTitle">Classificação CBLOL 1ª Etapa - 2019</h5>
+								<div class="col-xl-4 col-lg-4 ">
+									<select class="form-control" id="">
+										<option value="1" selected >CBLOL</option>
+										<option value="2" >Desafiante</option>
+									</select>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbRanking" class=" modal-body row px-0 py-0">
+								<div class="table-responsive col-12 ">
+									<table class="table table-borderless table-hover mb-0">
+										<thead class="">
+											<tr class="tr-thead">
+												<th class="tb-position" >#</th>
+												<th class="tb-color"    > </th>
+												<th class="tb-icon"     > </th>
+												<th class="tb-name"     > </th> 
+												<th class="tb-ps"       >p</th> 
+												<th class="tb-ps"       >V</th> 
+												<th class="tb-ps"       >D</th> 
+											</tr>
+										</thead>
+										<tbody class="">
+											<tr>
+												<td class="tb-position" >1</td>
+												<td class="tb-color color-final" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >Flamengo eSports</td>
+												<td class="tb-ps" >4</td>
+												<td class="tb-ps" >4</td>
+												<td class="tb-ps" >0</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >2</td>
+												<td class="tb-color color-climbing" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_up.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >Uppercut Esports</td>
+												<td class="tb-ps" >3</td>
+												<td class="tb-ps" >3</td>
+												<td class="tb-ps" >1</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >3</td>
+												<td class="tb-color color-climbing" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_rdp.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >Redemption eSports</td>
+												<td class="tb-ps" >3</td>
+												<td class="tb-ps" >3</td>
+												<td class="tb-ps" >1</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >4</td>
+												<td class="tb-color color-pre-climbing" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_cnb.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >CNB e-Sports Club</td>
+												<td class="tb-ps" >2</td>
+												<td class="tb-ps" >2</td>
+												<td class="tb-ps" >2</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >5</td>
+												<td class="tb-color color-pre-climbing" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_vk.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >Vivo Keyd</td>
+												<td class="tb-ps" >2</td>
+												<td class="tb-ps" >2</td>
+												<td class="tb-ps" >2</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >6</td>
+												<td class="tb-color color-promotion" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_itz.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >INTZ e-Sports Club</td>
+												<td class="tb-ps" >2</td>
+												<td class="tb-ps" >2</td>
+												<td class="tb-ps" >2</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >7</td>
+												<td class="tb-color color-promotion" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_kbm.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >KaBuM! e-Sports</td>
+												<td class="tb-ps" >0</td>
+												<td class="tb-ps" >4</td>
+												<td class="tb-ps" >4</td>
+											</tr>
+											<tr>
+												<td class="tb-position" >8</td>
+												<td class="tb-color color-demotion" ></td>
+												<td class="tb-icon" ><img src="images/leagues/teams/cblol_prg.png" class="img-fluid mx-auto d-block" /></td>
+												<td class="tb-name" >ProGaming Esports</td>
+												<td class="tb-ps" >0</td>
+												<td class="tb-ps" >4</td>
+												<td class="tb-ps" >4</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="col-lg-8 col-12 mx-auto text-left">
+									<p>
+										<font class="color-final"        >| Classificado direto para a final</font><br>
+										<font class="color-climbing"     >| Classificados para Série Escalada</font><br>
+										<font class="color-pre-climbing" >| Vencedor, joga Série Escalada; Perdedor, Série de Promoção</font><br>
+										<font class="color-promotion"    >| Participantes da Série de Promoção</font><br>
+										<font class="color-demotion"     >| Rebaixamento automático</font>
+									</p>
+								</div>
+								<div class="col-lg-4 col-12 mx-auto text-right">
+									<p>
+										P - Pontos<br>
+										V - Vitórias<br>
+										D - Derrotas
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- FINAL  CLASSIFICAÇAO MENU-->
+			
+			<!-- INICIO PROX CONFRONTO MENU -->
+				<div class="modal fade" id="nextGameModal" tabindex="-1" role="dialog" 
+					aria-labelledby="nextGameModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="nextGameModalTitle">Breve histórico</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body row">
+								<div class="col-lg-8 col-12 mx-auto">
+									<h6 class="text-center" >Confrontos</h6>
+									<p class="text-left" >Jogos disputados: 28</p>
+									<p class="text-left" >Vitórias: 18</p>
+									<p class="text-left" >Derrotas: 10</p>
+								</div>
+								<div class="col-lg-8 col-12 mx-auto text-center">
+									<a class="btn btn-link btn-sm text-info" href="zzNaoProj.html" >
+										<u>Ver histórico completo de confrontos</u>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- FINAL  PROX CONFRONTO MENU -->
+
+			<!-- INICIO ESTASTS JOGADOR -->
+				<!-- inicio Historico Jogador Carreira Modal -->
+				<div class="modal fade" id="playerHistoryModal" tabindex="-1" role="dialog" 
+					aria-labelledby="playerHistoryModalTitle" aria-hidden="true">
+					<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="playerHistoryModalTitle">Breve histórico</h5>
+
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div id="tbCarreira" class=" modal-body row px-0 py-0">
+								<div class="table-responsive col-lg-8 col-12 mx-auto ">
+									<table class="table table-borderless mb-0">
+										<thead class="" >
+											<tr>
+												<th class="tb-year" title="" >Ano</th>
+												<th class="tb-team" title="" >Time</th>
+												<th class="tb-game" title="" >Jogos</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="tb-year" >2019</td>
+												<td class="tb-team" >FLA</td>
+												<td class="tb-game" >4</td>
+											</tr>
+											<tr>
+												<td class="tb-year" >2018</td>
+												<td class="tb-team" >FLA</td>
+												<td class="tb-game" >35</td>
+											</tr>
+											<tr>
+												<td class="tb-year" >2017</td>
+												<td class="tb-team" >RED</td>
+												<td class="tb-game" >15</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-lg-8 col-12 mx-auto pb-2 text-center">
+									<a class="btn btn-link btn-sm text-info" href="zzNaoProj.html" >
+										<u>Ver histórico completo</u>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- final  Historico Jogador Carreira Modal -->
+			<!-- FINAL  ESTASTS JOGADOR -->
+		</section>
+		<!-- FINAL MODALS SECTION -->
+
+
+		<!-- FOOTER SECTION -->
+		<section id="section-footer" class="mt-5 pt-5"> 
+			<div class="container-fluid">
+				<div class="row">
+					<div id="copyright" class="col-lg-7 col-12 mx-auto" >
+						<div class="px-2 py-2" >
+							<h5 class="text-center mb-1">TheCoach</h5>
+							<p class="text-left mb-1">
+								<small><strong>TheCoach</strong> é um site de fãs, não tendo nenhuma participação em qualquer etapa de produção ou comercialização de nenhum dos campeonatos oficiais de <strong>League of Legends</strong>. Tem como objetivo proporcionar uma plataforma diferenciada de entretenimento para o público fã de League of Legends (<strong>LoL</strong>), com seus times e jogadores preferidos. Respeitando os respectivos direitos autorais, de propriedade da empresa <strong>Riot Games</strong>.</small>
+							</p>
+							<p class="text-center mt-3 mb-0">&copy; 2019 TheCoach | <small><a class="btn-link" href="#">Mateus Costa</a></small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FOOTER SECTION -->
+
+
+		<!-- Scripts -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	</body>
+</html>

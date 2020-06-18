@@ -14,7 +14,8 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        //
+        return Division::where('league_id', $league_id)
+                        ->with('league')->get();
     }
 
     /**
@@ -35,7 +36,19 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'name.required' => 'O campo \'Nome da Divisão\' é obrigatório.',
+            'initials.required' => 'O campo \'Sigla da Divisão\' é obrigatório e não pode ser vazio.',
+        ];
+
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'initials' => 'required|string',
+        ], $message);
+
+        $validatedData['league_id'] = $league_id;
+
+        return Division::create($validatedData);
     }
 
     /**
@@ -46,7 +59,11 @@ class DivisionController extends Controller
      */
     public function show(Division $division)
     {
-        //
+        return Division::where('league_id', $league->id)
+                        ->where('id', $division->id)
+                        ->with('league:name')
+                        ->with('teams')
+                        ->get();
     }
 
     /**
@@ -69,7 +86,20 @@ class DivisionController extends Controller
      */
     public function update(Request $request, Division $division)
     {
-        //
+        $message = [
+            'name.required' => 'O campo \'Nome da Divisão\' é obrigatório.',
+            'initials.required' => 'O campo \'Sigla da Divisão\' é obrigatório e não pode ser vazio.',
+        ];
+
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'initials' => 'required|string',
+        ], $message);
+
+        $division->fill($validatedData);
+        $division->save();
+
+        return $division;
     }
 
     /**
@@ -78,8 +108,12 @@ class DivisionController extends Controller
      * @param  \App\Models\Division  $division
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Division $division)
+    public function destroy($league_id, Division $division)
     {
-        //
+        dd($league_id, $division);
+
+        $division->delete();
+
+        return $division;
     }
 }

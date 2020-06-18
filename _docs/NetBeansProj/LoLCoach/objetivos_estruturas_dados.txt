@@ -1,0 +1,9 @@
+ATAQUE
+Torre_Externa 3500 152 40 
+Torre_Interna 3300 170 40
+Torre_Inibidor 3300 170 40
+Torre_Nexus 3300 150 40 
+
+DEFESA
+Inibidor 4000 
+Nexus 5500 

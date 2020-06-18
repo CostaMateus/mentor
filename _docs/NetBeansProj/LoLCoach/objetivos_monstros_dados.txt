@@ -1,0 +1,7 @@
+Dragao_Nuvem 3500 50 21 +240(vida/min) +8(armor/min) 
+Dragao_Oceano 3500 100 21 +240(vida/min) +8(armor/min) 
+Dragao_Montanha 3500 100 21 +264(vida/min) +8(armor/min) 
+Dragao_Infernal 3500 150 41 +240(vida/min) +8(armor/min) 
+Dragao_Anciao 6400 150 120 +180(vida/min) +8(armor/min) 
+Barao 6400 240 120 +180(vida/min) +8(dano/min) 
+Arauto 10000 100 60 +800(vida/min) +10(dano/min) 

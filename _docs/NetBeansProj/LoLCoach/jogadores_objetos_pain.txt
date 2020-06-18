@@ -1,0 +1,7 @@
+﻿Matheus Borges Mylon 20 100 1500 150000 TOPO 
+Rodrigo Panisa Tay 20 100 1500 150000 CAÇADOR 
+Gabriel Bohm Kami 20 100 1500 150000 MEIO 
+Pedro Gama Matsukaze 20 100 1500 150000 ATIRADOR 
+Caio Almeida Loop 20 100 1500 150000 SUPORTE 
+Rafael Knittel Rakin 20 100 1500 150000 MEIO 
+Matheus Tavares Picoca 20 100 1500 150000 SUPORTE  

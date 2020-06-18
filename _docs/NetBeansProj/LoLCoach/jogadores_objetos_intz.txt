@@ -1,0 +1,7 @@
+﻿Marcelo Mello ayel 20 100 1500 150000 TOPO 
+Gabriel Peixoto Turtle 20 100 1500 150000 CAÇADOR 
+Bruno Ventura envy 20 100 1500 150000 MEIO 
+Micael Rodrigues MicaO 20 100 1500 150000 ATIRADOR 
+Luan Cardoso Jockster 20 100 1500 150000 SUPORTE 
+Daniel Marcon Daniels 20 100 1500 150000 TOPO 
+Diogo Rogê Shini 20 100 1500 150000 CAÇADOR 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\League;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LeagueController extends Controller
 {
@@ -14,8 +16,9 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        //
-        return view('adm.home');
+        $data = League::orderBy('name')->get();
+
+        return view('adm.leagues', compact('data'));
     }
 
     /**
@@ -36,7 +39,22 @@ class LeagueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'name.required' => 'O campo \'Nome da Liga\' é obrigatório.',
+            'initials.required' => 'O campo \'Sigla\' é obrigatório e não pode ser vazio.',
+            'initials.unique' => 'Essa sigla já está sendo usada.',
+            'nrdivisions.required' => 'O campo \'Divisões\' é obrigatório.',
+            'image.required' => 'O campo \'Logo\' é obrigatório e não pode ser vazio.',
+        ];
+
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'initials' => 'required|string|unique:leagues',
+            'nrdivisions' => 'required|numeric',
+            'image' => 'required|string'
+        ], $message);
+
+        return League::create($validatedData);
     }
 
     /**
@@ -47,7 +65,7 @@ class LeagueController extends Controller
      */
     public function show(League $league)
     {
-        //
+        return $league->load('divisions');
     }
 
     /**
@@ -70,7 +88,25 @@ class LeagueController extends Controller
      */
     public function update(Request $request, League $league)
     {
-        //
+        $message = [
+            'name.required' => 'O campo \'Nome da Liga\' é obrigatório.',
+            'initials.required' => 'O campo \'Sigla\' é obrigatório e não pode ser vazio.',
+            'initials.unique' => 'Essa sigla já está sendo usada.',
+            'nrdivisions.required' => 'O campo \'Divisões\' é obrigatório.',
+            'image.required' => 'O campo \'Logo\' é obrigatório e não pode ser vazio.',
+        ];
+
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'initials' => 'required|string|'.Rule::unique('leagues')->ignore($league->id),
+            'nrdivisions' => 'required|numeric',
+            'image' => 'required|string'
+        ], $message);
+
+        $league->fill($validatedData);
+        $league->save();
+
+        return $league;
     }
 
     /**
@@ -81,6 +117,21 @@ class LeagueController extends Controller
      */
     public function destroy(League $league)
     {
-        //
+        $league->load('divisions');
+        $league->divisions()->delete();
+        $league->delete();
+
+        return $league;
+    }
+
+    /**
+     *
+     *
+     * @param League $league
+     * @return void
+     */
+    public function listTeams(League $league)
+    {
+        return Team::where('league_id', $league->id)->get();
     }
 }

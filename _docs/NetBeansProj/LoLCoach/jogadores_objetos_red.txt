@@ -1,0 +1,7 @@
+﻿Leonardo Souza Robo 20 100 1500 150000 TOPO 
+Carlos Henrique Nappon 20 100 1500 150000 CAÇADOR 
+Gabriel Claumann Tockers 20 100 1500 150000 MEIO 
+Felipe Gonçalves brTT 20 100 1500 150000 ATIRADOR 
+Hugo Padioleau Dioud 20 100 1500 150000 SUPORTE 
+Gustavo Rossi Sacyr 20 100 1500 150000 ATIRADOR 
+Rúben Barbosa rhuckz 20 100 1500 150000 SUPORTE 
