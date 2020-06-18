@@ -24,6 +24,7 @@ class CreateTeamTrophyTable extends Migration
                     ->unsigned()->index()
                     ->foreign()->references("id")
                     ->on("trophies");
+
             $table->date('won');
         });
     }

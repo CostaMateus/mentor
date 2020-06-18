@@ -19,11 +19,12 @@ class CreatePlayersTable extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('nick');
-            $table->string('nationality')->default('Brazilian');
-            $table->integer('age')->default(20);
-            $table->date('birthday')->default('1999-01-01')->nullable();
+            $table->string('nationality')->default('Brasileiro');
+            $table->integer('age');
+            $table->date('birthday');
             $table->boolean('employed')->default(false);
-            $table->boolean('coach')->default(false);
+            $table->boolean('mentor')->default(false);
+
             $table->bigInteger('user_id')
                   ->unsigned()->index()
                   ->foreign()->references("id")

@@ -33,3 +33,29 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/trophies', 'TrophyController');
 
 });
+
+/**
+ * ROTAS DE CONSULTA
+ */
+// // Rota das taças
+// Route::apiResource('trophy', 'TrophyController');
+
+// // Rota dos usuarios
+// Route::apiResource('user', 'UserController');
+
+// // Rota dos players e rota dos seus atributos
+// Route::apiResource('player', 'PlayerController');
+
+// // Rota das ligas, das suas divisoes e seus respectivos times
+// Route::prefix('league')->group(function () {
+
+//     Route::get('{league}/teams', 'LeagueController@listTeams')->name('teams.list');
+
+//     Route::apiResource('/', 'LeagueController')->parameters(['' => 'league']);
+
+//     Route::prefix('{league}/division')->group(function () {
+//         Route::apiResource('/', 'DivisionController')->parameters(['' => 'division']);
+//     //     // Route::apiResource('{division}', 'DivisionController')->parameters(['division' => 'division']);
+//     //     // Route::apiResource('{division}/team', 'TeamController')->parameters(['team' => 'team']);
+//     });
+// });

@@ -16,14 +16,10 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->bigInteger('league_id')
-                  ->unsigned()->index()
-                  ->foreign()->references("id")
-                  ->on("leagues");
             $table->bigInteger('division_id')
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("divisions")->nullable()->default(null);
+                  ->on("divisions");
             $table->string('name');
             $table->string('initials');
             $table->string('image')->default('default.png');

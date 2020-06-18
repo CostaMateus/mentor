@@ -20,6 +20,7 @@ class CreateDivisionsTable extends Migration
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("leagues");
+
             $table->string('name');
             $table->string('initials');
             

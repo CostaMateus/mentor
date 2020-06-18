@@ -23,8 +23,8 @@ class CreateAttributesTable extends Migration
             $table->enum('role', array('Top', 'Jng', 'Mid', 'Adc', 'Sup'));
             $table->integer('force');
             $table->integer('energy')->default(100);
-            $table->double('salary', 9, 2);
-            $table->double('pass', 9, 2);
+            $table->double('salary', 11, 2);
+            $table->double('pass', 11, 2);
 
             $table->timestamps();
         });
