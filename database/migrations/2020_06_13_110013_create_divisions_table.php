@@ -15,15 +15,15 @@ class CreateDivisionsTable extends Migration
     {
         Schema::create('divisions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->bigInteger('league_id')
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("leagues");
 
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('initials');
-            
+
             $table->timestamps();
         });
     }

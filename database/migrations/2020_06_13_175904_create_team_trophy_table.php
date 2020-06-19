@@ -20,6 +20,7 @@ class CreateTeamTrophyTable extends Migration
                     ->unsigned()->index()
                     ->foreign()->references("id")
                     ->on("teams");
+
             $table->bigInteger('trophy_id')
                     ->unsigned()->index()
                     ->foreign()->references("id")

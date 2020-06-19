@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         // $this->call(CodesTableSeeder::class);
         
-        // $this->call(PlayersSeeder::class);
-        // $this->call(AttributesSeeder::class);
+        $this->call(PlayersSeeder::class);
+        $this->call(AttributesSeeder::class);
 
         $this->call(LeaguesSeeder::class);
-        // $this->call(DivisionsSeeder::class);
-        // $this->call(TeamsSeeder::class);
+        $this->call(DivisionsSeeder::class);
+        $this->call(TeamsSeeder::class);
 
         // $this->call(TrophysSeeder::class);
     }

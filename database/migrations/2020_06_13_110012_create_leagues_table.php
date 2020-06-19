@@ -16,8 +16,8 @@ class CreateLeaguesTable extends Migration
         Schema::create('leagues', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->string('name');
-            $table->string('initials');
+            $table->string('name')->unique();
+            $table->string('initials')->unique();
             $table->integer('nrdivisions')->default(1);
             $table->string('image')->default('deafult.png');
 

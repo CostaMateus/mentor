@@ -15,7 +15,7 @@ class CreateTrophiesTable extends Migration
     {
         Schema::create('trophies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->string('name');
             $table->string('image')->default('deafult.png');
 

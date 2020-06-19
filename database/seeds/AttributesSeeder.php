@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Factory;
+use App\Models\Player;
 use App\Models\Attribute;
 use Illuminate\Database\Seeder;
 
@@ -13,31 +14,22 @@ class AttributesSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Factory::create('pt-br');
+
         Attribute::truncate();
         
-        $faker = Factory::create('pt-br');
+        $players = Player::get();
 
         $timestamp = date('Y-m-d');
 
-        $data[] = [
-            'player_id'  => 1,
-            'role'       => 'Sup',
-            'force'      => $faker->numberBetween(1, 100),
-            'energy'     => 100,
-            'salary'     => $faker->randomFloat(2, 1000, 10000),
-            'pass'       => $faker->randomFloat(2, 2000, 20000),
-            'created_at' => $timestamp,
-            'updated_at' => $timestamp
-        ];
-
-		foreach(range(2,11) as $a) {
+        foreach($players as $p) {
             $salary = $faker->randomFloat(2, 1000, 10000);
             $pass   = $salary * 2;
 
             $data[] = [
-                'player_id'  => $a,
-                'role'       => $faker->randomElement(['Top','Jng','Mid','Adc','Sup']),
-                'force'      => $faker->numberBetween(1, 100),
+                'player_id'  => $p->id,
+                'role'       => $faker->randomElement(['TOP','JNG','MID','ADC','SUP']),
+                'force'      => $faker->numberBetween(30, 70),
                 'energy'     => 100,
                 'salary'     => $salary,
                 'pass'       => $pass,

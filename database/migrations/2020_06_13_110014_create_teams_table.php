@@ -15,13 +15,14 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->bigInteger('division_id')
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("divisions");
-            $table->string('name');
-            $table->string('initials');
+
+            $table->string('name')->unique();
+            $table->string('initials')->unique();
             $table->string('image')->default('default.png');
             
             $table->timestamps();

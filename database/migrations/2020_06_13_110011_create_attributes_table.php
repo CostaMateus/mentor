@@ -20,6 +20,7 @@ class CreateAttributesTable extends Migration
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("players");
+
             $table->enum('role', array('Top', 'Jng', 'Mid', 'Adc', 'Sup'));
             $table->integer('force');
             $table->integer('energy')->default(100);

@@ -18,26 +18,10 @@ class LeaguesSeeder extends Seeder
 
         $data = [
             [
-                'name'        => 'Campeonato Brasileiro de League of Legends',
-                'initials'    => 'CBLoL',
+                'name'        => 'Campeonato Brasileiro de LoL',
+                'initials'    => 'CBLOL',
                 'nrdivisions' => '2',
                 'image'       => 'cblol.png',
-                'created_at'  => $timestamp,
-                'updated_at'  => $timestamp
-            ],
-            [
-                'name'        => 'League of Legends European Championship',
-                'initials'    => 'LEC',
-                'nrdivisions' => '2',
-                'image'       => 'lec.png',
-                'created_at'  => $timestamp,
-                'updated_at'  => $timestamp
-            ],
-            [
-                'name'        => 'League of Legends Championship Series North America',
-                'initials'    => 'LCS NA',
-                'nrdivisions' => '2',
-                'image'       => 'nalcs.png',
                 'created_at'  => $timestamp,
                 'updated_at'  => $timestamp
             ],
@@ -50,6 +34,46 @@ class LeaguesSeeder extends Seeder
                 'updated_at'  => $timestamp
             ],
             [
+                'name'        => 'LoL Continental League',
+                'initials'    => 'LCL',
+                'nrdivisions' => '2',
+                'image'       => 'lcl.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'LoL Championship Series',
+                'initials'    => 'LCS',
+                'nrdivisions' => '2',
+                'image'       => 'lcs.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'LoL European Championship',
+                'initials'    => 'LEC',
+                'nrdivisions' => '2',
+                'image'       => 'lec.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'LoL Japan League',
+                'initials'    => 'LJL',
+                'nrdivisions' => '2',
+                'image'       => 'ljl.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'Liga Latinoamérica',
+                'initials'    => 'LLA',
+                'nrdivisions' => '2',
+                'image'       => 'lla.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
                 'name'        => 'LoL Pro League',
                 'initials'    => 'LPL',
                 'nrdivisions' => '2',
@@ -58,10 +82,34 @@ class LeaguesSeeder extends Seeder
                 'updated_at'  => $timestamp
             ],
             [
-                'name'        => 'LoL Master Series',
-                'initials'    => 'LMS',
+                'name'        => 'Oceanic Pro League',
+                'initials'    => 'OPL',
                 'nrdivisions' => '2',
-                'image'       => 'lms.png',
+                'image'       => 'opl.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'Pacific Championship Series',
+                'initials'    => 'PCS',
+                'nrdivisions' => '2',
+                'image'       => 'pcs.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'Turkish Championship League',
+                'initials'    => 'TCL',
+                'nrdivisions' => '2',
+                'image'       => 'tcl.png',
+                'created_at'  => $timestamp,
+                'updated_at'  => $timestamp
+            ],
+            [
+                'name'        => 'Vietnam Championship Series',
+                'initials'    => 'VCS',
+                'nrdivisions' => '2',
+                'image'       => 'vcs.png',
                 'created_at'  => $timestamp,
                 'updated_at'  => $timestamp
             ],

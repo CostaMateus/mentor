@@ -1,6 +1,8 @@
 <?php
 
+use Faker\Factory;
 use App\Models\Team;
+use App\Models\League;
 use Illuminate\Database\Seeder;
 
 class TeamsSeeder extends Seeder
@@ -13,7 +15,38 @@ class TeamsSeeder extends Seeder
     public function run()
     {
         Team::truncate();
+
+        $leagues = League::with('divisions')->get();
+
+        $faker = Factory::create('pt-br');
+        
         $timestamp = date('Y-m-d');
+
+        $data = [];
+
+        foreach ($leagues as $lg) {
+            foreach ($lg->divisions as $dv) {
+                foreach (range(1,5) as $x) {
+                    $name = ucwords($faker->sentence(3, false)) . " e-Sports";
+
+                    $initials = explode(" ", $name);
+                    $initials = $initials[0][0] . $initials[1][0] . $initials[2][0];
+                    $initials = strtolower($initials);
+                    
+                    $data[] = [
+                        "division_id" => $dv->id,
+                        "name" => $name,
+                        "initials" => strtoupper($initials),
+                        "image" => strtolower($lg->initials) . "_" . $initials . ".png",
+                        'created_at' => $timestamp,
+                        'updated_at' => $timestamp
+                    ];
+                }
+            }
+            break;
+        }
+
+        Team::insert($data);
 
         // $data = [
         //     // CBLOL
