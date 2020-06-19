@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);
 
 Route::get('/redirect', 'LoginController@redirect')->name('google.redirect');
 Route::get('/callback', 'LoginController@callback')->name('google.callback');
@@ -27,35 +27,20 @@ Route::middleware(['auth'])->group(function () {
         return view('adm.home');
     })->name('admin.home');
 
-    Route::resource('/leagues',  'LeagueController');
-    Route::resource('/teams',    'TeamController');
     Route::resource('/players',  'PlayerController');
     Route::resource('/trophies', 'TrophyController');
+    
+    Route::prefix('leagues')->group(function () {
+        Route::resource('/', 'LeagueController')->parameters(['' => 'league']);
+        
+        Route::prefix('{league}/divisions')->group(function () {
+            Route::resource('/', 'DivisionController')->parameters(['' => 'division']);
+            Route::resource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
 
+            // Route::prefix('{division}/teams')->group(function () {
+            //     Route::resource('/', 'TeamController')->parameters(['' => 'team']);
+            //     Route::resource('{team}/players', 'PlayerController')->parameters(['' => 'player']);
+            // });
+        });
+    });
 });
-
-/**
- * ROTAS DE CONSULTA
- */
-// // Rota das taças
-// Route::apiResource('trophy', 'TrophyController');
-
-// // Rota dos usuarios
-// Route::apiResource('user', 'UserController');
-
-// // Rota dos players e rota dos seus atributos
-// Route::apiResource('player', 'PlayerController');
-
-// // Rota das ligas, das suas divisoes e seus respectivos times
-// Route::prefix('league')->group(function () {
-
-//     Route::get('{league}/teams', 'LeagueController@listTeams')->name('teams.list');
-
-//     Route::apiResource('/', 'LeagueController')->parameters(['' => 'league']);
-
-//     Route::prefix('{league}/division')->group(function () {
-//         Route::apiResource('/', 'DivisionController')->parameters(['' => 'division']);
-//     //     // Route::apiResource('{division}', 'DivisionController')->parameters(['division' => 'division']);
-//     //     // Route::apiResource('{division}/team', 'TeamController')->parameters(['team' => 'team']);
-//     });
-// });

@@ -10,11 +10,12 @@ class TeamController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $division_id)
     {
-        return view('adm.home');
+        return Team::where('division_id', $division_id)->get();
     }
 
     /**
@@ -44,11 +45,12 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show($league_id, $division_id, Team $team)
     {
-        dd($team->load('trophies'));
-
-        return view('team.show', ['team' => $team]);
+        return $team;
+        // return Team::where('division_id', $division_id)
+        //            ->where('id', $team->id)
+        //            -.get();
     }
 
     /**

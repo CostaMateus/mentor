@@ -10,12 +10,12 @@ class DivisionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $league_id)
     {
-        return Division::where('league_id', $league_id)
-                        ->with('league')->get();
+        return Division::where('league_id', $league_id)->get();
     }
 
     /**
@@ -46,7 +46,7 @@ class DivisionController extends Controller
             'initials' => 'required|string',
         ], $message);
 
-        $validatedData['league_id'] = $league_id;
+        // $validatedData['league_id'] = $league_id;
 
         return Division::create($validatedData);
     }
@@ -57,13 +57,14 @@ class DivisionController extends Controller
      * @param  \App\Models\Division  $division
      * @return \Illuminate\Http\Response
      */
-    public function show(Division $division)
+    public function show($league_id, Division $division)
     {
-        return Division::where('league_id', $league->id)
-                        ->where('id', $division->id)
-                        ->with('league:name')
-                        ->with('teams')
-                        ->get();
+        return $division;
+        // return Division::where('league_id', $league_id)
+        //                 ->where('id', $division->id)
+        //                 // ->with('league:name')
+        //                 // ->with('teams')
+        //                 ->get();
     }
 
     /**

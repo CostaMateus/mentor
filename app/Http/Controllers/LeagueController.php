@@ -65,7 +65,8 @@ class LeagueController extends Controller
      */
     public function show(League $league)
     {
-        return $league->load('divisions');
+        // return $league->load('divisions');
+        return $league;
     }
 
     /**

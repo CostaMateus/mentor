@@ -49,9 +49,12 @@
                             </td>
                             
                             <td class="text-center" >
-                                <button class="btn btn-link" >
+                                <a href="/leagues/{{ $league->id }}" class="btn btn-link" >
                                     <i class="fas fa-edit"></i>
-                                </button>
+                                </a>
+                                {{-- <button class="btn btn-link" >
+                                    <i class="fas fa-edit"></i>
+                                </button> --}}
                             </td>
                             <td class="text-center" >
                                 <button class="btn btn-link text-danger" >
