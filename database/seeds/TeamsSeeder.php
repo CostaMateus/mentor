@@ -3,6 +3,7 @@
 use Faker\Factory;
 use App\Models\Team;
 use App\Models\League;
+use App\Models\Division;
 use Illuminate\Database\Seeder;
 
 class TeamsSeeder extends Seeder
@@ -16,353 +17,329 @@ class TeamsSeeder extends Seeder
     {
         Team::truncate();
 
-        $leagues = League::with('divisions')->get();
-
-        $faker = Factory::create('pt-br');
-        
         $timestamp = date('Y-m-d');
 
         $data = [];
 
-        foreach ($leagues as $lg) {
-            foreach ($lg->divisions as $dv) {
-                foreach (range(1,5) as $x) {
-                    $name = ucwords($faker->sentence(3, false)) . " e-Sports";
+        // $leagues = League::with('divisions')->get();
 
-                    $initials = explode(" ", $name);
-                    $initials = $initials[0][0] . $initials[1][0] . $initials[2][0];
-                    $initials = strtolower($initials);
+        // $faker = Factory::create('pt-br');
+
+        // foreach ($leagues as $lg) {
+        //     foreach ($lg->divisions as $dv) {
+        //         foreach (range(1,5) as $x) {
+        //             $name = ucwords($faker->sentence(3, false)) . " e-Sports";
+
+        //             $initials = explode(" ", $name);
+        //             $initials = $initials[0][0] . $initials[1][0] . $initials[2][0];
+        //             $initials = strtolower($initials);
                     
-                    $data[] = [
-                        "division_id" => $dv->id,
-                        "name" => $name,
-                        "initials" => strtoupper($initials),
-                        "image" => strtolower($lg->initials) . "_" . $initials . ".png",
-                        'created_at' => $timestamp,
-                        'updated_at' => $timestamp
-                    ];
-                }
-            }
-            break;
-        }
+        //             $data[] = [
+        //                 "division_id" => $dv->id,
+        //                 "name" => $name,
+        //                 "initials" => strtoupper($initials),
+        //                 "image" => strtolower($lg->initials) . "_" . $initials . ".png",
+        //                 'created_at' => $timestamp,
+        //                 'updated_at' => $timestamp
+        //             ];
+        //         }
+        //     }
+        //     break;
+        // }
+        // Team::insert($data);
+
+        $data = [
+            // CBLOL
+            // 1ª Divisão
+            [
+                "division_id" => 1,
+                "name" => "CNB E-sports Club",
+                "initials" => "CNB",
+                "image" => "cblol_cnb.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Flamengo E-sports",
+                "initials" => "FLA",
+                "image" => "cblol_fla.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Furia",
+                "initials" => "FUR",
+                "image" => "cblol_fur.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "INTZ E-sports Club",
+                "initials" => "ITZ",
+                "image" => "cblol_itz.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Kabum E-sports",
+                "initials" => "KBM",
+                "image" => "cblol_kbm.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Pain Gaming",
+                "initials" => "PAIN",
+                "image" => "cblol_pain.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Prodigy E-sports",
+                "initials" => "PRG",
+                "image" => "cblol_prg.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Red Canids",
+                "initials" => "RED",
+                "image" => "cblol_red.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Santos HotForex",
+                "initials" => "SAN",
+                "image" => "cblol_san.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 1,
+                "name" => "Vivo Keyd",
+                "initials" => "VK",
+                "image" => "cblol_vk.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            // CBLOL
+            // 2ª Divisão
+            /**
+             *[
+             *    "division_id" => 2,
+             *    "name" => "RPG",
+             *    "initials" => "RPG",
+             *    "image" => "cblol_rpg.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Team One e-Sports",
+             *    "initials" => "ONE",
+             *    "image" => "cblol_one.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "WP Gaming",
+             *    "initials" => "WP",
+             *    "image" => "cblol_wp.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Submarino Stars",
+             *    "initials" => "SUB",
+             *    "image" => "cblol_sub.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Operation Kino",
+             *    "initials" => "OPK",
+             *    "image" => "cblol_opk.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Redemption eSports POA",
+             *    "initials" => "RDT",
+             *    "image" => "cblol_rdt,png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "T Show",
+             *    "initials" => "TS",
+             *    "image" => "cblol_ts.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Iron Hawks e-Sports",
+             *    "initials" => "IRON",
+             *    "image" => "cblol_iron.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Falkol",
+             *    "initials" => "FKL",
+             *    "image" => "cblol_fkl.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Brave e-Sports",
+             *    "initials" => "BRA",
+             *    "image" => "cblol_bra.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => 2,
+             *    "name" => "Stay Gaming",
+             *    "initials" => "STG",
+             *    "image" => "cblol_stg.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "5Fox E-Sports Club",
+             *    "initials" => "FOX",
+             *    "image" => "cblol_fox.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "CNB Trinity White",
+             *    "initials" => "CNB",
+             *    "image" => "cblol_cnb2.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "IDM Gaming",
+             *    "initials" => "IDM",
+             *    "image" => "cblol_idm.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Sons of Tzu Gaming",
+             *    "initials" => "SOT",
+             *    "image" => "cblol_sot.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "e-Champ Gaming",
+             *    "initials" => "CG",
+             *    "image" => "cblol_cg.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Team Genesis",
+             *    "initials" => "GEN",
+             *    "image" => "cblol_gen.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Overload",
+             *    "initials" => "OVER",
+             *    "image" => "cblol_over.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Big Gods",
+             *    "initials" => "BIG",
+             *    "image" => "cblol_big.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Dexterity Team",
+             *    "initials" => "DEX",
+             *    "image" => "cblol_dex.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "JAYOB e-Sports",
+             *    "initials" => "JAY",
+             *    "image" => "cblol_jay.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "IMP e-Sports",
+             *    "initials" => "IMP",
+             *    "image" => "cblol_imp.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Team awp",
+             *    "initials" => "AWP",
+             *    "image" => "cblol_awp.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "Team United",
+             *    "initials" => "UNI",
+             *    "image" => "cblol_uni.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             *[
+             *    "division_id" => null,
+             *    "name" => "g3nerationX",
+             *    "initials" => "G3X",
+             *    "image" => "cblol_g3x.png",
+             *    'created_at' => $timestamp,
+             *    'updated_at' => $timestamp
+             *],
+             */
+        ]; 
 
         Team::insert($data);
 
         // $data = [
-        //     // CBLOL
-        //     // 1ª Divisão
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "ProGaming Esports",
-        //         "initials" => "PRG",
-        //         "image" => "cblol_prg.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "Red Canids",
-        //         "initials" => "RED",
-        //         "image" => "cblol_red.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "INTZ e-Sports Club",
-        //         "initials" => "INTZ",
-        //         "image" => "cblol_itz.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "Vivo Keyd",
-        //         "initials" => "VK",
-        //         "image" => "cblol_vk.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "CNB e-Sports Club",
-        //         "initials" => "CNB",
-        //         "image" => "cblol_cnb.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "RPG",
-        //         "initials" => "RPG",
-        //         "image" => "cblol_rpg.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "Flamengo eSports",
-        //         "initials" => "FLA",
-        //         "image" => "cblol_fla.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "KaBuM! e-Sports",
-        //         "initials" => "KBM",
-        //         "image" => "cblol_kbm.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "paiN Gaming",
-        //         "initials" => "PAIN",
-        //         "image" => "cblol_pain.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 1,
-        //         "name" => "Team One e-Sports",
-        //         "initials" => "ONE",
-        //         "image" => "cblol_one.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-
-        //     // 2ª Divisão
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "WP Gaming",
-        //         "initials" => "WP",
-        //         "image" => "cblol_wp.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Submarino Stars",
-        //         "initials" => "SUB",
-        //         "image" => "cblol_sub.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Operation Kino",
-        //         "initials" => "OPK",
-        //         "image" => "cblol_opk.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Redemption eSports POA",
-        //         "initials" => "RDT",
-        //         "image" => "cblol_rdt,png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "T Show",
-        //         "initials" => "TS",
-        //         "image" => "cblol_ts.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Iron Hawks e-Sports",
-        //         "initials" => "IRON",
-        //         "image" => "cblol_iron.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Falkol",
-        //         "initials" => "FKL",
-        //         "image" => "cblol_fkl.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Santos e-Sports",
-        //         "initials" => "SAN",
-        //         "image" => "cblol_san.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Brave e-Sports",
-        //         "initials" => "BRA",
-        //         "image" => "cblol_bra.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => 2,
-        //         "name" => "Stay Gaming",
-        //         "initials" => "STG",
-        //         "image" => "cblol_stg.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-
-        //     // Sem Divisão - Pertence ao CBLOL
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "5Fox E-Sports Club",
-        //         "initials" => "FOX",
-        //         "image" => "cblol_fox.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "CNB Trinity White",
-        //         "initials" => "CNB",
-        //         "image" => "cblol_cnb2.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "IDM Gaming",
-        //         "initials" => "IDM",
-        //         "image" => "cblol_idm.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Sons of Tzu Gaming",
-        //         "initials" => "SOT",
-        //         "image" => "cblol_sot.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "e-Champ Gaming",
-        //         "initials" => "CG",
-        //         "image" => "cblol_cg.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Team Genesis",
-        //         "initials" => "GEN",
-        //         "image" => "cblol_gen.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Overload",
-        //         "initials" => "OVER",
-        //         "image" => "cblol_over.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Big Gods",
-        //         "initials" => "BIG",
-        //         "image" => "cblol_big.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Dexterity Team",
-        //         "initials" => "DEX",
-        //         "image" => "cblol_dex.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "JAYOB e-Sports",
-        //         "initials" => "JAY",
-        //         "image" => "cblol_jay.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "IMP e-Sports",
-        //         "initials" => "IMP",
-        //         "image" => "cblol_imp.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Team awp",
-        //         "initials" => "AWP",
-        //         "image" => "cblol_awp.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "Team United",
-        //         "initials" => "UNI",
-        //         "image" => "cblol_uni.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-        //     [
-        //         'league_id' => 1,
-        //         "division_id" => null,
-        //         "name" => "g3nerationX",
-        //         "initials" => "G3X",
-        //         "image" => "cblol_g3x.png",
-        //         'created_at' => $timestamp,
-        //         'updated_at' => $timestamp
-        //     ],
-
-
         //     // LEC
         //     // 1ª Divisão
         //     [
