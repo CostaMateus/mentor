@@ -15,7 +15,7 @@ class DivisionController extends Controller
      */
     public function index(Request $request, $league_id)
     {
-        return Division::where('league_id', $league_id)->get();
+        return Division::where('league_id', $league_id)->with('teams')->get();
     }
 
     /**

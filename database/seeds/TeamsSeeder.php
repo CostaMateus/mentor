@@ -53,7 +53,7 @@ class TeamsSeeder extends Seeder
             // 1ª Divisão
             [
                 "division_id" => 1,
-                "name" => "CNB E-sports Club",
+                "name" => "CNB e-Sports Club",
                 "initials" => "CNB",
                 "image" => "cblol_cnb.png",
                 'created_at' => $timestamp,
@@ -61,7 +61,7 @@ class TeamsSeeder extends Seeder
             ],
             [
                 "division_id" => 1,
-                "name" => "Flamengo E-sports",
+                "name" => "Flamengo e-Sports",
                 "initials" => "FLA",
                 "image" => "cblol_fla.png",
                 'created_at' => $timestamp,
@@ -77,7 +77,7 @@ class TeamsSeeder extends Seeder
             ],
             [
                 "division_id" => 1,
-                "name" => "INTZ E-sports Club",
+                "name" => "INTZ e-Sports Club",
                 "initials" => "ITZ",
                 "image" => "cblol_itz.png",
                 'created_at' => $timestamp,
@@ -85,7 +85,7 @@ class TeamsSeeder extends Seeder
             ],
             [
                 "division_id" => 1,
-                "name" => "Kabum E-sports",
+                "name" => "Kabum e-Sports",
                 "initials" => "KBM",
                 "image" => "cblol_kbm.png",
                 'created_at' => $timestamp,
@@ -94,14 +94,14 @@ class TeamsSeeder extends Seeder
             [
                 "division_id" => 1,
                 "name" => "Pain Gaming",
-                "initials" => "PAIN",
-                "image" => "cblol_pain.png",
+                "initials" => "PNG",
+                "image" => "cblol_png.png",
                 'created_at' => $timestamp,
                 'updated_at' => $timestamp
             ],
             [
                 "division_id" => 1,
-                "name" => "Prodigy E-sports",
+                "name" => "Prodigy e-Sports",
                 "initials" => "PRG",
                 "image" => "cblol_prg.png",
                 'created_at' => $timestamp,
@@ -133,20 +133,60 @@ class TeamsSeeder extends Seeder
             ],
             // CBLOL
             // 2ª Divisão
+            [
+                "division_id" => 2,
+                "name" => "Falkol",
+                "initials" => "FKL",
+                "image" => "cblol_fkl.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 2,
+                "name" => "Havan Liberty Gaming",
+                "initials" => "HL",
+                "image" => "cblol_hl.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 2,
+                "name" => "Operation Kino",
+                "initials" => "OPK",
+                "image" => "cblol_opk.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 2,
+                "name" => "Redemption e-Sports",
+                "initials" => "RDP",
+                "image" => "cblol_rdp.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 2,
+                "name" => "Team One e-Sports",
+                "initials" => "ONE",
+                "image" => "cblol_one.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                "division_id" => 2,
+                "name" => "Uppercut e-Sports",
+                "initials" => "UP",
+                "image" => "cblol_up.png",
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
             /**
              *[
              *    "division_id" => 2,
              *    "name" => "RPG",
              *    "initials" => "RPG",
              *    "image" => "cblol_rpg.png",
-             *    'created_at' => $timestamp,
-             *    'updated_at' => $timestamp
-             *],
-             *[
-             *    "division_id" => 2,
-             *    "name" => "Team One e-Sports",
-             *    "initials" => "ONE",
-             *    "image" => "cblol_one.png",
              *    'created_at' => $timestamp,
              *    'updated_at' => $timestamp
              *],
@@ -168,22 +208,6 @@ class TeamsSeeder extends Seeder
              *],
              *[
              *    "division_id" => 2,
-             *    "name" => "Operation Kino",
-             *    "initials" => "OPK",
-             *    "image" => "cblol_opk.png",
-             *    'created_at' => $timestamp,
-             *    'updated_at' => $timestamp
-             *],
-             *[
-             *    "division_id" => 2,
-             *    "name" => "Redemption eSports POA",
-             *    "initials" => "RDT",
-             *    "image" => "cblol_rdt,png",
-             *    'created_at' => $timestamp,
-             *    'updated_at' => $timestamp
-             *],
-             *[
-             *    "division_id" => 2,
              *    "name" => "T Show",
              *    "initials" => "TS",
              *    "image" => "cblol_ts.png",
@@ -195,14 +219,6 @@ class TeamsSeeder extends Seeder
              *    "name" => "Iron Hawks e-Sports",
              *    "initials" => "IRON",
              *    "image" => "cblol_iron.png",
-             *    'created_at' => $timestamp,
-             *    'updated_at' => $timestamp
-             *],
-             *[
-             *    "division_id" => 2,
-             *    "name" => "Falkol",
-             *    "initials" => "FKL",
-             *    "image" => "cblol_fkl.png",
              *    'created_at' => $timestamp,
              *    'updated_at' => $timestamp
              *],
@@ -224,7 +240,7 @@ class TeamsSeeder extends Seeder
              *],
              *[
              *    "division_id" => null,
-             *    "name" => "5Fox E-Sports Club",
+             *    "name" => "5Fox e-Sports Club",
              *    "initials" => "FOX",
              *    "image" => "cblol_fox.png",
              *    'created_at' => $timestamp,
@@ -235,14 +251,6 @@ class TeamsSeeder extends Seeder
              *    "name" => "CNB Trinity White",
              *    "initials" => "CNB",
              *    "image" => "cblol_cnb2.png",
-             *    'created_at' => $timestamp,
-             *    'updated_at' => $timestamp
-             *],
-             *[
-             *    "division_id" => null,
-             *    "name" => "IDM Gaming",
-             *    "initials" => "IDM",
-             *    "image" => "cblol_idm.png",
              *    'created_at' => $timestamp,
              *    'updated_at' => $timestamp
              *],
@@ -363,7 +371,7 @@ class TeamsSeeder extends Seeder
         //     [
         //         'league_id' => 2,
         //         "division_id" => 3,
-        //         "name" => "G2 Esports",
+        //         "name" => "G2 e-sports",
         //         "initials" => "G2",
         //         "image" => "default.png",
         //         'created_at' => $timestamp,
@@ -399,7 +407,7 @@ class TeamsSeeder extends Seeder
         //     [
         //         'league_id' => 2,
         //         "division_id" => 3,
-        //         "name" => "exceL Esports",
+        //         "name" => "exceL e-Sports",
         //         "initials" => "EXL",
         //         "image" => "default.png",
         //         'created_at' => $timestamp,
@@ -518,7 +526,7 @@ class TeamsSeeder extends Seeder
         //     [
         //         'league_id' => 2,
         //         "division_id" => 4,
-        //         "name" => "PENTA Sports",
+        //         "name" => "PENTA e-Sports",
         //         "initials" => "PENT",
         //         "image" => "default.png",
         //         'created_at' => $timestamp,
@@ -529,7 +537,7 @@ class TeamsSeeder extends Seeder
         //     [
         //         'league_id' => 2,
         //         "division_id" => null,
-        //         "name" => "Austrian Force eSports",
+        //         "name" => "Austrian Force e-Sports",
         //         "initials" => "ATF",
         //         "image" => "default.png",
         //         'created_at' => $timestamp,
@@ -565,7 +573,7 @@ class TeamsSeeder extends Seeder
         //     [
         //         'league_id' => 2,
         //         "division_id" => null,
-        //         "name" => "T3H Esports",
+        //         "name" => "T3H e-Sports",
         //         "initials" => "T3H",
         //         "image" => "default.png",
         //         'created_at' => $timestamp,

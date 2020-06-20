@@ -38,12 +38,21 @@ class DivisionsSeeder extends Seeder
         //     ];
         // }
         
-        $data[] = [
-            'league_id'  => 1,
-            'name'       => 'CBLOL 1ª Divisão',
-            'initials'   => '1ª D',
-            'created_at' => $timestamp,
-            'updated_at' => $timestamp
+        $data = [
+            [
+                'league_id'  => 1,
+                'name'       => 'CBLOL 1ª Divisão',
+                'initials'   => '1ª D',
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
+            [
+                'league_id'  => 1,
+                'name'       => 'CBLOL 2ª Divisão',
+                'initials'   => '2ª D',
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ],
         ];
 
         Division::insert($data);
