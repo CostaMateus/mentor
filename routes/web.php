@@ -31,7 +31,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/trophies', 'TrophyController');
     
     Route::prefix('leagues')->group(function () {
-        Route::resource('/', 'LeagueController')->parameters(['' => 'league']);
+        Route::apiresource('/', 'LeagueController')->parameters(['' => 'league']);
+        Route::post('{league}/update', 'LeagueController@update');
         
         Route::prefix('{league}/divisions')->group(function () {
             Route::resource('/', 'DivisionController')->parameters(['' => 'division']);

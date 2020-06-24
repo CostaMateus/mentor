@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\League;
+use App\Models\Division;
 use Illuminate\Database\Seeder;
 
 class LeaguesSeeder extends Seeder
@@ -12,6 +13,7 @@ class LeaguesSeeder extends Seeder
      */
     public function run()
     {
+        Division::truncate();
         League::truncate();
         
         $timestamp = date('Y-m-d');
@@ -116,5 +118,25 @@ class LeaguesSeeder extends Seeder
         ];
 
         League::insert($data);
+
+        $data_divisions = [];
+        foreach ($data as $key => $value) {
+            $data_divisions[] = [
+                'league_id'  => $key + 1,
+                'name'       => $value['initials'] . ' 1ª Divisão',
+                'initials'   => '1ª D',
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ];
+            $data_divisions[] = [
+                'league_id'  => $key + 1,
+                'name'       => $value['initials'] . ' 2ª Divisão',
+                'initials'   => '2ª D',
+                'created_at' => $timestamp,
+                'updated_at' => $timestamp
+            ];
+        }
+        
+        Division::insert($data_divisions);
     }
 }

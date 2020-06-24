@@ -8,6 +8,8 @@
             vertical-align: middle!important;
         }
         .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; }
+        .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
+        #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
     </style>
 @endsection
 
@@ -19,7 +21,7 @@
     <div class="row">
         <div class="col-12 pb-3">
             <button type="button" class="btn btn-secondary btn-sm new-league" >
-                <i class="fas fa-plus "></i> Novo liga
+                <i class="fas fa-plus "></i> Nova liga
             </button>
         </div>
         
@@ -45,7 +47,9 @@
                             <td class=""            >{{ $league->initials }}</td>
                             <td class="text-center" >{{ $league->nrdivisions }}</td>
                             <td class="text-center" >
-                                <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
+                                <button type="button" class="btn icon-league" data-img="{{ $league->image }}">
+                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
+                                </button>
                             </td>
                             
                             <td class="text-center" >
@@ -54,9 +58,9 @@
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <a href="/leagues/{{ $league->id }}/divisions" class="btn btn-link text-primary" >
+                                <button class="btn btn-link text-primary edit-league" data-id="{{ $league->id }}" >
                                     <i class="fas fa-edit"></i>
-                                </a>
+                                </button>
                             </td>
                             <td class="text-center" >
                                 <button class="btn btn-link text-danger del-league" data-id="{{ $league->id }}" >
@@ -437,22 +441,22 @@
     </div>
 
     {{-- NEW --}}
-    <div id="new-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="league-title" aria-hidden="true" >
+    <div id="new-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-league-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="league-title"> Nova liga</h5>
+                    <h5 class="modal-title" id="new-league-title">Nova liga</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-league-form" action="#" method="POST" enctype="multipart/form-data" >
+                    <form id="new-league-form" action="{{ url("/leagues") }}" method="POST" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="name" class="text-muted">Nome da liga*</label>
+                                    <label for="name" class="text-muted">Nome da liga *</label>
                                     <input type="text" id="name" class="form-control form-control-sm" name="name" >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
@@ -468,14 +472,70 @@
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="nrdivisions" class="text-muted">Nº de divisões</label>
-                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" step="1">
+                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" max="4" step="1">
                                     <span id="span_nrdivisions" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="image">Imagem</label>
+                                    <label for="image" class="text-muted">Imagem</label>
+                                    <input id="image" type="file" class="form-control-file" name="image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 pl-2 ml-auto">
+                                <button type="submit" class="btn btn-success btn-sm btn-block" >Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- EDIT --}}
+    <div id="edit-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-league-title" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-league-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-league-form" action="" method="" enctype="multipart/form-data" >
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name" class="text-muted">Nome da liga *</label>
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name" >
+                                    <span id="span_name" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
+                                <div class="form-group">
+                                    <label for="initials" class="text-muted">Sigla *</label>
+                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
+                                    <span id="span_initials" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="nrdivisions" class="text-muted">Nº de divisões</label>
+                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" max="4" step="1">
+                                    <span id="span_nrdivisions" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="image" class="text-muted">Imagem</label>
                                     <input id="image" type="file" class="form-control-file" name="image">
                                 </div>
                             </div>
@@ -514,6 +574,17 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- ICON --}}
+    <div id="icon-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="icon-league-title" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="mx-auto">
+                <div class="modal-body text-center">
+                    <img class="bg-img-team-max" src="" width="400px" height="400px">
                 </div>
             </div>
         </div>
@@ -581,7 +652,32 @@
 
         // NEW
         $(document).on('click', '.new-league', function() {
+            $('#new-league').find('#name').val('');
+            $('#new-league').find('#initials').val('');
+            $('#new-league').find('#nrdivisions').val('').removeAttr('disabled');
             $('#new-league').modal('show');
+        });
+
+        // EDIT
+        $(document).on('click', '.edit-league', function() {
+            $.ajax({
+                type: 'GET',
+                url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
+                success: function (data) {
+                    $('#edit-league').find('#edit-league-title').html('Editar liga');
+                    $('#edit-league').find('#name').html(data.name).val(data.name);
+                    $('#edit-league').find('#initials').html(data.initials).val(data.initials);
+                    $('#edit-league').find('#nrdivisions').html(data.nrdivisions).val(data.nrdivisions).attr('disabled', 'disabled');
+                    $('#edit-league').find('#image').html(data.image).val();
+                    $('#edit-league').modal('show');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + $(this).data('id') + '/update');
+            $('#edit-league-form').attr('method', 'POST');
         });
         
         // DEL
@@ -604,6 +700,10 @@
             });
         });
 
-
+        // ICON
+        $(document).on('click', '.icon-league', function() {
+            $('#icon-league').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
+            $('#icon-league').modal('show');
+        });
     </script>
 @endsection

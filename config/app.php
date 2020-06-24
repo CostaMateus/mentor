@@ -180,6 +180,11 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        /**
+         * IDE Helper Service Providers...
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
     ],
 
     /*

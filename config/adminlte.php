@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'title'         => 'Adm Mentor',
+    'title'         => 'Admin Mentor',
     'title_prefix'  => '',
     'title_postfix' => '',
 
