@@ -18,29 +18,30 @@ Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
 
 Route::middleware(['auth'])->group(function () {
-    
+
     Route::get('/', 'HomeController@index')->name('welcome');
 
     Route::get('/home', 'HomeController@index')->name('home');
-    
+
     Route::get('/admin', function () {
         return view('adm.home');
     })->name('admin.home');
 
-    Route::resource('/players',  'PlayerController');
-    Route::resource('/trophies', 'TrophyController');
-    
+    Route::apiresource('/players',  'PlayerController');
+    Route::apiresource('/trophies', 'TrophyController');
+    Route::apiresource('/teams',    'TeamController');
+
     Route::prefix('leagues')->group(function () {
         Route::apiresource('/', 'LeagueController')->parameters(['' => 'league']);
         Route::post('{league}/update', 'LeagueController@update');
-        
+
         Route::prefix('{league}/divisions')->group(function () {
-            Route::resource('/', 'DivisionController')->parameters(['' => 'division']);
-            Route::resource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
+            Route::apiresource('/', 'DivisionController')->parameters(['' => 'division']);
+            Route::apiresource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
 
             // Route::prefix('{division}/teams')->group(function () {
-            //     Route::resource('/', 'TeamController')->parameters(['' => 'team']);
-            //     Route::resource('{team}/players', 'PlayerController')->parameters(['' => 'player']);
+            //     Route::apiresource('/', 'TeamController')->parameters(['' => 'team']);
+            //     Route::apiresource('{team}/players', 'PlayerController')->parameters(['' => 'player']);
             // });
         });
     });

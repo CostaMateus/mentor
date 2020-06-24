@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\League;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -13,9 +14,14 @@ class TeamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $division_id)
+    // public function index(Request $request, $division_id)
+    public function index(Request $request)
     {
-        return Team::where('division_id', $division_id)->get();
+        // return Team::where('division_id', $division_id)->get();
+        
+        $data = League::orderBy('name')->get();
+
+        return view('adm.teams', compact('data'));
     }
 
     /**
