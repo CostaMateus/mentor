@@ -17,9 +17,21 @@ class TeamController extends Controller
     // public function index(Request $request, $division_id)
     public function index(Request $request)
     {
-        // return Team::where('division_id', $division_id)->get();
-        
-        $data = League::orderBy('name')->get();
+        $data = Team::join('divisions as dv', 'teams.division_id', '=', 'dv.id')
+                    ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
+                    ->select(
+                        'teams.name',
+                        'teams.initials',
+                        'teams.image',
+                        // 'dv.id as division_id',
+                        'dv.initials as division_initials',
+                        // 'lg.id as league_id',
+                        'lg.initials as league_initials',
+                        'lg.image as league_image')
+                    // ->orderBy('teams.name')
+                    // ->orderBy('dv.id')
+                    // ->orderBy('lg.id')
+                    ->get();
 
         return view('adm.teams', compact('data'));
     }
@@ -42,7 +54,40 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'name.required'     => 'Este campo é obrigatório.',
+            'name.unique'       => 'Esse nome já está em uso!',
+            'initials.required' => 'Este campo é obrigatório.',
+            'initials.unique'   => 'Essa sigla já está em uso.',
+        ];
+
+        $validatedData = $request->validate([
+            'league_id'   => 'required|string',
+            'division_id' => 'required|numeric',
+            'name'        => 'required|string|unique:teams',
+            'initials'    => 'required|string|unique:teams',
+            'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
+        ], $message);
+
+        $validatedData['initials']  = strtoupper($validatedData['initials']); 
+
+        $league_initials = strtolower(explode('.', $validatedData['league_id'])[1]);
+        unset($validatedData['league_id']);
+
+        if (isset($request->image)) 
+        {
+            $imageName = $league_initials . '_' . strtolower($validatedData['initials']) . '.' . $request->image->extension();
+            $request->image->move(public_path('images/game/leagues/teams'), $imageName); 
+            $validatedData['image'] = $imageName;
+        }
+        else 
+        {
+            $validatedData['image'] = "default.png";
+        }
+
+        Team::create($validatedData);
+
+        return redirect('teams');
     }
 
     /**
@@ -51,12 +96,9 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show($league_id, $division_id, Team $team)
+    public function show(Team $team)
     {
         return $team;
-        // return Team::where('division_id', $division_id)
-        //            ->where('id', $team->id)
-        //            -.get();
     }
 
     /**

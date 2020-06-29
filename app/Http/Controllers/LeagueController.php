@@ -16,6 +16,16 @@ class LeagueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function listAll()
+    {
+        return League::orderBy('name')->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $data = League::orderBy('name')->get();

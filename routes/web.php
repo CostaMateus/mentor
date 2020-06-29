@@ -17,7 +17,7 @@ Route::get('/redirect', 'LoginController@redirect')->name('google.redirect');
 Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('welcome');
 
@@ -31,11 +31,19 @@ Route::middleware(['auth'])->group(function () {
     Route::apiresource('/trophies', 'TrophyController');
     Route::apiresource('/teams',    'TeamController');
 
+    // Route::get('leagues/listall', 'LeagueController@listAll')->name('leagues.list');
+
     Route::prefix('leagues')->group(function () {
+
+        Route::get('listall', 'LeagueController@listAll')->name('leagues.list');
+
         Route::apiresource('/', 'LeagueController')->parameters(['' => 'league']);
         Route::post('{league}/update', 'LeagueController@update');
 
         Route::prefix('{league}/divisions')->group(function () {
+
+            Route::get('listall', 'DivisionController@listAll')->name('divisions.list');
+
             Route::apiresource('/', 'DivisionController')->parameters(['' => 'division']);
             Route::apiresource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
 
@@ -45,4 +53,4 @@ Route::middleware(['auth'])->group(function () {
             // });
         });
     });
-});
+// });

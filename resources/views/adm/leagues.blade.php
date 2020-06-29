@@ -7,7 +7,7 @@
         table tr td {
             vertical-align: middle!important;
         }
-        .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; }
+        .bg-img-team { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
         .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
         #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
     </style>
@@ -48,7 +48,11 @@
                             <td class="text-center" >{{ $league->nrdivisions }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-img="{{ $league->image }}">
-                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
+                                    @if (file_exists(public_path('images/game/leagues/' . $league->image)))
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
+                                    @else
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/default.png') }}" alt="{{ $league->initials }}" width="50px" height="50px">
+                                    @endif
                                 </button>
                             </td>
                             
@@ -268,18 +272,26 @@
                             '        </div>'
                         ;
 
-                        division.teams.forEach(team => {
+                        if (division.teams.length) {
+                            division.teams.forEach(team => {
+                                html += 
+                                    '<div class="col-6 my-1 d-flex">' + 
+                                    '    <div class="my-auto">' + 
+                                    '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' + 
+                                    '    </div>' + 
+                                    '    <div class="flex-fill align-self-center">' + 
+                                    '        <p class="mb-0 " >' + team.name + '</p>' + 
+                                    '    </div>' + 
+                                    '</div>'   
+                                ;
+                            });
+                        } else {
                             html += 
-                                '<div class="col-6 my-1 d-flex">' + 
-                                '    <div class="my-auto">' + 
-                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' + 
-                                '    </div>' + 
-                                '    <div class="flex-fill align-self-center">' + 
-                                '        <p class="mb-0 " >' + team.name + '</p>' + 
-                                '    </div>' + 
-                                '</div>'   
-                            ;
-                        });
+                                    '<div class="col-6 my-1 d-flex">' + 
+                                    '    <p class="mb-0">Nenhum time encontrado.<p>' + 
+                                    '</div>'   
+                                ;
+                        }
 
                         html += 
                             '    </div>' + 
@@ -353,7 +365,11 @@
 
         // ICON
         $(document).on('click', '.icon-league', function() {
-            $('#icon-league').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
+            @if (file_exists(public_path('images/game/leagues/' . $league->image)))
+                $('#icon-league').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
+            @else
+                $('#icon-league').find('img').attr('src', 'images/game/leagues/default.png');
+            @endif
             $('#icon-league').modal('show');
         });
     </script>

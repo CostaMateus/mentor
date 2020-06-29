@@ -7,63 +7,78 @@
         table tr td {
             vertical-align: middle!important;
         }
-        .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; }
+        .bg-img-team { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
         .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
+        #icon-team .modal-body, 
         #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
     </style>
 @endsection
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Ligas</h1>
+    <h1 class="m-0 text-dark">Times</h1>
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-12 pb-3">
-            <button type="button" class="btn btn-secondary btn-sm new-league" >
-                <i class="fas fa-plus "></i> Nova liga
+            <button type="button" class="btn btn-secondary btn-sm new-team" >
+                <i class="fas fa-plus "></i> Novo time
             </button>
         </div>
         
         <div class="col-12 table-responsive">
-            <table id="leagues-table" class="table table-striped table-sm" >
+            <table id="teams-table" class="table table-striped table-sm" >
                 <thead>
                     <tr class="bg-light">
                         <th class="text-center" >#</th>
+                        <th class="text-center" >Logo</th>
                         <th class=""            >Nome</th>
                         <th class=""            >Sigla</th>
-                        <th class="text-center" >Nº divisões</th>
-                        <th class="text-center" >Logo</th>
+                        <th class="text-center" >Divisão</th>
+                        <th class="text-center" >Liga</th>
                         <th class="text-center" >Ver</th>
                         <th class="text-center" >Editar</th>
                         <th class="text-center" >Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $league)
+                    @foreach ($data as $team)
                         <tr>
                             <td class="text-center" >{{ $loop->iteration }}</td>
-                            <td class=""            >{{ $league->name }}</td>
-                            <td class=""            >{{ $league->initials }}</td>
-                            <td class="text-center" >{{ $league->nrdivisions }}</td>
                             <td class="text-center" >
-                                <button type="button" class="btn icon-league" data-img="{{ $league->image }}">
-                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
+                                <button type="button" class="btn icon-team" data-img="{{ $team->image }}">
+                                    @if (file_exists(public_path('images/game/leagues/teams/' . $team->image)))
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/' . $team->image) }}" alt="{{ $team->initials }}" width="50px" height="50px">                                    
+                                    @else
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/default.png') }}" alt="{{ $team->initials }}" width="50px" height="50px">
+                                    @endif
+                                </button>
+                            </td>
+                            <td class=""            >{{ $team->name }}</td>
+                            <td class=""            >{{ $team->initials }}</td>
+                            <td class="text-center" >{{ $team->division_initials }}</td>
+                            <td class="text-center" >
+                                <button type="button" class="btn icon-league" data-img="{{ $team->league_image }}">
+                                    @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $team->league_image) }}" alt="{{ $team->league_initials }}" width="50px" height="50px">
+                                    @else
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/default.png') }}" alt="{{ $team->league_initials }}" width="50px" height="50px">                                        
+                                    @endif
                                 </button>
                             </td>
                             
                             <td class="text-center" >
-                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}" data-name="{{ $league->name }}">
+                                <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}" data-name="{{ $team->name }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-primary edit-league" data-id="{{ $league->id }}" >
+                                <button class="btn btn-link text-primary edit-team" data-id="{{ $team->id }}" >
                                     <i class="fas fa-edit"></i>
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-danger del-league" data-id="{{ $league->id }}" >
+                                <button class="btn btn-link text-danger del-team" data-id="{{ $team->id }}" >
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -75,39 +90,53 @@
     </div>
 
     {{-- SEE --}}
-    <div id="see-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="see-league-title" aria-hidden="true" >
+    <div id="see-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="see-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="modal-title h4" id="see-league-title"></p>
+                    <p class="modal-title h4" id="see-team-title"></p>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="league-divisions" class="row "></div>
+                    <div id="team-divisions" class="row "></div>
                 </div>
             </div>
         </div>
     </div>
 
     {{-- NEW --}}
-    <div id="new-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-league-title" aria-hidden="true" >
+    <div id="new-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="new-league-title">Nova liga</h5>
+                    <h5 class="modal-title" id="new-team-title">Nova liga</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-league-form" action="{{ url("/leagues") }}" method="POST" enctype="multipart/form-data" >
+                    <form id="new-team-form" action="{{ url("/teams") }}" method="POST" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="name" class="text-muted">Nome da liga *</label>
+                                    <label for="league_id" class="text-muted">Liga *</label>
+                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%"></select>
+                                    <span id="span_league_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="division_id" class="text-muted">Divisão *</label>
+                                    <select id="division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled ></select>
+                                    <span id="span_division_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name" class="text-muted">Nome do time *</label>
                                     <input type="text" id="name" class="form-control form-control-sm" name="name" >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
@@ -121,14 +150,6 @@
                             </div>
 
                             <div class="col-12 col-md-6 pl-md-2">
-                                <div class="form-group">
-                                    <label for="nrdivisions" class="text-muted">Nº de divisões</label>
-                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" max="4" step="1">
-                                    <span id="span_nrdivisions" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="image" class="text-muted">Imagem</label>
                                     <input id="image" type="file" class="form-control-file" name="image">
@@ -148,17 +169,17 @@
     </div>
 
     {{-- EDIT --}}
-    <div id="edit-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-league-title" aria-hidden="true" >
+    {{-- <div id="edit-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edit-league-title"></h5>
+                    <h5 class="modal-title" id="edit-team-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-league-form" action="" method="" enctype="multipart/form-data" >
+                    <form id="edit-team-form" action="" method="" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -201,20 +222,20 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- DELETE --}}
-    <div id="del-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="del-league-title" aria-hidden="true" >
+    <div id="del-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="del-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header text-danger">
-                    <h5 class="modal-title" id="del-league-title">Apagar liga</h5>
+                    <h5 class="modal-title" id="del-team-title">Apagar liga</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="del-league-form" action="#" method="POST" enctype="multipart/form-data" >
+                    <form id="del-team-form" action="#" method="POST" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12 text-center">
@@ -231,7 +252,7 @@
     </div>
 
     {{-- ICON --}}
-    <div id="icon-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="icon-league-title" aria-hidden="true" >
+    <div id="icon-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="icon-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="mx-auto">
                 <div class="modal-body text-center">
@@ -247,7 +268,8 @@
 @section('js')
     <script>
         // SEE
-        $(document).on('click', '.see-league', function() {
+        {{--
+        $(document).on('click', '.see-team', function() {
             var id = $(this).data('id');
             var name = $(this).data('name');
             
@@ -300,61 +322,131 @@
                 }
             });
         });
+        --}}
 
         // NEW
-        $(document).on('click', '.new-league', function() {
-            $('#new-league').find('#name').val('');
-            $('#new-league').find('#initials').val('');
-            $('#new-league').find('#nrdivisions').val('').removeAttr('disabled');
-            $('#new-league').modal('show');
+        $(document).on('click', '.new-team', function() {
+            getLeagues('#league_id');
+            $('#new-team').find('#name').val('');
+            $('#new-team').find('#initials').val('');
+            $('#new-team').find('#nrdivisions').val('').removeAttr('disabled');
+            $('#new-team').modal('show');
         });
 
         // EDIT
-        $(document).on('click', '.edit-league', function() {
+        $(document).on('click', '.edit-team', function() {
             $.ajax({
                 type: 'GET',
-                url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
+                url: '{{ url("/teams") }}' + '/' + $(this).data('id'),
                 success: function (data) {
-                    $('#edit-league').find('#edit-league-title').html('Editar liga');
-                    $('#edit-league').find('#name').html(data.name).val(data.name);
-                    $('#edit-league').find('#initials').html(data.initials).val(data.initials);
-                    $('#edit-league').find('#nrdivisions').html(data.nrdivisions).val(data.nrdivisions).attr('disabled', 'disabled');
-                    $('#edit-league').find('#image').html(data.image).val();
-                    $('#edit-league').modal('show');
+                    $('#edit-team').find('#edit-team-title').html('Editar time');
+                    $('#edit-team').find('#name').html(data.name).val(data.name);
+                    $('#edit-team').find('#initials').html(data.initials).val(data.initials);
+                    $('#edit-team').find('#nrdivisions').html(data.nrdivisions).val(data.nrdivisions).attr('disabled', 'disabled');
+                    $('#edit-team').find('#image').html(data.image).val();
+                    $('#edit-team').modal('show');
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
 
-            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + $(this).data('id') + '/update');
-            $('#edit-league-form').attr('method', 'POST');
+            $('#edit-team-form').attr('action', '{{ url("/leagues") }}' + '/' + $(this).data('id') + '/update');
+            $('#edit-team-form').attr('method', 'POST');
         });
         
         // DEL
-        $(document).on('click', '.del-league', function() {
-            $('#del-league-form').attr('data-id', $(this).data('id'));
-            $('#del-league').modal('show');
-        });
-        $('#del-league-form').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'DELETE',
-                url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
-                data: $('#del-league-form').serialize(),
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (error) {
-                    console.log(error.statusText);
-                }
-            });
-        });
+        // $(document).on('click', '.del-league', function() {
+        //     $('#del-league-form').attr('data-id', $(this).data('id'));
+        //     $('#del-league').modal('show');
+        // });
+        // $('#del-league-form').on('submit', function(e) {
+        //     e.preventDefault();
+        //     $.ajax({
+        //         type: 'DELETE',
+        //         url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
+        //         data: $('#del-league-form').serialize(),
+        //         success: function (data) {
+        //             location.reload();
+        //         },
+        //         error: function (error) {
+        //             console.log(error.statusText);
+        //         }
+        //     });
+        // });
 
         // ICON
         $(document).on('click', '.icon-league', function() {
-            $('#icon-league').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
-            $('#icon-league').modal('show');
+            @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
+            @else
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/default.png');
+            @endif
+            $('#icon-team').modal('show');
         });
+        $(document).on('click', '.icon-team', function() {
+            @if (file_exists(public_path('images/game/leagues/teams/' . $team->image)))
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/' + $(this).data('img'));
+            @else
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/default.png');
+            @endif
+            $('#icon-team').modal('show');
+        });
+
+        // GET LEAGUES
+        window.getLeagues = function (id) {
+            $.ajax({
+                cache: true,
+                type: 'GET',
+                url: '{{ route("leagues.list") }}',
+                success: function (data) {
+                    var select = '<option value="" selected disabled hidden>Selectione...</option>';
+
+                    $.each(data, function (id, league) {
+                        select += '<option value="' + league.id + '.' + league.initials + '">' + league.name + '</option>';
+                    });
+
+                    $(id).attr('class', 'form-control form-control-sm').html(select);
+                    $(id).select2({ minimumResultsForSearch: Infinity });
+                },
+                error: function (response) {
+                    var select = '<option selected>Ocorreu um erro</option>';
+                    $(id).attr('class', function(i, cls){
+                        return cls + ' text-danger';
+                    }).html(select);
+                }
+            });
+        }
+        
+        // GET DIVISIONS
+        window.getDivisions = function (id, league_id) {
+            $.ajax({
+                cache: true,
+                type: 'GET',
+                url: '{{ url("/") }}/leagues/' + league_id + '/divisions/listall',
+                success: function (data) {
+                    var select = '<option value="" selected disabled hidden>Selectione...</option>';
+
+                    $.each(data, function (id, division) {
+                        select += '<option value="' + division.id + '">' + division.name + '</option>';
+                    });
+
+                    $(id).attr('class', 'form-control form-control-sm').html(select);
+                    $(id).select2({ minimumResultsForSearch: Infinity });
+                },
+                error: function (response) {
+                    var select = '<option selected>Ocorreu um erro</option>';
+                    $(id).attr('class', function(i, cls){
+                        return cls + ' text-danger';
+                    }).html(select);
+                }
+            });
+        }
+
+        $('#league_id').on('change', function () {
+            $('#division_id').removeAttr('disabled');
+            getDivisions('#division_id', this.value.split('.')[0]);
+        });
+
     </script>
 @endsection

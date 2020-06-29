@@ -10,6 +10,16 @@ class DivisionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
+     */
+    public function listAll($league_id)
+    {
+        return Division::where('league_id', $league_id)->orderBy('name')->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
