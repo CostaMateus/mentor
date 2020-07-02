@@ -17,7 +17,7 @@ Route::get('/redirect', 'LoginController@redirect')->name('google.redirect');
 Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('welcome');
 
@@ -29,9 +29,9 @@ Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
     Route::apiresource('/players',  'PlayerController');
     Route::apiresource('/trophies', 'TrophyController');
-    Route::apiresource('/teams',    'TeamController');
 
-    // Route::get('leagues/listall', 'LeagueController@listAll')->name('leagues.list');
+    Route::apiresource('/teams',    'TeamController');
+    Route::post('/teams/{team}',    'TeamController@update')->name('team.update');
 
     Route::prefix('leagues')->group(function () {
 
@@ -53,4 +53,4 @@ Route::get('/callback', 'LoginController@callback')->name('google.callback');
             // });
         });
     });
-// });
+});

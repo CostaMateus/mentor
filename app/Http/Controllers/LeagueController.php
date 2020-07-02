@@ -137,10 +137,6 @@ class LeagueController extends Controller
             $request->image->move(public_path('images/game/leagues'), $imageName); 
             $validatedData['image'] = $imageName;
         }
-        else 
-        {
-            $validatedData['image'] = "default.png";
-        }
 
         $league->fill($validatedData);
         $league->save();

@@ -34,8 +34,8 @@
                         <th class="text-center" >Logo</th>
                         <th class=""            >Nome</th>
                         <th class=""            >Sigla</th>
-                        <th class="text-center" >Divisão</th>
                         <th class="text-center" >Liga</th>
+                        <th class="text-center" >Divisão</th>
                         <th class="text-center" >Ver</th>
                         <th class="text-center" >Editar</th>
                         <th class="text-center" >Excluir</th>
@@ -56,7 +56,6 @@
                             </td>
                             <td class=""            >{{ $team->name }}</td>
                             <td class=""            >{{ $team->initials }}</td>
-                            <td class="text-center" >{{ $team->division_initials }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-img="{{ $team->league_image }}">
                                     @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
@@ -66,6 +65,7 @@
                                     @endif
                                 </button>
                             </td>
+                            <td class="text-center" >{{ $team->division_initials }}</td>
                             
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}" data-name="{{ $team->name }}">
@@ -169,7 +169,7 @@
     </div>
 
     {{-- EDIT --}}
-    {{-- <div id="edit-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-team-title" aria-hidden="true" >
+    <div id="edit-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -179,36 +179,43 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-team-form" action="" method="" enctype="multipart/form-data" >
+                    <form id="edit-team-form" action="" method="POST" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="name" class="text-muted">Nome da liga *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" >
+                                    <label for="edit_league_id" class="text-muted">Liga *</label>
+                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" ></select>
+                                    <input type="hidden" id="edit_league_id_hidden" name="league_id">
+                                    <span id="span_league_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="edit_division_id" class="text-muted">Divisão *</label>
+                                    <select id="edit_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" ></select>
+                                    <span id="span_division_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="edit_name" class="text-muted">Nome do time *</label>
+                                    <input type="text" id="edit_name" class="form-control form-control-sm" name="name" >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
-                                    <label for="initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
+                                    <label for="edit_initials" class="text-muted">Sigla *</label>
+                                    <input type="text" id="edit_initials" class="form-control form-control-sm" name="initials" >
                                     <span id="span_initials" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
-                                    <label for="nrdivisions" class="text-muted">Nº de divisões</label>
-                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" max="4" step="1">
-                                    <span id="span_nrdivisions" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="image" class="text-muted">Imagem</label>
-                                    <input id="image" type="file" class="form-control-file" name="image">
+                                    <label for="edit_image" class="text-muted">Imagem</label>
+                                    <input id="edit_image" type="file" class="form-control-file" name="image">
                                 </div>
                             </div>
                         </div>
@@ -222,24 +229,24 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     {{-- DELETE --}}
     <div id="del-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="del-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header text-danger">
-                    <h5 class="modal-title" id="del-team-title">Apagar liga</h5>
+                    <h5 class="modal-title" id="del-team-title">Apagar time</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="del-team-form" action="#" method="POST" enctype="multipart/form-data" >
+                    <form id="del-team-form" action="#" method="#" >
                         @csrf
                         <div class="row">
                             <div class="col-12 text-center">
-                                <p>Deseja realmente apgar essa liga?</p>
+                                <p>Deseja realmente apagar esse time?</p>
                             </div>
                             <div class="col-3 mx-auto">
                                 <button type="submit" class="btn btn-danger btn-sm btn-block" >Confirmar</button>
@@ -339,41 +346,46 @@
                 type: 'GET',
                 url: '{{ url("/teams") }}' + '/' + $(this).data('id'),
                 success: function (data) {
-                    $('#edit-team').find('#edit-team-title').html('Editar time');
-                    $('#edit-team').find('#name').html(data.name).val(data.name);
-                    $('#edit-team').find('#initials').html(data.initials).val(data.initials);
-                    $('#edit-team').find('#nrdivisions').html(data.nrdivisions).val(data.nrdivisions).attr('disabled', 'disabled');
-                    $('#edit-team').find('#image').html(data.image).val();
+                    $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + data.id);
+
+                    $('#edit-team').find('#edit-team-title').html('Editar time: ' + data.name);
+
+                    getLeagues('#edit_league_id', true, data.league_id);
+                    $('#edit_league_id').attr('disabled', '').val(data.league_name).trigger('change');
+                    $('#edit_league_id_hidden').val(data.league_id + '.' + data.league_initials);
+
+                    getDivisions('#edit_division_id', true, data.league_id, data.division_id);
+                    $('#edit_division_id').val(data.division_id).trigger('change');
+
+                    $('#edit-team').find('#edit_name').val(data.name);
+                    $('#edit-team').find('#edit_initials').val(data.initials);
                     $('#edit-team').modal('show');
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
-
-            $('#edit-team-form').attr('action', '{{ url("/leagues") }}' + '/' + $(this).data('id') + '/update');
-            $('#edit-team-form').attr('method', 'POST');
         });
         
         // DEL
-        // $(document).on('click', '.del-league', function() {
-        //     $('#del-league-form').attr('data-id', $(this).data('id'));
-        //     $('#del-league').modal('show');
-        // });
-        // $('#del-league-form').on('submit', function(e) {
-        //     e.preventDefault();
-        //     $.ajax({
-        //         type: 'DELETE',
-        //         url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
-        //         data: $('#del-league-form').serialize(),
-        //         success: function (data) {
-        //             location.reload();
-        //         },
-        //         error: function (error) {
-        //             console.log(error.statusText);
-        //         }
-        //     });
-        // });
+        $(document).on('click', '.del-team', function() {
+            $('#del-team-form').attr('data-id', $(this).data('id'));
+            $('#del-team').modal('show');
+        });
+        $('#del-team-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'DELETE',
+                url: '{{ url("/teams") }}' + '/' + $(this).data('id'),
+                data: $('#del-team-form').serialize(),
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (error) {
+                    console.log(error.statusText);
+                }
+            });
+        });
 
         // ICON
         $(document).on('click', '.icon-league', function() {
@@ -394,16 +406,18 @@
         });
 
         // GET LEAGUES
-        window.getLeagues = function (id) {
+        window.getLeagues = function (id, edit = false, league_id = null) {
             $.ajax({
-                cache: true,
                 type: 'GET',
                 url: '{{ route("leagues.list") }}',
                 success: function (data) {
-                    var select = '<option value="" selected disabled hidden>Selectione...</option>';
+                    var select = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden>Selectione...</option>';
 
                     $.each(data, function (id, league) {
-                        select += '<option value="' + league.id + '.' + league.initials + '">' + league.name + '</option>';
+                        var value = league.id + '.' + league.initials;
+                        var lg_id = (league_id && league_id == league.id) ? 'selected' : '';
+
+                        select += '<option value="' + value + '" ' + lg_id + ' >' + league.name + '</option>';
                     });
 
                     $(id).attr('class', 'form-control form-control-sm').html(select);
@@ -419,16 +433,17 @@
         }
         
         // GET DIVISIONS
-        window.getDivisions = function (id, league_id) {
+        window.getDivisions = function (id, edit = false, league_id = null, division_id = null) {
             $.ajax({
-                cache: true,
                 type: 'GET',
                 url: '{{ url("/") }}/leagues/' + league_id + '/divisions/listall',
                 success: function (data) {
-                    var select = '<option value="" selected disabled hidden>Selectione...</option>';
+                    var select = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden>Selectione...</option>';
 
                     $.each(data, function (id, division) {
-                        select += '<option value="' + division.id + '">' + division.name + '</option>';
+                        var dv_id = (division_id && division_id == division.id) ? 'selected' : '';
+
+                        select += '<option value="' + division.id + '" ' + dv_id + ' >' + division.name + '</option>';
                     });
 
                     $(id).attr('class', 'form-control form-control-sm').html(select);
@@ -445,7 +460,7 @@
 
         $('#league_id').on('change', function () {
             $('#division_id').removeAttr('disabled');
-            getDivisions('#division_id', this.value.split('.')[0]);
+            getDivisions('#division_id', false, this.value.split('.')[0]);
         });
 
     </script>

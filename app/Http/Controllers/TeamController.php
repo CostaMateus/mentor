@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
-use App\Models\League;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 
 class TeamController extends Controller
 {
@@ -20,6 +21,7 @@ class TeamController extends Controller
         $data = Team::join('divisions as dv', 'teams.division_id', '=', 'dv.id')
                     ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
                     ->select(
+                        'teams.id',
                         'teams.name',
                         'teams.initials',
                         'teams.image',
@@ -98,7 +100,19 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return $team;
+        return Team::join('divisions as dv', 'teams.division_id', '=', 'dv.id')
+                    ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
+                    ->select(
+                        'teams.id',
+                        'teams.name',
+                        'teams.initials',
+                        'teams.image',
+                        'dv.id as division_id',
+                        'lg.id as league_id',
+                        'lg.name as league_name',
+                        'lg.initials as league_initials')
+                    ->where('teams.id', $team->id)
+                    ->get()[0];
     }
 
     /**
@@ -121,7 +135,43 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
-        //
+        $message = [
+            'name.required'     => 'Este campo é obrigatório.',
+            'name.unique'       => 'Esse nome já está em uso!',
+            'initials.required' => 'Este campo é obrigatório.',
+            'initials.unique'   => 'Essa sigla já está em uso.',
+        ];
+
+        $validatedData = $request->validate([
+            'league_id'   => 'required|string',
+            'division_id' => 'required|numeric',
+            'name'        => 'required|string|'.Rule::unique('teams')->ignore($team->id),
+            'initials'    => 'required|string|'.Rule::unique('teams')->ignore($team->id),
+            'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
+        ], $message);
+
+        $validatedData['initials']  = strtoupper($validatedData['initials']); 
+
+        $league_initials = strtolower(explode('.', $validatedData['league_id'])[1]);
+        unset($validatedData['league_id']);
+
+        if (isset($request->image)) 
+        {
+            if(file_exists(public_path('images/game/leagues/teams' . $team->image)) && $team->image != "default.png") 
+            {
+                File::delete(public_path('images/game/leagues/teams/').$team->image);
+            }
+
+            $imageName = $league_initials . '_' . strtolower($validatedData['initials']) . '.' . $request->image->extension();
+
+            $request->image->move(public_path('images/game/leagues/teams'), $imageName); 
+            $validatedData['image'] = $imageName;
+        }
+
+        $team->fill($validatedData);
+        $team->save();
+
+        return redirect('teams');
     }
 
     /**
@@ -132,6 +182,12 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
-        //
+        if ($team->image != "default.png") {
+            File::delete(public_path('images/game/leagues/teams/').$team->image);
+        }
+
+        $team->delete();
+
+        return $team;
     }
 }

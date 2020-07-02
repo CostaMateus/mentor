@@ -218,11 +218,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="del-league-form" action="#" method="POST" enctype="multipart/form-data" >
+                    <form id="del-league-form" action="#" method="#" >
                         @csrf
                         <div class="row">
                             <div class="col-12 text-center">
-                                <p>Deseja realmente apgar essa liga?</p>
+                                <p>Deseja realmente apagar essa liga?</p>
                             </div>
                             <div class="col-3 mx-auto">
                                 <button type="submit" class="btn btn-danger btn-sm btn-block" >Confirmar</button>
