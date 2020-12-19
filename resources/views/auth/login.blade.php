@@ -1,14 +1,14 @@
 @extends('layouts.login')
 
 @section('css')
-    <style>        
+    <style>
         body {
             background-image: url("{{ asset('images/login/background.png') }}");
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
             background-size: cover;
-            height: 100vh; 
+            height: 100vh;
         }
 
         .btn-mentor          { color: #FFFFFF; background-color: #395A6A; border-color: #395A6A; }
@@ -25,25 +25,25 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="card" style="width: 20rem;">
                 <div class="card-body p-3">
-                    <h3 class="card-title text-center">Mentor</h3>
-                    <h6 class="card-subtitle mb-3 text-muted text-center">Login</h6>
-                    
+                    <h3 class="card-title text-center mb-3">Mentor</h3>
+                    {{-- <h6 class="card-subtitle mb-3 text-muted text-center">Login</h6> --}}
+
                     <a href="/redirect" class="btn btn-mentor btn-block">
                         <img src="{{ asset('images/login/g.png') }}" alt="" width="30" height="30" title="Bootstrap">
                         Entrar com o Google
                     </a>
-                    
+
                     @if (session('error'))
                         <div class="text-danger text-center pt-1">
                             {{ session('error') }}
                         </div>
                     @endif
 
-                    <a id="convite" href="#" class="card-link text-mentor mt-3">Tenho convite</a>
+                    {{-- <a id="convite" href="#" class="card-link text-mentor mt-3">Tenho convite</a> --}}
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <div id="modal-convite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="t-convite" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -77,7 +77,7 @@
 
 @section('scripts')
     <script>
-        
+
         $(document).on('click', '#convite', function() {
             $('#modal-convite').modal('show');
         });
@@ -88,4 +88,3 @@
         });
     </script>
 @endsection
-

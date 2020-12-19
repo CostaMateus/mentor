@@ -9,7 +9,7 @@
         }
         .bg-img-team { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
         .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
-        #icon-team .modal-body, 
+        #icon-team .modal-body,
         #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
     </style>
 @endsection
@@ -25,7 +25,7 @@
                 <i class="fas fa-plus "></i> Novo time
             </button>
         </div>
-        
+
         <div class="col-12 table-responsive">
             <table id="teams-table" class="table table-striped table-sm" >
                 <thead>
@@ -48,7 +48,7 @@
                             <td class="text-center" >
                                 <button type="button" class="btn icon-team" data-img="{{ $team->image }}">
                                     @if (file_exists(public_path('images/game/leagues/teams/' . $team->image)))
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/' . $team->image) }}" alt="{{ $team->initials }}" width="50px" height="50px">                                    
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/' . $team->image) }}" alt="{{ $team->initials }}" width="50px" height="50px">
                                     @else
                                         <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/default.png') }}" alt="{{ $team->initials }}" width="50px" height="50px">
                                     @endif
@@ -61,12 +61,12 @@
                                     @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
                                         <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $team->league_image) }}" alt="{{ $team->league_initials }}" width="50px" height="50px">
                                     @else
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/default.png') }}" alt="{{ $team->league_initials }}" width="50px" height="50px">                                        
+                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/default.png') }}" alt="{{ $team->league_initials }}" width="50px" height="50px">
                                     @endif
                                 </button>
                             </td>
                             <td class="text-center" >{{ $team->division_initials }}</td>
-                            
+
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}" data-name="{{ $team->name }}">
                                     <i class="fas fa-eye"></i>
@@ -279,7 +279,7 @@
         $(document).on('click', '.see-team', function() {
             var id = $(this).data('id');
             var name = $(this).data('name');
-            
+
             var url = '/leagues/' + id + '/divisions';
 
             $.ajax({
@@ -289,30 +289,30 @@
                     var html = '';
 
                     divisions.forEach(division => {
-                        html += 
-                            '<div class="col-12 col-md-6 border">' + 
-                            '    <div class="row my-2">' + 
-                            '        <div class="col-12">' + 
-                            '            <p class="h6 text-bold" >' + division.name + '</p>' + 
+                        html +=
+                            '<div class="col-12 col-md-6 border">' +
+                            '    <div class="row my-2">' +
+                            '        <div class="col-12">' +
+                            '            <p class="h6 text-bold" >' + division.name + '</p>' +
                             '        </div>'
                         ;
 
                         division.teams.forEach(team => {
-                            html += 
-                                '<div class="col-6 my-1 d-flex">' + 
-                                '    <div class="my-auto">' + 
-                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' + 
-                                '    </div>' + 
-                                '    <div class="flex-fill align-self-center">' + 
-                                '        <p class="mb-0 " >' + team.name + '</p>' + 
-                                '    </div>' + 
-                                '</div>'   
+                            html +=
+                                '<div class="col-6 my-1 d-flex">' +
+                                '    <div class="my-auto">' +
+                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' +
+                                '    </div>' +
+                                '    <div class="flex-fill align-self-center">' +
+                                '        <p class="mb-0 " >' + team.name + '</p>' +
+                                '    </div>' +
+                                '</div>'
                             ;
                         });
 
-                        html += 
-                            '    </div>' + 
-                            '</div>'   
+                        html +=
+                            '    </div>' +
+                            '</div>'
                         ;
                     });
 
@@ -366,7 +366,7 @@
                 }
             });
         });
-        
+
         // DEL
         $(document).on('click', '.del-team', function() {
             $('#del-team-form').attr('data-id', $(this).data('id'));
@@ -431,7 +431,7 @@
                 }
             });
         }
-        
+
         // GET DIVISIONS
         window.getDivisions = function (id, edit = false, league_id = null, division_id = null) {
             $.ajax({

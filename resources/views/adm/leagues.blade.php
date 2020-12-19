@@ -24,7 +24,7 @@
                 <i class="fas fa-plus "></i> Nova liga
             </button>
         </div>
-        
+
         <div class="col-12 table-responsive">
             <table id="leagues-table" class="table table-striped table-sm" >
                 <thead>
@@ -55,7 +55,7 @@
                                     @endif
                                 </button>
                             </td>
-                            
+
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}" data-name="{{ $league->name }}">
                                     <i class="fas fa-eye"></i>
@@ -254,7 +254,7 @@
         $(document).on('click', '.see-league', function() {
             var id = $(this).data('id');
             var name = $(this).data('name');
-            
+
             var url = '/leagues/' + id + '/divisions';
 
             $.ajax({
@@ -264,38 +264,38 @@
                     var html = '';
 
                     divisions.forEach(division => {
-                        html += 
-                            '<div class="col-12 col-md-6 border">' + 
-                            '    <div class="row my-2">' + 
-                            '        <div class="col-12">' + 
-                            '            <p class="h6 text-bold" >' + division.name + '</p>' + 
+                        html +=
+                            '<div class="col-12 col-md-6 border">' +
+                            '    <div class="row my-2">' +
+                            '        <div class="col-12">' +
+                            '            <p class="h6 text-bold" >' + division.name + '</p>' +
                             '        </div>'
                         ;
 
                         if (division.teams.length) {
                             division.teams.forEach(team => {
-                                html += 
-                                    '<div class="col-6 my-1 d-flex">' + 
-                                    '    <div class="my-auto">' + 
-                                    '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' + 
-                                    '    </div>' + 
-                                    '    <div class="flex-fill align-self-center">' + 
-                                    '        <p class="mb-0 " >' + team.name + '</p>' + 
-                                    '    </div>' + 
-                                    '</div>'   
+                                html +=
+                                    '<div class="col-6 my-1 d-flex">' +
+                                    '    <div class="my-auto">' +
+                                    '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' +
+                                    '    </div>' +
+                                    '    <div class="flex-fill align-self-center">' +
+                                    '        <p class="mb-0 " >' + team.name + '</p>' +
+                                    '    </div>' +
+                                    '</div>'
                                 ;
                             });
                         } else {
-                            html += 
-                                    '<div class="col-6 my-1 d-flex">' + 
-                                    '    <p class="mb-0">Nenhum time encontrado.<p>' + 
-                                    '</div>'   
+                            html +=
+                                    '<div class="col-6 my-1 d-flex">' +
+                                    '    <p class="mb-0">Nenhum time encontrado.<p>' +
+                                    '</div>'
                                 ;
                         }
 
-                        html += 
-                            '    </div>' + 
-                            '</div>'   
+                        html +=
+                            '    </div>' +
+                            '</div>'
                         ;
                     });
 
@@ -342,7 +342,7 @@
             $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + $(this).data('id') + '/update');
             $('#edit-league-form').attr('method', 'POST');
         });
-        
+
         // DEL
         $(document).on('click', '.del-league', function() {
             $('#del-league-form').attr('data-id', $(this).data('id'));

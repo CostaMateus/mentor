@@ -27,11 +27,11 @@ Route::middleware(['auth'])->group(function () {
         return view('adm.home');
     })->name('admin.home');
 
-    Route::apiresource('/players',  'PlayerController');
+    Route::apiresource('/players', 'PlayerController');
     Route::apiresource('/trophies', 'TrophyController');
 
-    Route::apiresource('/teams',    'TeamController');
-    Route::post('/teams/{team}',    'TeamController@update')->name('team.update');
+    Route::apiresource('/teams', 'TeamController');
+    Route::post('/teams/{team}', 'TeamController@update')->name('team.update');
 
     Route::prefix('leagues')->group(function () {
 

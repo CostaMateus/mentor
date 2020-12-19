@@ -17,8 +17,8 @@
         .bg-default { background-color:#F2F2F2; }
         .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; }
 
-        #team-infos h1, 
-        #team-infos h3 { text-decoration: underline; } 
+        #team-infos h1,
+        #team-infos h3 { text-decoration: underline; }
         #team-infos .bg-default,
         #players-table .bg-default { height: 406px; }
         #player-infos .bg-default,
@@ -28,13 +28,13 @@
         #game-infos .bg-default .row,
         #adm-infos .bg-default .row { margin-top: auto; margin-bottom: auto; }
 
-        .table-mentor th, 
+        .table-mentor th,
         .table-mentor td      { padding: .4rem; }
         .table-mentor th      { background-color: #F8F9FA !important; position: sticky; top: 0; }
         .table-mentor .icon-a { width: 5%; text-align: center; }
         .table-mentor .icon-b { width: 15%; }
         .table-mentor .icon-c { width: 25%; }
-        .table-mentor .icon-d { width: 10%; text-align: center; }  
+        .table-mentor .icon-d { width: 10%; text-align: center; }
         .table-mentor .icon-e { width: 30%; text-align: center !important; }
 
     </style>
@@ -64,7 +64,7 @@
                         <div class="col-12 text-center" >
                             <h4>CBLOL 2019 - 1ª Etapa</h4>
                             <h5>Posição atual: <strong>1°</strong></h5>
-                            <h5>Treinador: <a class="text-info" href="/">Mateus "kemns" Costa</a></h5> 
+                            <h5>Treinador: <a class="text-info" href="/">Mateus "kemns" Costa</a></h5>
                         </div>
                     </div>
 
@@ -115,7 +115,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" style="width: 100%">100%</div>
                                     </div>
                                 </td>
@@ -129,7 +129,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="90" style="width: 90%">90%</div>
                                     </div>
                                 </td>
@@ -143,7 +143,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" style="width: 80%">80%</div>
                                     </div>
                                 </td>
@@ -157,7 +157,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" style="width: 70%">70%</div>
                                     </div>
                                 </td>
@@ -171,7 +171,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" style="width: 60%">60%</div>
                                     </div>
                                 </td>
@@ -185,7 +185,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="width: 50%">50%</div>
                                     </div>
                                 </td>
@@ -199,10 +199,10 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" style="width: 40%">40%</div>
                                     </div>
-                                </td> 
+                                </td>
                             </tr>
                             <tr>
                                 <td class="icon-a text-center" >
@@ -213,7 +213,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" style="width: 100%">100%</div>
                                     </div>
                                 </td>
@@ -227,7 +227,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="90" style="width: 90%">90%</div>
                                     </div>
                                 </td>
@@ -241,7 +241,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" style="width: 80%">80%</div>
                                     </div>
                                 </td>
@@ -255,7 +255,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" style="width: 70%">70%</div>
                                     </div>
                                 </td>
@@ -269,7 +269,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" style="width: 60%">60%</div>
                                     </div>
                                 </td>
@@ -283,7 +283,7 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="width: 50%">50%</div>
                                     </div>
                                 </td>
@@ -297,16 +297,16 @@
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" style="width: 40%">40%</div>
                                     </div>
-                                </td> 
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
             {{-- PLAYER INFOS --}}
             <div id="player-infos" class="col-12 col-md-6 col-lg-4 px-2 pr-md-1 py-1" >
                 <div class="p-2 bg-default">
@@ -328,7 +328,7 @@
                             <div class="mx-auto my-2">
                                 <a class="btn btn-primary btn-block btn-sm disabled" href="/" title="">Treinar</a>
                             </div>
-                        </div>	
+                        </div>
                         <div class="col-12 col-md-6 my-auto text-center">
                             <p class="mb-0 pb-2" title="Posição" >Posição: Atirador</p>
                             <p class="mb-0 pb-2" title="Idade">Idade: 27</p>
@@ -383,7 +383,7 @@
                             <p class="mb-0 text-right" >23/01/2019</p>
                         </div>
                         <div class="col-12 py-2" >
-                            <h4 class="mb-0 text-left" >Caixa: 
+                            <h4 class="mb-0 text-left" >Caixa:
                                 <a class="text-info" href="" data-toggle="modal" data-target="#teamFinancesModal" >
                                     <strong><u>R$ 148 mil</u></strong>
                                 </a>
@@ -391,7 +391,7 @@
                         </div>
                         <div class="col-12 pt-2" >
                             <!-- <h4 class="text-left" >Notificações: <a href="msgs.html" class="text-info"><strong>sem novas notificações</strong></a></h4> -->
-                            <h4 class="mb-0 text-left" >Notificações: 
+                            <h4 class="mb-0 text-left" >Notificações:
                                 <a href="msgs.html" class="" ><span class="badge badge-info">2 novas</span></a>
                             </h4>
                         </div>
@@ -490,7 +490,7 @@
                 </div>
             </div>
         </div> --}}
-        
+
         {{-- <div class="row mt-2">
             <div class="col-12">
                 <div class="card">

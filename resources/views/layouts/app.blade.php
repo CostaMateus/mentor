@@ -6,7 +6,7 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        
+
 		<!-- Favicon site -->
         <link rel="shortcut icon" href="{{ asset('images/login/circle.ico') }}" type="image/x-icon" />
 
@@ -36,7 +36,7 @@
                 padding-bottom: 0 !important;
             }
 
-            .navbar-mentor .navbar-brand, 
+            .navbar-mentor .navbar-brand,
             .navbar-mentor .navbar-nav .nav-link {
                 color: #FFF;
             }
@@ -44,7 +44,7 @@
                 padding: 13px 10px !important;
             }
 
-            .navbar-mentor .navbar-brand:hover, 
+            .navbar-mentor .navbar-brand:hover,
             .navbar-mentor .navbar-brand:focus {
                 color: #FFF;
             }
@@ -56,11 +56,11 @@
             .navbar-mentor .navbar-nav .show > .nav-link,
             .navbar-mentor .navbar-nav .active > .nav-link,
             .navbar-mentor .navbar-nav .nav-link.show,
-            .navbar-mentor .navbar-nav .nav-link.active, 
-            .navbar-mentor .navbar-nav .nav-link:hover, 
+            .navbar-mentor .navbar-nav .nav-link.active,
+            .navbar-mentor .navbar-nav .nav-link:hover,
             .navbar-mentor .navbar-nav .nav-link:focus  {
-                color:#6D6E71; 
-                background-color:#FFF; 
+                color:#6D6E71;
+                background-color:#FFF;
             }
             .navbar-mentor .navbar-toggler {
                 color: rgba(255, 255, 255, 0.5);
@@ -78,22 +78,22 @@
             .navbar-mentor .navbar-text a:hover, .navbar-mentor .navbar-text a:focus {
                 color: #FFF;
             }
-            .navbar-mentor .navbar-nav .dropdown-menu { 
-                padding: 0 !important; 
-                margin-top: .065rem; 
-                border: none !important; 
+            .navbar-mentor .navbar-nav .dropdown-menu {
+                padding: 0 !important;
+                margin-top: .065rem;
+                border: none !important;
                 border-radius: 0 !important;
-            } 
-			.navbar-mentor .navbar-nav .dropdown-item { 
+            }
+			.navbar-mentor .navbar-nav .dropdown-item {
                 color:#6D6E71;
-                padding: .75rem 1rem; 
-            } 
-			.navbar-mentor .navbar-nav .dropdown-item:active, 
-			.navbar-mentor .navbar-nav .dropdown-item:hover, 
-			.navbar-mentor .navbar-nav .dropdown-item:focus { 
-                color: #FFF; 
+                padding: .75rem 1rem;
+            }
+			.navbar-mentor .navbar-nav .dropdown-item:active,
+			.navbar-mentor .navbar-nav .dropdown-item:hover,
+			.navbar-mentor .navbar-nav .dropdown-item:focus {
+                color: #FFF;
                 background-color: #54707E;
-            } 
+            }
 			.navbar-mentor .navbar-nav .dropdown-divider { margin: 0 !important; }
 
         </style>
@@ -106,7 +106,7 @@
             <a class="navbar-brand" href="/home"  height="30" >
                 {{-- <img class="" src="images/logo/logo_b.png" width="" height="24" alt="TheCoach!" > --}}
                 Mentor
-            </a> 
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -151,7 +151,7 @@
                             <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" title="" >Tabela jogos da MSI</a>
                             <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" title="" >Tabela jogos WC</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#deafult" title="" >Amistosos</a> 
+                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#deafult" title="" >Amistosos</a>
                         </div>
                     </li>
 
@@ -187,7 +187,7 @@
                     {{-- streaming --}}
                      <li class="nav-item">
                         <a class="nav-link " href="/" >Streaming</a>
-                    </li> 
+                    </li>
 
                     {{-- teams --}}
                     <li class="nav-item">
@@ -231,9 +231,10 @@
 
         {{-- Scripts --}}
         {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"                 ></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/collection-util-js@1.5.9/dist/collection-min.js" ></script>
 
         @yield('scripts')
     </body>
