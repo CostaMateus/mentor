@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -29,12 +29,12 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return void
      *
-     * @throws \Exception
+     * @throws \Throwable
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -43,13 +43,43 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \Exception
+     * @throws \Throwable
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+
+        // if($this->isHttpException($exception))
+        // {
+        //     switch ($exception->getStatusCode())
+        //     {
+        //         // not found
+        //         case 404:
+        //             return redirect()->guest('/');
+        //             break;
+
+        //         // internal error
+        //         case 500:
+        //             return redirect()->guest('/');
+        //             break;
+
+        //         case 503:
+        //             return response()->view('errors.503', [
+        //                 'horarios'  => Horario::get(),
+        //                 'destaques' => Destaque::where('active', 1)->orderBy('order','ASC')->get()
+        //             ], 503);
+        //             break;
+
+        //         default:
+        //             return $this->renderHttpException($exception);
+        //             break;
+        //     }
+        // }
+        // else
+        // {
+            return parent::render($request, $exception);
+        // }
     }
 }
