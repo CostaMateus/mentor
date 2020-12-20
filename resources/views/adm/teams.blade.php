@@ -26,19 +26,19 @@
             </button>
         </div>
 
-        <div class="col-12 table-responsive">
-            <table id="teams-table" class="table table-striped table-sm" >
+        <div class="col-12 table-responsive pb-2">
+            <table id="teams-table" class="table table-striped table-sm" data-toggle="table" >
                 <thead>
                     <tr class="bg-light">
-                        <th class="text-center" >#</th>
-                        <th class="text-center" >Logo</th>
-                        <th class=""            >Nome</th>
-                        <th class=""            >Sigla</th>
-                        <th class="text-center" >Liga</th>
-                        <th class="text-center" >Divisão</th>
-                        <th class="text-center" >Ver</th>
-                        <th class="text-center" >Editar</th>
-                        <th class="text-center" >Excluir</th>
+                        <th class="text-center" data-field="id"       data-sortable="true" >#</th>
+                        <th class="text-center"                                            >Logo</th>
+                        <th class=""            data-field="name"     data-sortable="true" >Nome</th>
+                        <th class=""            data-field="initials" data-sortable="true" >Sigla</th>
+                        <th class="text-center"                                            >Liga</th>
+                        <th class="text-center" data-field="division" data-sortable="true" >Divisão</th>
+                        <th class="text-center"                                            >Ver</th>
+                        <th class="text-center"                                            >Editar</th>
+                        <th class="text-center"                                            >Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,7 +123,12 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="league_id" class="text-muted">Liga *</label>
-                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%"></select>
+                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%">
+                                        <option value="">Selecione...</option>
+                                        @foreach ($leagues as $league)
+                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <span id="span_league_id" class="text-danger"></span>
                                 </div>
                             </div>
@@ -179,13 +184,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-team-form" action="" method="POST" enctype="multipart/form-data" >
+                    <form id="edit-team-form" action="" method="" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="edit_league_id" class="text-muted">Liga *</label>
-                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" ></select>
+                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" >
+                                        <option value="">Selecione...</option>
+                                        @foreach ($leagues as $league)
+                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <input type="hidden" id="edit_league_id_hidden" name="league_id">
                                     <span id="span_league_id" class="text-danger"></span>
                                 </div>
@@ -197,22 +207,21 @@
                                     <span id="span_division_id" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="edit_name" class="text-muted">Nome do time *</label>
                                     <input type="text" id="edit_name" class="form-control form-control-sm" name="name" >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 pr-md-2">
+                            <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="edit_initials" class="text-muted">Sigla *</label>
                                     <input type="text" id="edit_initials" class="form-control form-control-sm" name="initials" >
                                     <span id="span_initials" class="invalid-feedback"></span>
                                 </div>
                             </div>
-
-                            <div class="col-12 col-md-6 pl-md-2">
+                            <div class="col-12 ">
                                 <div class="form-group">
                                     <label for="edit_image" class="text-muted">Imagem</label>
                                     <input id="edit_image" type="file" class="form-control-file" name="image">
@@ -274,6 +283,11 @@
 
 @section('js')
     <script>
+        // Bootstrap Table
+        $('#teams-table').bootstrapTable({
+            locale: 'pt-br'
+        });
+
         // SEE
         {{--
         $(document).on('click', '.see-team', function() {
@@ -331,6 +345,12 @@
         });
         --}}
 
+        $("#league_id").select2({ minimumResultsForSearch: Infinity });
+        $("#division_id").select2({ minimumResultsForSearch: Infinity });
+
+        $("#edit_league_id").select2({ minimumResultsForSearch: Infinity });
+        $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
+
         // NEW
         $(document).on('click', '.new-team', function() {
             getLeagues('#league_id');
@@ -342,27 +362,24 @@
 
         // EDIT
         $(document).on('click', '.edit-team', function() {
-            $.ajax({
-                type: 'GET',
-                url: '{{ url("/teams") }}' + '/' + $(this).data('id'),
-                success: function (data) {
-                    $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + data.id);
+            let id      = $(this).data('id');
+            let teams = {!! $data !!};
 
-                    $('#edit-team').find('#edit-team-title').html('Editar time: ' + data.name);
+            $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + id);
+            $('#edit-team-form').attr('method', 'POST');
 
-                    getLeagues('#edit_league_id', true, data.league_id);
-                    $('#edit_league_id').attr('disabled', '').val(data.league_name).trigger('change');
-                    $('#edit_league_id_hidden').val(data.league_id + '.' + data.league_initials);
+            teams.forEach(team => {
+                if (team.id == id)
+                {
+                    $('#edit-team').find('#edit-team-title').html('Editar time: ' + team.name);
+                    $('#edit_league_id').attr('disabled', '').val(team.league_id).trigger('change');
+                    $('#edit_league_id_hidden').val(team.league_id + '.' + team.league_initials);
 
-                    getDivisions('#edit_division_id', true, data.league_id, data.division_id);
-                    $('#edit_division_id').val(data.division_id).trigger('change');
+                    insertDivisions('#edit_division_id', true, team.division_league_id, team.division_id);
 
-                    $('#edit-team').find('#edit_name').val(data.name);
-                    $('#edit-team').find('#edit_initials').val(data.initials);
+                    $('#edit-team').find('#edit_name').val(team.name);
+                    $('#edit-team').find('#edit_initials').val(team.initials);
                     $('#edit-team').modal('show');
-                },
-                error: function (err) {
-                    console.log(err);
                 }
             });
         });
@@ -387,80 +404,71 @@
             });
         });
 
-        // ICON
+        // ICON - League
         $(document).on('click', '.icon-league', function() {
-            @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
-            @else
+            let img = $(this).data('img');
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('HEAD', 'images/game/leagues/' + img, false);
+            xhr.send();
+
+            if (xhr.status == "404")
+            {
+                console.log('default.png');
                 $('#icon-team').find('img').attr('src', 'images/game/leagues/default.png');
-            @endif
+            }
+            else
+            {
+                console.log($(this).data('img'));
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/' + img);
+            }
+
             $('#icon-team').modal('show');
         });
+        // ICON - Team
         $(document).on('click', '.icon-team', function() {
-            @if (file_exists(public_path('images/game/leagues/teams/' . $team->image)))
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/' + $(this).data('img'));
-            @else
+            let img = $(this).data('img');
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('HEAD', 'images/game/leagues/teams/' + img, false);
+            xhr.send();
+
+            if (xhr.status == "404")
+            {
+                console.log('default.png');
                 $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/default.png');
-            @endif
+            }
+            else
+            {
+                console.log($(this).data('img'));
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/' + img);
+            }
+
             $('#icon-team').modal('show');
         });
 
-        // GET LEAGUES
-        window.getLeagues = function (id, edit = false, league_id = null) {
-            $.ajax({
-                type: 'GET',
-                url: '{{ route("leagues.list") }}',
-                success: function (data) {
-                    var select = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden>Selectione...</option>';
 
-                    $.each(data, function (id, league) {
-                        var value = league.id + '.' + league.initials;
-                        var lg_id = (league_id && league_id == league.id) ? 'selected' : '';
+        // INSERT DIVISIONS
+        window.insertDivisions = function (id, edit = false, division_league_id, divison_id)
+        {
+            let divisions = {!! $divisions !!};
+            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden>Selectione...</option>';
 
-                        select += '<option value="' + value + '" ' + lg_id + ' >' + league.name + '</option>';
-                    });
-
-                    $(id).attr('class', 'form-control form-control-sm').html(select);
-                    $(id).select2({ minimumResultsForSearch: Infinity });
-                },
-                error: function (response) {
-                    var select = '<option selected>Ocorreu um erro</option>';
-                    $(id).attr('class', function(i, cls){
-                        return cls + ' text-danger';
-                    }).html(select);
+            divisions.forEach(division => {
+                if (division.league_id == division_league_id)
+                {
+                    let selected = (division.id == divison_id) ? 'selected' : '';
+                    opts += '<option value="' + division.id + '" ' + selected + ' >' + division.name + '</option>';
                 }
             });
-        }
 
-        // GET DIVISIONS
-        window.getDivisions = function (id, edit = false, league_id = null, division_id = null) {
-            $.ajax({
-                type: 'GET',
-                url: '{{ url("/") }}/leagues/' + league_id + '/divisions/listall',
-                success: function (data) {
-                    var select = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden>Selectione...</option>';
-
-                    $.each(data, function (id, division) {
-                        var dv_id = (division_id && division_id == division.id) ? 'selected' : '';
-
-                        select += '<option value="' + division.id + '" ' + dv_id + ' >' + division.name + '</option>';
-                    });
-
-                    $(id).attr('class', 'form-control form-control-sm').html(select);
-                    $(id).select2({ minimumResultsForSearch: Infinity });
-                },
-                error: function (response) {
-                    var select = '<option selected>Ocorreu um erro</option>';
-                    $(id).attr('class', function(i, cls){
-                        return cls + ' text-danger';
-                    }).html(select);
-                }
-            });
+            $(id).html(opts);
+            $(id).select2({ minimumResultsForSearch: Infinity });
         }
 
         $('#league_id').on('change', function () {
             $('#division_id').removeAttr('disabled');
-            getDivisions('#division_id', false, this.value.split('.')[0]);
+            insertDivisions('#division_id', false, this.value.split('.')[0]);
         });
 
     </script>
