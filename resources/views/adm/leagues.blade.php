@@ -363,12 +363,24 @@
 
         // ICON
         $(document).on('click', '.icon-league', function() {
-            @if (file_exists(public_path('images/game/leagues/' . $league->image)))
-                $('#icon-league').find('img').attr('src', 'images/game/leagues/' + $(this).data('img'));
-            @else
-                $('#icon-league').find('img').attr('src', 'images/game/leagues/default.png');
-            @endif
-            $('#icon-league').modal('show');
+            let img = $(this).data('img');
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('HEAD', 'images/game/leagues/' + img, false);
+            xhr.send();
+
+            if (xhr.status == "404")
+            {
+                console.log('default.png');
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/default.png');
+            }
+            else
+            {
+                console.log($(this).data('img'));
+                $('#icon-team').find('img').attr('src', 'images/game/leagues/' + img);
+            }
+
+            $('#icon-team').modal('show');
         });
     </script>
 @endsection
