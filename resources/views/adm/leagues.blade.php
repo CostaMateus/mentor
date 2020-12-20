@@ -57,7 +57,7 @@
                             </td>
 
                             <td class="text-center" >
-                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}" data-name="{{ $league->name }}">
+                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}" data-name="{{ $league->name }}" data-nrd="{{ $league->nrdivisions }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -89,7 +89,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="league-divisions" class="row "></div>
+                    <div id="league-divisions" class="row ">
+
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -252,65 +255,57 @@
     <script>
         // SEE
         $(document).on('click', '.see-league', function() {
-            var id = $(this).data('id');
-            var name = $(this).data('name');
+            let id        = $(this).data('id');
+            let name      = $(this).data('name');
+            let nrd       = $(this).data('nrd');
+            let divisions = {!! $divisions !!};
+            let html      = '';
 
-            var url = '/leagues/' + id + '/divisions';
+            divisions.forEach(division => {
+                if (division.league_id == id)
+                {
+                    html +=
+                        '<div class="col-12 col-md-6 border">' +
+                        '    <div class="row my-2">' +
+                        '        <div class="col-12">' +
+                        '            <p class="h6 text-bold" >' + division.name + '</p>' +
+                        '        </div>';
 
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (divisions) {
-                    var html = '';
-
-                    divisions.forEach(division => {
-                        html +=
-                            '<div class="col-12 col-md-6 border">' +
-                            '    <div class="row my-2">' +
-                            '        <div class="col-12">' +
-                            '            <p class="h6 text-bold" >' + division.name + '</p>' +
-                            '        </div>'
-                        ;
-
-                        if (division.teams.length) {
-                            division.teams.forEach(team => {
-                                html +=
-                                    '<div class="col-6 my-1 d-flex">' +
-                                    '    <div class="my-auto">' +
-                                    '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' +
-                                    '    </div>' +
-                                    '    <div class="flex-fill align-self-center">' +
-                                    '        <p class="mb-0 " >' + team.name + '</p>' +
-                                    '    </div>' +
-                                    '</div>'
-                                ;
-                            });
-                        } else {
+                    if (division.teams.length)
+                    {
+                        division.teams.forEach(team => {
                             html +=
-                                    '<div class="col-6 my-1 d-flex">' +
-                                    '    <p class="mb-0">Nenhum time encontrado.<p>' +
-                                    '</div>'
-                                ;
-                        }
-
-                        html +=
-                            '    </div>' +
-                            '</div>'
-                        ;
-                    });
-
-                    if (divisions.length == 1) {
-                        $('#league-divisions').addClass('justify-content-center');
+                                '<div class="col-6 my-1 d-flex">' +
+                                '    <div class="my-auto">' +
+                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' +
+                                '    </div>' +
+                                '    <div class="flex-fill align-self-center">' +
+                                '        <p class="mb-0 " >' + team.name + '</p>' +
+                                '    </div>' +
+                                '</div>';
+                        });
                     }
-                    $('#league-divisions').html(html);
+                    else
+                    {
+                        html +=
+                                '<div class="col-6 my-1 d-flex">' +
+                                '    <p class="mb-0">Nenhum time encontrado.<p>' +
+                                '</div>';
+                    }
 
-                    $('#see-league-title').html(name);
-                    $('#see-league').modal('show');
-                },
-                error: function (error) {
-                    console.log(error.statusText);
+                    html +=
+                        '    </div>' +
+                        '</div>';
                 }
             });
+
+            if (nrd == 1) {
+                $('#league-divisions').addClass('justify-content-center');
+            }
+            $('#league-divisions').html(html);
+
+            $('#see-league-title').html(name);
+            $('#see-league').modal('show');
         });
 
         // NEW
@@ -323,23 +318,22 @@
 
         // EDIT
         $(document).on('click', '.edit-league', function() {
-            $.ajax({
-                type: 'GET',
-                url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
-                success: function (data) {
+            let id      = $(this).data('id');
+            let leagues = {!! $data !!};
+
+            leagues.forEach(league => {
+                if (league.id == id)
+                {
                     $('#edit-league').find('#edit-league-title').html('Editar liga');
-                    $('#edit-league').find('#name').html(data.name).val(data.name);
-                    $('#edit-league').find('#initials').html(data.initials).val(data.initials);
-                    $('#edit-league').find('#nrdivisions').html(data.nrdivisions).val(data.nrdivisions).attr('disabled', 'disabled');
-                    $('#edit-league').find('#image').html(data.image).val();
+                    $('#edit-league').find('#name').html(league.name).val(league.name);
+                    $('#edit-league').find('#initials').html(league.initials).val(league.initials);
+                    $('#edit-league').find('#nrdivisions').html(league.nrdivisions).val(league.nrdivisions).attr('disabled', 'disabled');
+                    $('#edit-league').find('#image').html(league.image).val();
                     $('#edit-league').modal('show');
-                },
-                error: function (err) {
-                    console.log(err);
                 }
             });
 
-            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + $(this).data('id') + '/update');
+            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + id + '/update');
             $('#edit-league-form').attr('method', 'POST');
         });
 

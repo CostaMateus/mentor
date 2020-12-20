@@ -28,9 +28,10 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        $data = League::orderBy('name')->get();
-
-        return view('adm.leagues', compact('data'));
+        return view('adm.leagues', [
+            'data'      => League::orderBy('name')->get(),
+            'divisions' => Division::with('teams')->get()
+        ]);
     }
 
     /**
@@ -55,16 +56,16 @@ class LeagueController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials'] = strtoupper($validatedData['initials']); 
+        $validatedData['initials'] = strtoupper($validatedData['initials']);
         $validatedData['nrdivisions'] = (isset($validatedData['nrdivisions'])) ? $validatedData['nrdivisions'] : 1;
 
-        if (isset($request->image)) 
+        if (isset($request->image))
         {
             $imageName = strtolower($validatedData['initials']) . '.' . $request->image->extension();
-            $request->image->move(public_path('images/game/leagues'), $imageName); 
+            $request->image->move(public_path('images/game/leagues'), $imageName);
             $validatedData['image'] = $imageName;
         }
-        else 
+        else
         {
             $validatedData['image'] = "default.png";
         }
@@ -75,8 +76,8 @@ class LeagueController extends Controller
 
         $data = [];
 
-        for ($i = 1; $i <= $validatedData['nrdivisions']; $i++) 
-        { 
+        for ($i = 1; $i <= $validatedData['nrdivisions']; $i++)
+        {
             $data[] = [
                 'league_id'  => $league->id,
                 'name'       => $validatedData['initials'] . ' ' . $i .'ª Divisão',
@@ -125,16 +126,16 @@ class LeagueController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        if (isset($request->image) ) 
+        if (isset($request->image) )
         {
             $imageName = strtolower($validatedData['initials']) . '.' . $request->image->extension();
 
-            if (file_exists(public_path('images/game/leagues/' . $imageName))) 
+            if (file_exists(public_path('images/game/leagues/' . $imageName)))
             {
                 File::delete(public_path('images/game/leagues/').$league->image);
-            } 
+            }
 
-            $request->image->move(public_path('images/game/leagues'), $imageName); 
+            $request->image->move(public_path('images/game/leagues'), $imageName);
             $validatedData['image'] = $imageName;
         }
 
