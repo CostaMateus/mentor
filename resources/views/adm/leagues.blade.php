@@ -25,18 +25,18 @@
             </button>
         </div>
 
-        <div class="col-12 table-responsive">
-            <table id="leagues-table" class="table table-striped table-sm" >
+        <div class="col-12 table-responsive pb-2">
+            <table id="leagues-table" class="table table-striped table-sm" data-toggle="table" >
                 <thead>
                     <tr class="bg-light">
-                        <th class="text-center" >#</th>
-                        <th class=""            >Nome</th>
-                        <th class=""            >Sigla</th>
-                        <th class="text-center" >Nº divisões</th>
-                        <th class="text-center" >Logo</th>
-                        <th class="text-center" >Ver</th>
-                        <th class="text-center" >Editar</th>
-                        <th class="text-center" >Excluir</th>
+                        <th class="text-center" data-field="id"       data-sortable="true" >#</th>
+                        <th class=""            data-field="name"     data-sortable="true" >Nome</th>
+                        <th class=""            data-field="initials" data-sortable="true" >Sigla</th>
+                        <th class="text-center" data-field="nrd"      data-sortable="true" >Nº divisões</th>
+                        <th class="text-center"                                            >Logo</th>
+                        <th class="text-center"                                            >Ver</th>
+                        <th class="text-center"                                            >Editar</th>
+                        <th class="text-center"                                            >Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,9 @@
                             </td>
 
                             <td class="text-center" >
-                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}" data-name="{{ $league->name }}" data-nrd="{{ $league->nrdivisions }}">
+                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}"
+                                                                                  data-name="{{ $league->name }}"
+                                                                                  data-nrd="{{ $league->nrdivisions }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -89,10 +91,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="league-divisions" class="row ">
-
-
-                    </div>
+                    <div id="league-divisions" class="row "></div>
                 </div>
             </div>
         </div>
@@ -253,6 +252,11 @@
 
 @section('js')
     <script>
+        // Bootstrap Table
+        $('#leagues-table').bootstrapTable({
+            locale: 'pt-br'
+        });
+
         // SEE
         $(document).on('click', '.see-league', function() {
             let id        = $(this).data('id');
@@ -321,6 +325,9 @@
             let id      = $(this).data('id');
             let leagues = {!! $data !!};
 
+            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + id + '/update');
+            $('#edit-league-form').attr('method', 'POST');
+
             leagues.forEach(league => {
                 if (league.id == id)
                 {
@@ -332,9 +339,6 @@
                     $('#edit-league').modal('show');
                 }
             });
-
-            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + id + '/update');
-            $('#edit-league-form').attr('method', 'POST');
         });
 
         // DEL
