@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Faker\Factory;
 use App\Models\Team;
 use App\Models\League;
@@ -33,7 +35,7 @@ class TeamsSeeder extends Seeder
         //             $initials = explode(" ", $name);
         //             $initials = $initials[0][0] . $initials[1][0] . $initials[2][0];
         //             $initials = strtolower($initials);
-                    
+
         //             $data[] = [
         //                 "division_id" => $dv->id,
         //                 "name" => $name,
@@ -343,7 +345,7 @@ class TeamsSeeder extends Seeder
              *    'updated_at' => $timestamp
              *],
              */
-        ]; 
+        ];
 
         Team::insert($data);
 

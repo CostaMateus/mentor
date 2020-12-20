@@ -1,10 +1,12 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Code;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
-class CodesTableSeeder extends Seeder
+class CodesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +21,7 @@ class CodesTableSeeder extends Seeder
 
         $timestamp = date('Y-m-d');
 
-        $data = []; 
+        $data = [];
 
         foreach (range(1,5) as $x) {
             $data[] = [

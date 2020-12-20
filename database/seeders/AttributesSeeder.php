@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Faker\Factory;
 use App\Models\Player;
 use App\Models\Attribute;
@@ -17,7 +19,7 @@ class AttributesSeeder extends Seeder
         $faker = Factory::create('pt-br');
 
         Attribute::truncate();
-        
+
         $players = Player::get();
 
         $timestamp = date('Y-m-d');

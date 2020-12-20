@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Faker\Factory;
 use App\Models\Player;
 use Illuminate\Database\Seeder;
@@ -38,15 +40,15 @@ class PlayersSeeder extends Seeder
 
             $month = $faker->numberBetween(1, 12);
 
-            if (in_array($month, [1, 3, 5, 7, 8, 10, 12])) 
+            if (in_array($month, [1, 3, 5, 7, 8, 10, 12]))
             {
                 $day = $faker->numberBetween(1,31);
-            } 
-            else if (in_array($month, [4, 6, 9, 11])) 
+            }
+            else if (in_array($month, [4, 6, 9, 11]))
             {
                 $day = $faker->numberBetween(1,30);
-            } 
-            else 
+            }
+            else
             {
                 $day = $faker->numberBetween(1,28);
             }

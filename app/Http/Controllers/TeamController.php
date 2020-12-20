@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\League;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
@@ -25,9 +27,11 @@ class TeamController extends Controller
                         'teams.name',
                         'teams.initials',
                         'teams.image',
-                        // 'dv.id as division_id',
+                        'dv.id as division_id',
+                        'dv.league_id as division_league_id',
                         'dv.initials as division_initials',
-                        // 'lg.id as league_id',
+                        'lg.id as league_id',
+                        'lg.name as league_name',
                         'lg.initials as league_initials',
                         'lg.image as league_image')
                     // ->orderBy('teams.name')
@@ -35,7 +39,11 @@ class TeamController extends Controller
                     // ->orderBy('lg.id')
                     ->get();
 
-        return view('adm.teams', compact('data'));
+        return view('adm.teams', [
+            'data'      => $data,
+            'leagues'   => League::get(),
+            'divisions' => Division::get(),
+        ]);
     }
 
     /**
@@ -71,18 +79,18 @@ class TeamController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials']  = strtoupper($validatedData['initials']); 
+        $validatedData['initials']  = strtoupper($validatedData['initials']);
 
         $league_initials = strtolower(explode('.', $validatedData['league_id'])[1]);
         unset($validatedData['league_id']);
 
-        if (isset($request->image)) 
+        if (isset($request->image))
         {
             $imageName = $league_initials . '_' . strtolower($validatedData['initials']) . '.' . $request->image->extension();
-            $request->image->move(public_path('images/game/leagues/teams'), $imageName); 
+            $request->image->move(public_path('images/game/leagues/teams'), $imageName);
             $validatedData['image'] = $imageName;
         }
-        else 
+        else
         {
             $validatedData['image'] = "default.png";
         }
@@ -150,21 +158,21 @@ class TeamController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials']  = strtoupper($validatedData['initials']); 
+        $validatedData['initials']  = strtoupper($validatedData['initials']);
 
         $league_initials = strtolower(explode('.', $validatedData['league_id'])[1]);
         unset($validatedData['league_id']);
 
-        if (isset($request->image)) 
+        if (isset($request->image))
         {
-            if(file_exists(public_path('images/game/leagues/teams' . $team->image)) && $team->image != "default.png") 
+            if(file_exists(public_path('images/game/leagues/teams' . $team->image)) && $team->image != "default.png")
             {
                 File::delete(public_path('images/game/leagues/teams/').$team->image);
             }
 
             $imageName = $league_initials . '_' . strtolower($validatedData['initials']) . '.' . $request->image->extension();
 
-            $request->image->move(public_path('images/game/leagues/teams'), $imageName); 
+            $request->image->move(public_path('images/game/leagues/teams'), $imageName);
             $validatedData['image'] = $imageName;
         }
 
