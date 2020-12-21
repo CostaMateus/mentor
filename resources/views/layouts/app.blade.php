@@ -220,9 +220,11 @@
                     </li>
 
                     {{-- ADMIN --}}
-                    <li class="nav-item">
-                        <a class="nav-link " href="/admin" >ADM</a>
-                    </li>
+                    @if (Auth::user()->id == 1)
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin" >ADM</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>

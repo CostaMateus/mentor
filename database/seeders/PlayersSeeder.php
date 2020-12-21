@@ -63,11 +63,17 @@ class PlayersSeeder extends Seeder
 
             if (rand(0, 1))
             {
+                // $auxName  = Helper::getNames('real', true);
+                // $name     = $auxName[0];
+                // $lastname = $auxName[1];
                 $name = $faker->firstName('male');
                 $sex  = 'M';
             }
             else
             {
+                // $auxName  = Helper::getNames('real', false);
+                // $name     = $auxName[0];
+                // $lastname = $auxName[1];
                 $name = $faker->firstName('female');
                 $sex  = 'F';
             }
@@ -75,7 +81,7 @@ class PlayersSeeder extends Seeder
             $data[] = [
                     'name'        => $name,
                     'lastname'    => $faker->lastName,
-                    'nickname'    => Helper::getNickame($faker->randomElement($type_nickname)),
+                    'nickname'    => Helper::getNicknames($faker->randomElement($type_nickname)),
                     'nationality' => $faker->country,
                     'age'         => $age,
                     'birthday'    => date((2022 - $age) . '-' . $month . '-' . $day),
