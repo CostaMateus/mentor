@@ -92,12 +92,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if (!$user->verify) 
+        if (!$user->verify)
         {
             $user->active = 0;
             $user->delete();
         }
-        else 
+        else
         {
             $user->active = 0;
             $user->save();

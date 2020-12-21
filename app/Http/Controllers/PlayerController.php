@@ -42,7 +42,7 @@ class PlayerController extends Controller
             //player
             'name' => 'required|string',
             'lastname' => 'required|string',
-            'nick' => 'required|string',
+            'nickname' => 'required|string',
             'nationality' => 'string',
             'age' => 'numeric',
             'birthday' => 'date',
@@ -97,7 +97,7 @@ class PlayerController extends Controller
             //player
             'name' => 'required|string',
             'lastname' => 'required|string',
-            'nick' => 'required|string',
+            'nickname' => 'required|string',
             'nationality' => 'string',
             'age' => 'numeric',
             'birthday' => 'date',
@@ -114,7 +114,7 @@ class PlayerController extends Controller
         $attribute = Attribute::find($player->attribute->player_id);
         $attribute->fill($validatedData);
         $attribute->save();
-        
+
         return $player->load('attribute');
     }
 

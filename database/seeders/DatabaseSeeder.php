@@ -8,6 +8,7 @@ use Database\Seeders\TeamsSeeder;
 use Database\Seeders\UsersSeeder;
 use Database\Seeders\LeaguesSeeder;
 use Database\Seeders\PlayersSeeder;
+use Database\Seeders\TrophiesSeeder;
 use Database\Seeders\AttributesSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,13 +22,13 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            // UsersSeeder::class,
+            UsersSeeder::class,
             // CodesSeeder::class,
-            // PlayersSeeder::class,
-            // AttributesSeeder::class,
             LeaguesSeeder::class,
-            // TeamsSeeder::class,
-            // TrophysSeeder::class,
+            TeamsSeeder::class,
+            PlayersSeeder::class,
+            AttributesSeeder::class,
+            // TrophiesSeeder::class,
         ]);
     }
 }

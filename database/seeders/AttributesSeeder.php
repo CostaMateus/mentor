@@ -26,12 +26,12 @@ class AttributesSeeder extends Seeder
 
         foreach($players as $p) {
             $salary = $faker->randomFloat(2, 1000, 10000);
-            $pass   = $salary * 2;
+            $pass   = $salary * $faker->numberBetween(1, 4);
 
             $data[] = [
                 'player_id'  => $p->id,
                 'role'       => $faker->randomElement(['TOP','JNG','MID','ADC','SUP']),
-                'force'      => $faker->numberBetween(30, 70),
+                'force'      => $faker->numberBetween(25, 75),
                 'energy'     => 100,
                 'salary'     => $salary,
                 'pass'       => $pass,

@@ -15,23 +15,23 @@ class CodesSeeder extends Seeder
      */
     public function run()
     {
-        Code::truncate();
+        // Code::truncate();
 
-        $faker = Factory::create();
+        // $faker = Factory::create();
 
-        $timestamp = date('Y-m-d');
+        // $timestamp = date('Y-m-d');
 
-        $data = [];
+        // $data = [];
 
-        foreach (range(1,5) as $x) {
-            $data[] = [
-                'code'       => 'BR' . $faker->bothify('###???##??') . 'SP', // BR123XXX45YYSP
-                'used'       => 0,
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
-            ];
-        }
+        // foreach (range(1,5) as $x) {
+        //     $data[] = [
+        //         'code'       => 'BR' . $faker->bothify('###???##??') . 'SP', // BR123XXX45YYSP
+        //         'used'       => 0,
+        //         'created_at' => $timestamp,
+        //         'updated_at' => $timestamp
+        //     ];
+        // }
 
-        Code::insert($data);
+        // Code::insert($data);
     }
 }

@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Faker\Factory;
+use App\Models\Team;
 use App\Models\Player;
+use App\Helpers\Helper;
 use Illuminate\Database\Seeder;
 
 class PlayersSeeder extends Seeder
@@ -15,19 +17,25 @@ class PlayersSeeder extends Seeder
      */
     public function run()
     {
+        $teams_count = Team::count();
+        $count       = (($teams_count * 6) - 1);
+
         Player::truncate();
 
         $faker = Factory::create('pt-br');
 
         $timestamp = date('Y-m-d');
 
+        $type_nickname = ['amazon', 'dalek', 'asgard', 'jaffa', 'wraith'];
+
         $data[] = [
                 'name'        => 'Mateus',
                 'lastname'    => "Costa",
-                'nick'        => 'lkemns',
+                'nickname'    => 'lkemns',
                 'nationality' => 'Brasileiro',
                 'age'         => 25,
                 'birthday'    => date('1995-04-06'),
+                'sex'         => 'M', // M or F
                 'employed'    => true,
                 'mentor'      => true,
                 'user_id'     => 1,
@@ -35,7 +43,7 @@ class PlayersSeeder extends Seeder
                 'updated_at'  => $timestamp
         ];
 
-		foreach(range(2,25) as $a) {
+		foreach(range(1, $count) as $i) {
             $age   = $faker->numberBetween(18, 30);
 
             $month = $faker->numberBetween(1, 12);
@@ -53,15 +61,27 @@ class PlayersSeeder extends Seeder
                 $day = $faker->numberBetween(1,28);
             }
 
+            if (rand(0, 1))
+            {
+                $name = $faker->firstName('male');
+                $sex  = 'M';
+            }
+            else
+            {
+                $name = $faker->firstName('female');
+                $sex  = 'F';
+            }
+
             $data[] = [
-                    'name'        => $faker->firstName('male'),
+                    'name'        => $name,
                     'lastname'    => $faker->lastName,
-                    'nick'        => $faker->unique()->word,
+                    'nickname'    => Helper::getNickame($faker->randomElement($type_nickname)),
                     'nationality' => $faker->country,
                     'age'         => $age,
-                    'birthday'    => ((2020 - $age) . '-' . $month . '-' . $day),
+                    'birthday'    => date((2022 - $age) . '-' . $month . '-' . $day),
+                    'sex'         => $sex,
                     'employed'    => false,
-                    'mentor'      => false,
+                    'mentor'      => ($i % 6) ? false : true,
                     'user_id'     => 0,
                     'created_at'  => $timestamp,
                     'updated_at'  => $timestamp
