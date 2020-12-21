@@ -238,6 +238,8 @@ return [
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
+        'Helper' => App\Helpers\Helper::class,
+
     ],
 
 ];
