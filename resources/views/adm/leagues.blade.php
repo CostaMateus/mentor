@@ -371,16 +371,14 @@
 
             if (xhr.status == "404")
             {
-                console.log('default.png');
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/default.png');
+                $('#icon-league').find('img').attr('src', 'images/game/leagues/default.png');
             }
             else
             {
-                console.log($(this).data('img'));
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/' + img);
+                $('#icon-league').find('img').attr('src', 'images/game/leagues/' + img);
             }
 
-            $('#icon-team').modal('show');
+            $('#icon-league').modal('show');
         });
     </script>
 @endsection
