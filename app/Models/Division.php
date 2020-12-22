@@ -15,11 +15,17 @@ class Division extends Model
         'league_id', 'name', 'initials',
     ];
 
+    /**
+     * Pega a Liga a quem pertence essa Divisão.
+     */
     public function league()
     {
         return $this->belongsTo('App\Models\League');
     }
 
+    /**
+     * Pega os Times que fazem parte dessa Divisão.
+     */
     public function teams()
     {
         return $this->hasMany('App\Models\Team');

@@ -15,6 +15,9 @@ class League extends Model
         'name', 'initials', 'nrdivisions', 'image',
     ];
 
+    /**
+     * Pega as Diviões que pertencem a essa Liga.
+     */
     public function divisions()
     {
         return $this->hasMany('App\Models\Division');

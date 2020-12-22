@@ -15,6 +15,9 @@ class Trophy extends Model
         'name', 'image'
     ];
 
+    /**
+     * Pega os Times que já ganharam esse Troféu.
+     */
     public function teams()
     {
         return $this->belongsToMany('App\Models\Team', 'team_trophy');

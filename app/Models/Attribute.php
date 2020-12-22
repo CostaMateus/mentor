@@ -23,7 +23,7 @@ class Attribute extends Model
     ];
 
     /**
-     * Pega o jogador/treinador a quem pertence esses atributos.
+     * Pega o jogador/treinador a quem pertence esse atributo.
      */
     public function player()
     {
