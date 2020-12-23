@@ -16,8 +16,9 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        // return Player::all()->load('attribute');
-        return view('adm.home');
+        return view('adm.players', [
+            'data' => Player::where('mentor', 0)->with('attribute')->get(),
+        ]);
     }
 
     /**
@@ -40,17 +41,17 @@ class PlayerController extends Controller
     {
         $validatedData = $request->validate([
             //player
-            'name' => 'required|string',
-            'lastname' => 'required|string',
-            'nickname' => 'required|string',
+            'name'        => 'required|string',
+            'lastname'    => 'required|string',
+            'nickname'    => 'required|string',
             'nationality' => 'string',
-            'age' => 'numeric',
-            'birthday' => 'date',
+            'age'         => 'numeric',
+            'birthday'    => 'date',
             //attributes
-            'role' => 'required|'.Rule::in(Attribute::$roles),
-            'force' => 'required|integer',
-            'salary' => 'required|numeric',
-            'pass' => 'required|numeric',
+            'role'        => 'required|'.Rule::in(Attribute::$roles),
+            'force'       => 'required|integer',
+            'salary'      => 'required|numeric',
+            'pass'        => 'required|numeric',
         ]);
 
         $player = Player::create($validatedData);
@@ -95,17 +96,17 @@ class PlayerController extends Controller
     {
         $validatedData = $request->validate([
             //player
-            'name' => 'required|string',
-            'lastname' => 'required|string',
-            'nickname' => 'required|string',
+            'name'        => 'required|string',
+            'lastname'    => 'required|string',
+            'nickname'    => 'required|string',
             'nationality' => 'string',
-            'age' => 'numeric',
-            'birthday' => 'date',
+            'age'         => 'numeric',
+            'birthday'    => 'date',
             //attributes
-            'role' => Rule::in(Attribute::$roles),
-            'force' => 'required|integer',
-            'salary' => 'required|numeric',
-            'pass' => 'required|numeric',
+            'role'        => Rule::in(Attribute::$roles),
+            'force'       => 'required|integer',
+            'salary'      => 'required|numeric',
+            'pass'        => 'required|numeric',
         ]);
 
         $player->fill($validatedData);

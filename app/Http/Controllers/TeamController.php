@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\League;
+use App\Models\Player;
 use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -43,6 +44,7 @@ class TeamController extends Controller
             'data'      => $data,
             'leagues'   => League::get(),
             'divisions' => Division::get(),
+            'players'   => Player::with('attribute')->get()
         ]);
     }
 

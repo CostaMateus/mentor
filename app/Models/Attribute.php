@@ -11,6 +11,7 @@ class Attribute extends Model
     const MID = 'MID';
     const ADC = 'ADC';
     const SUP = 'SUP';
+
     public static $roles = [self::TOP, self::JNG, self::MID, self::ADC, self::SUP];
 
     /**
