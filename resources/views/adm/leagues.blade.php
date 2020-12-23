@@ -3,14 +3,7 @@
 @section('title', 'Mentor')
 
 @section('css')
-    <style>
-        table tr td {
-            vertical-align: middle!important;
-        }
-        .bg-img-team { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
-        .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
-        #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
-    </style>
+    <style></style>
 @endsection
 
 @section('content_header')
@@ -47,7 +40,7 @@
                             <td class=""            >{{ $league->initials }}</td>
                             <td class="text-center" >{{ $league->nrdivisions }}</td>
                             <td class="text-center" >
-                                <button type="button" class="btn icon-league" data-img="{{ $league->image }}">
+                                <button type="button" class="btn icon-league" data-image="{{ $league->image }}">
                                     @if (file_exists(public_path('images/game/leagues/' . $league->image)))
                                         <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
                                     @else
@@ -59,7 +52,9 @@
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}"
                                                                                   data-name="{{ $league->name }}"
-                                                                                  data-nrd="{{ $league->nrdivisions }}">
+                                                                                  data-nrd="{{ $league->nrdivisions }}"
+                                                                                  data-image="{{ $league->image }}"
+                                                                                  data-initials="">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -85,8 +80,9 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="modal-title h4" id="see-league-title"></p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img id="see-league-image" class="bg-img-team mr-2 my-auto" src="" alt="" width="30px" height="30px">
+                    <p id="see-league-title" class="modal-title h4"></p>
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -103,7 +99,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="new-league-title">Nova liga</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -159,7 +155,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="edit-league-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -215,7 +211,7 @@
             <div class="modal-content">
                 <div class="modal-header text-danger">
                     <h5 class="modal-title" id="del-league-title">Apagar liga</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -253,8 +249,13 @@
 @section('js')
     <script>
         // Bootstrap Table
-        $('#leagues-table').bootstrapTable({
-            locale: 'pt-br'
+        window.getbootstrapTable('leagues-table', {
+            locale: 'pt-br',
+            height: 710,
+            pageSize: '25',
+            pagination: 'true',
+            paginationVAlign: 'top',
+            pageList: [25, 50, 100, 200, 'All'],
         });
 
         // SEE
@@ -262,6 +263,7 @@
             let id        = $(this).data('id');
             let name      = $(this).data('name');
             let nrd       = $(this).data('nrd');
+            let image     = $(this).data('image');
             let divisions = {!! $divisions !!};
             let html      = '';
 
@@ -278,10 +280,13 @@
                     if (division.teams.length)
                     {
                         division.teams.forEach(team => {
+                            let path   = 'images/game/leagues/teams/';
+                            team.image = (window.validateImage(path, team.image)) ? team.image : 'default.png';
+
                             html +=
                                 '<div class="col-6 my-1 d-flex">' +
                                 '    <div class="my-auto">' +
-                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' +
+                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset("images/game/leagues/teams") }}' + '/' + team.image + '" alt="' + team.initials + '" width="50px" height="50px">' +
                                 '    </div>' +
                                 '    <div class="flex-fill align-self-center">' +
                                 '        <p class="mb-0 " >' + team.name + '</p>' +
@@ -307,6 +312,13 @@
                 $('#league-divisions').addClass('justify-content-center');
             }
             $('#league-divisions').html(html);
+
+            let path = 'images/game/leagues/';
+            if (window.validateImage(path, image)) {
+                $('#see-league-image').attr('src', path + image).attr('alt', initials);
+            } else {
+                $('#see-league-image').attr('src', path + 'default.png').attr('alt', initials);
+            }
 
             $('#see-league-title').html(name);
             $('#see-league').modal('show');
@@ -348,37 +360,20 @@
         });
         $('#del-league-form').on('submit', function(e) {
             e.preventDefault();
-            $.ajax({
-                type: 'DELETE',
-                url: '{{ url("/leagues") }}' + '/' + $(this).data('id'),
-                data: $('#del-league-form').serialize(),
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (error) {
-                    console.log(error.statusText);
-                }
-            });
+
+            let url  = '{{ url("/leagues") }}' + '/' + $(this).data('id');
+            let data = $('#del-league-form').serialize();
+            window.deleteItem(url, data);
         });
 
         // ICON
         $(document).on('click', '.icon-league', function() {
-            let img = $(this).data('img');
+            let id    = 'icon-league';
+            let path  = 'images/game/leagues/';
+            let image = $(this).data('image');
 
-            let xhr = new XMLHttpRequest();
-            xhr.open('HEAD', 'images/game/leagues/' + img, false);
-            xhr.send();
-
-            if (xhr.status == "404")
-            {
-                $('#icon-league').find('img').attr('src', 'images/game/leagues/default.png');
-            }
-            else
-            {
-                $('#icon-league').find('img').attr('src', 'images/game/leagues/' + img);
-            }
-
-            $('#icon-league').modal('show');
+            window.showImage(id, path, image);
         });
+
     </script>
 @endsection

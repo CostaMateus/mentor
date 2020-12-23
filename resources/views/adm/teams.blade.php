@@ -3,15 +3,7 @@
 @section('title', 'Mentor')
 
 @section('css')
-    <style>
-        table tr td {
-            vertical-align: middle!important;
-        }
-        .bg-img-team { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
-        .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
-        #icon-team .modal-body,
-        #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
-    </style>
+    <style></style>
 @endsection
 
 @section('content_header')
@@ -46,7 +38,7 @@
                         <tr>
                             <td class="text-center" >{{ $loop->iteration }}</td>
                             <td class="text-center" >
-                                <button type="button" class="btn icon-team" data-img="{{ $team->image }}">
+                                <button type="button" class="btn icon-team" data-image="{{ $team->image }}">
                                     @if (file_exists(public_path('images/game/leagues/teams/' . $team->image)))
                                         <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/' . $team->image) }}" alt="{{ $team->initials }}" width="50px" height="50px">
                                     @else
@@ -57,7 +49,7 @@
                             <td class=""            >{{ $team->name }}</td>
                             <td class=""            >{{ $team->initials }}</td>
                             <td class="text-center" >
-                                <button type="button" class="btn icon-league" data-img="{{ $team->league_image }}">
+                                <button type="button" class="btn icon-league" data-image="{{ $team->league_image }}">
                                     @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
                                         <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $team->league_image) }}" alt="{{ $team->league_initials }}" width="50px" height="50px">
                                     @else
@@ -68,7 +60,10 @@
                             <td class="text-center" >{{ $team->division_initials }}</td>
 
                             <td class="text-center" >
-                                <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}" data-name="{{ $team->name }}">
+                                <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}"
+                                                                                data-name="{{ $team->name }}"
+                                                                                data-initials="{{ $team->initials }}"
+                                                                                data-image="{{ $team->image }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -90,17 +85,18 @@
     </div>
 
     {{-- SEE --}}
-    <div id="see-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="see-team-title" aria-hidden="true" >
+    <div id="see-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="see-team-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <p class="modal-title h4" id="see-team-title"></p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header" >
+                    <img id="see-team-image" class="bg-img-team mr-2 my-auto" src="" alt="" width="30px" height="30px">
+                    <p id="see-team-title" class="modal-title my-auto h4" ></p>
+                    <button type="button" class="my-auto py-0 close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div id="team-divisions" class="row "></div>
+                <div class="modal-body py-2">
+                    <div id="team-players" class="row "></div>
                 </div>
             </div>
         </div>
@@ -111,8 +107,8 @@
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="new-team-title">Nova liga</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 id="new-team-title" class="modal-title">Nova liga</h5>
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -126,7 +122,7 @@
                                     <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%">
                                         <option value="">Selecione...</option>
                                         @foreach ($leagues as $league)
-                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                            <option value="{{ $league->id }}.{{ $league->initials }}">{{ $league->name }}</option>
                                         @endforeach
                                     </select>
                                     <span id="span_league_id" class="text-danger"></span>
@@ -139,14 +135,14 @@
                                     <span id="span_division_id" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Nome do time *</label>
                                     <input type="text" id="name" class="form-control form-control-sm" name="name" >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 pr-md-2">
+                            <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="initials" class="text-muted">Sigla *</label>
                                     <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
@@ -154,7 +150,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 pl-md-2">
+                            <div class="col-12 ">
                                 <div class="form-group">
                                     <label for="image" class="text-muted">Imagem</label>
                                     <input id="image" type="file" class="form-control-file" name="image">
@@ -178,8 +174,8 @@
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edit-team-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 id="edit-team-title" class="modal-title"></h5>
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -245,8 +241,8 @@
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header text-danger">
-                    <h5 class="modal-title" id="del-team-title">Apagar time</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 id="del-team-title" class="modal-title">Apagar time</h5>
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -284,66 +280,14 @@
 @section('js')
     <script>
         // Bootstrap Table
-        $('#teams-table').bootstrapTable({
-            locale: 'pt-br'
+        window.getbootstrapTable('teams-table', {
+            locale: 'pt-br',
+            height: 710,
+            pageSize: '25',
+            pagination: 'true',
+            paginationVAlign: 'top',
+            pageList: [25, 50, 100, 200, 'All'],
         });
-
-        // SEE
-        {{--
-        $(document).on('click', '.see-team', function() {
-            var id = $(this).data('id');
-            var name = $(this).data('name');
-
-            var url = '/leagues/' + id + '/divisions';
-
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (divisions) {
-                    var html = '';
-
-                    divisions.forEach(division => {
-                        html +=
-                            '<div class="col-12 col-md-6 border">' +
-                            '    <div class="row my-2">' +
-                            '        <div class="col-12">' +
-                            '            <p class="h6 text-bold" >' + division.name + '</p>' +
-                            '        </div>'
-                        ;
-
-                        division.teams.forEach(team => {
-                            html +=
-                                '<div class="col-6 my-1 d-flex">' +
-                                '    <div class="my-auto">' +
-                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset('images/game/leagues/teams') }}' + '/' + team.image + '" alt="' + team.initial + '" width="50px" height="50px">' +
-                                '    </div>' +
-                                '    <div class="flex-fill align-self-center">' +
-                                '        <p class="mb-0 " >' + team.name + '</p>' +
-                                '    </div>' +
-                                '</div>'
-                            ;
-                        });
-
-                        html +=
-                            '    </div>' +
-                            '</div>'
-                        ;
-                    });
-
-                    if (divisions.length == 1) {
-                        $('#league-divisions').addClass('justify-content-center');
-                    }
-                    $('#league-divisions').html(html);
-
-                    $('#see-league-title').html(name);
-                    $('#see-league').modal('show');
-                },
-                error: function (error) {
-                    console.log(error.statusText);
-                }
-            });
-        });
-        --}}
 
         $("#league_id").select2({ minimumResultsForSearch: Infinity });
         $("#division_id").select2({ minimumResultsForSearch: Infinity });
@@ -351,13 +295,119 @@
         $("#edit_league_id").select2({ minimumResultsForSearch: Infinity });
         $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
 
+        // SEE
+        $(document).on('click', '.see-team', function() {
+            let id       = $(this).data('id');
+            let name     = $(this).data('name');
+            let initials = $(this).data('initials');
+            let image    = $(this).data('image');
+            let players  = {!! $players !!};
+            let html     = '';
+            let count    = 0;
+            let order;
+
+            html +=
+                '<div class="col-12 border">' +
+                '    <div class="row my-2">';
+
+            players.forEach(player => {
+                switch (player.attribute.role) {
+                    case 'Top':
+                        player.attribute.role = 'Topo';
+                        order = 2;
+                        break;
+                    case 'Jng':
+                        player.attribute.role = 'Selva';
+                        order = 3;
+                        break;
+                    case 'Mid':
+                        player.attribute.role = 'Meio';
+                        order = 4;
+                        break;
+                    case 'Adc':
+                        player.attribute.role = 'Atirador';
+                        order = 5;
+                        break;
+                    case 'Sup':
+                        player.attribute.role = 'Suporte';
+                        order = 6;
+                        break;
+                }
+
+                let salary = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(player.attribute.salary);
+                let pass   = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(player.attribute.pass);
+
+                if (player.team_id == id)
+                {
+                    count++;
+                    if (player.mentor)
+                    {
+                        html +=
+                        '<div class="col-6 my-1 d-flex order-0">' +
+                        '    <div class="my-auto mr-1">' +
+                        '        <i class="fas fa-user"></i>' +
+                        '    </div>' +
+                        '    <div class="flex-fill align-self-center">' +
+                        '        <small class="mb-0 " ><strong>Treinador - ' + player.attribute.role + '</strong></small>';
+                    }
+                    else
+                    {
+
+                        html +=
+                        '<div class="col-6 my-1 d-flex order-' + order + '">' +
+                        '    <div class="my-auto mr-1">' +
+                        '        <i class="fas fa-user" style="color:#6c757d;" ></i>' +
+                        '    </div>' +
+                        '    <div class="flex-fill align-self-center">' +
+                        '        <small class="mb-0 " ><strong>' + player.attribute.role + '</strong></small>';
+                    }
+
+                    html +=
+                        '        <p class="mb-0 " >' + player.name + ' <strong>"' + player.nickname + '"</strong> ' + player.lastname + '</p>' +
+                        '        <p class="mb-0 " >Sexo: ' + player.sex + ' | Idade: ' + player.age + ' | Nacionalidade: <img src="images/flags/' + player.nationality + '_64.png" width="20px" height="20px"></p>' +
+                        '        <p class="mb-0 " >Força: ' + player.attribute.force + ' | Energia: ' + player.attribute.energy + '%</p>' +
+                        '        <p class="mb-0 " >Salário: R$ ' + salary + ' | Passe: R$ ' + pass + '</p>' +
+                        '    </div>' +
+                        '</div>';
+                }
+            });
+
+            html +=
+                '    </div>' +
+                '</div>';
+
+            if ( count == 0 )
+            {
+                html =
+                    '<div class="col-12 border text-center">' +
+                    '   <p class="mt-3 mb-0">Nenhum jogadore encontrado.<p>' +
+                    '</div>';
+            }
+
+            $('#team-players').html(html);
+
+            let path = 'images/game/leagues/teams/';
+            if (window.validateImage(path, image)) {
+                $('#see-team-image').attr('src', path + image).attr('alt', initials);
+            } else {
+                $('#see-team-image').attr('src', path + 'default.png').attr('alt', initials);
+            }
+
+            $('#see-team-title').html(name + " - " + initials);
+            $('#see-team').modal('show');
+        });
+
         // NEW
         $(document).on('click', '.new-team', function() {
-            getLeagues('#league_id');
+            // getLeagues('#league_id');
             $('#new-team').find('#name').val('');
             $('#new-team').find('#initials').val('');
             $('#new-team').find('#nrdivisions').val('').removeAttr('disabled');
             $('#new-team').modal('show');
+        });
+        $('#league_id').on('change', function () {
+            $('#division_id').removeAttr('disabled');
+            insertDivisions('division_id', false, this.value.split('.')[0]);
         });
 
         // EDIT
@@ -375,7 +425,7 @@
                     $('#edit_league_id').attr('disabled', '').val(team.league_id).trigger('change');
                     $('#edit_league_id_hidden').val(team.league_id + '.' + team.league_initials);
 
-                    insertDivisions('#edit_division_id', true, team.division_league_id, team.division_id);
+                    insertDivisions('edit_division_id', true, team.division_league_id, team.division_id);
 
                     $('#edit-team').find('#edit_name').val(team.name);
                     $('#edit-team').find('#edit_initials').val(team.initials);
@@ -391,56 +441,27 @@
         });
         $('#del-team-form').on('submit', function(e) {
             e.preventDefault();
-            $.ajax({
-                type: 'DELETE',
-                url: '{{ url("/teams") }}' + '/' + $(this).data('id'),
-                data: $('#del-team-form').serialize(),
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (error) {
-                    console.log(error.statusText);
-                }
-            });
+
+            let url  = '{{ url("/teams") }}' + '/' + $(this).data('id');
+            let data = $('#del-team-form').serialize();
+            window.deleteItem(url, data);
         });
 
         // ICON - League
         $(document).on('click', '.icon-league', function() {
-            let img = $(this).data('img');
+            let id    = 'icon-team';
+            let path  = 'images/game/leagues/';
+            let image = $(this).data('image');
 
-            let xhr = new XMLHttpRequest();
-            xhr.open('HEAD', 'images/game/leagues/' + img, false);
-            xhr.send();
-
-            if (xhr.status == "404")
-            {
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/default.png');
-            }
-            else
-            {
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/' + img);
-            }
-
-            $('#icon-team').modal('show');
+            window.showImage(id, path, image);
         });
         // ICON - Team
         $(document).on('click', '.icon-team', function() {
-            let img = $(this).data('img');
+            let id    = 'icon-team';
+            let path  = 'images/game/leagues/teams/';
+            let image = $(this).data('image');
 
-            let xhr = new XMLHttpRequest();
-            xhr.open('HEAD', 'images/game/leagues/teams/' + img, false);
-            xhr.send();
-
-            if (xhr.status == "404")
-            {
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/default.png');
-            }
-            else
-            {
-                $('#icon-team').find('img').attr('src', 'images/game/leagues/teams/' + img);
-            }
-
-            $('#icon-team').modal('show');
+            window.showImage(id, path, image);
         });
 
 
@@ -458,14 +479,10 @@
                 }
             });
 
-            $(id).html(opts);
-            $(id).select2({ minimumResultsForSearch: Infinity });
+            $('#' + id).html(opts);
+            $('#' + id).select2({ minimumResultsForSearch: Infinity });
         }
 
-        $('#league_id').on('change', function () {
-            $('#division_id').removeAttr('disabled');
-            insertDivisions('#division_id', false, this.value.split('.')[0]);
-        });
 
     </script>
 @endsection
