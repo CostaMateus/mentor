@@ -124,7 +124,7 @@
                                 <td class="icon-a text-center" >
                                     <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
                                 </td>
-                                <td class="icon-b" >Caçador</td>
+                                <td class="icon-b" >Selva</td>
                                 <td class="icon-c" >Shrimp</td>
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
@@ -222,7 +222,7 @@
                                 <td class="icon-a text-center" >
                                     <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
                                 </td>
-                                <td class="icon-b" >Caçador</td>
+                                <td class="icon-b" >Selva</td>
                                 <td class="icon-c" >Shrimp</td>
                                 <td class="icon-d" >50</td>
                                 <td class="icon-e align-middle" >
