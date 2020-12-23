@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin.home');
 
     Route::apiresource('/players', 'PlayerController');
+
     Route::apiresource('/trophies', 'TrophyController');
 
     Route::apiresource('/teams', 'TeamController');
@@ -35,22 +36,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('leagues')->group(function () {
 
-        Route::get('listall', 'LeagueController@listAll')->name('leagues.list');
-
         Route::apiresource('/', 'LeagueController')->parameters(['' => 'league']);
         Route::post('{league}/update', 'LeagueController@update');
 
         Route::prefix('{league}/divisions')->group(function () {
 
-            Route::get('listall', 'DivisionController@listAll')->name('divisions.list');
-
             Route::apiresource('/', 'DivisionController')->parameters(['' => 'division']);
             Route::apiresource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
-
-            // Route::prefix('{division}/teams')->group(function () {
-            //     Route::apiresource('/', 'TeamController')->parameters(['' => 'team']);
-            //     Route::apiresource('{team}/players', 'PlayerController')->parameters(['' => 'player']);
-            // });
         });
     });
 });
