@@ -24,20 +24,54 @@ class AttributesSeeder extends Seeder
 
         $timestamp = date('Y-m-d');
 
+        $roles = ['SUP','TOP','JNG','MID','ADC'];
+
+        $i = 0;
+
         foreach($players as $p) {
-            $salary = $faker->randomFloat(2, 1000, 10000);
-            $pass   = $salary * $faker->numberBetween(1, 4);
+            $force  = $faker->numberBetween(25, 75);
+
+            if ($force > 70){
+                $salary = $faker->randomFloat(2, 7000, 8000);
+            }
+            else if ($force > 60) {
+                $salary = $faker->randomFloat(2, 6000, 7250);
+            }
+            else if ($force > 50) {
+                $salary = $faker->randomFloat(2, 5000, 6250);
+            }
+            else if ($force > 40) {
+                $salary = $faker->randomFloat(2, 4000, 5250);
+            }
+            else if ($force > 30) {
+                $salary = $faker->randomFloat(2, 3000, 4250);
+            }
+            else
+            {
+                $salary = $faker->randomFloat(2, 2000, 3250);
+            }
+
+            if ($p->mentor)
+            {
+                $force  = $faker->numberBetween(60, 75);
+                $salary = $faker->randomFloat(2, 6500, 8500);
+            }
+
+            $pass = $salary * $faker->randomFloat(2, 1, 3);
 
             $data[] = [
                 'player_id'  => $p->id,
-                'role'       => $faker->randomElement(['TOP','JNG','MID','ADC','SUP']),
-                'force'      => $faker->numberBetween(25, 75),
+                'role'       => $roles[$i],
+                'force'      => $force,
                 'energy'     => 100,
-                'salary'     => $salary,
-                'pass'       => $pass,
+                'salary'     => (int) $salary,
+                'pass'       => (int) $pass,
                 'created_at' => $timestamp,
                 'updated_at' => $timestamp
             ];
+
+            $i++;
+            if ( $i == 5) $i = 0;
         }
 
         Attribute::insert($data);
