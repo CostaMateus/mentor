@@ -335,12 +335,17 @@ return [
                 [
                     'type'     => 'css',
                     'asset'    => false,
-                    'location' => '//unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/bootstrap-table.css',
                 ],
                 [
                     'type'     => 'js',
                     'asset'    => false,
-                    'location' => '//unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/bootstrap-table.min.js',
+                ],
+                [
+                    'type'     => 'js',
+                    'asset'    => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/locale/bootstrap-table-pt-BR.min.js',
                 ],
             ],
         ],
