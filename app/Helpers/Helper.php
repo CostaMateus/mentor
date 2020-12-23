@@ -6,34 +6,76 @@ use Faker\Factory;
 
 class Helper
 {
+    public static function formatteRole($role)
+    {
+        switch ($role) {
+            case 'Top':
+                return 'TOP';
+                break;
+            case 'Jng':
+                return 'JNG';
+                break;
+            case 'Mid':
+                return 'MID';
+                break;
+            case 'Adc':
+                return 'ADC';
+                break;
+            case 'Sup':
+                return 'SUP';
+                break;
+        }
+    }
+    public static function formatteRoleFull($role)
+    {
+        switch ($role) {
+            case 'Top':
+                return 'Topo';
+                break;
+            case 'Jng':
+                return 'Selva';
+                break;
+            case 'Mid':
+                return 'Meio';
+                break;
+            case 'Adc':
+                return 'Atirador';
+                break;
+            case 'Sup':
+                return 'Suporte';
+                break;
+        }
+    }
 
     public static function getNicknames($type, $sex = null)
     {
         switch ($type) {
             case 'amazon':
-                return self::nameAmazon();
+                $name = self::nameAmazon();
                 break;
 
             case 'dalek':
-                return self::nameDrWhoDalek();
+                $name = self::nameDrWhoDalek();
                 break;
 
             case 'asgard':
-                return self::nameStargateAsgard();
+                $name = self::nameStargateAsgard();
                 break;
 
             case 'jaffa':
-                return self::nameStargateJaffa();
+                $name = self::nameStargateJaffa();
                 break;
 
             case 'wraith':
-                return self::nameStargateWraith();
+                $name = self::nameStargateWraith();
                 break;
 
             default:
                 # code...
                 break;
         }
+
+        return str_replace('\'', '', $name);
     }
 
     public static function getNames($type, $sex)
