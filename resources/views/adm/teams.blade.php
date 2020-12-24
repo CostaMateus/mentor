@@ -73,7 +73,8 @@
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-danger del-team" data-id="{{ $team->id }}" >
+                                <button class="btn btn-link text-danger del-team" data-id="{{ $team->id }}"
+                                                                                  data-name="{{ $team->name }}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -85,22 +86,12 @@
     </div>
 
     {{-- SEE --}}
-    <div id="see-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="see-team-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" >
-                    <img id="see-team-image" class="bg-img-team mr-2 my-auto" src="" alt="" width="30px" height="30px">
-                    <p id="see-team-title" class="modal-title my-auto h4" ></p>
-                    <button type="button" class="my-auto py-0 close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body py-2">
-                    <div id="team-players" class="row "></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('adm/partials.modal-see', [
+        'modalId' => 'see-team',
+        'title'   => 'see-team-title',
+        'image'   => 'see-team-image',
+        'body'    => 'team-players',
+    ])
 
     {{-- NEW --}}
     <div id="new-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-team-title" aria-hidden="true" >
@@ -237,42 +228,16 @@
     </div>
 
     {{-- DELETE --}}
-    <div id="del-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="del-team-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-                <div class="modal-header text-danger">
-                    <h5 id="del-team-title" class="modal-title">Apagar time</h5>
-                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="del-team-form" action="#" method="#" >
-                        @csrf
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <p>Deseja realmente apagar esse time?</p>
-                            </div>
-                            <div class="col-3 mx-auto">
-                                <button type="submit" class="btn btn-danger btn-sm btn-block" >Confirmar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('adm/partials.modal-delete', [
+        'modalId' => 'del-team',
+        'titleId' => 'del-team-title',
+        'title'   => 'Apagar time',
+        'formId'  => 'del-team-form',
+        'text'    => 'Deseja realmente apagar essa liga?',
+    ])
 
     {{-- ICON --}}
-    <div id="icon-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="icon-team-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="mx-auto">
-                <div class="modal-body text-center">
-                    <img class="bg-img-team-max" src="" width="400px" height="400px">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('adm/partials.modal-icon', ['modalId' => 'icon-team'])
 @stop
 
 @include('adm.footer')
@@ -436,6 +401,7 @@
 
         // DEL
         $(document).on('click', '.del-team', function() {
+            $('#del-team-title').html($(this).data('name'));
             $('#del-team-form').attr('data-id', $(this).data('id'));
             $('#del-team').modal('show');
         });

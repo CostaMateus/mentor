@@ -64,7 +64,8 @@
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-danger del-league" data-id="{{ $league->id }}" >
+                                <button class="btn btn-link text-danger del-league" data-id="{{ $league->id }}"
+                                                                                    data-name="{{ $league->name }}" >
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -76,22 +77,12 @@
     </div>
 
     {{-- SEE --}}
-    <div id="see-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="see-league-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img id="see-league-image" class="bg-img-team mr-2 my-auto" src="" alt="" width="30px" height="30px">
-                    <p id="see-league-title" class="modal-title h4"></p>
-                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="league-divisions" class="row "></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('adm/partials.modal-see', [
+        'modalId' => 'see-league',
+        'title'   => 'see-league-title',
+        'image'   => 'see-league-image',
+        'body'    => 'league-divisions',
+    ])
 
     {{-- NEW --}}
     <div id="new-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-league-title" aria-hidden="true" >
@@ -206,42 +197,16 @@
     </div>
 
     {{-- DELETE --}}
-    <div id="del-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="del-league-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-                <div class="modal-header text-danger">
-                    <h5 class="modal-title" id="del-league-title">Apagar liga</h5>
-                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="del-league-form" action="#" method="#" >
-                        @csrf
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <p>Deseja realmente apagar essa liga?</p>
-                            </div>
-                            <div class="col-3 mx-auto">
-                                <button type="submit" class="btn btn-danger btn-sm btn-block" >Confirmar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('adm/partials.modal-delete', [
+        'modalId' => 'del-league',
+        'titleId' => 'del-league-title',
+        'title'   => 'Apagar liga',
+        'formId'  => 'del-league-form',
+        'text'    => 'Deseja realmente apagar essa liga?',
+    ])
 
     {{-- ICON --}}
-    <div id="icon-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="icon-league-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="mx-auto">
-                <div class="modal-body text-center">
-                    <img class="bg-img-team-max" src="" width="400px" height="400px">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('adm/partials.modal-icon', ['modalId' => 'icon-league'])
 @stop
 
 @include('adm.footer')
@@ -355,6 +320,7 @@
 
         // DEL
         $(document).on('click', '.del-league', function() {
+            $('#del-league-title').html($(this).data('name'));
             $('#del-league-form').attr('data-id', $(this).data('id'));
             $('#del-league').modal('show');
         });
