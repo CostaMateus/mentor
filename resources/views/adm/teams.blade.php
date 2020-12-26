@@ -25,8 +25,8 @@
                         <th class="text-center" data-field="id"       data-sortable="true" >#</th>
                         <th class="text-center"                                            >Logo</th>
                         <th class=""            data-field="name"     data-sortable="true" >Nome</th>
-                        <th class=""            data-field="initials" data-sortable="true" >Sigla</th>
-                        <th class="text-center"                                            >Liga</th>
+                        <th class="text-center" data-field="initials" data-sortable="true" >Sigla</th>
+                        <th class="text-center" data-field="league"   data-sortable="true" >Liga</th>
                         <th class="text-center" data-field="division" data-sortable="true" >Divisão</th>
                         <th class="text-center" data-field="players"  data-sortable="true" >Nº Jogadores</th>
                         <th class="text-center"                                            >Ver</th>
@@ -48,16 +48,8 @@
                                 </button>
                             </td>
                             <td class=""            >{{ $team->name }}</td>
-                            <td class=""            >{{ $team->initials }}</td>
-                            <td class="text-center" >
-                                <button type="button" class="btn icon-league" data-image="{{ $team->league_image }}">
-                                    @if (file_exists(public_path('images/game/leagues/' . $team->league_image)))
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $team->league_image) }}" alt="{{ $team->league_initials }}" width="50px" height="50px">
-                                    @else
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/default.png') }}" alt="{{ $team->league_initials }}" width="50px" height="50px">
-                                    @endif
-                                </button>
-                            </td>
+                            <td class="text-center" >{{ $team->initials }}</td>
+                            <td class="text-center" >{{ $team->league_initials }}</td>
                             <td class="text-center" >{{ $team->division_initials }}</td>
                             <td class="text-center" >{{ $team->total_players }}</td>
 
@@ -264,45 +256,30 @@
 
         // SEE
         $(document).on('click', '.see-team', function() {
-            let id       = $(this).data('id');
-            let name     = $(this).data('name');
-            let initials = $(this).data('initials');
-            let image    = $(this).data('image');
-            let players  = {!! $players !!};
-            let html     = '';
-            let count    = 0;
-            let order;
+            let id        = $(this).data('id');
+            let name      = $(this).data('name');
+            let initials  = $(this).data('initials');
+            let image     = $(this).data('image');
+            let players   = {!! $players !!};
+            let countries = {!! $countries !!};
+            let html      = '';
+            let count     = 0;
 
             html +=
                 '<div class="col-12 border">' +
                 '    <div class="row my-2">';
 
             players.forEach(player => {
-                switch (player.attribute.role) {
-                    case 'Top':
-                        player.attribute.role = 'Topo';
-                        order = 2;
-                        break;
-                    case 'Jng':
-                        player.attribute.role = 'Selva';
-                        order = 3;
-                        break;
-                    case 'Mid':
-                        player.attribute.role = 'Meio';
-                        order = 4;
-                        break;
-                    case 'Adc':
-                        player.attribute.role = 'Atirador';
-                        order = 5;
-                        break;
-                    case 'Sup':
-                        player.attribute.role = 'Suporte';
-                        order = 6;
-                        break;
-                }
+                let auxRole = window.formatteRoleFull(player.attribute.role);
+                let role    = auxRole[0];
+                let order   = auxRole[1];
 
-                let salary = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(player.attribute.salary);
-                let pass   = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(player.attribute.pass);
+                let force   = player.attribute.force;
+                let energy  = player.attribute.energy;
+                let salary  = window.formatCurrency(player.attribute.salary);
+                let pass    = window.formatCurrency(player.attribute.pass);
+
+                let country = window.getNameCountry(countries, player.nationality);
 
                 if (player.team_id == id)
                 {
@@ -315,7 +292,7 @@
                         '        <i class="fas fa-user"></i>' +
                         '    </div>' +
                         '    <div class="flex-fill align-self-center">' +
-                        '        <small class="mb-0 " ><strong>Treinador - ' + player.attribute.role + '</strong></small>';
+                        '        <small class="mb-0 " ><strong>Treinador - ' + role + '</strong></small>';
                     }
                     else
                     {
@@ -326,13 +303,13 @@
                         '        <i class="fas fa-user" style="color:#6c757d;" ></i>' +
                         '    </div>' +
                         '    <div class="flex-fill align-self-center">' +
-                        '        <small class="mb-0 " ><strong>' + player.attribute.role + '</strong></small>';
+                        '        <small class="mb-0 " ><strong>' + role + '</strong></small>';
                     }
 
                     html +=
-                        '        <p class="mb-0 " >' + player.name + ' <strong>"' + player.nickname + '"</strong> ' + player.lastname + '</p>' +
-                        '        <p class="mb-0 " >Sexo: ' + player.sex + ' | Idade: ' + player.age + ' | Nacionalidade: <img src="images/flags/' + player.nationality + '_64.png" width="20px" height="20px"></p>' +
-                        '        <p class="mb-0 " >Força: ' + player.attribute.force + ' | Energia: ' + player.attribute.energy + '%</p>' +
+                        '        <p class="mb-0 " >' + player.name + ' "<strong>' + player.nickname + '</strong>" ' + player.lastname + '</p>' +
+                        '        <p class="mb-0 " >Sexo: ' + player.sex + ' | Idade: ' + player.age + ' | Nacionalidade: <img src="images/flags/' + country[0] + '_64.png" alt="' + country[0] + '" title="' + country[1] + '" width="20px" height="20px"></p>' +
+                        '        <p class="mb-0 " >Força: ' + force + ' | Energia: ' + energy + '%</p>' +
                         '        <p class="mb-0 " >Salário: R$ ' + salary + ' | Passe: R$ ' + pass + '</p>' +
                         '    </div>' +
                         '</div>';
@@ -415,14 +392,6 @@
             window.deleteItem(url, data);
         });
 
-        // ICON - League
-        $(document).on('click', '.icon-league', function() {
-            let id    = 'icon-team';
-            let path  = 'images/game/leagues/';
-            let image = $(this).data('image');
-
-            window.showImage(id, path, image);
-        });
         // ICON - Team
         $(document).on('click', '.icon-team', function() {
             let id    = 'icon-team';
