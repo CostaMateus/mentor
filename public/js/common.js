@@ -45,3 +45,72 @@ window.deleteItem = function(url, data)
         }
     });
 }
+
+
+window.formatCurrency = function(value)
+{
+    return new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(value);
+}
+
+
+window.formatDate = function(str)
+{
+    let date = new Date(str);
+    return ("0" + date.getDate()).substr(-2) +
+            "/" +
+           ("0" + (date.getMonth() + 1)).substr(-2) +
+            "/" +
+            date.getFullYear();
+}
+
+
+window.getNameCountry = function(countries, code)
+{
+    let country;
+
+    countries.forEach(c => {
+        if (c.code == code)
+        {
+            country = [ c.code, c.name ];
+        }
+    });
+
+    return country;
+}
+
+
+window.formatteRole = function($role)
+{
+    switch ($role) {
+        case 'Top':
+            return 'TOP';
+        case 'Jng':
+            return 'JNG';
+        case 'Mid':
+            return 'MID';
+        case 'Adc':
+            return 'ADC';
+        case 'Sup':
+            return 'SUP';
+    }
+}
+
+
+window.formatteRoleFull = function($role)
+{
+    switch ($role) {
+        case 'Top':
+            return [ 'Topo', 2 ];
+        case 'Jng':
+            return [ 'Selva', 3 ];
+        case 'Mid':
+            return [ 'Meio', 4 ];
+        case 'Adc':
+            return [ 'Atirador', 5 ];
+        case 'Sup':
+            return [ 'Suporte', 6 ];
+    }
+}
