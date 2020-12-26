@@ -3,9 +3,19 @@
 namespace App\Helpers;
 
 use Faker\Factory;
+use Illuminate\Support\Facades\DB;
 
 class Helper
 {
+    public static function getNameCountry($code)
+    {
+        $countries = DB::table('countries')->get();
+
+        foreach ($countries as $c) {
+            if ($c->code == $code) return $c->name;
+        }
+    }
+
     public static function formatteRole($role)
     {
         switch ($role) {
