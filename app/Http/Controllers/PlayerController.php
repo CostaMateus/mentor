@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\Player;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class PlayerController extends Controller
 {
@@ -16,8 +18,17 @@ class PlayerController extends Controller
      */
     public function index()
     {
+        $data = Player::where('mentor', 0)
+                      ->with('attribute')
+                      ->orderBy('name', 'ASC')
+                      ->orderBy('lastname', 'ASC')
+                      ->orderBy('nickname', 'ASC')
+                      ->get();
+
         return view('adm.players', [
-            'data' => Player::where('mentor', 0)->with('attribute')->get(),
+            'data'      => $data,
+            'teams'     => Team::get(),
+            'countries' => DB::table('countries')->get()
         ]);
     }
 
