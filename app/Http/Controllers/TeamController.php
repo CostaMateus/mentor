@@ -23,33 +23,31 @@ class TeamController extends Controller
     public function index(Request $request)
     {
         $data = DB::table('teams as tm')
-                    ->join('players as pl', 'pl.team_id', '=', 'tm.id')
-                    ->join('divisions as dv', 'tm.division_id', '=', 'dv.id')
-                    ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
-                    ->select(
-                        'tm.id',
-                        'tm.name',
-                        'tm.initials',
-                        'tm.image',
-                        DB::raw('count(pl.id) as total_players'),
-                        'dv.id as division_id',
-                        'dv.league_id as division_league_id',
-                        'dv.initials as division_initials',
-                        'lg.id as league_id',
-                        'lg.name as league_name',
-                        'lg.initials as league_initials',
-                        'lg.image as league_image')
-                    ->groupBy('tm.id')
-                    // ->orderBy('teams.name')
-                    // ->orderBy('dv.id')
-                    // ->orderBy('lg.id')
-                    ->get();
+                  ->join('players as pl', 'pl.team_id', '=', 'tm.id')
+                  ->join('divisions as dv', 'tm.division_id', '=', 'dv.id')
+                  ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
+                  ->select(
+                      'tm.id',
+                      'tm.name',
+                      'tm.initials',
+                      'tm.image',
+                      DB::raw('count(pl.id) as total_players'),
+                      'dv.id as division_id',
+                      'dv.league_id as division_league_id',
+                      'dv.initials as division_initials',
+                      'lg.id as league_id',
+                      'lg.name as league_name',
+                      'lg.initials as league_initials',
+                      'lg.image as league_image')
+                  ->groupBy('tm.id')
+                  ->get();
 
         return view('adm.teams', [
             'data'      => $data,
             'leagues'   => League::get(),
             'divisions' => Division::get(),
-            'players'   => Player::with('attribute')->get()
+            'players'   => Player::with('attribute')->get(),
+            'countries' => DB::table('countries')->get()
         ]);
     }
 
@@ -200,6 +198,11 @@ class TeamController extends Controller
         if ($team->image != "default.png") {
             File::delete(public_path('images/game/leagues/teams/').$team->image);
         }
+
+        DB::table('players as pl')->where('team_id', $team->id)->update([
+            'team_id' => 0,
+            'employed' => 0
+        ]);
 
         $team->delete();
 
