@@ -8,6 +8,7 @@ use App\Models\Player;
 use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class TeamController extends Controller
@@ -21,13 +22,16 @@ class TeamController extends Controller
     // public function index(Request $request, $division_id)
     public function index(Request $request)
     {
-        $data = Team::join('divisions as dv', 'teams.division_id', '=', 'dv.id')
+        $data = DB::table('teams as tm')
+                    ->join('players as pl', 'pl.team_id', '=', 'tm.id')
+                    ->join('divisions as dv', 'tm.division_id', '=', 'dv.id')
                     ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
                     ->select(
-                        'teams.id',
-                        'teams.name',
-                        'teams.initials',
-                        'teams.image',
+                        'tm.id',
+                        'tm.name',
+                        'tm.initials',
+                        'tm.image',
+                        DB::raw('count(pl.id) as total_players'),
                         'dv.id as division_id',
                         'dv.league_id as division_league_id',
                         'dv.initials as division_initials',
@@ -35,6 +39,7 @@ class TeamController extends Controller
                         'lg.name as league_name',
                         'lg.initials as league_initials',
                         'lg.image as league_image')
+                    ->groupBy('tm.id')
                     // ->orderBy('teams.name')
                     // ->orderBy('dv.id')
                     // ->orderBy('lg.id')
@@ -50,7 +55,7 @@ class TeamController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -160,9 +165,9 @@ class TeamController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials']  = strtoupper($validatedData['initials']);
+        $validatedData['initials'] = strtoupper($validatedData['initials']);
 
-        $league_initials = strtolower(explode('.', $validatedData['league_id'])[1]);
+        $league_initials           = strtolower(explode('.', $validatedData['league_id'])[1]);
         unset($validatedData['league_id']);
 
         if (isset($request->image))

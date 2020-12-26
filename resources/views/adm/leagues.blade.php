@@ -216,11 +216,11 @@
         // Bootstrap Table
         window.getbootstrapTable('leagues-table', {
             locale: 'pt-br',
-            height: 710,
-            pageSize: '25',
-            pagination: 'true',
-            paginationVAlign: 'top',
-            pageList: [25, 50, 100, 200, 'All'],
+            // height: 710,
+            // pageSize: '25',
+            // pagination: 'true',
+            // paginationVAlign: 'top',
+            // pageList: [25, 50, 100, 200, 'All'],
         });
 
         // SEE

@@ -28,6 +28,7 @@
                         <th class=""            data-field="initials" data-sortable="true" >Sigla</th>
                         <th class="text-center"                                            >Liga</th>
                         <th class="text-center" data-field="division" data-sortable="true" >Divisão</th>
+                        <th class="text-center" data-field="players"  data-sortable="true" >Nº Jogadores</th>
                         <th class="text-center"                                            >Ver</th>
                         <th class="text-center"                                            >Editar</th>
                         <th class="text-center"                                            >Excluir</th>
@@ -58,6 +59,7 @@
                                 </button>
                             </td>
                             <td class="text-center" >{{ $team->division_initials }}</td>
+                            <td class="text-center" >{{ $team->total_players }}</td>
 
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}"
@@ -247,11 +249,11 @@
         // Bootstrap Table
         window.getbootstrapTable('teams-table', {
             locale: 'pt-br',
-            height: 710,
-            pageSize: '25',
-            pagination: 'true',
-            paginationVAlign: 'top',
-            pageList: [25, 50, 100, 200, 'All'],
+            // height: 710,
+            // pageSize: '25',
+            // pagination: 'true',
+            // paginationVAlign: 'top',
+            // pageList: [25, 50, 100, 200, 'All'],
         });
 
         $("#league_id").select2({ minimumResultsForSearch: Infinity });
