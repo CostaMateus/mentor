@@ -24,7 +24,7 @@
                     <tr class="bg-light">
                         <th class="text-center" data-field="id"       data-sortable="true" >#</th>
                         <th class=""            data-field="name"     data-sortable="true" >Nome</th>
-                        <th class=""            data-field="initials" data-sortable="true" >Sigla</th>
+                        <th class="text-center" data-field="initials" data-sortable="true" >Sigla</th>
                         <th class="text-center" data-field="nrd"      data-sortable="true" >Nº divisões</th>
                         <th class="text-center"                                            >Logo</th>
                         <th class="text-center"                                            >Ver</th>
@@ -37,7 +37,7 @@
                         <tr>
                             <td class="text-center" >{{ $loop->iteration }}</td>
                             <td class=""            >{{ $league->name }}</td>
-                            <td class=""            >{{ $league->initials }}</td>
+                            <td class="text-center" >{{ $league->initials }}</td>
                             <td class="text-center" >{{ $league->nrdivisions }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-image="{{ $league->image }}">
