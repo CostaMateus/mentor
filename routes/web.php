@@ -16,6 +16,7 @@ Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);
 Route::get('/redirect', 'LoginController@redirect')->name('google.redirect');
 Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
+Route::get('/logout', 'LoginController@logout')->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 

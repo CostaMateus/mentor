@@ -132,7 +132,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Sobre o jogo</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Logout</a>
+                            <a class="dropdown-item" href="/logout" >Logout</a>
                         </div>
                     </li>
 

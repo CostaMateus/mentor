@@ -55,7 +55,7 @@ class LoginController extends Controller
                     session()->save();
 
                     Log::info('User loggin: ' . $user->id . ' - ' . $user->name);
-                    
+
                     return redirect('/');
                 }
                 else
@@ -68,14 +68,31 @@ class LoginController extends Controller
             else
             {
                 Log::info('User not registred trying to loggin: ' . $googleUser->name . ' - ' . $googleUser->email);
-                
+
                 return redirect('login')->with('error', 'Usuário não cadastrado!');
             }
         }
         catch (Exception $e) {
             Log::warning('Something is wrong: ' . $e);
-            
+
             return redirect('login');
         }
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
