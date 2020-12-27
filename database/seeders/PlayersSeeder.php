@@ -25,6 +25,8 @@ class PlayersSeeder extends Seeder
 
         $timestamp     = date('Y-m-d');
 
+        $countries     = ['KR','CN','TW','US','DK','PL','DE','FR','CA','VN','RU','BR','SE','HK','ES','BE','NL','GB','TR','HR','CZ','BG','PH','UA','AU','SI','TH','JP','SA','SG','GR','RO','CL','FI','AR','MX','NO','MY','LT','HU','PT','AM','TN','EE','LB','IT','RS','JO','PE','AT'];
+
         $type_nickname = ['amazon', 'dalek', 'asgard', 'jaffa', 'wraith'];
 
         $data[]        = [
@@ -45,11 +47,11 @@ class PlayersSeeder extends Seeder
 
         foreach ($teams as $team)
         {
-            $temp = PlayersSeeder::generatePlayers($team, $faker, $type_nickname, $timestamp);
+            $temp = PlayersSeeder::generatePlayers($team, $faker, $type_nickname, $countries, $timestamp);
             $data = array_merge($data, $temp);
         }
 
-        $temp2 = PlayersSeeder::generatePlayers(null, $faker, $type_nickname, $timestamp);
+        $temp2 = PlayersSeeder::generatePlayers(null, $faker, $type_nickname, $countries, $timestamp);
 
         $data = array_merge($data, $temp2);
 
@@ -57,11 +59,11 @@ class PlayersSeeder extends Seeder
     }
 
 
-    protected static function generatePlayers($team = null, $faker, $type_nickname, $timestamp)
+    protected static function generatePlayers($team = null, $faker, $type_nickname, $countries, $timestamp)
     {
         $y = ($team != null) ? 6 : rand(50,100);
 
-        $team_country = $faker->countryCode();
+        $team_country = $faker->randomElement($countries);
 
         foreach(range(1, $y) as $i)
         {
@@ -109,21 +111,31 @@ class PlayersSeeder extends Seeder
      */
     protected static function getBirthday($faker)
     {
-        $age   = $faker->numberBetween(18, 33);
+        $age   = $faker->numberBetween(16, 35);
 
         $month = $faker->numberBetween(1, 12);
 
-        if (in_array($month, [1, 3, 5, 7, 8, 10, 12]))
-        {
-            $day = $faker->numberBetween(1,31);
-        }
-        else if (in_array($month, [4, 6, 9, 11]))
-        {
-            $day = $faker->numberBetween(1,30);
-        }
-        else
-        {
-            $day = $faker->numberBetween(1,28);
+        switch ($month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                $day = $faker->numberBetween(1,31);
+                break;
+
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                $day = $faker->numberBetween(1,30);
+                break;
+
+            case 2:
+                $day = $faker->numberBetween(1,28);
+                break;
         }
 
         return [
