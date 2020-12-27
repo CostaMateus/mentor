@@ -23,10 +23,10 @@
                 <thead>
                     <tr class="bg-light">
                         <th class="text-center" data-field="id"       data-sortable="true" >#</th>
+                        <th class="text-center"                                            >Logo</th>
                         <th class=""            data-field="name"     data-sortable="true" >Nome</th>
                         <th class="text-center" data-field="initials" data-sortable="true" >Sigla</th>
                         <th class="text-center" data-field="nrd"      data-sortable="true" >Nº divisões</th>
-                        <th class="text-center"                                            >Logo</th>
                         <th class="text-center"                                            >Ver</th>
                         <th class="text-center"                                            >Editar</th>
                         <th class="text-center"                                            >Excluir</th>
@@ -36,9 +36,6 @@
                     @foreach ($data as $league)
                         <tr>
                             <td class="text-center" >{{ $loop->iteration }}</td>
-                            <td class=""            >{{ $league->name }}</td>
-                            <td class="text-center" >{{ $league->initials }}</td>
-                            <td class="text-center" >{{ $league->nrdivisions }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-image="{{ $league->image }}">
                                     @if (file_exists(public_path('images/game/leagues/' . $league->image)))
@@ -48,6 +45,9 @@
                                     @endif
                                 </button>
                             </td>
+                            <td class=""            >{{ $league->name }}</td>
+                            <td class="text-center" >{{ $league->initials }}</td>
+                            <td class="text-center" >{{ $league->nrdivisions }}</td>
 
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}"
@@ -230,6 +230,7 @@
             let nrd       = $(this).data('nrd');
             let image     = $(this).data('image');
             let divisions = {!! $divisions !!};
+            let teams     = {!! $teams !!};
             let html      = '';
 
             divisions.forEach(division => {
@@ -242,21 +243,24 @@
                         '            <p class="h6 text-bold" >' + division.name + '</p>' +
                         '        </div>';
 
-                    if (division.teams.length)
+                    if (window.countTeamsInDivision(teams, division.id))
                     {
-                        division.teams.forEach(team => {
-                            let path   = 'images/game/leagues/teams/';
-                            team.image = (window.validateImage(path, team.image)) ? team.image : 'default.png';
+                        teams.forEach(team => {
+                            if (team.league_id == id && team.division_id == division.id)
+                            {
+                                let path   = 'images/game/leagues/teams/';
+                                team.image = (window.validateImage(path, team.image)) ? team.image : 'default.png';
 
-                            html +=
-                                '<div class="col-6 my-1 d-flex">' +
-                                '    <div class="my-auto">' +
-                                '        <img class="bg-img-team p-1 mr-1 " src="{{ asset("images/game/leagues/teams") }}' + '/' + team.image + '" alt="' + team.initials + '" width="50px" height="50px">' +
-                                '    </div>' +
-                                '    <div class="flex-fill align-self-center">' +
-                                '        <p class="mb-0 " >' + team.name + '</p>' +
-                                '    </div>' +
-                                '</div>';
+                                html +=
+                                    '<div class="col-6 my-1 d-flex">' +
+                                    '    <div class="my-auto">' +
+                                    '        <img class="bg-img-team p-1 mr-1 " src="{{ asset("images/game/leagues/teams") }}' + '/' + team.image + '" alt="' + team.initials + '" width="50px" height="50px">' +
+                                    '    </div>' +
+                                    '    <div class="flex-fill align-self-center">' +
+                                    '        <p class="mb-0 " >' + team.name + '</p>' +
+                                    '    </div>' +
+                                    '</div>';
+                            }
                         });
                     }
                     else
@@ -272,6 +276,36 @@
                         '</div>';
                 }
             });
+
+            if (window.checkTeamsWithoutDivisions(teams))
+            {
+                html +=
+                    '<div class="col-12 col-md-6 border">' +
+                    '    <div class="row my-2">' +
+                    '        <div class="col-12">' +
+                    '            <p class="h6 text-bold" >Sem divisão</p>' +
+                    '        </div>';
+                teams.forEach(team => {
+                    if (team.league_id == id && team.division_id == null)
+                    {
+                        let path   = 'images/game/leagues/teams/';
+                        team.image = (window.validateImage(path, team.image)) ? team.image : 'default.png';
+
+                        html +=
+                            '<div class="col-6 my-1 d-flex">' +
+                            '    <div class="my-auto">' +
+                            '        <img class="bg-img-team p-1 mr-1 " src="{{ asset("images/game/leagues/teams") }}' + '/' + team.image + '" alt="' + team.initials + '" width="50px" height="50px">' +
+                            '    </div>' +
+                            '    <div class="flex-fill align-self-center">' +
+                            '        <p class="mb-0 " >' + team.name + '</p>' +
+                            '    </div>' +
+                            '</div>';
+                    }
+                });
+                html +=
+                    '    </div>' +
+                    '</div>';
+            }
 
             if (nrd == 1) {
                 $('#league-divisions').addClass('justify-content-center');
