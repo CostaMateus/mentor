@@ -369,7 +369,7 @@
                     $('#edit_league_id').attr('disabled', '').val(team.league_id).trigger('change');
                     $('#edit_league_id_hidden').val(team.league_id + '.' + team.league_initials);
 
-                    insertDivisions('edit_division_id', true, team.division_league_id, team.division_id);
+                    insertDivisions('edit_division_id', true, team.league_id, team.division_id);
 
                     $('#edit-team').find('#edit_name').val(team.name);
                     $('#edit-team').find('#edit_initials').val(team.initials);
@@ -403,18 +403,21 @@
 
 
         // INSERT DIVISIONS
-        window.insertDivisions = function (id, edit = false, division_league_id, divison_id)
+        window.insertDivisions = function (id, edit = false, league_id, division_id)
         {
             let divisions = {!! $divisions !!};
-            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden>Selectione...</option>';
+            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selectione...</option>';
 
             divisions.forEach(division => {
-                if (division.league_id == division_league_id)
+                if (division.league_id == league_id)
                 {
-                    let selected = (division.id == divison_id) ? 'selected' : '';
+                    let selected = (division.id == division_id) ? 'selected' : '';
                     opts += '<option value="' + division.id + '" ' + selected + ' >' + division.name + '</option>';
                 }
             });
+
+            opts += '<option value="0"' + ((division_id == null) ? 'selected' : '') + '>Sem divisão</option>';
+
 
             $('#' + id).html(opts);
             $('#' + id).select2({ minimumResultsForSearch: Infinity });
