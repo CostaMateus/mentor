@@ -16,11 +16,24 @@ class LeagueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function specials()
+    {
+        return view('adm.lg_specials', [
+            'data'      => League::where('special', 1)->orderBy('name')->get(),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('adm.leagues', [
-            'data'      => League::orderBy('name')->get(),
-            'divisions' => Division::with('teams')->get()
+            'data'      => League::where('special', 0)->orderBy('name')->get(),
+            'divisions' => Division::orderBy('league_id')->get(),
+            'teams'     => Team::orderBy('name')->get()
         ]);
     }
 

@@ -241,6 +241,11 @@ return [
             'text' => 'Cadastros',
             'icon' => 'fas fa-fw fa-folder-open',
             'submenu' => [
+                // [
+                //     'text' => 'Ligas especiais',
+                //     'url' => '/leagues/specials',
+                //     'icon' => 'fas fa-fw fa-chess-rook',
+                // ],
                 [
                     'text' => 'Ligas',
                     'url' => '/leagues',

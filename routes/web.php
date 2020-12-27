@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('leagues')->group(function () {
 
+        Route::get('/specials', 'LeagueController@specials');
+
         Route::apiresource('/', 'LeagueController')->parameters(['' => 'league']);
         Route::post('{league}/update', 'LeagueController@update');
 
