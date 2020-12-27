@@ -114,3 +114,32 @@ window.formatteRoleFull = function($role)
             return [ 'Suporte', 6 ];
     }
 }
+
+
+window.countTeamsInDivision = function(teams, idDivision)
+{
+    let count = 0;
+
+    teams.forEach(t => {
+        if (t.division_id == idDivision)
+        {
+            count++;
+        }
+    });
+
+    return (count > 0) ? true : false;
+}
+
+window.checkTeamsWithoutDivisions = function(teams)
+{
+    let count = 0;
+
+    teams.forEach(t => {
+        if (t.division_id == null)
+        {
+            count++;
+        }
+    });
+
+    return (count > 0) ? true : false;
+}
