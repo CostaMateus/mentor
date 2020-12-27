@@ -81,12 +81,12 @@ class PlayersSeeder extends Seeder
             }
 
             $age_birthday = PlayersSeeder::getBirthday($faker);
-            $name_sex     = PlayersSeeder::getSexName($faker);
+            $name_sex     = PlayersSeeder::getNameAndSex($country);
 
             $data[] = [
                 'team_id'     => $team_id,
-                'name'        => $name_sex['name'],
-                'lastname'    => $faker->lastName,
+                'name'        => $name_sex['firstName'],
+                'lastname'    => $name_sex['lastName'],
                 'nickname'    => Helper::getNicknames($faker->randomElement($type_nickname)),
                 'nationality' => $country,
                 'age'         => $age_birthday['age'],
@@ -150,22 +150,26 @@ class PlayersSeeder extends Seeder
      * @param [type] $faker
      * @return array $name_sex
      */
-    protected static function getSexName($faker)
+    protected static function getNameAndSex($country)
     {
+        $lang = ($country == 'BR') ? 'BR' : 'EN';
+
         if (rand(0, 1))
         {
-            $name = $faker->firstName('male');
+            $name = Helper::getNameAndSex(true, $lang);
+
             $sex  = 'M';
         }
         else
         {
-            $name = $faker->firstName('female');
+            $name = Helper::getNameAndSex(false, $lang);
             $sex  = 'F';
         }
 
         return [
-            'name' => $name,
-            'sex'  => $sex
+            'firstName' => $name[0],
+            'lastName'  => $name[1],
+            'sex'       => $sex
         ];
     }
 
