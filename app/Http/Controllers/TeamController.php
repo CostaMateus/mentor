@@ -24,8 +24,8 @@ class TeamController extends Controller
     {
         $data = DB::table('teams as tm')
                   ->join('players as pl', 'pl.team_id', '=', 'tm.id')
-                  ->join('divisions as dv', 'tm.division_id', '=', 'dv.id')
-                  ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
+                  ->leftJoin('divisions as dv', 'tm.division_id', '=', 'dv.id')
+                  ->join('leagues as lg', 'tm.league_id', '=', 'lg.id')
                   ->select(
                       'tm.id',
                       'tm.name',
@@ -33,18 +33,20 @@ class TeamController extends Controller
                       'tm.image',
                       DB::raw('count(pl.id) as total_players'),
                       'dv.id as division_id',
-                      'dv.league_id as division_league_id',
                       'dv.initials as division_initials',
                       'lg.id as league_id',
                       'lg.name as league_name',
                       'lg.initials as league_initials',
                       'lg.image as league_image')
                   ->groupBy('tm.id')
+                  ->orderBy('lg.id')
+                  ->orderBy(DB::raw('ISNULL(dv.id), dv.id'), 'ASC') // valores nulos ficam por último
+                  ->orderBy('tm.name')
                   ->get();
 
         return view('adm.teams', [
             'data'      => $data,
-            'leagues'   => League::get(),
+            'leagues'   => League::where('special', 0)->get(),
             'divisions' => Division::get(),
             'players'   => Player::with('attribute')->get(),
             'countries' => DB::table('countries')->get()
@@ -163,7 +165,8 @@ class TeamController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials'] = strtoupper($validatedData['initials']);
+        $validatedData['initials']    = strtoupper($validatedData['initials']);
+        $validatedData['division_id'] = ($validatedData['division_id'] != 0) ? $validatedData['division_id'] : null;
 
         $league_initials           = strtolower(explode('.', $validatedData['league_id'])[1]);
         unset($validatedData['league_id']);
