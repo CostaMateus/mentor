@@ -152,17 +152,15 @@ class PlayersSeeder extends Seeder
      */
     protected static function getNameAndSex($country)
     {
-        $lang = ($country == 'BR') ? 'BR' : 'EN';
-
         if (rand(0, 1))
         {
-            $name = Helper::getNameAndSex(true, $lang);
+            $name = Helper::getNameAndSex(true, $country);
 
             $sex  = 'M';
         }
         else
         {
-            $name = Helper::getNameAndSex(false, $lang);
+            $name = Helper::getNameAndSex(false, $country);
             $sex  = 'F';
         }
 
