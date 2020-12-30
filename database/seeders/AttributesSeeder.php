@@ -24,12 +24,12 @@ class AttributesSeeder extends Seeder
 
         $timestamp = date('Y-m-d');
 
-        $roles = ['SUP','TOP','JNG','MID','ADC'];
+        $roles = ['sup','top','jng','mid','adc'];
 
         $i = 0;
 
         foreach($players as $p) {
-            $force  = $faker->numberBetween(25, 75);
+            $force = $faker->numberBetween(25, 75);
 
             if ($force > 70){
                 $salary = $faker->randomFloat(2, 7000, 8000);
@@ -58,16 +58,19 @@ class AttributesSeeder extends Seeder
             }
 
             $pass = $salary * $faker->randomFloat(2, 1, 3);
+            $role = $roles[$i];
+            $sRol = array_diff($roles, [$role]);
 
             $data[] = [
-                'player_id'  => $p->id,
-                'role'       => $roles[$i],
-                'force'      => $force,
-                'energy'     => 100,
-                'salary'     => (int) $salary,
-                'pass'       => (int) $pass,
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
+                'player_id'      => $p->id,
+                'role'           => $role,
+                'secondary_role' => $faker->randomElement($sRol),
+                'force'          => $force,
+                'energy'         => 100,
+                'salary'         => (int) $salary,
+                'pass'           => (int) $pass,
+                'created_at'     => $timestamp,
+                'updated_at'     => $timestamp
             ];
 
             $i++;

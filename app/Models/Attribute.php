@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
 {
-    const TOP = 'TOP';
-    const JNG = 'JNG';
-    const MID = 'MID';
-    const ADC = 'ADC';
-    const SUP = 'SUP';
+    const TOP = 'top';
+    const JNG = 'jng';
+    const MID = 'mid';
+    const ADC = 'adc';
+    const SUP = 'sup';
 
     public static $roles = [self::TOP, self::JNG, self::MID, self::ADC, self::SUP];
 
@@ -20,7 +20,7 @@ class Attribute extends Model
      * @var array
      */
     protected $fillable = [
-        'player_id', 'role', 'force', 'energy', 'salary', 'pass',
+        'player_id', 'role', 'secondary_role', 'force', 'energy', 'salary', 'pass',
     ];
 
     /**

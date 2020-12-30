@@ -15,13 +15,14 @@ class CreateAttributesTable extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->bigInteger('player_id')
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("players");
 
-            $table->enum('role', array('Top', 'Jng', 'Mid', 'Adc', 'Sup'));
+            $table->enum('role',           array('top', 'jng', 'mid', 'adc', 'sup'));
+            $table->enum('secondary_role', array('top', 'jng', 'mid', 'adc', 'sup'));
             $table->integer('force');
             $table->integer('energy')->default(100);
             $table->double('salary', 11, 2);
