@@ -143,3 +143,26 @@ window.checkTeamsWithoutDivisions = function(teams)
 
     return (count > 0) ? true : false;
 }
+
+
+// Limpa campos
+window.clearInvalid = function () {
+    $('input, select').removeClass('is-invalid');
+    $('.select2-selection.select2-selection--single').removeClass('has-error');
+}
+
+// Limpa mensagens de erro
+window.clearSpan = function () {
+    $('[id*=span_]').html('');
+}
+
+// Mostrar erros
+window.showErrors = function(e) {
+    $.each(e.responseJSON.errors, function (key, error) {
+        $('#' + key).addClass('is-invalid');
+        $('#span_' + key).html(error[0]);
+
+        let elem = $('#' + key);
+        if (elem.next().find('.select2')) elem.next().find('.select2-selection').addClass('has-error');
+    });
+}
