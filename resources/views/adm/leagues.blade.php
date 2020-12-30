@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mentor')
+@section('title_prefix', 'Ligas')
 
 @section('css')
     <style></style>
@@ -101,14 +101,14 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Nome da liga *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" >
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name" required >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
+                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" required >
                                     <span id="span_initials" class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
 
                         <div class="row">
                             <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Salvar</button>
+                                <button type="submit" class="btn btn-success btn-sm btn-block" >Criar</button>
                             </div>
                         </div>
                     </form>
@@ -157,14 +157,14 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Nome da liga *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" >
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name" required >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
+                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" required >
                                     <span id="span_initials" class="invalid-feedback"></span>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mentor')
+@section('title_prefix', 'Ligas especiais')
 
 @section('css')
     <style></style>

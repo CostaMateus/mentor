@@ -16,9 +16,9 @@ return [
     |
     */
 
-    'title'         => 'Admin Mentor',
+    'title'         => '|',
     'title_prefix'  => '',
-    'title_postfix' => '',
+    'title_postfix' => 'Mentor',
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +48,8 @@ return [
     */
 
     'logo'              => '<b>M</b>entor',
-    'logo_img'          => 'images/login/circle.png',
+    // 'logo_img'          => 'images/login/circle.png',
+    'logo_img'          => 'favicon.ico',
     'logo_img_class'    => 'brand-image img-circle elevation-2',
     'logo_img_xl'       =>  null,
     'logo_img_xl_class' => 'brand-image-xs',
