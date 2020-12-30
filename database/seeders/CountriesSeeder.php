@@ -1148,7 +1148,7 @@ class CountriesSeeder extends Seeder
                 "formal" => "República do Senegal"
             ],
             [
-                "code"   => "CS",
+                "code"   => "RS",
                 "code3"  => "SRB",
                 "name"   => "Sérvia e Montenegro",
                 "formal" => "União Estatal de Sérvia e Montenegro"
