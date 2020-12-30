@@ -292,12 +292,8 @@ class Helper
         return ucfirst($name);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param boolean $sex
-     * @return void
-     */
+
+
     public static function getNameAndSex($sex, $lang)
     {
         $namesMale   = '';
@@ -383,5 +379,103 @@ class Helper
         $name[] = $lastNames[$rnd1];
 
         return $name;
+    }
+
+    public static function getRandomDate($year)
+    {
+        $faker = Factory::create('pt-br');
+
+        $month = $faker->numberBetween(1, 12);
+
+        switch ($month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                $day = $faker->numberBetween(1,31);
+                break;
+
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                $day = $faker->numberBetween(1,30);
+                break;
+
+            case 2:
+                $day = $faker->numberBetween(1,28);
+                break;
+        }
+
+        return date((date('Y') - $year) . '-' . $month . '-' . $day);
+    }
+
+    public static function getRandomForce($s)
+    {
+        $faker = Factory::create('pt-br');
+
+        $force = 0;
+
+        switch ($s) {
+            case 3:
+                for ($i = 0; $i < 5; $i++) {
+                    $force += $faker->numberBetween(40, 75);
+                }
+                break;
+            case 2:
+                for ($i = 0; $i < 5; $i++) {
+                    $force += $faker->numberBetween(20, 65);
+                }
+                break;
+            case 1:
+            default:
+                for ($i = 0; $i < 5; $i++) {
+                    $force += $faker->numberBetween(1, 40);
+                }
+                break;
+        }
+
+        return (int) ($force / 5);
+    }
+
+    public static function getRandomSalary($force, $mentor)
+    {
+        $faker = Factory::create('pt-br');
+
+        if ($force > 70){
+            $salary = $faker->randomFloat(2, 7000, 8000);
+        }
+        else if ($force > 60) {
+            $salary = $faker->randomFloat(2, 6000, 7250);
+        }
+        else if ($force > 50) {
+            $salary = $faker->randomFloat(2, 5000, 6250);
+        }
+        else if ($force > 40) {
+            $salary = $faker->randomFloat(2, 4000, 5250);
+        }
+        else if ($force > 30) {
+            $salary = $faker->randomFloat(2, 3000, 4250);
+        }
+        else
+        {
+            $salary = $faker->randomFloat(2, 2000, 3250);
+        }
+
+        if ($mentor)
+        {
+            $force  = $faker->numberBetween(60, 75);
+            $salary = $faker->randomFloat(2, 6500, 8500);
+        }
+
+        $pass = $salary * $faker->randomFloat(2, 1, 3);
+
+        return [
+            round($salary, 0),
+            round($pass, 0)
+        ];
     }
 }
