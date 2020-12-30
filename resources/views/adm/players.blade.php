@@ -72,7 +72,8 @@
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-danger del-player" data-id="{{ $player->id }}" >
+                                <button class="btn btn-link text-danger del-player" data-id="{{ $player->id }}"
+                                                                                    data-name="{{ $player->name }} '{{ $player->nickname }}' {{ $player->lastname }}" >
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -220,31 +221,13 @@
     </div> --}}
 
     {{-- DELETE --}}
-    {{-- <div id="del-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="del-player-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-                <div class="modal-header text-danger">
-                    <h5 id="del-player-title" class="modal-title">Apagar time</h5>
-                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="del-player-form" action="#" method="#" >
-                        @csrf
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <p>Deseja realmente apagar esse time?</p>
-                            </div>
-                            <div class="col-3 mx-auto">
-                                <button type="submit" class="btn btn-danger btn-sm btn-block" >Confirmar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    @include('adm/partials.modal-delete', [
+        'modalId' => 'del-player',
+        'titleId' => 'del-player-title',
+        'title'   => 'Apagar jogador',
+        'formId'  => 'del-player-form',
+        'text'    => 'Deseja realmente apagar esse(a) jogador(a)?',
+    ])
 
 @stop
 
@@ -277,7 +260,6 @@
                 if (p.id == id)
                 {
                     player = p;
-
                     teams.forEach(t => {
                         if (t.id == player.team_id)
                         {
@@ -368,15 +350,16 @@
         });
 
         // DEL
-        $(document).on('click', '.del-team', function() {
-            $('#del-team-form').attr('data-id', $(this).data('id'));
-            $('#del-team').modal('show');
+        $(document).on('click', '.del-player', function() {
+            $('#del-player-title').html($(this).data('name'));
+            $('#del-player-form').attr('data-id', $(this).data('id'));
+            $('#del-player').modal('show');
         });
-        $('#del-team-form').on('submit', function(e) {
+        $('#del-player-form').on('submit', function(e) {
             e.preventDefault();
 
-            let url  = '{{ url("/teams") }}' + '/' + $(this).data('id');
-            let data = $('#del-team-form').serialize();
+            let url  = '{{ url("/players") }}' + '/' + $(this).data('id');
+            let data = $('#del-player-form').serialize();
             window.deleteItem(url, data);
         });
 
