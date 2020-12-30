@@ -399,7 +399,7 @@
         window.insertDivisions = function (id, edit = false, league_id, division_id)
         {
             let divisions = {!! $divisions !!};
-            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selectione...</option>';
+            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
 
             divisions.forEach(division => {
                 if (division.league_id == league_id)
@@ -409,7 +409,7 @@
                 }
             });
 
-            opts += '<option value="0"' + ((division_id == null) ? 'selected' : '') + '>Sem divisão</option>';
+            opts += '<option value="0"' + ((division_id === null) ? 'selected' : '') + '>Sem divisão</option>';
 
 
             $('#' + id).html(opts);
