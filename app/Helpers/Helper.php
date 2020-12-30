@@ -18,40 +18,40 @@ class Helper
 
     public static function formatteRole($role)
     {
-        switch ($role) {
-            case 'Top':
+        switch (strtolower($role)) {
+            case 'top':
                 return 'TOP';
                 break;
-            case 'Jng':
+            case 'jng':
                 return 'JNG';
                 break;
-            case 'Mid':
+            case 'mid':
                 return 'MID';
                 break;
-            case 'Adc':
+            case 'adc':
                 return 'ADC';
                 break;
-            case 'Sup':
+            case 'sup':
                 return 'SUP';
                 break;
         }
     }
     public static function formatteRoleFull($role)
     {
-        switch ($role) {
-            case 'Top':
+        switch (strtolower($role)) {
+            case 'top':
                 return 'Topo';
                 break;
-            case 'Jng':
+            case 'jng':
                 return 'Selva';
                 break;
-            case 'Mid':
+            case 'mid':
                 return 'Meio';
                 break;
-            case 'Adc':
+            case 'adc':
                 return 'Atirador';
                 break;
-            case 'Sup':
+            case 'sup':
                 return 'Suporte';
                 break;
         }

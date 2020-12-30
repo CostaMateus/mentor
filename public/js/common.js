@@ -82,36 +82,36 @@ window.getNameCountry = function(countries, code)
 }
 
 
-window.formatteRole = function($role)
+window.formatteRole = function(role)
 {
-    switch ($role) {
-        case 'Top':
+    switch (role.toLowerCase()) {
+        case 'top':
             return 'TOP';
-        case 'Jng':
+        case 'tng':
             return 'JNG';
-        case 'Mid':
+        case 'mid':
             return 'MID';
-        case 'Adc':
+        case 'adc':
             return 'ADC';
-        case 'Sup':
+        case 'sup':
             return 'SUP';
     }
 }
 
 
-window.formatteRoleFull = function($role)
+window.formatteRoleFull = function(role)
 {
-    switch ($role) {
-        case 'Top':
-            return [ 'Topo', 2 ];
-        case 'Jng':
-            return [ 'Selva', 3 ];
-        case 'Mid':
-            return [ 'Meio', 4 ];
-        case 'Adc':
-            return [ 'Atirador', 5 ];
-        case 'Sup':
-            return [ 'Suporte', 6 ];
+    switch (role.toLowerCase()) {
+        case 'top':
+            return [ 'Topo', 1 ];
+        case 'jng':
+            return [ 'Selva', 2 ];
+        case 'mid':
+            return [ 'Meio', 3 ];
+        case 'adc':
+            return [ 'Atirador', 4 ];
+        case 'sup':
+            return [ 'Suporte', 5 ];
     }
 }
 
