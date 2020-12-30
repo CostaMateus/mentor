@@ -33,7 +33,7 @@ class LeagueController extends Controller
         return view('adm.leagues', [
             'data'      => League::where('special', 0)->orderBy('name')->get(),
             'divisions' => Division::orderBy('league_id')->get(),
-            'teams'     => Team::orderBy('name')->get()
+            'teams'     => Team::orderBy('league_id')->orderBy('division_id')->orderBy('name')->get()
         ]);
     }
 
