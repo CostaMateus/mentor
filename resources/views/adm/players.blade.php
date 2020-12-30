@@ -3,7 +3,11 @@
 @section('title_prefix', 'Jogadores')
 
 @section('css')
-    <style></style>
+    <style>
+        .has-error {
+            border-color: rgb(185, 74, 72) !important;
+        }
+    </style>
 @endsection
 
 @section('content_header')
@@ -112,35 +116,35 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-player-form" action="{{ url("/players") }}" method="POST" >
+                    <form id="new-player-form" action="" method="" >
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Nome *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" required >
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name"  >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="lastname" class="text-muted">Sobrenome *</label>
-                                    <input type="text" id="lastname" class="form-control form-control-sm" name="lastname" required >
+                                    <input type="text" id="lastname" class="form-control form-control-sm" name="lastname"  >
                                     <span id="span_lastname" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="nickname" class="text-muted">Apelido *</label>
-                                    <input type="text" id="nickname" class="form-control form-control-sm" name="nickname" required >
+                                    <input type="text" id="nickname" class="form-control form-control-sm" name="nickname"  >
                                     <span id="span_nickname" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="age" class="text-muted">Idade *</label>
-                                    <input type="number" id="age" class="form-control form-control-sm" name="age" min="16" max="99" step="1" required >
-                                    <span id="span_age" class="invalid-feedback"></span>
+                                    <input type="number" id="age" class="form-control form-control-sm" name="age" min="16" max="99" step="1"  >
+                                    <span id="span_age" class="invalid-feedback"> AAA</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
@@ -175,11 +179,11 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group form-check mb-2">
-                                    <input type="checkbox" class="form-check-input" id="mentor">
+                                    <input type="checkbox" class="form-check-input" name="mentor" id="mentor">
                                     <label class="form-check-label" for="mentor">Treinador</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 pr-md-2">
+                            <div class="col-12 ">
                                 <div class="form-group">
                                     <label for="force" class="text-muted">Força *</label>
                                     <select id="force" class="form-control form-control-sm" name="force" style="width: 100%">
@@ -193,18 +197,66 @@
                                     <span id="span_force" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 pl-md-2">
+                            <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
-                                    <label for="role" class="text-muted">Posição *</label>
+                                    <label for="role" class="text-muted">1ª Posição *</label>
                                     <select id="role" class="form-control form-control-sm" name="role" style="width: 100%">
                                         <option value="" selected disabled >Selecione...</option>
-                                        <option value="Top">Topo</option>
-                                        <option value="Jng">Selva</option>
-                                        <option value="Mid">Meio</option>
-                                        <option value="Adc">Atirador</option>
-                                        <option value="Sup">Suporte</option>
+                                        <option value="top" class="text-top" >Topo</option>
+                                        <option value="jng" class="text-jng" >Selva</option>
+                                        <option value="mid" class="text-mid" >Meio</option>
+                                        <option value="adc" class="text-adc" >Atirador</option>
+                                        <option value="sup" class="text-sup" >Suporte</option>
                                     </select>
                                     <span id="span_role" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="secondary_role" class="text-muted">2ª Posição *</label>
+                                    <select id="secondary_role" class="form-control form-control-sm" name="secondary_role" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="top" class="text-top" >Topo</option>
+                                        <option value="jng" class="text-jng" >Selva</option>
+                                        <option value="mid" class="text-mid" >Meio</option>
+                                        <option value="adc" class="text-adc" >Atirador</option>
+                                        <option value="sup" class="text-sup" >Suporte</option>
+                                    </select>
+                                    <span id="span_secondary_role" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="form-group form-check mt-3 mb-2">
+                                    <input type="checkbox" class="form-check-input" name="add_team" id="add_team">
+                                    <label class="form-check-label" for="add_team">Adicionar a um time?</label>
+                                </div>
+                            </div>
+                            <div class="col-12 add_team d-none">
+                                <div class="form-group">
+                                    <label for="league_id" class="text-muted">Liga *</label>
+                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" >
+                                        <option value="" selected disabled >Selecione...</option>
+                                        @foreach ($leagues as $league)
+                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="span_league_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 add_team d-none">
+                                <div class="form-group">
+                                    <label for="division_id" class="text-muted">Divisão *</label>
+                                    <select id="division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled ></select>
+                                    <span id="span_division_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 add_team d-none">
+                                <div class="form-group">
+                                    <label for="team_id" class="text-muted">Time *</label>
+                                    <select id="team_id" class="form-control form-control-sm" name="team_id" style="width: 100%" disabled ></select>
+                                    <span id="span_team_id" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -313,6 +365,11 @@
         $("#sex").select2({ minimumResultsForSearch: Infinity });
         $("#force").select2({ minimumResultsForSearch: Infinity });
         $("#role").select2({ minimumResultsForSearch: Infinity });
+        $("#secondary_role").select2({ minimumResultsForSearch: Infinity });
+
+        $("#league_id").select2({ minimumResultsForSearch: Infinity });
+        $("#division_id").select2({ minimumResultsForSearch: Infinity });
+        $("#team_id").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
         $(document).on('click', '.see-player', function() {
@@ -322,8 +379,6 @@
             let countries = {!! $countries !!};
             let html;
             let player;
-
-            console.log(countries);
 
             data.forEach(p => {
                 if (p.id == id)
@@ -339,7 +394,6 @@
                     });
                 }
             });
-            console.log(player.nationality);
 
             let team_name     = (player.team_name)     ? player.team_name     : '';
             let team_image    = (player.team_image)    ? player.team_image    : '';
@@ -389,15 +443,50 @@
 
         // NEW
         $(document).on('click', '.new-player', function() {
-            // getLeagues('#league_id');
-            $('#new-player').find('#name').val('');
-            $('#new-player').find('#initials').val('');
-            $('#new-player').find('#nrdivisions').val('').removeAttr('disabled');
+            $('#name').val('');
+            $('#lastname').val('');
+            $('#nickname').val('');
+            $('#age').val('');
+            $('#mentor').prop( "checked", false );
+            $('#nationality').val('').trigger('change');
+            $('#sex').val('').trigger('change');
+            $('#force').val('').trigger('change');
+            $('#role').val('').trigger('change');
+            $('#secondary_role').val('').trigger('change');
+
             $('#new-player').modal('show');
         });
         $('#league_id').on('change', function () {
             $('#division_id').removeAttr('disabled');
-            insertDivisions('division_id', false, this.value.split('.')[0]);
+            insertDivisions('division_id', false, this.value);
+        });
+        $('#division_id').on('change', function () {
+            $('#team_id').removeAttr('disabled');
+            insertTeams('team_id', false, this.value);
+        });
+        $('#new-player-form').on('submit', function(e) {
+            e.preventDefault();
+
+            clearInvalid();
+            clearSpan();
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("/players") }}',
+                data: $('#new-player-form').serialize(),
+                success: function (data) {
+                    console.log(data);
+
+                    location.reload();
+                },
+                error: function (error) {
+                    if (error.status == 422)
+                    {
+                        showErrors(error);
+                    }
+                    console.log(error);
+                }
+            });
         });
 
         // EDIT
@@ -439,5 +528,103 @@
         });
 
 
+        $('#role').on('change', function() {
+            let role1 = document.getElementById('select2-role-container');
+            switch ( $(role1).attr('title') ) {
+                case 'Topo':
+                    $(role1).css('color', '#F8C300').addClass('text-bold');
+                    break;
+                case 'Selva':
+                    $(role1).css('color', '#A652BB').addClass('text-bold');
+                    break;
+                case 'Meio':
+                    $(role1).css('color', '#0099E1').addClass('text-bold');
+                    break;
+                case 'Atirador':
+                    $(role1).css('color', '#F93A2F').addClass('text-bold');
+                    break;
+                case 'Suporte':
+                    $(role1).css('color', '#00C09A').addClass('text-bold');
+                    break;
+                default:
+                    $(role1).css('color', '#444').removeClass('text-bold');
+                    break;
+            }
+        });
+        $('#secondary_role').on('change', function() {
+            let role2 = document.getElementById('select2-secondary_role-container');
+            switch ( $(role2).attr('title') ) {
+                case 'Topo':
+                    $(role2).css('color', '#F8C300').addClass('text-bold');
+                    break;
+                case 'Selva':
+                    $(role2).css('color', '#A652BB').addClass('text-bold');
+                    break;
+                case 'Meio':
+                    $(role2).css('color', '#0099E2').addClass('text-bold');
+                    break;
+                case 'Atirador':
+                    $(role2).css('color', '#F93A2F').addClass('text-bold');
+                    break;
+                case 'Suporte':
+                    $(role2).css('color', '#00C09A').addClass('text-bold');
+                    break;
+                default:
+                    $(role2).css('color', '#444').removeClass('text-bold');
+                    break;
+            }
+        });
+        $('#add_team').on('change', function() {
+            if ( $(this).is(':checked'))
+            {
+                $('.add_team').removeClass('d-none');
+            }
+            else
+            {
+                $('.add_team').addClass('d-none');
+            }
+        });
+
+        // INSERT DIVISIONS
+        window.insertDivisions = function (id, edit = false, league_id, division_id)
+        {
+            let divisions = {!! $divisions !!};
+            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
+
+            divisions.forEach(division => {
+                if (division.league_id == league_id)
+                {
+                    let selected = (division.id == division_id) ? 'selected' : '';
+                    opts += '<option value="' + division.id + '" ' + selected + ' >' + division.name + '</option>';
+                }
+            });
+
+            opts += '<option value="0"' + ((division_id === null ) ? 'selected' : '') + '>Sem divisão</option>';
+
+            $('#' + id).html(opts);
+        }
+
+        // INSERT DIVISIONS
+        window.insertTeams = function (id, edit = false, division_id, team_id)
+        {
+            let teams = {!! $teams !!};
+            let opts  = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
+
+            teams.forEach(team => {
+                if (team.division_id == division_id)
+                {
+                    let selected = (team.id == team_id) ? 'selected' : '';
+                    opts += '<option value="' + team.id + '" ' + selected + ' >' + team.name + '</option>';
+                }
+
+                if (team.division_id === null && division_id == 0)
+                {
+                    let selected = (team.id == team_id) ? 'selected' : '';
+                    opts += '<option value="' + team.id + '" ' + selected + ' >' + team.name + '</option>';
+                }
+            });
+
+            $('#' + id).html(opts);
+        }
     </script>
 @endsection
