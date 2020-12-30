@@ -1,9 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Mentor')
+@section('title_prefix', 'Times')
 
 @section('css')
-    <style></style>
+    <style>
+        .striped { background-color: rgba(0,0,0,.05) !important; }
+    </style>
 @endsection
 
 @section('content_header')
@@ -104,7 +106,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="league_id" class="text-muted">Liga *</label>
-                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%">
+                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" required >
                                         <option value="">Selecione...</option>
                                         @foreach ($leagues as $league)
                                             <option value="{{ $league->id }}.{{ $league->initials }}">{{ $league->name }}</option>
@@ -116,21 +118,21 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="division_id" class="text-muted">Divisão *</label>
-                                    <select id="division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled ></select>
+                                    <select id="division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled required ></select>
                                     <span id="span_division_id" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Nome do time *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" >
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name" required >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
+                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" required >
                                     <span id="span_initials" class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -145,7 +147,7 @@
 
                         <div class="row">
                             <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Salvar</button>
+                                <button type="submit" class="btn btn-success btn-sm btn-block" >Criar</button>
                             </div>
                         </div>
                     </form>
@@ -171,7 +173,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="edit_league_id" class="text-muted">Liga *</label>
-                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" >
+                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" required >
                                         <option value="">Selecione...</option>
                                         @foreach ($leagues as $league)
                                             <option value="{{ $league->id }}">{{ $league->name }}</option>
@@ -184,21 +186,21 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="edit_division_id" class="text-muted">Divisão *</label>
-                                    <select id="edit_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" ></select>
+                                    <select id="edit_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" required ></select>
                                     <span id="span_division_id" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="edit_name" class="text-muted">Nome do time *</label>
-                                    <input type="text" id="edit_name" class="form-control form-control-sm" name="name" >
+                                    <input type="text" id="edit_name" class="form-control form-control-sm" name="name" required >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="edit_initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="edit_initials" class="form-control form-control-sm" name="initials" >
+                                    <input type="text" id="edit_initials" class="form-control form-control-sm" name="initials" required >
                                     <span id="span_initials" class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -270,9 +272,13 @@
                 '    <div class="row my-2">';
 
             players.forEach(player => {
-                let auxRole = window.formatteRoleFull(player.attribute.role);
-                let role    = auxRole[0];
-                let order   = auxRole[1];
+                let rolTx1  = player.attribute.role;
+                let aux_r   = window.formatteRoleFull(rolTx1);
+                let role1   = aux_r[0];
+                let order   = aux_r[1];
+
+                let rolTx2  = player.attribute.secondary_role;
+                let role2   = window.formatteRoleFull(rolTx2)[0];
 
                 let force   = player.attribute.force;
                 let energy  = player.attribute.energy;
@@ -284,29 +290,17 @@
                 if (player.team_id == id)
                 {
                     count++;
-                    if (player.mentor)
-                    {
-                        html +=
-                        '<div class="col-6 my-1 d-flex order-0">' +
-                        '    <div class="my-auto mr-1">' +
-                        '        <i class="fas fa-user"></i>' +
-                        '    </div>' +
-                        '    <div class="flex-fill align-self-center">' +
-                        '        <small class="mb-0 " ><strong>Treinador - ' + role + '</strong></small>';
-                    }
-                    else
-                    {
-
-                        html +=
-                        '<div class="col-6 my-1 d-flex order-' + order + '">' +
-                        '    <div class="my-auto mr-1">' +
-                        '        <i class="fas fa-user" style="color:#6c757d;" ></i>' +
-                        '    </div>' +
-                        '    <div class="flex-fill align-self-center">' +
-                        '        <small class="mb-0 " ><strong>' + role + '</strong></small>';
-                    }
-
                     html +=
+                        '<div class="col-6 my-1 d-flex order-' + ((player.mentor) ? '0' : order) + ' ">' +
+                        '    <div class="my-auto mr-1">' +
+                        '        <i class="fas fa-user" ' + ((player.mentor) ? '' : 'style="color:#6c757d;"') + ' ></i>' +
+                        '    </div>' +
+                        '    <div class="flex-fill align-self-center striped p-2">' +
+                        '        <p class="mb-0 small" title="Posição primária e secundária" >' +
+                                    ((player.mentor) ? '<strong>Treinador</strong> | ' : '' ) +
+                        '           1ª pos. <strong class="text-' + rolTx1 + '" >' + role1 + '</strong> | ' +
+                        '           2º pos. <strong class="text-' + rolTx2 + '" >' + role2 + '</strong>' +
+                        '        </p>' +
                         '        <p class="mb-0 " >' + player.name + ' "<strong>' + player.nickname + '</strong>" ' + player.lastname + '</p>' +
                         '        <p class="mb-0 " >Sexo: ' + player.sex + ' | Idade: ' + player.age + ' | Nacionalidade: <img src="images/flags/' + country[0] + '_64.png" alt="' + country[0] + '" title="' + country[1] + '" width="20px" height="20px"></p>' +
                         '        <p class="mb-0 " >Força: ' + force + ' | Energia: ' + energy + '%</p>' +
@@ -343,7 +337,6 @@
 
         // NEW
         $(document).on('click', '.new-team', function() {
-            // getLeagues('#league_id');
             $('#new-team').find('#name').val('');
             $('#new-team').find('#initials').val('');
             $('#new-team').find('#nrdivisions').val('').removeAttr('disabled');
