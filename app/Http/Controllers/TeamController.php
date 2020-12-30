@@ -46,8 +46,8 @@ class TeamController extends Controller
 
         return view('adm.teams', [
             'data'      => $data,
-            'leagues'   => League::where('special', 0)->get(),
-            'divisions' => Division::get(),
+            'leagues'   => League::where('special', 0)->orderBy('name')->get(),
+            'divisions' => Division::orderBy('league_id')->get(),
             'players'   => Player::with('attribute')->get(),
             'countries' => DB::table('countries')->select('name', 'code')->orderBy('name', 'ASC')->get()
         ]);
