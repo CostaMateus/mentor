@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Mentor')
+@section('title_prefix', 'Jogadores')
 
 @section('css')
     <style></style>
@@ -13,7 +13,7 @@
 @section('content')
     <div class="row">
         <div class="col-12 pb-3">
-            <button type="button" class="btn btn-secondary btn-sm new-team" >
+            <button type="button" class="btn btn-secondary btn-sm new-player" >
                 <i class="fas fa-plus "></i> Novo jogador
             </button>
         </div>
@@ -24,10 +24,11 @@
                     <tr class="bg-light">
                         <th class="text-center" data-field="id"          data-sortable="true" >#</th>
                         <th class=""            data-field="name"        data-sortable="true" >Nome</th>
-                        <th class="text-center" data-field="role"        data-sortable="true" >Posição</th>
+                        <th class="text-center" data-field="role1"       data-sortable="true" title="Posição primária"   >1ª Pos.</th>
+                        <th class="text-center" data-field="role2"       data-sortable="true" title="Posição secundária" >2ª Pos.</th>
                         <th class="text-center" data-field="age"         data-sortable="true" >Idade</th>
                         <th class="text-center" data-field="sex"         data-sortable="true" >Sexo</th>
-                        <th class="text-center" data-field="nationality" data-sortable="true" >Nac.</th>
+                        <th class="text-center" data-field="nationality" data-sortable="true" title="Nacionalidade" >Nac.</th>
                         <th class="text-center" data-field="employed"    data-sortable="true" >Contrato</th>
                         <th class="text-center"                                               >Ver</th>
                         <th class="text-center"                                               >Editar</th>
@@ -45,12 +46,20 @@
                                 @endif
                             @endforeach
                         @endif
+                        @php
+                            $rolTx1 = $player->attribute->role;
+                            $rolTx2 = $player->attribute->secondary_role;
+
+                            $role1  = Helper::formatteRole($rolTx1);
+                            $role2  = Helper::formatteRole($rolTx2);
+                        @endphp
                         <tr>
-                            <td class="text-center" >{{ $loop->iteration }}</td>
-                            <td class=""            >{{ $player->name }} "{{ $player->nickname }}" {{ $player->lastname }}</td>
-                            <td class="text-center" >{{ Helper::formatteRole($player->attribute->role) }}</td>
-                            <td class="text-center" >{{ $player->age }}</td>
-                            <td class="text-center" >{{ $player->sex }}</td>
+                            <td class="text-center"                              >{{ $loop->iteration }}</td>
+                            <td class=""                                         >{{ $player->name }} "{{ $player->nickname }}" {{ $player->lastname }}</td>
+                            <td class="text-center text-bold text-{{ $rolTx1 }}" >{{ $role1 }}</td>
+                            <td class="text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
+                            <td class="text-center"                              >{{ $player->age }}</td>
+                            <td class="text-center"                              >{{ $player->sex }}</td>
                             <td class="text-center" >
                                 <img class="my-auto flag" src="images/flags/{{ $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ Helper::getNameCountry($player->nationality) }}" width="30px" height="30px">
                             </td>
@@ -93,68 +102,123 @@
     ])
 
     {{-- NEW --}}
-    {{-- <div id="new-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-player-title" aria-hidden="true" >
+    <div id="new-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-player-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="new-player-title" class="modal-title">Nova liga</h5>
+                    <h5 id="new-player-title" class="modal-title">Novo jogador</h5>
                     <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-player-form" action="{{ url("/players") }}" method="POST" enctype="multipart/form-data" >
+                    <form id="new-player-form" action="{{ url("/players") }}" method="POST" >
                         @csrf
                         <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="league_id" class="text-muted">Liga *</label>
-                                    <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%">
-                                        <option value="">Selecione...</option>
-                                    </select>
-                                    <span id="span_league_id" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="division_id" class="text-muted">Divisão *</label>
-                                    <select id="division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled ></select>
-                                    <span id="span_division_id" class="text-danger"></span>
-                                </div>
-                            </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
-                                    <label for="name" class="text-muted">Nome do time *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" >
+                                    <label for="name" class="text-muted">Nome *</label>
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name" required >
                                     <span id="span_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
-                                    <label for="initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" >
-                                    <span id="span_initials" class="invalid-feedback"></span>
+                                    <label for="lastname" class="text-muted">Sobrenome *</label>
+                                    <input type="text" id="lastname" class="form-control form-control-sm" name="lastname" required >
+                                    <span id="span_lastname" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
+                                <div class="form-group">
+                                    <label for="nickname" class="text-muted">Apelido *</label>
+                                    <input type="text" id="nickname" class="form-control form-control-sm" name="nickname" required >
+                                    <span id="span_nickname" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="age" class="text-muted">Idade *</label>
+                                    <input type="number" id="age" class="form-control form-control-sm" name="age" min="16" max="99" step="1" required >
+                                    <span id="span_age" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
+                                <div class="form-group">
+                                    <label for="sex" class="text-muted">Sexo *</label>
+                                    <select id="sex" class="form-control form-control-sm" name="sex" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Feminino</option>
+                                    </select>
+                                    <span id="span_sex" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="nationality" class="text-muted">Nacionalidade *</label>
+                                    <select id="nationality" class="form-control form-control-sm" name="nationality" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        @foreach ($countries as $c)
+                                            <option value="{{ $c->code }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="span_nationality" class="text-danger"></span>
                                 </div>
                             </div>
 
-                            <div class="col-12 ">
+
+                            <div class="col-12">
+                                <div class="form-group mt-3 mb-0">
+                                    <label class="">Atributos</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group form-check mb-2">
+                                    <input type="checkbox" class="form-check-input" id="mentor">
+                                    <label class="form-check-label" for="mentor">Treinador</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
-                                    <label for="image" class="text-muted">Imagem</label>
-                                    <input id="image" type="file" class="form-control-file" name="image">
+                                    <label for="force" class="text-muted">Força *</label>
+                                    <select id="force" class="form-control form-control-sm" name="force" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="1"> 1...40</option>
+                                        <option value="2">20...60</option>
+                                        <option value="3">40...75</option>
+                                        {{-- <option value="4">60...100</option> --}}
+                                    </select>
+                                    <p class="small mt-2 mb-0 text-muted">Salário e passe iniciais são de acordo com o valor da força</p>
+                                    <span id="span_force" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="role" class="text-muted">Posição *</label>
+                                    <select id="role" class="form-control form-control-sm" name="role" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="Top">Topo</option>
+                                        <option value="Jng">Selva</option>
+                                        <option value="Mid">Meio</option>
+                                        <option value="Adc">Atirador</option>
+                                        <option value="Sup">Suporte</option>
+                                    </select>
+                                    <span id="span_role" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Salvar</button>
+                                <button type="submit" class="btn btn-success btn-sm btn-block" >Criar</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     {{-- EDIT --}}
     {{-- <div id="edit-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-player-title" aria-hidden="true" >
@@ -245,7 +309,10 @@
             // pageList: [25, 50, 100, 200, 'All'],
         });
 
-        // $("#league_id").select2({ minimumResultsForSearch: Infinity });
+        $("#nationality").select2();
+        $("#sex").select2({ minimumResultsForSearch: Infinity });
+        $("#force").select2({ minimumResultsForSearch: Infinity });
+        $("#role").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
         $(document).on('click', '.see-player', function() {
@@ -255,6 +322,8 @@
             let countries = {!! $countries !!};
             let html;
             let player;
+
+            console.log(countries);
 
             data.forEach(p => {
                 if (p.id == id)
@@ -270,12 +339,17 @@
                     });
                 }
             });
+            console.log(player.nationality);
 
             let team_name     = (player.team_name)     ? player.team_name     : '';
             let team_image    = (player.team_image)    ? player.team_image    : '';
             let team_initials = (player.team_initials) ? player.team_initials : '';
 
-            let role          = window.formatteRoleFull(player.attribute.role)[0];
+            let rolTx1        = player.attribute.role;
+            let role1         = window.formatteRoleFull(rolTx1)[0];
+
+            let rolTx2        = player.attribute.secondary_role;
+            let role2         = window.formatteRoleFull(rolTx2)[0];
 
             let force         = player.attribute.force;
             let energy        = player.attribute.energy;
@@ -291,7 +365,8 @@
                 '   <p class="mb-1 " >Sexo: <strong>' + player.sex + '</strong></p>' +
                 '   <p class="mb-1 " >Idade: <strong>' + player.age + '</strong></p>' +
                 '   <p class="mb-1 " >Aniversário: <strong>' + birthday + '</strong></p>' +
-                '   <p class="mb-1 " >Posição: <strong>' + role + '</strong></p>' +
+                '   <p class="mb-1 " >Posição primária: <strong class="text-' + rolTx1 + '" >' + role1 + '</strong></p>' +
+                '   <p class="mb-1 " >Posição secundária: <strong class="text-' + rolTx2 + '" >' + role2 + '</strong></p>' +
                 '   <p class="mb-1 " >Força: <strong>' + force + '</strong></p>' +
                 '   <p class="mb-1 " >Energia: <strong>' + energy + '%</strong></p>' +
                 '   <p class="mb-1 " >Salário: <strong>R$ ' + salary + '</strong></p>' +
@@ -313,12 +388,12 @@
         });
 
         // NEW
-        $(document).on('click', '.new-team', function() {
+        $(document).on('click', '.new-player', function() {
             // getLeagues('#league_id');
-            $('#new-team').find('#name').val('');
-            $('#new-team').find('#initials').val('');
-            $('#new-team').find('#nrdivisions').val('').removeAttr('disabled');
-            $('#new-team').modal('show');
+            $('#new-player').find('#name').val('');
+            $('#new-player').find('#initials').val('');
+            $('#new-player').find('#nrdivisions').val('').removeAttr('disabled');
+            $('#new-player').modal('show');
         });
         $('#league_id').on('change', function () {
             $('#division_id').removeAttr('disabled');
@@ -326,7 +401,7 @@
         });
 
         // EDIT
-        $(document).on('click', '.edit-team', function() {
+        $(document).on('click', '.edit-player', function() {
             let id      = $(this).data('id');
             // let teams = ;
 
