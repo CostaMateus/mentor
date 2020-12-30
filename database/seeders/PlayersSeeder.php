@@ -140,7 +140,7 @@ class PlayersSeeder extends Seeder
 
         return [
             'age'      => $age,
-            'birthday' => date((2020 - $age) . '-' . $month . '-' . $day)
+            'birthday' => date((date('Y') - $age) . '-' . $month . '-' . $day)
         ];
     }
 
