@@ -28,7 +28,7 @@ class PlayerController extends Controller
         return view('adm.players', [
             'data'      => $data,
             'teams'     => Team::get(),
-            'countries' => DB::table('countries')->get()
+            'countries' => DB::table('countries')->select('name', 'code')->orderBy('name', 'ASC')->get()
         ]);
     }
 

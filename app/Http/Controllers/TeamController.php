@@ -49,7 +49,7 @@ class TeamController extends Controller
             'leagues'   => League::where('special', 0)->get(),
             'divisions' => Division::get(),
             'players'   => Player::with('attribute')->get(),
-            'countries' => DB::table('countries')->get()
+            'countries' => DB::table('countries')->select('name', 'code')->orderBy('name', 'ASC')->get()
         ]);
     }
 
