@@ -17,7 +17,7 @@
         table tr td {
             vertical-align: middle!important;
         }
-        .bg-img-team { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
+        .bg-img-team     { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
         .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
         #icon-team .modal-body,
         #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
@@ -36,6 +36,12 @@
         .fixed-table-pagination .pagination-detail .page-list .dropdown-item:active {
             background-color: #7A8186 !important;
         }
+
+        .text-top { color: #F8C300 !important; }
+        .text-jng { color: #A652BB !important; }
+        .text-mid { color: #0099E1 !important; }
+        .text-adc { color: #F93A2F !important; }
+        .text-sup { color: #00C09A !important; }
     </style>
     @stack('css')
     @yield('css')
