@@ -27,6 +27,7 @@ class CreateAttributesTable extends Migration
             $table->integer('energy')->default(100);
             $table->double('salary', 11, 2);
             $table->double('pass', 11, 2);
+            $table->date('contract')->nullable();
 
             $table->timestamps();
         });
