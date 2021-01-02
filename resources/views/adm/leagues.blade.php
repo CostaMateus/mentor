@@ -334,20 +334,25 @@
         // EDIT
         $(document).on('click', '.edit-league', function() {
             let id      = $(this).data('id');
-            let leagues = {!! $data !!};
 
-            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + id + '/update');
-            $('#edit-league-form').attr('method', 'POST');
+            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + id + '/update').attr('method', 'POST');
 
-            leagues.forEach(league => {
-                if (league.id == id)
-                {
+            $.ajax({
+                type: 'GET',
+                url: '{{ url("/leagues") }}' + '/' + id,
+                success: function ( data ) {
+                    // console.log( data );
+                    let league = data;
+
                     $('#edit-league').find('#edit-league-title').html('Editar liga');
                     $('#edit-league').find('#name').html(league.name).val(league.name);
                     $('#edit-league').find('#initials').html(league.initials).val(league.initials);
                     $('#edit-league').find('#nrdivisions').html(league.nrdivisions).val(league.nrdivisions).attr('disabled', 'disabled');
                     $('#edit-league').find('#image').html(league.image).val();
                     $('#edit-league').modal('show');
+                },
+                error: function ( err ) {
+                    console.log( err );
                 }
             });
         });
@@ -360,7 +365,6 @@
         });
         $('#del-league-form').on('submit', function(e) {
             e.preventDefault();
-
             let url  = '{{ url("/leagues") }}' + '/' + $(this).data('id');
             let data = $('#del-league-form').serialize();
             window.deleteItem(url, data);
