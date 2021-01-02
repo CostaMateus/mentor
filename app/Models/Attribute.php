@@ -20,7 +20,7 @@ class Attribute extends Model
      * @var array
      */
     protected $fillable = [
-        'player_id', 'role', 'secondary_role', 'force', 'energy', 'salary', 'pass',
+        'player_id', 'role', 'secondary_role', 'force', 'energy', 'salary', 'pass', 'contract'
     ];
 
     /**
