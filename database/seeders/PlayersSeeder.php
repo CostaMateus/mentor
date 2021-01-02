@@ -19,17 +19,11 @@ class PlayersSeeder extends Seeder
     {
         Player::truncate();
 
-        $teams         = Team::get();
+        $teams     = Team::get();
 
-        $faker         = Factory::create('pt-br');
+        $timestamp = date('Y-m-d');
 
-        $timestamp     = date('Y-m-d');
-
-        $countries     = ['KR','CN','TW','US','DK','PL','DE','FR','CA','VN','RU','BR','SE','HK','ES','BE','NL','GB','TR','HR','CZ','BG','PH','UA','AU','SI','TH','JP','SA','SG','GR','RO','CL','FI','AR','MX','NO','MY','LT','HU','PT','AM','TN','EE','LB','IT','RS','JO','PE','AT'];
-
-        $type_nickname = ['amazon', 'dalek', 'asgard', 'jaffa', 'wraith'];
-
-        $data[]        = [
+        $data[]    = [
             'team_id'     => 2,
             'name'        => 'Mateus',
             'lastname'    => "Costa",
@@ -47,30 +41,39 @@ class PlayersSeeder extends Seeder
 
         foreach ($teams as $team)
         {
-            $temp = PlayersSeeder::generatePlayers($team, $faker, $type_nickname, $countries, $timestamp);
+            $temp = PlayersSeeder::generatePlayers($team, $data);
             $data = array_merge($data, $temp);
         }
 
-        $temp2 = PlayersSeeder::generatePlayers(null, $faker, $type_nickname, $countries, $timestamp);
-
-        $data = array_merge($data, $temp2);
+        $temp2 = PlayersSeeder::generatePlayers(null, $data);
+        $data  = array_merge($data, $temp2);
 
         Player::insert($data);
     }
 
 
-    protected static function generatePlayers($team = null, $faker, $type_nickname, $countries, $timestamp)
+    protected static function generatePlayers($team = null, $oriData)
     {
-        $y = ($team != null) ? 6 : rand(50,100);
+        $faker     = Factory::create('pt-br');
 
-        $team_country = $faker->randomElement($countries);
+        $timestamp = date('Y-m-d');
+
+        $countries = ['KR','CN','TW','US','DK','PL','DE','FR','CA','VN','RU','BR','SE','HK','ES','BE','NL','GB','TR','HR','CZ','BG','PH','UA','AU','SI','TH','JP','SA','SG','GR','RO','CL','FI','AR','MX','NO','MY','LT','HU','PT','AM','TN','EE','LB','IT','RS','JO','PE','AT'];
+
+        $opsNicks  = ['amazon', 'dalek', 'asgard', 'jaffa', 'wraith'];
+
+        $teamCntry = $faker->randomElement($countries);
+
+        $y         = ($team != null) ? 6 : rand(50,100);
+
+        $data      = [];
 
         foreach(range(1, $y) as $i)
         {
             if ($team != null)
             {
                 $team_id  = $team->id;
-                $country  = ($team->id == 2) ? 'BR' : $team_country;
+                $country  = ($team->id == 2) ? 'BR' : $teamCntry;
                 $employed = true;
             }
             else
@@ -83,11 +86,31 @@ class PlayersSeeder extends Seeder
             $age_birthday = PlayersSeeder::getBirthday($faker);
             $name_sex     = PlayersSeeder::getNameAndSex($country);
 
-            $data[] = [
+            $nickname     = Helper::getNicknames($faker->randomElement($opsNicks));
+
+            foreach ($oriData as $d)
+            {
+                if ( strcasecmp ($nickname, $d['nickname']) == 0 )
+                {
+                    $nickname = Helper::getNicknames($faker->randomElement($opsNicks));
+                }
+            }
+
+            foreach ($data as $d)
+            {
+                if ( strcasecmp ($nickname, $d['nickname']) == 0 )
+                {
+                    // dump ( '1: ' . $nickname );
+                    $nickname = Helper::getNicknames($faker->randomElement($opsNicks));
+                    // dump ( '2: ' . $nickname );
+                }
+            }
+
+            $data[]       = [
                 'team_id'     => $team_id,
                 'name'        => $name_sex['firstName'],
                 'lastname'    => $name_sex['lastName'],
-                'nickname'    => Helper::getNicknames($faker->randomElement($type_nickname)),
+                'nickname'    => $nickname,
                 'nationality' => $country,
                 'age'         => $age_birthday['age'],
                 'birthday'    => $age_birthday['birthday'],
@@ -170,5 +193,4 @@ class PlayersSeeder extends Seeder
             'sex'       => $sex
         ];
     }
-
 }
