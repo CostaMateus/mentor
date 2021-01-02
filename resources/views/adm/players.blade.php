@@ -273,7 +273,7 @@
     </div>
 
     {{-- EDIT --}}
-    {{-- <div id="edit-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-player-title" aria-hidden="true" >
+    <div id="edit-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-player-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -283,44 +283,147 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-player-form" action="" method="" enctype="multipart/form-data" >
+                    <form id="edit-player-form" action="" method="" >
                         @csrf
                         <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="edit_league_id" class="text-muted">Liga *</label>
-                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" >
-                                        <option value="">Selecione...</option>
-                                    </select>
-                                    <input type="hidden" id="edit_league_id_hidden" name="league_id">
-                                    <span id="span_league_id" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="edit_division_id" class="text-muted">Divisão *</label>
-                                    <select id="edit_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" ></select>
-                                    <span id="span_division_id" class="text-danger"></span>
-                                </div>
-                            </div>
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
-                                    <label for="edit_name" class="text-muted">Nome do time *</label>
-                                    <input type="text" id="edit_name" class="form-control form-control-sm" name="name" >
-                                    <span id="span_name" class="invalid-feedback"></span>
+                                    <label for="edit_name" class="text-muted">Nome *</label>
+                                    <input type="text" id="edit_name" class="form-control form-control-sm" name="name"  >
+                                    <span id="span_edit_name" class="invalid-feedback"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
-                                    <label for="edit_initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="edit_initials" class="form-control form-control-sm" name="initials" >
-                                    <span id="span_initials" class="invalid-feedback"></span>
+                                    <label for="edit_lastname" class="text-muted">Sobrenome *</label>
+                                    <input type="text" id="edit_lastname" class="form-control form-control-sm" name="lastname"  >
+                                    <span id="span_edit_lastname" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
+                                <div class="form-group">
+                                    <label for="edit_nickname" class="text-muted">Apelido *</label>
+                                    <input type="text" id="edit_nickname" class="form-control form-control-sm" name="nickname"  >
+                                    <span id="span_edit_nickname" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="edit_age" class="text-muted">Idade *</label>
+                                    <input type="number" id="edit_age" class="form-control form-control-sm" name="age" min="16" max="99" step="1"  >
+                                    <span id="span_edit_age" class="invalid-feedback"> AAA</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
+                                <div class="form-group">
+                                    <label for="edit_sex" class="text-muted">Sexo *</label>
+                                    <select id="edit_sex" class="form-control form-control-sm" name="sex" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Feminino</option>
+                                    </select>
+                                    <span id="span_edit_sex" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="edit_nationality" class="text-muted">Nacionalidade *</label>
+                                    <select id="edit_nationality" class="form-control form-control-sm" name="nationality" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        @foreach ($countries as $c)
+                                            <option value="{{ $c->code }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="span_edit_nationality" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="form-group mt-3 mb-0">
+                                    <label class="">Atributos</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group form-check mb-2">
+                                    <input type="checkbox" class="form-check-input" name="mentor" id="edit_mentor">
+                                    <label class="form-check-label" for="edit_mentor">Treinador</label>
                                 </div>
                             </div>
                             <div class="col-12 ">
                                 <div class="form-group">
-                                    <label for="edit_image" class="text-muted">Imagem</label>
-                                    <input id="edit_image" type="file" class="form-control-file" name="image">
+                                    <label for="edit_force" class="text-muted">Força *</label>
+                                    <select id="edit_force" class="form-control form-control-sm" name="force" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="1"> 1...40</option>
+                                        <option value="2">20...60</option>
+                                        <option value="3">40...75</option>
+                                        {{-- <option value="4">60...100</option> --}}
+                                    </select>
+                                    <p class="small mt-2 mb-0 text-muted">Salário e passe iniciais são de acordo com o valor da força</p>
+                                    <span id="span_edit_force" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pr-md-2">
+                                <div class="form-group">
+                                    <label for="edit_role" class="text-muted">1ª Posição *</label>
+                                    <select id="edit_role" class="form-control form-control-sm" name="role" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="top" class="text-top" >Topo</option>
+                                        <option value="jng" class="text-jng" >Selva</option>
+                                        <option value="mid" class="text-mid" >Meio</option>
+                                        <option value="adc" class="text-adc" >Atirador</option>
+                                        <option value="sup" class="text-sup" >Suporte</option>
+                                    </select>
+                                    <span id="span_role" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 pl-md-2">
+                                <div class="form-group">
+                                    <label for="edit_secondary_role" class="text-muted">2ª Posição *</label>
+                                    <select id="edit_secondary_role" class="form-control form-control-sm" name="secondary_role" style="width: 100%">
+                                        <option value="" selected disabled >Selecione...</option>
+                                        <option value="top" class="text-top" >Topo</option>
+                                        <option value="jng" class="text-jng" >Selva</option>
+                                        <option value="mid" class="text-mid" >Meio</option>
+                                        <option value="adc" class="text-adc" >Atirador</option>
+                                        <option value="sup" class="text-sup" >Suporte</option>
+                                    </select>
+                                    <span id="span_edit_secondary_role" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="form-group form-check mt-3 mb-2">
+                                    <input type="checkbox" class="form-check-input" name="add_team" id="edit_add_team">
+                                    <label class="form-check-label" for="edit_add_team">Adicionar a um time?</label>
+                                </div>
+                            </div>
+                            <div class="col-12 edit_add_team d-none">
+                                <div class="form-group">
+                                    <label for="edit_league_id" class="text-muted">Liga *</label>
+                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" >
+                                        <option value="" selected disabled >Selecione...</option>
+                                        @foreach ($leagues as $league)
+                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="span_edit_league_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 edit_add_team d-none">
+                                <div class="form-group">
+                                    <label for="edit_division_id" class="text-muted">Divisão *</label>
+                                    <select id="edit_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled ></select>
+                                    <span id="span_edit_division_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 edit_add_team d-none">
+                                <div class="form-group">
+                                    <label for="edit_team_id" class="text-muted">Time *</label>
+                                    <select id="edit_team_id" class="form-control form-control-sm" name="team_id" style="width: 100%" disabled ></select>
+                                    <span id="span_edit_team_id" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -334,7 +437,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     {{-- DELETE --}}
     @include('adm/partials.modal-delete', [
@@ -474,43 +577,95 @@
                 type: 'POST',
                 url: '{{ url("/players") }}',
                 data: $('#new-player-form').serialize(),
-                success: function (data) {
-                    console.log(data);
-
+                success: function ( data ) {
+                    // console.log( data );
                     location.reload();
                 },
-                error: function (error) {
-                    if (error.status == 422)
+                error: function ( err ) {
+                    if ( err.status == 422 )
                     {
-                        showErrors(error);
+                        showErrors( err );
                     }
-                    console.log(error);
+                    console.log( err );
                 }
             });
         });
 
         // EDIT
         $(document).on('click', '.edit-player', function() {
+            $("#edit_nationality").select2();
+            $("#edit_sex").select2({ minimumResultsForSearch: Infinity });
+            $("#edit_force").select2({ minimumResultsForSearch: Infinity });
+            $("#edit_role").select2({ minimumResultsForSearch: Infinity });
+            $("#edit_secondary_role").select2({ minimumResultsForSearch: Infinity });
+            $("#edit_league_id").select2({ minimumResultsForSearch: Infinity });
+            $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
+            $("#edit_team_id").select2({ minimumResultsForSearch: Infinity });
+
             let id      = $(this).data('id');
-            // let teams = ;
 
-            $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + id);
-            $('#edit-team-form').attr('method', 'POST');
+            $('#edit-player-form').attr('action', '{{ url("/players") }}' + '/' + id).attr('method', 'POST');
 
-            teams.forEach(team => {
-                if (team.id == id)
-                {
-                    $('#edit-team').find('#edit-team-title').html('Editar time: ' + team.name);
-                    $('#edit_league_id').attr('disabled', '').val(team.league_id).trigger('change');
-                    $('#edit_league_id_hidden').val(team.league_id + '.' + team.league_initials);
+            $.ajax({
+                type: 'GET',
+                url: '{{ url("/players") }}' + '/' + id,
+                success: function ( data ) {
+                    // console.log( data );
+                    let player = data;
 
-                    insertDivisions('edit_division_id', true, team.division_league_id, team.division_id);
+                    $('#edit-player-title').html('Editar time: ' + player.name + ' "' + player.nickname + '" ' + player.lastname);
 
-                    $('#edit-team').find('#edit_name').val(team.name);
-                    $('#edit-team').find('#edit_initials').val(team.initials);
-                    $('#edit-team').modal('show');
+                    var newOption = new Option(player.attribute.force, player.attribute.force, true, true);
+                    $('#edit_force').append(newOption).trigger('change').attr('disabled', 'disabled');
+
+                    $('#edit_name').val(player.name);
+                    $('#edit_lastname').val(player.lastname);
+                    $('#edit_nickname').val(player.nickname);
+                    $('#edit_age').val(player.age);
+                    $('#edit_mentor').prop( "checked", (player.mentor ? true : false) );
+                    $('#edit_nationality').val(player.nationality).trigger('change');
+                    $('#edit_sex').val(player.sex).trigger('change');
+                    // $('#edit_force').val(player.attribute.force).trigger('change');
+                    $('#edit_role').val(player.attribute.role).trigger('change');
+                    $('#edit_secondary_role').val(player.attribute.secondary_role).trigger('change');
+
+                    if (player.team)
+                    {
+                        $('#edit_add_team').prop( "checked", true );
+                        $('.edit_add_team').removeClass('d-none');
+
+                        $('#edit_league_id').val(player.team.league_id).trigger('change');
+
+                        insertDivisions('edit_division_id', true, player.team.league_id, player.team.division_id);
+                        $('#edit_division_id').removeAttr('disabled');
+
+                        insertTeams('edit_team_id', (player.team.division_id ? true : false), (player.team.division_id ? player.team.division_id : 0), player.team.id);
+                        $('#edit_team_id').removeAttr('disabled');
+                    }
+                    else
+                    {
+                        $('#edit_add_team').prop( "checked", false );
+                        $('.edit_add_team').addClass('d-none');
+
+                        $('#edit_league_id').val('').trigger('change');
+                        $('#edit_division_id').val('').trigger('change').attr('disabled', 'disabled');
+                        $('#edit_team_id').val('').trigger('change').attr('disabled', 'disabled');
+                    }
+
+                    $('#edit-player').modal('show');
+                },
+                error: function ( err ) {
+                    console.log( err );
                 }
             });
+        });
+        $('#edit_league_id').on('change', function () {
+            $('#edit_division_id').removeAttr('disabled');
+            insertDivisions('edit_division_id', false, this.value);
+        });
+        $('#edit_division_id').on('change', function () {
+            $('#edit_team_id').removeAttr('disabled');
+            insertTeams('edit_team_id', false, this.value);
         });
 
         // DEL
@@ -582,6 +737,16 @@
             else
             {
                 $('.add_team').addClass('d-none');
+            }
+        });
+        $('#edit_add_team').on('change', function() {
+            if ( $(this).is(':checked'))
+            {
+                $('.edit_add_team').removeClass('d-none');
+            }
+            else
+            {
+                $('.edit_add_team').addClass('d-none');
             }
         });
 
