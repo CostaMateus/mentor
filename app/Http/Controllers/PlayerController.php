@@ -140,6 +140,9 @@ class PlayerController extends Controller
         $valData['salary']    = $vlr[0];
         $valData['pass']      = $vlr[1];
 
+        $rand                 = rand(1,6);
+        $valData['contract']  = date('Y-m-d', strtotime("+$rand months", strtotime(date('Y-m-d'))));;
+
         $player               = Player::create($valData);
 
         $valData['player_id'] = $player->id;
