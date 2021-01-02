@@ -16,17 +16,19 @@ class AttributesSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create('pt-br');
-
         Attribute::truncate();
 
-        $players = Player::get();
+        $faker     = Factory::create('pt-br');
+
+        $players   = Player::get();
 
         $timestamp = date('Y-m-d');
 
-        $roles = ['sup','top','jng','mid','adc'];
+        $roles     = ['sup','top','jng','mid','adc'];
 
-        $i = 0;
+        $i         = 0;
+
+        $data      = [];
 
         foreach($players as $p) {
             $force = $faker->numberBetween(25, 75);
@@ -69,14 +71,51 @@ class AttributesSeeder extends Seeder
                 'energy'         => 100,
                 'salary'         => (int) $salary,
                 'pass'           => (int) $pass,
+                'contract'       => ($p->team_id == 0) ? null : AttributesSeeder::getContract($faker),
                 'created_at'     => $timestamp,
                 'updated_at'     => $timestamp
             ];
 
             $i++;
-            if ( $i == 5) $i = 0;
+            if ($i == 5) $i = 0;
         }
 
         Attribute::insert($data);
+    }
+
+    /**
+     * Gera tempo de contrato
+     *
+     * @param [type] $faker
+     * @return void
+     */
+    protected static function getContract($faker)
+    {
+        $month = $faker->numberBetween(1, 12);
+
+        switch ($month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                $day = $faker->numberBetween(1,31);
+                break;
+
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                $day = $faker->numberBetween(1,30);
+                break;
+
+            case 2:
+                $day = $faker->numberBetween(1,28);
+                break;
+        }
+
+        return (date('Y') . '-' . $month . '-' . $day);
     }
 }
