@@ -100,7 +100,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-team-form" action="{{ url("/teams") }}" method="POST" enctype="multipart/form-data" >
+                    <form id="new-team-form" action="" method="" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -337,6 +337,9 @@
 
         // NEW
         $(document).on('click', '.new-team', function() {
+            $('#new-team-form').attr('action', '{{ url("/teams") }}');
+            $('#new-team-form').attr('method', 'POST');
+
             $('#new-team').find('#name').val('');
             $('#new-team').find('#initials').val('');
             $('#new-team').find('#nrdivisions').val('').removeAttr('disabled');
@@ -350,23 +353,30 @@
         // EDIT
         $(document).on('click', '.edit-team', function() {
             let id      = $(this).data('id');
-            let teams = {!! $data !!};
 
-            $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + id);
-            $('#edit-team-form').attr('method', 'POST');
+            $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + id).attr('method', 'POST');
 
-            teams.forEach(team => {
-                if (team.id == id)
-                {
-                    $('#edit-team').find('#edit-team-title').html('Editar time: ' + team.name);
+            $.ajax({
+                type: 'GET',
+                url: '{{ url("/teams") }}' + '/' + id,
+                success: function ( data ) {
+                    // console.log( data );
+                    let team = data[0];
+
+                    let edit = $('#edit-team');
+
+                    edit.find('#edit-team-title').html('Editar time: ' + team.name);
                     $('#edit_league_id').attr('disabled', '').val(team.league_id).trigger('change');
                     $('#edit_league_id_hidden').val(team.league_id + '.' + team.league_initials);
 
                     insertDivisions('edit_division_id', true, team.league_id, team.division_id);
 
-                    $('#edit-team').find('#edit_name').val(team.name);
-                    $('#edit-team').find('#edit_initials').val(team.initials);
-                    $('#edit-team').modal('show');
+                    edit.find('#edit_name').val(team.name);
+                    edit.find('#edit_initials').val(team.initials);
+                    edit.modal('show');
+                },
+                error: function ( err ) {
+                    console.log( err );
                 }
             });
         });
@@ -410,7 +420,6 @@
             });
 
             opts += '<option value="0"' + ((division_id === null) ? 'selected' : '') + '>Sem divisão</option>';
-
 
             $('#' + id).html(opts);
             $('#' + id).select2({ minimumResultsForSearch: Infinity });
