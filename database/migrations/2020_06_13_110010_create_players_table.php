@@ -23,7 +23,7 @@ class CreatePlayersTable extends Migration
 
             $table->string('name');
             $table->string('lastname');
-            $table->string('nickname');
+            $table->string('nickname')->unique();
             $table->string('nationality')->default('BR');
             $table->integer('age');
             $table->date('birthday');
