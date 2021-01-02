@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin.home');
 
     Route::apiresource('/players', 'PlayerController');
+    Route::post('/players/{player}', 'PlayerController@update')->name('player.update');
 
     Route::apiresource('/trophies', 'TrophyController');
 
