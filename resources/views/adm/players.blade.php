@@ -7,6 +7,10 @@
         .has-error {
             border-color: rgb(185, 74, 72) !important;
         }
+
+        .accordion-icons .card-header .btn.collapsed:before {
+            content:"\f07b";
+        }
     </style>
 @endsection
 
@@ -16,10 +20,141 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12 pb-3">
+        <div class="col-12 d-flex justify-content-between pb-3">
             <button type="button" class="btn btn-secondary btn-sm new-player" >
                 <i class="fas fa-plus "></i> Novo jogador
             </button>
+
+            <button type="button" id="btnSearch" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#searchCollapse" aria-expanded="false" aria-controls="searchCollapse">
+                <i class="fas fa-angle-down"></i> Filtros
+            </button>
+        </div>
+
+        <div class="col-12">
+            <div class="collapse" id="searchCollapse">
+                <div class="card card-body p-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 pr-md-2 mt-3 mt-md-0">
+                            <form id="busca_form" method="GET" class="form-row">
+                                <div class="form-group mb-0">
+                                    <small for="search_name" class="text-muted">Buscar por nome, sobrenome e apelido</small>
+                                    <div class="input-group">
+                                        <input type="text" id="search_name" class="form-control form-control-sm" name="name" placeholder="@if (session('name')) {{ session('name') }} @endif" aria-describedby="name">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                                <i class="fas fa-search "></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {{-- VALOR PASSE --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3 mt-md-0">
+                            <div class="form-group mb-0">
+                                <small for="search_pass" class="text-muted">Passe (R$)</small>
+                                <select id="search_pass" class="form-control form-control-sm" name="pass" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1" >1 mil a 4 mil</option>
+                                    <option value="2" >5 mil a 8 mil</option>
+                                    <option value="3" >9 mil a 12 mil</option>
+                                    <option value="4" >13 mil a 16 mil</option>
+                                    <option value="5" >17 mil a 20 mil</option>
+                                    <option value="6" >+ 20 mil</option>
+                                    {{-- <option value="ativo"      @if (session('status') == 'ativo')      selected @endif ></option> --}}
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- !ª POSIÇÃO --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3">
+                            <div class="form-group mb-0">
+                                <small for="search_role" class="text-muted">1ª Posição</small>
+                                <select id="search_role" class="form-control form-control-sm" name="role" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="top" class="text-top" >Topo</option>
+                                    <option value="jng" class="text-jng" >Selva</option>
+                                    <option value="mid" class="text-mid" >Meio</option>
+                                    <option value="adc" class="text-adc" >Atirador</option>
+                                    <option value="sup" class="text-sup" >Suporte</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- NACIONALIDADE --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3">
+                            <div class="form-group mb-0">
+                                <small for="search_nationality" class="text-muted">Nacionalidade</small>
+                                <select id="search_nationality" class="form-control form-control-sm" name="search_nationality" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    @foreach ($countries as $c)
+                                        <option value="{{ $c->code }}">{{ $c->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- 2ª POSIÇÃO --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3">
+                            <div class="form-group mb-0">
+                                <small for="search_secondary_role" class="text-muted">2ª Posição</small>
+                                <select id="search_secondary_role" class="form-control form-control-sm" name="secondary_role" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="top" class="text-top" >Topo</option>
+                                    <option value="jng" class="text-jng" >Selva</option>
+                                    <option value="mid" class="text-mid" >Meio</option>
+                                    <option value="adc" class="text-adc" >Atirador</option>
+                                    <option value="sup" class="text-sup" >Suporte</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- IDADE --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3">
+                            <div class="form-group mb-0">
+                                <small for="search_age" class="text-muted">Idade</small>
+                                <select id="search_age" class="form-control form-control-sm" name="search_age" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1">16 a 20</option>
+                                    <option value="2">21 a 25</option>
+                                    <option value="3">26 a 30</option>
+                                    <option value="4">31+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- FORÇA --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3">
+                            <div class="form-group mb-0">
+                                <small for="search_force" class="text-muted">Força</small>
+                                <select id="search_force" class="form-control form-control-sm" name="search_force" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1">1 a 10</option>
+                                    <option value="2">11 a 30</option>
+                                    <option value="3">31 a 50</option>
+                                    <option value="4">51 a 70</option>
+                                    <option value="4">71 a 100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- FORÇA --}}
+                        <div class="col-12 col-md-6 pl-md-2 mt-3">
+                            <div class="form-group mb-0">
+                                <small for="search_league_id" class="text-muted">Atuando na</small>
+                                <select id="search_league_id" class="form-control form-control-sm" name="search_league_id" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    @foreach ($leagues as $league)
+                                        <option value="{{ $league->id }}">{{ $league->initials }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-12 table-responsive pb-2">
@@ -33,7 +168,8 @@
                         <th class="text-center" data-field="age"         data-sortable="true" >Idade</th>
                         <th class="text-center" data-field="sex"         data-sortable="true" >Sexo</th>
                         <th class="text-center" data-field="nationality" data-sortable="true" title="Nacionalidade" >Nac.</th>
-                        <th class="text-center" data-field="employed"    data-sortable="true" >Contrato</th>
+                        <th class="text-center" data-field="employed"    data-sortable="true" >Time</th>
+                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação">Disp.</th>
                         <th class="text-center"                                               >Ver</th>
                         <th class="text-center"                                               >Editar</th>
                         <th class="text-center"                                               >Excluir</th>
@@ -56,6 +192,12 @@
 
                             $role1  = Helper::formatteRole($rolTx1);
                             $role2  = Helper::formatteRole($rolTx2);
+
+                            $today  = new DateTime( date('Y-m-d') );
+                            $ctt    = new DateTime( $player->attribute->contract );
+                            $diff   = $today->diff( $ctt );
+                            $formt  = date_format($ctt, "d/m/Y");
+                            // echo "Intervalo é de {$diff->y} anos, {$diff->m} meses e {$diff->d} dias";
                         @endphp
                         <tr>
                             <td class="text-center"                              >{{ $loop->iteration }}</td>
@@ -69,9 +211,16 @@
                             </td>
                             <td class="text-center" >
                                 @if ($player->employed)
-                                    {{-- <i class="fas fa-check"></i> --}}
                                     {{ $player->team_initials }}
                                 @endif
+                            </td>
+                            <td class="text-center" >
+                                @if ($player->attribute->contract == null)
+                                    <i class="fas fa-check" style="color: #080" ></i>
+                                @elseif ($diff->m == 0)
+                                    <i class="fas fa-check" style="color: #080" title="Contrato terminar em {{ $formt }}" ></i>
+                                @endif
+
                             </td>
 
                             <td class="text-center" >
@@ -464,15 +613,27 @@
             // pageList: [25, 50, 100, 200, 'All'],
         });
 
+        $("#search_nationality").select2();
+        $("#search_age").select2({ minimumResultsForSearch: Infinity });
+        $("#search_pass").select2({ minimumResultsForSearch: Infinity });
+        $("#search_role").select2({ minimumResultsForSearch: Infinity });
+        $("#search_force").select2({ minimumResultsForSearch: Infinity });
+        $("#search_league_id").select2({ minimumResultsForSearch: Infinity });
+        $("#search_secondary_role").select2({ minimumResultsForSearch: Infinity });
+
+        $('#btnSearch').click(function() {
+            $(this).find('i').toggleClass('fas fa-angle-down fas fa-angle-up');
+        });
+
         $("#nationality").select2();
         $("#sex").select2({ minimumResultsForSearch: Infinity });
-        $("#force").select2({ minimumResultsForSearch: Infinity });
         $("#role").select2({ minimumResultsForSearch: Infinity });
+        $("#force").select2({ minimumResultsForSearch: Infinity });
         $("#secondary_role").select2({ minimumResultsForSearch: Infinity });
 
+        $("#team_id").select2({ minimumResultsForSearch: Infinity });
         $("#league_id").select2({ minimumResultsForSearch: Infinity });
         $("#division_id").select2({ minimumResultsForSearch: Infinity });
-        $("#team_id").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
         $(document).on('click', '.see-player', function() {
@@ -625,9 +786,12 @@
                     $('#edit_mentor').prop( "checked", (player.mentor ? true : false) );
                     $('#edit_nationality').val(player.nationality).trigger('change');
                     $('#edit_sex').val(player.sex).trigger('change');
-                    // $('#edit_force').val(player.attribute.force).trigger('change');
+
                     $('#edit_role').val(player.attribute.role).trigger('change');
+                    window.selectRoleWithColor( document.getElementById('select2-edit_role-container') );
+
                     $('#edit_secondary_role').val(player.attribute.secondary_role).trigger('change');
+                    window.selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
 
                     if (player.team)
                     {
@@ -684,50 +848,22 @@
 
 
         $('#role').on('change', function() {
-            let role1 = document.getElementById('select2-role-container');
-            switch ( $(role1).attr('title') ) {
-                case 'Topo':
-                    $(role1).css('color', '#F8C300').addClass('text-bold');
-                    break;
-                case 'Selva':
-                    $(role1).css('color', '#A652BB').addClass('text-bold');
-                    break;
-                case 'Meio':
-                    $(role1).css('color', '#0099E1').addClass('text-bold');
-                    break;
-                case 'Atirador':
-                    $(role1).css('color', '#F93A2F').addClass('text-bold');
-                    break;
-                case 'Suporte':
-                    $(role1).css('color', '#00C09A').addClass('text-bold');
-                    break;
-                default:
-                    $(role1).css('color', '#444').removeClass('text-bold');
-                    break;
-            }
+            window.selectRoleWithColor( document.getElementById('select2-role-container') );
+        });
+        $('#edit_role').on('change', function() {
+            window.selectRoleWithColor( document.getElementById('select2-edit_role-container') );
+        });
+        $('#search_role').on('change', function() {
+            window.selectRoleWithColor( document.getElementById('select2-search_role-container') );
         });
         $('#secondary_role').on('change', function() {
-            let role2 = document.getElementById('select2-secondary_role-container');
-            switch ( $(role2).attr('title') ) {
-                case 'Topo':
-                    $(role2).css('color', '#F8C300').addClass('text-bold');
-                    break;
-                case 'Selva':
-                    $(role2).css('color', '#A652BB').addClass('text-bold');
-                    break;
-                case 'Meio':
-                    $(role2).css('color', '#0099E2').addClass('text-bold');
-                    break;
-                case 'Atirador':
-                    $(role2).css('color', '#F93A2F').addClass('text-bold');
-                    break;
-                case 'Suporte':
-                    $(role2).css('color', '#00C09A').addClass('text-bold');
-                    break;
-                default:
-                    $(role2).css('color', '#444').removeClass('text-bold');
-                    break;
-            }
+            window.selectRoleWithColor( document.getElementById('select2-secondary_role-container') );
+        });
+        $('#edit_secondary_role').on('change', function() {
+            window.selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
+        });
+        $('#search_secondary_role').on('change', function() {
+            window.selectRoleWithColor( document.getElementById('select2-search_secondary_role-container') );
         });
         $('#add_team').on('change', function() {
             if ( $(this).is(':checked'))
@@ -791,5 +927,30 @@
 
             $('#' + id).html(opts);
         }
+
+        window.selectRoleWithColor = function (elem)
+        {
+            switch ( $(elem).attr('title') ) {
+                case 'Topo':
+                    $(elem).css('color', '#F8C300').addClass('text-bold');
+                    break;
+                case 'Selva':
+                    $(elem).css('color', '#A652BB').addClass('text-bold');
+                    break;
+                case 'Meio':
+                    $(elem).css('color', '#0099E1').addClass('text-bold');
+                    break;
+                case 'Atirador':
+                    $(elem).css('color', '#F93A2F').addClass('text-bold');
+                    break;
+                case 'Suporte':
+                    $(elem).css('color', '#00C09A').addClass('text-bold');
+                    break;
+                default:
+                    $(elem).css('color', '#444').removeClass('text-bold');
+                    break;
+            }
+        }
+
     </script>
 @endsection
