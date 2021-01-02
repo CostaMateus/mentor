@@ -157,7 +157,7 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
-        return $player->load('attribute');
+        return $player->load('attribute', 'team');
     }
 
     /**
@@ -180,29 +180,95 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             //player
-            'name'        => 'required|string',
-            'lastname'    => 'required|string',
-            'nickname'    => 'required|string',
-            'nationality' => 'string',
-            'age'         => 'numeric',
-            'birthday'    => 'date',
+            'name'           => 'required|string',
+            'lastname'       => 'required|string',
+            'nickname'       => 'required|'.Rule::unique('players')->ignore($player->id),
+            'nationality'    => 'required|string',
+            'age'            => 'required|numeric|min:16|max:99',
+            'sex'            => 'required|string',
             //attributes
-            'role'        => Rule::in(Attribute::$roles),
-            'force'       => 'required|integer',
-            'salary'      => 'required|numeric',
-            'pass'        => 'required|numeric',
+            'mentor'         => 'nullable|string',
+            'role'           => 'required|'.Rule::in(Attribute::$roles),
+            'secondary_role' => 'required|'.Rule::in(Attribute::$roles),
+
+            'league_id'      => 'nullable|integer',
+            'division_id'    => 'nullable|integer',
+            'team_id'        => 'nullable|integer',
+
+            'add_team'       => 'nullable|string',
         ]);
 
-        $player->fill($validatedData);
+        if ($valData['role'] == $valData['secondary_role'])
+        {
+            $error = [
+                'errors' => [
+                    'role' => [
+                        'A 1ª pos. deve ser diferente da 2ª'
+                    ],
+                    'secondary_role' => [
+                        'A 2ª pos. deve ser diferente da 1ª'
+                    ]
+                ],
+                'message' => 'Posições inválidas.',
+            ];
+            return response()->json($error,422);
+        }
+
+        if (isset($valData['add_team']))
+        {
+            if (!isset($valData['league_id'])   ||
+                !isset($valData['division_id']) ||
+                !isset($valData['team_id']))
+            {
+                $error = [
+                    'errors' => [
+                        'league_id' => [
+                            'Escolha um liga'
+                        ],
+                        'division_id' => [
+                            'Escolha uma divisão'
+                        ],
+                        'team_id' => [
+                            'Escolha um time'
+                        ]
+                    ],
+                    'message' => 'Dados inválidas.',
+                ];
+
+                return response()->json($error,422);
+            }
+        }
+        else
+        {
+            $valData['team_id'] = 0;
+        }
+
+        if (isset($valData['team_id']) && isset($valData['mentor']))
+        {
+            $p = Player::where('id', $valData['team_id'])->where('mentor', 1)->get();
+
+            if ($p === null)
+            {
+                $valData['mentor'] = 1;
+            }
+            else
+            {
+                $valData['mentor'] = 0;
+            }
+        }
+
+        $valData['employed']  = isset($valData['league_id']) ? 1 : 0;
+
+        $player->fill($valData);
         $player->save();
 
         $attribute = Attribute::find($player->attribute->player_id);
-        $attribute->fill($validatedData);
+        $attribute->fill($valData);
         $attribute->save();
 
-        return $player->load('attribute');
+        return redirect('players');
     }
 
     /**
