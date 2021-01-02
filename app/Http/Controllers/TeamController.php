@@ -78,7 +78,7 @@ class TeamController extends Controller
             'initials.unique'   => 'Essa sigla já está em uso.',
         ];
 
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'league_id'   => 'required|string',
             'division_id' => 'required|numeric',
             'name'        => 'required|string|unique:teams',
@@ -86,23 +86,23 @@ class TeamController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials']  = strtoupper($validatedData['initials']);
+        $valData['initials']  = strtoupper($valData['initials']);
 
-        $league_initials = strtolower(explode('.', $validatedData['league_id'])[1]);
-        unset($validatedData['league_id']);
+        $league_initials = strtolower(explode('.', $valData['league_id'])[1]);
+        unset($valData['league_id']);
 
         if (isset($request->image))
         {
-            $imageName = $league_initials . '_' . strtolower($validatedData['initials']) . '.' . $request->image->extension();
+            $imageName = $league_initials . '_' . strtolower($valData['initials']) . '.' . $request->image->extension();
             $request->image->move(public_path('images/game/leagues/teams'), $imageName);
-            $validatedData['image'] = $imageName;
+            $valData['image'] = $imageName;
         }
         else
         {
-            $validatedData['image'] = "default.png";
+            $valData['image'] = "default.png";
         }
 
-        Team::create($validatedData);
+        Team::create($valData);
 
         return redirect('teams');
     }
@@ -115,19 +115,18 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return Team::join('divisions as dv', 'teams.division_id', '=', 'dv.id')
-                    ->join('leagues as lg', 'dv.league_id', '=', 'lg.id')
-                    ->select(
-                        'teams.id',
-                        'teams.name',
-                        'teams.initials',
-                        'teams.image',
-                        'dv.id as division_id',
-                        'lg.id as league_id',
-                        'lg.name as league_name',
-                        'lg.initials as league_initials')
-                    ->where('teams.id', $team->id)
-                    ->get()[0];
+        return DB::table('teams as tm')
+                 ->join('leagues as lg', 'tm.league_id', '=', 'lg.id')
+                 ->select(
+                     'tm.id',
+                     'tm.name',
+                     'tm.initials',
+                     'tm.image',
+                     'tm.league_id',
+                     'tm.division_id',
+                     'lg.initials as league_initials')
+                 ->where('tm.id', $team->id)
+                 ->get();
     }
 
     /**
@@ -157,7 +156,7 @@ class TeamController extends Controller
             'initials.unique'   => 'Essa sigla já está em uso.',
         ];
 
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'league_id'   => 'required|string',
             'division_id' => 'required|numeric',
             'name'        => 'required|string|'.Rule::unique('teams')->ignore($team->id),
@@ -165,11 +164,11 @@ class TeamController extends Controller
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials']    = strtoupper($validatedData['initials']);
-        $validatedData['division_id'] = ($validatedData['division_id'] != 0) ? $validatedData['division_id'] : null;
+        $valData['initials']    = strtoupper($valData['initials']);
+        $valData['division_id'] = ($valData['division_id'] != 0) ? $valData['division_id'] : null;
 
-        $league_initials           = strtolower(explode('.', $validatedData['league_id'])[1]);
-        unset($validatedData['league_id']);
+        $league_initials              = strtolower(explode('.', $valData['league_id'])[1]);
+        unset($valData['league_id']);
 
         if (isset($request->image))
         {
@@ -178,13 +177,13 @@ class TeamController extends Controller
                 File::delete(public_path('images/game/leagues/teams/').$team->image);
             }
 
-            $imageName = $league_initials . '_' . strtolower($validatedData['initials']) . '.' . $request->image->extension();
+            $imageName = $league_initials . '_' . strtolower($valData['initials']) . '.' . $request->image->extension();
 
             $request->image->move(public_path('images/game/leagues/teams'), $imageName);
-            $validatedData['image'] = $imageName;
+            $valData['image'] = $imageName;
         }
 
-        $team->fill($validatedData);
+        $team->fill($valData);
         $team->save();
 
         return redirect('teams');

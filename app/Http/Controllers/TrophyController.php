@@ -35,12 +35,12 @@ class TrophyController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'name' => 'required|string',
             'image' => 'string',
         ]);
 
-        return Trophy::create($validatedData);
+        return Trophy::create($valData);
     }
 
     /**
@@ -74,12 +74,12 @@ class TrophyController extends Controller
      */
     public function update(Request $request, Trophy $trophy)
     {
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'name' => 'required|string',
             'image' => 'string'
         ]);
 
-        $trophy->fill($validatedData);
+        $trophy->fill($valData);
         $trophy->save();
 
         return $trophy;

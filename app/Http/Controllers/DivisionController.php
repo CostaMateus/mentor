@@ -51,14 +51,14 @@ class DivisionController extends Controller
             'initials.required' => 'O campo \'Sigla da Divisão\' é obrigatório e não pode ser vazio.',
         ];
 
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'name' => 'required|string',
             'initials' => 'required|string',
         ], $message);
 
-        // $validatedData['league_id'] = $league_id;
+        // $valData['league_id'] = $league_id;
 
-        return Division::create($validatedData);
+        return Division::create($valData);
     }
 
     /**
@@ -102,12 +102,12 @@ class DivisionController extends Controller
             'initials.required' => 'O campo \'Sigla da Divisão\' é obrigatório e não pode ser vazio.',
         ];
 
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'name' => 'required|string',
             'initials' => 'required|string',
         ], $message);
 
-        $division->fill($validatedData);
+        $division->fill($valData);
         $division->save();
 
         return $division;

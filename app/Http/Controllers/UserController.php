@@ -35,12 +35,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'email' => 'required|email'
         ]);
 
-        return User::create($validatedData);
+        return User::create($valData);
     }
 
     /**
@@ -74,11 +73,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'email' => 'required|email'
         ]);
 
-        $user->fill($validatedData);
+        $user->fill($valData);
         $user->save();
 
         return $user;

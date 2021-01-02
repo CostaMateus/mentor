@@ -52,38 +52,38 @@ class LeagueController extends Controller
             'initials.unique'   => 'Essa sigla já está em uso.',
         ];
 
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'name'        => 'required|string|unique:leagues',
             'initials'    => 'required|string|unique:leagues',
             'nrdivisions' => 'nullable|numeric',
             'image'       => 'nullable|file|mimes:jpeg,png,jpg|max:2048'
         ], $message);
 
-        $validatedData['initials'] = strtoupper($validatedData['initials']);
-        $validatedData['nrdivisions'] = (isset($validatedData['nrdivisions'])) ? $validatedData['nrdivisions'] : 1;
+        $valData['initials'] = strtoupper($valData['initials']);
+        $valData['nrdivisions'] = (isset($valData['nrdivisions'])) ? $valData['nrdivisions'] : 1;
 
         if (isset($request->image))
         {
-            $imageName = strtolower($validatedData['initials']) . '.' . $request->image->extension();
+            $imageName = strtolower($valData['initials']) . '.' . $request->image->extension();
             $request->image->move(public_path('images/game/leagues'), $imageName);
-            $validatedData['image'] = $imageName;
+            $valData['image'] = $imageName;
         }
         else
         {
-            $validatedData['image'] = "default.png";
+            $valData['image'] = "default.png";
         }
 
-        $league = League::create($validatedData);
+        $league = League::create($valData);
 
         $timestamp = date('Y-m-d');
 
         $data = [];
 
-        for ($i = 1; $i <= $validatedData['nrdivisions']; $i++)
+        for ($i = 1; $i <= $valData['nrdivisions']; $i++)
         {
             $data[] = [
                 'league_id'  => $league->id,
-                'name'       => $validatedData['initials'] . ' ' . $i .'ª Divisão',
+                'name'       => $valData['initials'] . ' ' . $i .'ª Divisão',
                 'initials'   => $i . 'ª D',
                 'created_at' => $timestamp,
                 'updated_at' => $timestamp
@@ -122,7 +122,7 @@ class LeagueController extends Controller
             'initials.unique'   => 'Essa sigla já está em uso.',
         ];
 
-        $validatedData = $request->validate([
+        $valData = $request->validate([
             'name'        => 'required|string|'.Rule::unique('leagues')->ignore($league->id),
             'initials'    => 'required|string|'.Rule::unique('leagues')->ignore($league->id),
             'nrdivisions' => 'nullable|numeric',
@@ -131,7 +131,7 @@ class LeagueController extends Controller
 
         if (isset($request->image) )
         {
-            $imageName = strtolower($validatedData['initials']) . '.' . $request->image->extension();
+            $imageName = strtolower($valData['initials']) . '.' . $request->image->extension();
 
             if (file_exists(public_path('images/game/leagues/' . $imageName)))
             {
@@ -139,10 +139,10 @@ class LeagueController extends Controller
             }
 
             $request->image->move(public_path('images/game/leagues'), $imageName);
-            $validatedData['image'] = $imageName;
+            $valData['image'] = $imageName;
         }
 
-        $league->fill($validatedData);
+        $league->fill($valData);
         $league->save();
 
         return redirect('leagues');
