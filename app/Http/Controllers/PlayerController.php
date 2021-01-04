@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Team;
 use App\Models\League;
 use App\Models\Player;
@@ -19,17 +20,202 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Player::where('mentor', 0)
-                      ->with('attribute')
+        DB::enableQueryLog();
+        // $players = Player::where('mentor', 0)
+
+        $players = DB::table('players as pl')
+                    //   ->with('attribute')
+                      ->join('attributes as at', 'at.player_id', '=', 'pl.id')
                       ->orderBy('name', 'ASC')
                       ->orderBy('lastname', 'ASC')
                       ->orderBy('nickname', 'ASC')
-                      ->get();
+                      ->orderBy('force', 'ASC');
+
+        $data2 = $players;
+
+        // NAME LAST NICK
+        $name = $request->input('name');
+        session(['name' => ($name)?: null]);
+        if ($name)
+        {
+            $players->where(  'name',     'like', '%'.$name.'%')
+                    ->orWhere('lastname', 'like', '%'.$name.'%')
+                    ->orWhere('nickname', 'like', '%'.$name.'%');
+        }
+
+        // NATIONALITY
+        $nationality = $request->input('nationality');
+        session(['nationality' => ($nationality)?: null]);
+        if ($nationality)
+        {
+            $players->where('nationality', $nationality);
+        }
+
+        // AGE
+        $age = $request->input('age');
+        session(['age' => ($age)?: null]);
+        if ($age)
+        {
+            switch ($age) {
+                case 1:
+                    $players->whereBetween('age', [16, 20]);
+                    break;
+                case 2:
+                    $players->whereBetween('age', [21, 25]);
+                    break;
+                case 3:
+                    $players->whereBetween('age', [26, 30]);
+                    break;
+                case 4:
+                    $players->where('age', '>', 30);
+                    break;
+            }
+        }
+
+        // SEX
+        $sex = $request->input('sex');
+        session(['sex' => ($sex)?: null]);
+        if ($sex)
+        {
+            switch ($sex) {
+                case 'F':
+                    $players->where('sex', $sex);
+                    break;
+                case 'M':
+                    $players->where('sex', $sex);
+                    break;
+            }
+        }
+
+        // CONTRACT
+        $contract = $request->input('contract');
+        session(['contract' => ($contract)?: null]);
+        if ($contract)
+        {
+            $today = new DateTime( date('Y-m-d') );
+            $nextM = clone $today;
+
+            switch ($contract) {
+                case 1:
+                    $players->where('contract', '<=', $today);
+                    break;
+                case 2:
+                    $players->whereBetween('contract', [$today, $nextM->modify('+1 months')]);
+                    break;
+                case 3:
+                    $players->where('contract', '<=', $nextM->modify('+1 months'));
+                    break;
+                case 4:
+                    $players->where('contract', null);
+                    break;
+            }
+        }
+
+        // PASS
+        $pass = $request->input('pass');
+        session(['pass' => ($pass)?: null]);
+        if ($pass)
+        {
+            switch ($pass) {
+                case 1:
+                    $players->whereBetween('pass', [1000, 4999]);
+                    break;
+                case 2:
+                    $players->whereBetween('pass', [5000, 8999]);
+                    break;
+                case 3:
+                    $players->whereBetween('pass', [9000, 12999]);
+                    break;
+                case 4:
+                    $players->whereBetween('pass', [13000, 16999]);
+                    break;
+                case 5:
+                    $players->whereBetween('pass', [17000, 20999]);
+                    break;
+                case 6:
+                    $players->where('pass', '>', 20999);
+                    break;
+            }
+        }
+
+        // PRIMARY ROLE
+        $role1 = $request->input('role1');
+        session(['role1' => ($role1)?: null]);
+        if ($role1)
+        {
+            $players->where('role', $role1);
+        }
+
+        // SECONDARY ROLE
+        $role2 = $request->input('role2');
+        session(['role2' => ($role2)?: null]);
+        if ($role2)
+        {
+            $players->where('secondary_role', $role2);
+        }
+
+        // FORCE
+        $force = $request->input('force');
+        session(['force' => ($force)?: null]);
+        if ($force)
+        {
+            switch ($force) {
+                case 1:
+                    $players->where('force', '<=', 10);
+                    // $players->whereBetween('force', [1, 10]);
+                    break;
+                case 2:
+                    $players->where('force', '>=', 11);
+                    $players->where('force', '<=', 30);
+                    // $players->whereBetween('force', [11, 30]);
+                    break;
+                case 3:
+                    $players->where('force', '>=', 31);
+                    $players->where('force', '<=', 50);
+                    // $players->whereBetween('force', [31, 50]);
+                    break;
+                case 4:
+                    $players->where('force', '>=', 51);
+                    $players->where('force', '<=', 70);
+                    // $players->whereBetween('force', [51, 70]);
+                    break;
+                case 5:
+                    $players->where('force', '>=', 71);
+                    break;
+            }
+        }
+
+        // $league_id = $request->input('league_id');
+        // session(['league_id' => ($league_id)?: null]);
+        // if ($league_id)
+        // {
+
+        // }
+
+        $pp = $request->input('pp');
+        if (!$pp) {
+            $pp = 100;
+            session(['pp' => $pp]);
+        } else {
+            session(['pp' => $pp]);
+        }
+
+        $pageLimit = ceil($players->count() / $pp);
+        $pageCurrent = $request->input('page') ?: 1;
+        if ($pageCurrent <= $pageLimit) {
+            session(['page' => $pageCurrent]);
+            $request['page'] = $pageCurrent;
+        } else {
+            session(['page' => $pageLimit]);
+            $request['page'] = $pageLimit;
+        }
 
         return view('adm.players', [
-            'data'      => $data,
+            'data'      => $players->paginate($pp),
+            'query'     => DB::getQueryLog()[0]['query'],
+            'data2'     => $data2->get(),
             'leagues'   => League::where('special', 0)->orderBy('name')->get(),
             'divisions' => Division::orderBy('league_id')->get(),
             'teams'     => Team::orderBy('name')->get(),
