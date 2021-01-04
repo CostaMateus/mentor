@@ -289,6 +289,12 @@
 
                 if (player.team_id == id)
                 {
+                    let aux = new Date(player.attribute.contract);
+                    let d   = ("0" + aux.getDate()).slice(-2);
+                    let m   = ("0" + (aux.getMonth() + 1)).slice(-2);
+                    let y   = aux.getFullYear();
+                    let ctt = d + "/" + m + "/" + y;
+
                     count++;
                     html +=
                         '<div class="col-6 my-1 d-flex order-' + ((player.mentor) ? '0' : order) + ' ">' +
@@ -305,6 +311,7 @@
                         '        <p class="mb-0 " >Sexo: ' + player.sex + ' | Idade: ' + player.age + ' | Nacionalidade: <img src="images/flags/' + country[0] + '_64.png" alt="' + country[0] + '" title="' + country[1] + '" width="20px" height="20px"></p>' +
                         '        <p class="mb-0 " >Força: ' + force + ' | Energia: ' + energy + '%</p>' +
                         '        <p class="mb-0 " >Salário: R$ ' + salary + ' | Passe: R$ ' + pass + '</p>' +
+                        '        <p class="mb-0 " >Contrato até: ' + ctt + '</p>' +
                         '    </div>' +
                         '</div>';
                 }
