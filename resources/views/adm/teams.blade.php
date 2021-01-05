@@ -14,12 +14,14 @@
 
 @section('content')
     <div class="row">
+        {{-- NOVO --}}
         <div class="col-12 pb-3">
             <button type="button" class="btn btn-secondary btn-sm new-team" >
                 <i class="fas fa-plus "></i> Novo time
             </button>
         </div>
 
+        {{-- TABELA --}}
         <div class="col-12 table-responsive pb-2">
             <table id="teams-table" class="table table-striped table-sm" data-toggle="table" >
                 <thead>

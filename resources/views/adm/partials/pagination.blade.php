@@ -3,10 +3,9 @@
             <div class="form-group mb-0 mb-md-3 d-flex justify-content-md-between">
                 <div class="pr-1 my-auto">
                     <select id="perpage" class="form-control form-control-sm" style="width: 100%">
-                        <option value="100" @if (session('pp') == 100) selected @endif >100</option>
-                        <option value="200" @if (session('pp') == 200) selected @endif >200</option>
-                        <option value="300" @if (session('pp') == 300) selected @endif >300</option>
-                        <option value="500" @if (session('pp') == 500) selected @endif >500</option>
+                        @foreach ($pp as $val)
+                            <option value="{{ $val }}" @if (session('pp') == $val ) selected @endif >{{ $val }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <small class="pl-1 text-muted my-auto">por página</small>

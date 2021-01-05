@@ -20,7 +20,7 @@
 
 @section('content')
     <div class="row">
-        {{-- BOTOES E INFOS --}}
+        {{-- NOVO e FILTRO --}}
         <div class="col-12 mb-3">
             <button type="button" class="btn btn-secondary btn-sm new-player mr-1" >
                 <i class="fas fa-plus "></i> Novo jogador
@@ -32,7 +32,9 @@
 
         {{-- PAGINAÇÃO --}}
         <div class="col-12">
-            @include('adm/partials.pagination')
+            @include('adm/partials.pagination', [
+                'pp' => [100, 200, 300, 500],
+            ])
         </div>
 
         {{-- FILTROS --}}
@@ -673,16 +675,16 @@
 @include('adm.footer')
 
 @section('js')
-    @include('adm/partials.filters')
+    @include('adm/partials.filters-players')
     <script>
         // Bootstrap Table
         window.getbootstrapTable('players-table', {
             locale: 'pt-br',
             // height: 710,
-            // pageSize: '25',
+            // pageSize: '100',
             // pagination: 'true',
             // paginationVAlign: 'top',
-            // pageList: [25, 50, 100, 200, 'All'],
+            // pageList: [100, 200, 300, 500, 'All'],
         });
 
         $("#nationality").select2();
@@ -698,13 +700,13 @@
         // SEE
         $(document).on('click', '.see-player', function() {
             let id        = $(this).data('id');
-            let data      = {!! $data2 !!};
+            let players   = {!! $players !!};
             let teams     = {!! $teams !!};
             let countries = {!! $countries !!};
             let html;
             let player;
 
-            data.forEach(p => {
+            players.forEach(p => {
                 if (p.id == id)
                 {
                     player = p;
