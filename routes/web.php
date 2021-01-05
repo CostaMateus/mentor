@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         return view('adm.home');
     })->name('admin.home');
 
+    Route::get('/mentors', 'PlayerController@listMentors')->name('player.mentor');
+
     Route::apiresource('/players', 'PlayerController');
     Route::post('/players/{player}', 'PlayerController@update')->name('player.update');
 

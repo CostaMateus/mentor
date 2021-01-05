@@ -15,6 +15,21 @@ use Illuminate\Support\Facades\DB;
 
 class PlayerController extends Controller
 {
+
+    public function listMentors ()
+    {
+        $data = DB::table('players as pl')
+                  ->join('attributes as at', 'at.player_id', '=', 'pl.id')
+                  ->where('mentor', 1)
+                  ->orderBy('name', 'ASC')
+                  ->orderBy('lastname', 'ASC')
+                  ->orderBy('nickname', 'ASC')
+                  ->orderBy('force', 'ASC')
+                  ->get();
+
+        return $data;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,13 +38,30 @@ class PlayerController extends Controller
     public function index(Request $request)
     {
         $data = DB::table('players as pl')
-                    //   ->with('attribute')
-                      ->join('attributes as at', 'at.player_id', '=', 'pl.id')
-                      ->where('mentor', 0)
-                      ->orderBy('name', 'ASC')
-                      ->orderBy('lastname', 'ASC')
-                      ->orderBy('nickname', 'ASC')
-                      ->orderBy('force', 'ASC');
+                  ->join('attributes as at', 'at.player_id', '=', 'pl.id')
+                  ->select(
+                      'pl.id',
+                      'pl.team_id',
+                      'pl.name',
+                      'pl.lastname',
+                      'pl.nickname',
+                      'pl.nationality',
+                      'pl.age',
+                      'pl.sex',
+                      'pl.employed',
+                      'at.role',
+                      'at.secondary_role',
+                      'at.force',
+                      'at.energy',
+                      'at.salary',
+                      'at.pass',
+                      'at.contract',
+                  )
+                  ->where('mentor', 0)
+                  ->orderBy('name', 'ASC')
+                  ->orderBy('lastname', 'ASC')
+                  ->orderBy('nickname', 'ASC')
+                  ->orderBy('force', 'ASC');
 
         $players = $data;
 
@@ -185,12 +217,13 @@ class PlayerController extends Controller
             }
         }
 
-        // $league_id = $request->input('league_id');
-        // session(['league_id' => ($league_id)?: null]);
-        // if ($league_id)
-        // {
-
-        // }
+        $league_id = $request->input('league_id');
+        session(['league_id' => ($league_id)?: null]);
+        if ($league_id)
+        {
+            $data->join('teams as tm', 'tm.id', '=', 'pl.team_id')
+                 ->where('tm.league_id', $league_id);
+        }
 
         $pp = $request->input('pp');
         if (!$pp) {
