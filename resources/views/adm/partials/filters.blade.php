@@ -1,4 +1,3 @@
-
 <script>
 
     let URL = 'players?page={{ session('page') }}';
@@ -31,12 +30,13 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += '&pp=' + this.value;
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
 
+    // Campo de busca
     $('#search_form').on('submit', function (e) {
         e.preventDefault();
 
@@ -50,14 +50,14 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += '&' + $('#search_form').serialize();
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
 
+    // Países
     $('#search_nationality').on('change', function() {
-
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         // @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -68,13 +68,14 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&nationality=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    $('#search_age').on('change', function() {
 
+    // Idade
+    $('#search_age').on('change', function() {
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -85,13 +86,14 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&age=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    $('#search_sex').on('change', function() {
 
+    // Sexo
+    $('#search_sex').on('change', function() {
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -102,13 +104,14 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&sex=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    $('#search_contract').on('change', function() {
 
+    // Contrato
+    $('#search_contract').on('change', function() {
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -119,15 +122,14 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&contract=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
 
-    // PASS
+    // Valor de passe
     $('#search_pass').on('change', function() {
-
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -138,14 +140,14 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&pass=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    // ROLE
-    $('#search_role').on('change', function() {
 
+    // Posição primária
+    $('#search_role').on('change', function() {
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -156,14 +158,14 @@
         // @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&role1=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    // SECONDARY ROLE
-    $('#search_secondary_role').on('change', function() {
 
+    // Posição secundária
+    $('#search_secondary_role').on('change', function() {
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
         @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
         @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
@@ -174,12 +176,13 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         // @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&role2=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    // FORCE
+
+    // Força
     $('#search_force').on('change', function() {
 
         @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
@@ -192,25 +195,28 @@
         @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
         @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
         // @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
 
         URL += (this.value) ? '&force=' + this.value : '';
         window.location.href = "{!!  url('" + URL + "') !!}";
     });
-    // $('#search_league_id').on('change', function() {
-        // @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
-        // @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
-        // @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
-        // @if (session('age'))         URL += '&age='         + '{{ session('age')         }}'; @endif
-        // @if (session('sex'))         URL += '&sex='         + '{{ session('sex')         }}'; @endif
-        // @if (session('contract'))    URL += '&contract='    + '{{ session('contract')    }}'; @endif
-        // @if (session('pass'))        URL += '&pass='        + '{{ session('pass')        }}'; @endif
-        // @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
-        // @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
-        // @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
-        @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
-    //     URL += (this.value) ? '&league_id=' + this.value : '';
-    //     window.location.href = "{!!  url('" + URL + "') !!}";
-    // });
+
+    // Liga
+    $('#search_league_id').on('change', function() {
+        @if (session('pp'))          URL += '&pp='          + '{{ session('pp')          }}'; @endif
+        @if (session('name'))        URL += '&name='        + '{{ session('name')        }}'; @endif
+        @if (session('nationality')) URL += '&nationality=' + '{{ session('nationality') }}'; @endif
+        @if (session('age'))         URL += '&age='         + '{{ session('age')         }}'; @endif
+        @if (session('sex'))         URL += '&sex='         + '{{ session('sex')         }}'; @endif
+        @if (session('contract'))    URL += '&contract='    + '{{ session('contract')    }}'; @endif
+        @if (session('pass'))        URL += '&pass='        + '{{ session('pass')        }}'; @endif
+        @if (session('role1'))       URL += '&role1='       + '{{ session('role1')       }}'; @endif
+        @if (session('role2'))       URL += '&role2='       + '{{ session('role2')       }}'; @endif
+        @if (session('force'))       URL += '&force='       + '{{ session('force')       }}'; @endif
+        // @if (session('league_id'))   URL += '&league_id='   + '{{ session('league_id')   }}'; @endif
+
+        URL += (this.value) ? '&league_id=' + this.value : '';
+        window.location.href = "{!!  url('" + URL + "') !!}";
+    });
 
 </script>
