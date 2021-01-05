@@ -478,4 +478,23 @@ class Helper
             round($pass, 0)
         ];
     }
+
+
+    public static function formatSalary($value)
+    {
+        // first strip any formatting;
+        $value = (0+str_replace(",", "", $value));
+
+        // is this a number?
+        if (!is_numeric($value)) return false;
+
+        // now filter it;
+        if ($value > 1000000) {
+            return round(($value/1000000), 2).' M';
+        } elseif ($value > 1000) {
+            return round(($value/1000), 1).' mil';
+        }
+
+        return number_format($value);
+    }
 }
