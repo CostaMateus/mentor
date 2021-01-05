@@ -22,25 +22,23 @@ class PlayerController extends Controller
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
-        // $players = Player::where('mentor', 0)
-
-        $players = DB::table('players as pl')
+        $data = DB::table('players as pl')
                     //   ->with('attribute')
                       ->join('attributes as at', 'at.player_id', '=', 'pl.id')
+                      ->where('mentor', 0)
                       ->orderBy('name', 'ASC')
                       ->orderBy('lastname', 'ASC')
                       ->orderBy('nickname', 'ASC')
                       ->orderBy('force', 'ASC');
 
-        $data2 = $players;
+        $players = $data;
 
         // NAME LAST NICK
         $name = $request->input('name');
         session(['name' => ($name)?: null]);
         if ($name)
         {
-            $players->where(  'name',     'like', '%'.$name.'%')
+            $data->where(  'name',     'like', '%'.$name.'%')
                     ->orWhere('lastname', 'like', '%'.$name.'%')
                     ->orWhere('nickname', 'like', '%'.$name.'%');
         }
@@ -50,7 +48,7 @@ class PlayerController extends Controller
         session(['nationality' => ($nationality)?: null]);
         if ($nationality)
         {
-            $players->where('nationality', $nationality);
+            $data->where('nationality', $nationality);
         }
 
         // AGE
@@ -60,16 +58,16 @@ class PlayerController extends Controller
         {
             switch ($age) {
                 case 1:
-                    $players->whereBetween('age', [16, 20]);
+                    $data->whereBetween('age', [16, 20]);
                     break;
                 case 2:
-                    $players->whereBetween('age', [21, 25]);
+                    $data->whereBetween('age', [21, 25]);
                     break;
                 case 3:
-                    $players->whereBetween('age', [26, 30]);
+                    $data->whereBetween('age', [26, 30]);
                     break;
                 case 4:
-                    $players->where('age', '>', 30);
+                    $data->where('age', '>', 30);
                     break;
             }
         }
@@ -81,10 +79,10 @@ class PlayerController extends Controller
         {
             switch ($sex) {
                 case 'F':
-                    $players->where('sex', $sex);
+                    $data->where('sex', $sex);
                     break;
                 case 'M':
-                    $players->where('sex', $sex);
+                    $data->where('sex', $sex);
                     break;
             }
         }
@@ -99,16 +97,16 @@ class PlayerController extends Controller
 
             switch ($contract) {
                 case 1:
-                    $players->where('contract', '<=', $today);
+                    $data->where('contract', '<=', $today);
                     break;
                 case 2:
-                    $players->whereBetween('contract', [$today, $nextM->modify('+1 months')]);
+                    $data->whereBetween('contract', [$today, $nextM->modify('+1 months')]);
                     break;
                 case 3:
-                    $players->where('contract', '<=', $nextM->modify('+1 months'));
+                    $data->where('contract', '<=', $nextM->modify('+1 months'));
                     break;
                 case 4:
-                    $players->where('contract', null);
+                    $data->where('contract', null);
                     break;
             }
         }
@@ -120,22 +118,22 @@ class PlayerController extends Controller
         {
             switch ($pass) {
                 case 1:
-                    $players->whereBetween('pass', [1000, 4999]);
+                    $data->whereBetween('pass', [1000, 4999]);
                     break;
                 case 2:
-                    $players->whereBetween('pass', [5000, 8999]);
+                    $data->whereBetween('pass', [5000, 8999]);
                     break;
                 case 3:
-                    $players->whereBetween('pass', [9000, 12999]);
+                    $data->whereBetween('pass', [9000, 12999]);
                     break;
                 case 4:
-                    $players->whereBetween('pass', [13000, 16999]);
+                    $data->whereBetween('pass', [13000, 16999]);
                     break;
                 case 5:
-                    $players->whereBetween('pass', [17000, 20999]);
+                    $data->whereBetween('pass', [17000, 20999]);
                     break;
                 case 6:
-                    $players->where('pass', '>', 20999);
+                    $data->where('pass', '>', 20999);
                     break;
             }
         }
@@ -145,7 +143,7 @@ class PlayerController extends Controller
         session(['role1' => ($role1)?: null]);
         if ($role1)
         {
-            $players->where('role', $role1);
+            $data->where('role', $role1);
         }
 
         // SECONDARY ROLE
@@ -153,7 +151,7 @@ class PlayerController extends Controller
         session(['role2' => ($role2)?: null]);
         if ($role2)
         {
-            $players->where('secondary_role', $role2);
+            $data->where('secondary_role', $role2);
         }
 
         // FORCE
@@ -163,26 +161,26 @@ class PlayerController extends Controller
         {
             switch ($force) {
                 case 1:
-                    $players->where('force', '<=', 10);
-                    // $players->whereBetween('force', [1, 10]);
+                    $data->where('force', '<=', 10);
+                    // $data->whereBetween('force', [1, 10]);
                     break;
                 case 2:
-                    $players->where('force', '>=', 11);
-                    $players->where('force', '<=', 30);
-                    // $players->whereBetween('force', [11, 30]);
+                    $data->where('force', '>=', 11);
+                    $data->where('force', '<=', 30);
+                    // $data->whereBetween('force', [11, 30]);
                     break;
                 case 3:
-                    $players->where('force', '>=', 31);
-                    $players->where('force', '<=', 50);
-                    // $players->whereBetween('force', [31, 50]);
+                    $data->where('force', '>=', 31);
+                    $data->where('force', '<=', 50);
+                    // $data->whereBetween('force', [31, 50]);
                     break;
                 case 4:
-                    $players->where('force', '>=', 51);
-                    $players->where('force', '<=', 70);
-                    // $players->whereBetween('force', [51, 70]);
+                    $data->where('force', '>=', 51);
+                    $data->where('force', '<=', 70);
+                    // $data->whereBetween('force', [51, 70]);
                     break;
                 case 5:
-                    $players->where('force', '>=', 71);
+                    $data->where('force', '>=', 71);
                     break;
             }
         }
@@ -202,7 +200,7 @@ class PlayerController extends Controller
             session(['pp' => $pp]);
         }
 
-        $pageLimit = ceil($players->count() / $pp);
+        $pageLimit = ceil($data->count() / $pp);
         $pageCurrent = $request->input('page') ?: 1;
         if ($pageCurrent <= $pageLimit) {
             session(['page' => $pageCurrent]);
@@ -213,9 +211,8 @@ class PlayerController extends Controller
         }
 
         return view('adm.players', [
-            'data'      => $players->paginate($pp),
-            'query'     => DB::getQueryLog()[0]['query'],
-            'data2'     => $data2->get(),
+            'data'      => $data->paginate($pp),
+            'players'   => $players->get(),
             'leagues'   => League::where('special', 0)->orderBy('name')->get(),
             'divisions' => Division::orderBy('league_id')->get(),
             'teams'     => Team::orderBy('name')->get(),
