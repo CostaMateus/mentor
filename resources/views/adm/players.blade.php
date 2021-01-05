@@ -210,14 +210,16 @@
                     <tr class="bg-light">
                         <th class="text-center" data-field="id"          data-sortable="true" >#</th>
                         <th class=""            data-field="name"        data-sortable="true" title="Nome 'Apelido' Sobrenome"   >Nome</th>
+                        <th class="text-center" data-field="employed"    data-sortable="true" title="Time"                       >Time</th>
                         <th class="text-center" data-field="force"       data-sortable="true" title="Força"                      >F</th>
                         <th class="text-center" data-field="role1"       data-sortable="true" title="Posição primária"           >1ª</th>
                         <th class="text-center" data-field="role2"       data-sortable="true" title="Posição secundária"         >2ª</th>
-                        <th class="text-center" data-field="age"         data-sortable="true" title="Idade"                      >Idade</th>
+                        <th class="text-center" data-field="salary"      data-sortable="true" title="Salário (R$)"               >Salário</th>
+                        <th class="text-center" data-field="pass"        data-sortable="true" title="Passe (R$)"                 >Passe</th>
+                        <th class="text-center" data-field="age"         data-sortable="true" title="Idade"                      >I.</th>
                         <th class="text-center" data-field="sex"         data-sortable="true" title="Sexo"                       >Sexo</th>
                         <th class="text-center" data-field="nationality" data-sortable="true" title="Nacionalidade"              >Nac.</th>
-                        <th class="text-center" data-field="employed"    data-sortable="true" title="Time"                       >Time</th>
-                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação">Disp.</th>
+                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação">Venda</th>
                         <th class="text-center"                                               >Ações</th>
                         {{-- <th class="text-center"                                               >Ver</th> --}}
                         {{-- <th class="text-center"                                               >Editar</th> --}}
@@ -270,18 +272,20 @@
                         <tr>
                             <td class="text-center"                              >{{ $loop->iteration }}</td>
                             <td class=""                                         >{{ $player->name }} "{{ $player->nickname }}" {{ $player->lastname }}</td>
-                            <td class="text-center"                              >{{ $player->force }}</td>
-                            <td class="text-center text-bold text-{{ $rolTx1 }}" >{{ $role1 }}</td>
-                            <td class="text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
-                            <td class="text-center"                              >{{ $player->age }}</td>
-                            <td class="text-center"                              >{{ $player->sex }}</td>
-                            <td class="text-center" >
-                                <img class="my-auto flag" src="images/flags/{{ $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ Helper::getNameCountry($player->nationality) }}" width="30px" height="30px">
-                            </td>
                             <td class="text-center" >
                                 @if ($player->employed)
                                     {{ $player->team_initials }}
                                 @endif
+                            </td>
+                            <td class="text-center"                              >{{ $player->force }}</td>
+                            <td class="text-center text-bold text-{{ $rolTx1 }}" >{{ $role1 }}</td>
+                            <td class="text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
+                            <td class="text-center"                              >{{ Helper::formatSalary($player->salary) }}</td>
+                            <td class="text-center"                              >{{ Helper::formatSalary($player->pass) }}</td>
+                            <td class="text-center"                              >{{ $player->age }}</td>
+                            <td class="text-center"                              >{{ $player->sex }}</td>
+                            <td class="text-center" >
+                                <img class="my-auto flag" src="images/flags/{{ $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ Helper::getNameCountry($player->nationality) }}" width="30px" height="30px">
                             </td>
                             <td class="text-center" >
                                 {{-- @if ($player->attribute->contract == null) --}}
@@ -675,7 +679,7 @@
 @include('adm.footer')
 
 @section('js')
-    @include('adm/partials.filters-players')
+    @include('adm/partials.filters')
     <script>
         // Bootstrap Table
         window.getbootstrapTable('players-table', {
