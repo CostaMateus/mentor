@@ -31,8 +31,8 @@ class TeamsSeeder extends Seeder
                 'league_id'   => 1,
                 'division_id' => 1,
                 'name'        => 'Cruzeiro e-Sports',
-                'initials'    => 'CRUZ',
-                'image'       => 'cblol_cruz.png',
+                'initials'    => 'CRZ',
+                'image'       => 'cblol_crz.png',
                 'created_at'  => $timestamp,
                 'updated_at'  => $timestamp
             ],
@@ -76,8 +76,8 @@ class TeamsSeeder extends Seeder
                 'league_id'   => 1,
                 'division_id' => 1,
                 'name'        => 'Loud',
-                'initials'    => 'LOUD',
-                'image'       => 'cblol_loud.png',
+                'initials'    => 'LLL',
+                'image'       => 'cblol_lll.png',
                 'created_at'  => $timestamp,
                 'updated_at'  => $timestamp
             ],
@@ -103,8 +103,8 @@ class TeamsSeeder extends Seeder
                 'league_id'   => 1,
                 'division_id' => 1,
                 'name'        => 'Rensga e-Sports',
-                'initials'    => 'REN',
-                'image'       => 'cblol_ren.png',
+                'initials'    => 'RNS',
+                'image'       => 'cblol_rns.png',
                 'created_at'  => $timestamp,
                 'updated_at'  => $timestamp
             ],
