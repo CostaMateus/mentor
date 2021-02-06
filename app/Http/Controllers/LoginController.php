@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Exception;
+use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,15 @@ class LoginController extends Controller
                     $user->email_verified_at = ($googleUser->user['email_verified']) ? now() : false;
                     $user->verify            = 1;
                     $user->save();
+
+                    Auth::loginUsingId($user->id);
+
+                    session()->put('user', $user);
+                    session()->save();
+
+                    Log::info('User loggin: ' . $user->id . ' - ' . $user->name);
+
+                    return redirect('/novo');
                 }
 
                 // Verifica se usuário está ativo
@@ -55,6 +65,13 @@ class LoginController extends Controller
                     session()->save();
 
                     Log::info('User loggin: ' . $user->id . ' - ' . $user->name);
+
+                    $player = Player::where('user_id', $user->id)->first();
+
+                    if (is_null($player))
+                    {
+                        return redirect('/novo');
+                    }
 
                     return redirect('/');
                 }
