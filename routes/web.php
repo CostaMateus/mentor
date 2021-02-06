@@ -24,6 +24,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/novo', 'HomeController@newGame')->name('new-game');
+
     Route::get('/admin', function () {
         return view('adm.home');
     })->name('admin.home');
@@ -51,4 +53,6 @@ Route::middleware(['auth'])->group(function () {
             Route::apiresource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
         });
     });
+
+    Route::get('/teste', 'TestController@index');
 });
