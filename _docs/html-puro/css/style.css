@@ -1,8 +1,8 @@
 
 	/* config geral start */
-		body { 
-			color: #FFF; 
-			background-image: url("../images/bg/cover.png") !important;
+		body {
+			color: #FFF;
+			background-image: url("../images/bg_LoLSreen.png") !important;
 			background-repeat: no-repeat;
 			background-position: top center;
 			background-attachment: fixed;
@@ -15,7 +15,7 @@
 		#navmain div div a:hover { color: #FFF !important; background-color: #083449 !important; }
 		@media (max-width: 991px) {	#navmain { display: none; } }
 	/* config geral end */
-	
+
 	/* config para todas tabelas start*/
 		tr { width: 100%; display: inline-table; table-layout: fixed; }
 		#customScrollbar::-webkit-scrollbar, .customScrollbar::-webkit-scrollbar { width: 10px; }
@@ -23,37 +23,37 @@
 		#customScrollbar::-webkit-scrollbar-thumb, .customScrollbar::-webkit-scrollbar-thumb { background: #AAA; }
 		#customScrollbar::-webkit-scrollbar-thumb:hover, .customScrollbar::-webkit-scrollbar-thumb:hover { background: #888; }
 	/* config para todas tabelas end*/
-	
+
 	/* Tabela principal-players start*/
 		#tbPlayers { height: 400px; display: -moz-groupbox; }
 
 		#tbPlayers thead { width: 100%; }
 		#tbPlayers tbody { overflow-y: scroll; height: 350px; width: 100%; }
-		
-		#tbPlayers #tb-head .tb-scaled, #tbPlayers #tb-head .tb-position, 
-		#tbPlayers #tb-head .tb-name, #tbPlayers #tb-head .tb-force, 
-		#tbPlayers #tb-head .tb-energy, #tbPlayers #tb-head .tb-salary, 
-		#tbPlayers #tb-head .tb-pass, #tbPlayers #tb-head .tb-kda, 
+
+		#tbPlayers #tb-head .tb-scaled, #tbPlayers #tb-head .tb-position,
+		#tbPlayers #tb-head .tb-name, #tbPlayers #tb-head .tb-force,
+		#tbPlayers #tb-head .tb-energy, #tbPlayers #tb-head .tb-salary,
+		#tbPlayers #tb-head .tb-pass, #tbPlayers #tb-head .tb-kda,
 		#tbPlayers #tb-head .tb-age { text-align: center; }
 
-		#tbPlayers .tb-scaled, #tbPlayers .tb-force, 
-		#tbPlayers .tb-energy, #tbPlayers .tb-kda, 
+		#tbPlayers .tb-scaled, #tbPlayers .tb-force,
+		#tbPlayers .tb-energy, #tbPlayers .tb-kda,
 		#tbPlayers .tb-age { text-align: center; }
-		
+
 		#tbPlayers #tb-head .tb-salary, #tbPlayers #tb-head .tb-pass,
 		#tbPlayers .tb-salary, #tbPlayers .tb-pass { text-align: right; }
 
 		#tbPlayers thead th, #tbPlayers tbody td {
 			padding: .5em !important;
 		}
-		
+
 		.tb-name { width: 30%; }
 		.tb-scaled { width: 3.5%; }
 		.tb-kda, .tb-age, .tb-force { width: 6%; }
 		.tb-position, .tb-energy, .tb-salary, .tb-pass { width: 10%; }
 
 		.rowSelected { font-weight: bold; text-decoration: underline; }
-	/* Tabela principal-players end*/			
+	/* Tabela principal-players end*/
 
 	/* Tabela calendario time start */
 		.tb-row { position: relative; }
@@ -67,14 +67,14 @@
 		.tb-team2, .tb-public { text-align: right; }
 		.tb-date, .tb-icon, .tb-r, .tb-comp { text-align: center; }
 
-		#tbMyTeamSchedule, #tbLeagueSchedule, #tbRRSchedule, 
+		#tbMyTeamSchedule, #tbLeagueSchedule, #tbRRSchedule,
 		#tbMSISchedule, #tbWCSchedule {
 			height: 600px;
-			display: -moz-groupbox; 
+			display: -moz-groupbox;
 		}
-		#tbMyTeamSchedule tbody, #tbLeagueSchedule tbody, #tbRRSchedule tbody, 
+		#tbMyTeamSchedule tbody, #tbLeagueSchedule tbody, #tbRRSchedule tbody,
 		#tbMSISchedule tbody, #tbWCSchedule tbody {
-			overflow-y: scroll;      
+			overflow-y: scroll;
 			height: 552px;
 			width: 100%;
 			position: absolute;
@@ -82,26 +82,26 @@
 
 		#tbCarreira { height: 300px; display: -moz-groupbox; }
 		#tbCarreira tbody { overflow-y: scroll; height: 250px; width: ; position: absolute; }
-		#tbCarreira .tb-year, 
-		#tbCarreira .tb-team, 
+		#tbCarreira .tb-year,
+		#tbCarreira .tb-team,
 		#tbCarreira thead .tb-game { text-align: center; }
 		#tbCarreira tbody .tb-game { text-align:  right; padding: .75em 1.75em .75em .75em; }
 
-		#tbMyTeamSchedule .tb-tr-white:hover, #tbLeagueSchedule .tb-tr-white:hover, 
-		#tbRRSchedule .tb-tr-white:hover, #tbMSISchedule .tb-tr-white:hover, 
-		#tbWCSchedule .tb-tr-white:hover { 
-			background-color: rgba(0,0,0,0) !important; 
+		#tbMyTeamSchedule .tb-tr-white:hover, #tbLeagueSchedule .tb-tr-white:hover,
+		#tbRRSchedule .tb-tr-white:hover, #tbMSISchedule .tb-tr-white:hover,
+		#tbWCSchedule .tb-tr-white:hover {
+			background-color: rgba(0,0,0,0) !important;
 		}
-		#tbMyTeamSchedule .tb-tr-week, #tbMyTeamSchedule .tb-tr-week:hover, 
-		#tbLeagueSchedule .tb-tr-week, #tbLeagueSchedule .tb-tr-week:hover, 
-		#tbRRSchedule .tb-tr-week, #tbRRSchedule .tb-tr-week:hover, 
-		#tbMSISchedule .tb-tr-week, #tbMSISchedule .tb-tr-week:hover, 
-		#tbWCSchedule .tb-tr-week, #tbWCSchedule .tb-tr-week:hover { 
-			background-color: rgba(0,0,0,.05); 
+		#tbMyTeamSchedule .tb-tr-week, #tbMyTeamSchedule .tb-tr-week:hover,
+		#tbLeagueSchedule .tb-tr-week, #tbLeagueSchedule .tb-tr-week:hover,
+		#tbRRSchedule .tb-tr-week, #tbRRSchedule .tb-tr-week:hover,
+		#tbMSISchedule .tb-tr-week, #tbMSISchedule .tb-tr-week:hover,
+		#tbWCSchedule .tb-tr-week, #tbWCSchedule .tb-tr-week:hover {
+			background-color: rgba(0,0,0,.05);
 		}
 
 	/* Tabela calendario time end */
-	
+
 	/* Tabela finanças time start*/
 		#teamFinancesModal table tbody tr .tb-title, #teamFinancesModal #tb-head .tb-title { text-align: right; }
 		#teamFinancesModal table tbody tr .tb-value, #teamFinancesModal #tb-head .tb-value { text-align: left; }
@@ -115,7 +115,7 @@
 		#sponsorsModal .tb-position { width: 8%; text-align: left; }
 		#sponsorsModal .tb-brand { width: 6%; }
 		#sponsorsModal .tb-value { width: 5%; }
-		
+
 		#sponsorsModal .tb-letter, #sponsorsModal .tb-brand { text-align: center; }
 		#sponsorsModal .tb-value { text-align: right; }
 	/* Tabela patrocinios time end */
@@ -138,7 +138,7 @@
 		.quad1B .inQuad1B, #quad2B #inQuad2B, #quad3B #inQuad3B { height: 25.25em; /* 404px */ }
 
 		.quad1B .inQuad1B .caracts p, .quad1B .inQuad1B div div img { margin-bottom: .5em !important; }
-		.quad1B .inQuad1B .row, #quad2B #inQuad2B .row, #quad3B #inQuad3B .row { padding-top: 15px !important; } 
+		.quad1B .inQuad1B .row, #quad2B #inQuad2B .row, #quad3B #inQuad3B .row { padding-top: 15px !important; }
 		#quad1A #inQuad1A .row { padding-top: 15px !important; }
 
 		#quad1A #inQuad1A { padding-bottom: 15px; }
@@ -147,27 +147,27 @@
 	/* Todos modais config start */
 		.modal { color: #212529 !important; }
 		.modal .redes a { text-decoration:none; padding: 0 5px; }
-		
-		#preferencesModal .modal-footer, 
-		#resignationModal .modal-footer, 
-		#logoutModal .modal-footer, 
-		#friendlyModal .modal-footer, 
+
+		#preferencesModal .modal-footer,
+		#resignationModal .modal-footer,
+		#logoutModal .modal-footer,
+		#friendlyModal .modal-footer,
 		#rankingModal .modal-footer { justify-content: center !important; }
 
-		#myTeamScheduleModal .modal-body, 
-		#leagueScheduleModal .modal-body, 
-		#rrModal .modal-body, 
-		#msiModal .modal-body, 
+		#myTeamScheduleModal .modal-body,
+		#leagueScheduleModal .modal-body,
+		#rrModal .modal-body,
+		#msiModal .modal-body,
 		#wcModal .modal-body,
-		#rankingModal .modal-body, 
+		#rankingModal .modal-body,
 		#playerHistoryModal .modal-body { padding: 0 !important; }
 
-		#myTeamScheduleModal .table, 
-		#leagueScheduleModal .table, 
-		#rrModal .table, 
-		#msiModal .table, 
-		#wcModal .table, 
-		#rankingModal .table, 
+		#myTeamScheduleModal .table,
+		#leagueScheduleModal .table,
+		#rrModal .table,
+		#msiModal .table,
+		#wcModal .table,
+		#rankingModal .table,
 		#playerHistoryModal .table { margin-bottom: 0 !important; }
 
 		#myTeamScheduleModal .modal-footer { justify-content: flex-end !important; }
