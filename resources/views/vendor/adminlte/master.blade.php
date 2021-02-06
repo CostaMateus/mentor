@@ -41,7 +41,7 @@
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
-        <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
     @endif
 
 </head>

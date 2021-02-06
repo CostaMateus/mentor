@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<!-- Favicon site -->
-        <link rel="shortcut icon" href="{{ asset('images/login/circle.ico') }}" type="image/x-icon" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
