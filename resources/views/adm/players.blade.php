@@ -846,7 +846,7 @@
                     // console.log( data );
                     let player = data;
 
-                    $('#edit-player-title').html('Editar time: ' + player.name + ' "' + player.nickname + '" ' + player.lastname);
+                    $('#edit-player-title').html('Editar jogador: ' + player.name + ' "' + player.nickname + '" ' + player.lastname);
 
                     // var newOption = new Option(player.attribute.force, player.attribute.force, true, true);
                     var newOption = new Option(player.force, player.force, true, true);

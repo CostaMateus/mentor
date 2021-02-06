@@ -47,12 +47,12 @@ class DivisionController extends Controller
     public function store(Request $request)
     {
         $message = [
-            'name.required' => 'O campo \'Nome da Divisão\' é obrigatório.',
+            'name.required'     => 'O campo \'Nome da Divisão\' é obrigatório.',
             'initials.required' => 'O campo \'Sigla da Divisão\' é obrigatório e não pode ser vazio.',
         ];
 
         $valData = $request->validate([
-            'name' => 'required|string',
+            'name'     => 'required|string',
             'initials' => 'required|string',
         ], $message);
 
@@ -98,12 +98,12 @@ class DivisionController extends Controller
     public function update(Request $request, Division $division)
     {
         $message = [
-            'name.required' => 'O campo \'Nome da Divisão\' é obrigatório.',
+            'name.required'     => 'O campo \'Nome da Divisão\' é obrigatório.',
             'initials.required' => 'O campo \'Sigla da Divisão\' é obrigatório e não pode ser vazio.',
         ];
 
         $valData = $request->validate([
-            'name' => 'required|string',
+            'name'     => 'required|string',
             'initials' => 'required|string',
         ], $message);
 
