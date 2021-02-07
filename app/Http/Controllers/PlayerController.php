@@ -12,6 +12,7 @@ use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PlayerController extends Controller
 {
@@ -292,6 +293,7 @@ class PlayerController extends Controller
             'nickname'       => 'required|unique:players',
             'nationality'    => 'required|string',
             'age'            => 'required|numeric|min:16|max:99',
+            'birthday'       => 'nullable',
             'sex'            => 'required|string',
             //attributes
             'mentor'         => 'nullable|string',
@@ -304,6 +306,8 @@ class PlayerController extends Controller
             'team_id'        => 'nullable|integer',
 
             'add_team'       => 'nullable|string',
+            'user_id'        => 'nullable',
+            'user_mentor'    => 'nullable',
         ], $message);
 
         if ($valData['role'] == $valData['secondary_role'])
@@ -346,9 +350,9 @@ class PlayerController extends Controller
             return response()->json($error,422);
         }
 
-        $valData['birthday']  = Helper::getRandomDate($valData['age']);
-        $valData['employed']  = isset($valData['league_id']) ? 1 : 0;
-        $valData['mentor']    = isset($valData['mentor']) ? 1 : 0;
+        $valData['birthday']  = isset($valData['birthday']) ? $valData['birthday'] : Helper::getRandomDate($valData['age']);
+        $valData['employed']  = isset($valData['team_id'])  ? 1 : 0;
+        $valData['mentor']    = isset($valData['mentor'])   ? 1 : 0;
 
         $valData['force']     = Helper::getRandomForce($valData['force']);
 
@@ -361,11 +365,25 @@ class PlayerController extends Controller
 
         $player               = Player::create($valData);
 
+        if (isset($valData['user_mentor']))
+        {
+            $player->mentor = true;
+            $player->save();
+        }
+
         $valData['player_id'] = $player->id;
 
         Attribute::create($valData);
 
-        return $player->load('attribute');
+        $player->load('attribute');
+
+        if (session('firstLogin'))
+        {
+            Auth::user()->player = $player;
+            session()->put('user', $player);
+        }
+
+        return $player;
     }
 
     /**
@@ -406,6 +424,7 @@ class PlayerController extends Controller
             'nickname'       => 'required|'.Rule::unique('players')->ignore($player->id),
             'nationality'    => 'required|string',
             'age'            => 'required|numeric|min:16|max:99',
+            'birthday'       => 'nullable',
             'sex'            => 'required|string',
             //attributes
             'mentor'         => 'nullable|string',
@@ -417,6 +436,8 @@ class PlayerController extends Controller
             'team_id'        => 'nullable|integer',
 
             'add_team'       => 'nullable|string',
+            'user_id'        => 'nullable',
+            'user_mentor'    => 'nullable',
         ]);
 
         if ($valData['role'] == $valData['secondary_role'])
@@ -478,7 +499,7 @@ class PlayerController extends Controller
             }
         }
 
-        $valData['employed']  = isset($valData['league_id']) ? 1 : 0;
+        $valData['employed']  = isset($valData['team_id']) ? 1 : 0;
 
         $player->fill($valData);
         $player->save();
