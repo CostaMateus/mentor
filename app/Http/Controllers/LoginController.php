@@ -51,7 +51,7 @@ class LoginController extends Controller
                     session()->put('user', $user);
                     session()->save();
 
-                    Log::info('User loggin: ' . $user->id . ' - ' . $user->name);
+                    Log::info('User first loggin: ' . $user->id . ' - ' . $user->name);
 
                     return redirect('/novo');
                 }
