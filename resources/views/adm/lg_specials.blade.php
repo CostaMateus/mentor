@@ -38,11 +38,9 @@
                             <td class="text-center" >{{ $loop->iteration }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-image="{{ $league->image }}">
-                                    @if (file_exists(public_path('images/game/leagues/specials/' . $league->image)))
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/specials/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
-                                    @else
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/specials/default.png') }}" alt="{{ $league->initials }}" width="50px" height="50px">
-                                    @endif
+                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/specials/' . $league->image) }}"
+                                         onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/specials/default.png') }}';"
+                                         alt="{{ $league->initials }}" width="50px" height="50px">
                                 </button>
                             </td>
                             <td class=""            >{{ $league->name }}</td>
@@ -51,10 +49,10 @@
 
                             <td class="text-center" >
                                 <button disabled class="btn btn-link text-dark see-league" data-id="{{ $league->id }}"
-                                                                                  data-name="{{ $league->name }}"
-                                                                                  data-nrd="{{ $league->nrdivisions }}"
-                                                                                  data-image="{{ $league->image }}"
-                                                                                  data-initials="">
+                                                                                           data-name="{{ $league->name }}"
+                                                                                           data-nrd="{{ $league->nrdivisions }}"
+                                                                                           data-image="{{ $league->image }}"
+                                                                                           data-initials="">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -99,11 +97,11 @@
 
         // ICON
         $(document).on('click', '.icon-league', function() {
-            let id    = 'icon-league';
-            let path  = 'images/game/leagues/specials/';
+            let path  = '{{ asset("images/game/leagues/specials") }}';
             let image = $(this).data('image');
 
-            showImage(id, path, image);
+            $('#icon-league').find('img').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`);
+            $('#icon-league').modal('show');
         });
 
     </script>

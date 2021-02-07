@@ -38,11 +38,9 @@
                             <td class="text-center" >{{ $loop->iteration }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-image="{{ $league->image }}">
-                                    @if (file_exists(public_path('images/game/leagues/' . $league->image)))
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}" alt="{{ $league->initials }}" width="50px" height="50px">
-                                    @else
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/default.png') }}" alt="{{ $league->initials }}" width="50px" height="50px">
-                                    @endif
+                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}"
+                                         onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/default.png') }}';"
+                                         alt="{{ $league->initials }}" width="50px" height="50px">
                                 </button>
                             </td>
                             <td class=""            >{{ $league->name }}</td>
@@ -236,75 +234,73 @@
             divisions.forEach(division => {
                 if (division.league_id == id)
                 {
-                    html +=
-                        '<div class="col-12 col-md-6 border">' +
-                        '    <div class="row my-2">' +
-                        '        <div class="col-12">' +
-                        '            <p class="h6 text-bold" >' + division.name + '</p>' +
-                        '        </div>';
+                    html += `
+                        <div class="col-12 col-md-6 border">
+                            <div class="row my-2">
+                                <div class="col-12">
+                                    <p class="h6 text-bold">${division.name}</p>
+                                </div>`;
 
                     if (countTeamsInDivision(teams, division.id))
                     {
                         teams.forEach(team => {
                             if (team.league_id == id && team.division_id == division.id)
                             {
-                                let path   = 'images/game/leagues/teams/';
-                                team.image = (validateImage(path, team.image)) ? team.image : 'default.png';
+                                let path   = '{{ asset("images/game/leagues/teams") }}';
 
-                                html +=
-                                    '<div class="col-6 my-1 d-flex">' +
-                                    '    <div class="my-auto">' +
-                                    '        <img class="bg-img-team p-1 mr-1 " src="{{ asset("images/game/leagues/teams") }}' + '/' + team.image + '" alt="' + team.initials + '" width="50px" height="50px">' +
-                                    '    </div>' +
-                                    '    <div class="flex-fill align-self-center">' +
-                                    '        <p class="mb-0 " >' + team.name + '</p>' +
-                                    '    </div>' +
-                                    '</div>';
+                                html += `
+                                <div class="col-6 my-1 d-flex">
+                                    <div class="my-auto">
+                                        <img class="bg-img-team p-1 mr-1" src="${path}/${team.image}" onerror="this.onerror=null;this.src='${path}/default.png';" alt="${team.initials}" width="50px" height="50px">
+                                    </div>
+                                    <div class="flex-fill align-self-center">
+                                        <p class="mb-0" >${team.name}</p>
+                                    </div>
+                                </div>`;
                             }
                         });
                     }
                     else
                     {
-                        html +=
-                                '<div class="col-6 my-1 d-flex">' +
-                                '    <p class="mb-0">Nenhum time encontrado.<p>' +
-                                '</div>';
+                        html += `<div class="col-6 my-1 d-flex"><p class="mb-0">Nenhum time encontrado.<p></div>`;
                     }
 
-                    html +=
-                        '    </div>' +
-                        '</div>';
+                    html += `
+                            </div>
+                        </div>`;
                 }
             });
 
             if (checkTeamsWithoutDivisions(teams))
             {
-                html +=
-                    '<div class="col-12 col-md-6 border">' +
-                    '    <div class="row my-2">' +
-                    '        <div class="col-12">' +
-                    '            <p class="h6 text-bold" >Sem divisão</p>' +
-                    '        </div>';
+                html += `
+                    <div class="col-12 col-md-6 border">
+                        <div class="row my-2">
+                            <div class="col-12">
+                                <p class="h6 text-bold" >Sem divisão</p>
+                            </div>`;
+
                 teams.forEach(team => {
                     if (team.league_id == id && team.division_id == null)
                     {
-                        let path   = 'images/game/leagues/teams/';
-                        team.image = (validateImage(path, team.image)) ? team.image : 'default.png';
+                        let path   = '{{ asset("images/game/leagues/teams") }}';
 
-                        html +=
-                            '<div class="col-6 my-1 d-flex">' +
-                            '    <div class="my-auto">' +
-                            '        <img class="bg-img-team p-1 mr-1 " src="{{ asset("images/game/leagues/teams") }}' + '/' + team.image + '" alt="' + team.initials + '" width="50px" height="50px">' +
-                            '    </div>' +
-                            '    <div class="flex-fill align-self-center">' +
-                            '        <p class="mb-0 " >' + team.name + '</p>' +
-                            '    </div>' +
-                            '</div>';
+                        team.image = ``;
+
+                        html += `
+                            <div class="col-6 my-1 d-flex">
+                                <div class="my-auto">
+                                    <img class="bg-img-team p-1 mr-1" src="${path}/${team.image}" onerror="this.onerror=null;this.src='${path}/default.png';" alt="${team.initials}" width="50px" height="50px">
+                                </div>
+                                <div class="flex-fill align-self-center">
+                                    <p class="mb-0" >${team.name}</p>
+                                </div>
+                            </div>`;
                     }
                 });
-                html +=
-                    '    </div>' +
-                    '</div>';
+                html += `
+                        </div>
+                    </div>`;
             }
 
             if (nrd == 1) {
@@ -312,12 +308,9 @@
             }
             $('#league-divisions').html(html);
 
-            let path = 'images/game/leagues/';
-            if (validateImage(path, image)) {
-                $('#see-league-image').attr('src', path + image).attr('alt', initials);
-            } else {
-                $('#see-league-image').attr('src', path + 'default.png').attr('alt', initials);
-            }
+            let path = '{{ asset("images/game/leagues") }}';
+
+            $('#see-league-image').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`).attr('alt', name);
 
             $('#see-league-title').html(name);
             $('#see-league').modal('show');
@@ -372,11 +365,11 @@
 
         // ICON
         $(document).on('click', '.icon-league', function() {
-            let id    = 'icon-league';
-            let path  = 'images/game/leagues/';
+            let path  = '{{ asset("images/game/leagues") }}';
             let image = $(this).data('image');
 
-            showImage(id, path, image);
+            $('#icon-league').find('img').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`);
+            $('#icon-league').modal('show');
         });
 
     </script>

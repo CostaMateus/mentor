@@ -44,11 +44,9 @@
                             <td class="text-center" >{{ $loop->iteration }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-team" data-image="{{ $team->image }}">
-                                    @if (file_exists(public_path('images/game/leagues/teams/' . $team->image)))
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/' . $team->image) }}" alt="{{ $team->initials }}" width="50px" height="50px">
-                                    @else
-                                        <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/default.png') }}" alt="{{ $team->initials }}" width="50px" height="50px">
-                                    @endif
+                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/teams/' . $team->image) }}"
+                                         onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/teams/default.png') }}';"
+                                         alt="{{ $team->initials }}" width="50px" height="50px">
                                 </button>
                             </td>
                             <td class=""            >{{ $team->name }}</td>
@@ -269,9 +267,9 @@
             let html      = '';
             let count     = 0;
 
-            html +=
-                '<div class="col-12 border">' +
-                '    <div class="row my-2">';
+            html += `
+                <div class="col-12 border">
+                    <div class="row my-2">`;
 
             players.forEach(player => {
                 let rolTx1  = player.attribute.role;
@@ -291,54 +289,46 @@
 
                 if (player.team_id == id)
                 {
-                    let aux = new Date(player.attribute.contract);
-                    let d   = ("0" + aux.getDate()).slice(-2);
-                    let m   = ("0" + (aux.getMonth() + 1)).slice(-2);
-                    let y   = aux.getFullYear();
-                    let ctt = d + "/" + m + "/" + y;
+                    let ctt  = formatDate(player.attribute.contract);
+
+                    let flag = '{{ asset("images/flags") }}';
 
                     count++;
-                    html +=
-                        '<div class="col-6 my-1 d-flex order-' + ((player.mentor) ? '0' : order) + ' ">' +
-                        '    <div class="my-auto mr-1">' +
-                        '        <i class="fas fa-user" ' + ((player.mentor) ? '' : 'style="color:#6c757d;"') + ' ></i>' +
-                        '    </div>' +
-                        '    <div class="flex-fill align-self-center striped p-2">' +
-                        '        <p class="mb-0 small" title="Posição primária e secundária" >' +
-                                    ((player.mentor) ? '<strong>Treinador</strong> | ' : '' ) +
-                        '           1ª pos. <strong class="text-' + rolTx1 + '" >' + role1 + '</strong> | ' +
-                        '           2º pos. <strong class="text-' + rolTx2 + '" >' + role2 + '</strong>' +
-                        '        </p>' +
-                        '        <p class="mb-0 " >' + player.name + ' "<strong>' + player.nickname + '</strong>" ' + player.lastname + '</p>' +
-                        '        <p class="mb-0 " >Sexo: ' + player.sex + ' | Idade: ' + player.age + ' | Nacionalidade: <img src="images/flags/' + country[0] + '_64.png" alt="' + country[0] + '" title="' + country[1] + '" width="20px" height="20px"></p>' +
-                        '        <p class="mb-0 " >Força: ' + force + ' | Energia: ' + energy + '%</p>' +
-                        '        <p class="mb-0 " >Salário: R$ ' + salary + ' | Passe: R$ ' + pass + '</p>' +
-                        '        <p class="mb-0 " >Contrato até: ' + ctt + '</p>' +
-                        '    </div>' +
-                        '</div>';
+                    html += `
+                        <div class="col-6 my-1 d-flex order-${((player.mentor) ? '0' : order)}">
+                            <div class="my-auto mr-1">
+                                <i class="fas fa-user" ${((player.mentor) ? '' : 'style="color:#6c757d;"')} ></i>
+                            </div>
+                            <div class="flex-fill align-self-center striped p-2">
+                                <p class="mb-0 small" title="Posição primária e secundária" >
+                                    ${((player.mentor) ? '<strong>Treinador</strong> | ' : '' )}
+                                    1ª pos. <strong class="text-${rolTx1}" >${role1}</strong> |
+                                    2º pos. <strong class="text-${rolTx2}" >${role2}</strong>
+                                </p>
+                                <p class="mb-0 " >${player.name} "<strong>${player.nickname}</strong>" ${player.lastname}</p>
+                                <p class="mb-0 " >Sexo: ${player.sex} | Idade: ${player.age} | Nacionalidade: <img src="${flag}/${country[0]}_64.png" alt="${country[0]}" title="${country[1]}" width="20px" height="20px"></p>
+                                <p class="mb-0 " >Força: ${force} | Energia: ${energy}%</p>
+                                <p class="mb-0 " >Salário: R$ ${salary} | Passe: R$ ${pass}</p>
+                                <p class="mb-0 " >Contrato até: ${ctt}</p>
+                            </div>
+                        </div>`;
                 }
             });
 
-            html +=
-                '    </div>' +
-                '</div>';
+            html += `
+                    </div>
+                </div>`;
 
             if ( count == 0 )
             {
-                html =
-                    '<div class="col-12 border text-center">' +
-                    '   <p class="mt-3 mb-0">Nenhum jogadore encontrado.<p>' +
-                    '</div>';
+                html = `<div class="col-12 border text-center"><p class="mt-3 mb-0">Nenhum jogadore encontrado.<p></div>`;
             }
 
             $('#team-players').html(html);
 
-            let path = 'images/game/leagues/teams/';
-            if (validateImage(path, image)) {
-                $('#see-team-image').attr('src', path + image).attr('alt', initials);
-            } else {
-                $('#see-team-image').attr('src', path + 'default.png').attr('alt', initials);
-            }
+            let path = '{{ asset("images/game/leagues/teams") }}';
+
+            $('#see-team-image').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`).attr('alt', initials);
 
             $('#see-team-title').html(name + " - " + initials);
             $('#see-team').modal('show');
@@ -406,11 +396,11 @@
 
         // ICON - Team
         $(document).on('click', '.icon-team', function() {
-            let id    = 'icon-team';
-            let path  = 'images/game/leagues/teams/';
+            let path  = '{{ asset("images/game/leagues/teams") }}';
             let image = $(this).data('image');
 
-            showImage(id, path, image);
+            $('#icon-team').find('img').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`);
+            $('#icon-team').modal('show');
         });
 
 

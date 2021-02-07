@@ -285,7 +285,7 @@
                             <td class="text-center"                              >{{ $player->age }}</td>
                             <td class="text-center"                              >{{ $player->sex }}</td>
                             <td class="text-center" >
-                                <img class="my-auto flag" src="images/flags/{{ $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ Helper::getNameCountry($player->nationality) }}" width="30px" height="30px">
+                                <img class="my-auto flag" src="{{ asset("images/flags") . '/' . $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ Helper::getNameCountry($player->nationality) }}" width="30px" height="30px">
                             </td>
                             <td class="text-center" >
                                 {{-- @if ($player->attribute->contract == null) --}}
@@ -729,18 +729,12 @@
             let team_image    = (player.team_image)    ? player.team_image    : '';
             let team_initials = (player.team_initials) ? player.team_initials : '';
 
-            // let rolTx1        = player.attribute.role;
             let rolTx1        = player.role;
             let role1         = formatteRoleFull(rolTx1)[0];
 
-            // let rolTx2        = player.attribute.secondary_role;
             let rolTx2        = player.secondary_role;
             let role2         = formatteRoleFull(rolTx2)[0];
 
-            // let force         = player.attribute.force;
-            // let energy        = player.attribute.energy;
-            // let salary        = formatCurrency(player.attribute.salary);
-            // let pass          = formatCurrency(player.attribute.pass);
             let force         = player.force;
             let energy        = player.energy;
             let salary        = formatCurrency(player.salary);
@@ -749,29 +743,28 @@
             let country       = getNameCountry(countries, player.nationality);
             let birthday      = formatDate(player.birthday);
 
-            html =
-                '<div class="col-12 border py-2 text-center">' +
-                '   <p class="mb-1 " >Nacionalidade: <img src="images/flags/' + country[0] + '_64.png" alt="' + country[0] + '" title="' + country[1] + '" width="20px" height="20px"></p>' +
-                '   <p class="mb-1 " >Sexo: <strong>' + player.sex + '</strong></p>' +
-                '   <p class="mb-1 " >Idade: <strong>' + player.age + '</strong></p>' +
-                '   <p class="mb-1 " >Aniversário: <strong>' + birthday + '</strong></p>' +
-                '   <p class="mb-1 " >Posição primária: <strong class="text-' + rolTx1 + '" >' + role1 + '</strong></p>' +
-                '   <p class="mb-1 " >Posição secundária: <strong class="text-' + rolTx2 + '" >' + role2 + '</strong></p>' +
-                '   <p class="mb-1 " >Força: <strong>' + force + '</strong></p>' +
-                '   <p class="mb-1 " >Energia: <strong>' + energy + '%</strong></p>' +
-                '   <p class="mb-1 " >Salário: <strong>R$ ' + salary + '</strong></p>' +
-                '   <p class="mb-1 " >Passe: <strong>R$ ' + pass + '</strong></p>' +
-                '   <p class="mb-0 " >Time atual: <strong>' + team_name + '</strong></p>' +
-                '</div>';
+            let flag          = '{{ asset("images/flags") }}';
+
+            html = `
+                <div class="col-12 border py-2 text-center">
+                    <p class="mb-1 " >Nacionalidade: <img src="${flag}/${country[0]}_64.png" alt="${country[0]}" title="${country[1]}" width="20px" height="20px"></p>
+                    <p class="mb-1 " >Sexo: <strong>${player.sex}</strong></p>
+                    <p class="mb-1 " >Idade: <strong>${player.age}</strong></p>
+                    <p class="mb-1 " >Aniversário: <strong>${birthday}</strong></p>
+                    <p class="mb-1 " >Posição primária: <strong class="text-${rolTx1}" >${role1}</strong></p>
+                    <p class="mb-1 " >Posição secundária: <strong class="text-${rolTx2}" >${role2}</strong></p>
+                    <p class="mb-1 " >Força: <strong>${force}</strong></p>
+                    <p class="mb-1 " >Energia: <strong>${energy}%</strong></p>
+                    <p class="mb-1 " >Salário: <strong>R$ ${salary}</strong></p>
+                    <p class="mb-1 " >Passe: <strong>R$ ${pass}</strong></p>
+                    <p class="mb-0 " >Time atual: <strong>${team_name}</strong></p>
+                </div>`;
 
             $('#player-attr').html(html);
 
-            let path = 'images/game/leagues/teams/';
-            if (validateImage(path, team_image)) {
-                $('#see-player-image').attr('src', path + team_image).attr('alt', team_initials);
-            } else {
-                $('#see-player-image').attr('src', path + 'default.png').attr('alt', team_initials);
-            }
+            let path = '{{ asset("images/game/leagues/teams") }}';
+
+            $('#see-player-image').attr('src', `${path}/${team_image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`).attr('alt', team_initials);
 
             $('#see-player-title').html(player.name + ' "<strong>' + player.nickname + '</strong>" ' + player.lastname);
             $('#see-player').modal('show');
