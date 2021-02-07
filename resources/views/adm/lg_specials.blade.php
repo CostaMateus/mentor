@@ -93,7 +93,7 @@
 @section('js')
     <script>
         // Bootstrap Table
-        window.getbootstrapTable('leagues-table', {
+        getbootstrapTable('leagues-table', {
             locale: 'pt-br',
         });
 
@@ -103,7 +103,7 @@
             let path  = 'images/game/leagues/specials/';
             let image = $(this).data('image');
 
-            window.showImage(id, path, image);
+            showImage(id, path, image);
         });
 
     </script>

@@ -214,7 +214,7 @@
 @section('js')
     <script>
         // Bootstrap Table
-        window.getbootstrapTable('leagues-table', {
+        getbootstrapTable('leagues-table', {
             locale: 'pt-br',
             // height: 710,
             // pageSize: '25',
@@ -243,13 +243,13 @@
                         '            <p class="h6 text-bold" >' + division.name + '</p>' +
                         '        </div>';
 
-                    if (window.countTeamsInDivision(teams, division.id))
+                    if (countTeamsInDivision(teams, division.id))
                     {
                         teams.forEach(team => {
                             if (team.league_id == id && team.division_id == division.id)
                             {
                                 let path   = 'images/game/leagues/teams/';
-                                team.image = (window.validateImage(path, team.image)) ? team.image : 'default.png';
+                                team.image = (validateImage(path, team.image)) ? team.image : 'default.png';
 
                                 html +=
                                     '<div class="col-6 my-1 d-flex">' +
@@ -277,7 +277,7 @@
                 }
             });
 
-            if (window.checkTeamsWithoutDivisions(teams))
+            if (checkTeamsWithoutDivisions(teams))
             {
                 html +=
                     '<div class="col-12 col-md-6 border">' +
@@ -289,7 +289,7 @@
                     if (team.league_id == id && team.division_id == null)
                     {
                         let path   = 'images/game/leagues/teams/';
-                        team.image = (window.validateImage(path, team.image)) ? team.image : 'default.png';
+                        team.image = (validateImage(path, team.image)) ? team.image : 'default.png';
 
                         html +=
                             '<div class="col-6 my-1 d-flex">' +
@@ -313,7 +313,7 @@
             $('#league-divisions').html(html);
 
             let path = 'images/game/leagues/';
-            if (window.validateImage(path, image)) {
+            if (validateImage(path, image)) {
                 $('#see-league-image').attr('src', path + image).attr('alt', initials);
             } else {
                 $('#see-league-image').attr('src', path + 'default.png').attr('alt', initials);
@@ -367,7 +367,7 @@
             e.preventDefault();
             let url  = '{{ url("/leagues") }}' + '/' + $(this).data('id');
             let data = $('#del-league-form').serialize();
-            window.deleteItem(url, data);
+            deleteItem(url, data);
         });
 
         // ICON
@@ -376,7 +376,7 @@
             let path  = 'images/game/leagues/';
             let image = $(this).data('image');
 
-            window.showImage(id, path, image);
+            showImage(id, path, image);
         });
 
     </script>

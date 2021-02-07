@@ -243,7 +243,7 @@
 @section('js')
     <script>
         // Bootstrap Table
-        window.getbootstrapTable('teams-table', {
+        getbootstrapTable('teams-table', {
             locale: 'pt-br',
             // height: 710,
             // pageSize: '25',
@@ -275,19 +275,19 @@
 
             players.forEach(player => {
                 let rolTx1  = player.attribute.role;
-                let aux_r   = window.formatteRoleFull(rolTx1);
+                let aux_r   = formatteRoleFull(rolTx1);
                 let role1   = aux_r[0];
                 let order   = aux_r[1];
 
                 let rolTx2  = player.attribute.secondary_role;
-                let role2   = window.formatteRoleFull(rolTx2)[0];
+                let role2   = formatteRoleFull(rolTx2)[0];
 
                 let force   = player.attribute.force;
                 let energy  = player.attribute.energy;
-                let salary  = window.formatCurrency(player.attribute.salary);
-                let pass    = window.formatCurrency(player.attribute.pass);
+                let salary  = formatCurrency(player.attribute.salary);
+                let pass    = formatCurrency(player.attribute.pass);
 
-                let country = window.getNameCountry(countries, player.nationality);
+                let country = getNameCountry(countries, player.nationality);
 
                 if (player.team_id == id)
                 {
@@ -334,7 +334,7 @@
             $('#team-players').html(html);
 
             let path = 'images/game/leagues/teams/';
-            if (window.validateImage(path, image)) {
+            if (validateImage(path, image)) {
                 $('#see-team-image').attr('src', path + image).attr('alt', initials);
             } else {
                 $('#see-team-image').attr('src', path + 'default.png').attr('alt', initials);
@@ -401,7 +401,7 @@
 
             let url  = '{{ url("/teams") }}' + '/' + $(this).data('id');
             let data = $('#del-team-form').serialize();
-            window.deleteItem(url, data);
+            deleteItem(url, data);
         });
 
         // ICON - Team
@@ -410,12 +410,12 @@
             let path  = 'images/game/leagues/teams/';
             let image = $(this).data('image');
 
-            window.showImage(id, path, image);
+            showImage(id, path, image);
         });
 
 
         // INSERT DIVISIONS
-        window.insertDivisions = function (id, edit = false, league_id, division_id)
+        insertDivisions = function (id, edit = false, league_id, division_id)
         {
             let divisions = {!! $divisions !!};
             let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';

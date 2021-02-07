@@ -682,7 +682,7 @@
     @include('adm/partials.filters')
     <script>
         // Bootstrap Table
-        window.getbootstrapTable('players-table', {
+        getbootstrapTable('players-table', {
             locale: 'pt-br',
             // height: 710,
             // pageSize: '100',
@@ -731,23 +731,23 @@
 
             // let rolTx1        = player.attribute.role;
             let rolTx1        = player.role;
-            let role1         = window.formatteRoleFull(rolTx1)[0];
+            let role1         = formatteRoleFull(rolTx1)[0];
 
             // let rolTx2        = player.attribute.secondary_role;
             let rolTx2        = player.secondary_role;
-            let role2         = window.formatteRoleFull(rolTx2)[0];
+            let role2         = formatteRoleFull(rolTx2)[0];
 
             // let force         = player.attribute.force;
             // let energy        = player.attribute.energy;
-            // let salary        = window.formatCurrency(player.attribute.salary);
-            // let pass          = window.formatCurrency(player.attribute.pass);
+            // let salary        = formatCurrency(player.attribute.salary);
+            // let pass          = formatCurrency(player.attribute.pass);
             let force         = player.force;
             let energy        = player.energy;
-            let salary        = window.formatCurrency(player.salary);
-            let pass          = window.formatCurrency(player.pass);
+            let salary        = formatCurrency(player.salary);
+            let pass          = formatCurrency(player.pass);
 
-            let country       = window.getNameCountry(countries, player.nationality);
-            let birthday      = window.formatDate(player.birthday);
+            let country       = getNameCountry(countries, player.nationality);
+            let birthday      = formatDate(player.birthday);
 
             html =
                 '<div class="col-12 border py-2 text-center">' +
@@ -767,7 +767,7 @@
             $('#player-attr').html(html);
 
             let path = 'images/game/leagues/teams/';
-            if (window.validateImage(path, team_image)) {
+            if (validateImage(path, team_image)) {
                 $('#see-player-image').attr('src', path + team_image).attr('alt', team_initials);
             } else {
                 $('#see-player-image').attr('src', path + 'default.png').attr('alt', team_initials);
@@ -862,11 +862,11 @@
 
                     // $('#edit_role').val(player.attribute.role).trigger('change');
                     $('#edit_role').val(player.role).trigger('change');
-                    window.selectRoleWithColor( document.getElementById('select2-edit_role-container') );
+                    selectRoleWithColor( document.getElementById('select2-edit_role-container') );
 
                     // $('#edit_secondary_role').val(player.attribute.secondary_role).trigger('change');
                     $('#edit_secondary_role').val(player.secondary_role).trigger('change');
-                    window.selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
+                    selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
 
                     if (player.team)
                     {
@@ -918,27 +918,27 @@
 
             let url  = '{{ url("/players") }}' + '/' + $(this).data('id');
             let data = $('#del-player-form').serialize();
-            window.deleteItem(url, data);
+            deleteItem(url, data);
         });
 
 
         $('#role').on('change', function() {
-            window.selectRoleWithColor( document.getElementById('select2-role-container') );
+            selectRoleWithColor( document.getElementById('select2-role-container') );
         });
         $('#edit_role').on('change', function() {
-            window.selectRoleWithColor( document.getElementById('select2-edit_role-container') );
+            selectRoleWithColor( document.getElementById('select2-edit_role-container') );
         });
         $('#search_role').on('change', function() {
-            window.selectRoleWithColor( document.getElementById('select2-search_role-container') );
+            selectRoleWithColor( document.getElementById('select2-search_role-container') );
         });
         $('#secondary_role').on('change', function() {
-            window.selectRoleWithColor( document.getElementById('select2-secondary_role-container') );
+            selectRoleWithColor( document.getElementById('select2-secondary_role-container') );
         });
         $('#edit_secondary_role').on('change', function() {
-            window.selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
+            selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
         });
         $('#search_secondary_role').on('change', function() {
-            window.selectRoleWithColor( document.getElementById('select2-search_secondary_role-container') );
+            selectRoleWithColor( document.getElementById('select2-search_secondary_role-container') );
         });
         $('#add_team').on('change', function() {
             if ( $(this).is(':checked'))
@@ -962,7 +962,7 @@
         });
 
         // INSERT DIVISIONS
-        window.insertDivisions = function (id, edit = false, league_id, division_id)
+        insertDivisions = function (id, edit = false, league_id, division_id)
         {
             let divisions = {!! $divisions !!};
             let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
@@ -981,7 +981,7 @@
         }
 
         // INSERT DIVISIONS
-        window.insertTeams = function (id, edit = false, division_id, team_id)
+        insertTeams = function (id, edit = false, division_id, team_id)
         {
             let teams = {!! $teams !!};
             let opts  = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
@@ -1003,7 +1003,7 @@
             $('#' + id).html(opts);
         }
 
-        window.selectRoleWithColor = function (elem)
+        selectRoleWithColor = function (elem)
         {
             switch ( $(elem).attr('title') ) {
                 case 'Topo':
