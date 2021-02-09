@@ -9,6 +9,7 @@ use App\Models\Player;
 use App\Helpers\Helper;
 use App\Models\Division;
 use App\Models\Attribute;
+use App\Helpers\RandomNames;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -350,13 +351,13 @@ class PlayerController extends Controller
             return response()->json($error,422);
         }
 
-        $valData['birthday']  = isset($valData['birthday']) ? $valData['birthday'] : Helper::getRandomDate($valData['age']);
+        $valData['birthday']  = isset($valData['birthday']) ? $valData['birthday'] : RandomNames::getRandomDate($valData['age']);
         $valData['employed']  = isset($valData['team_id'])  ? 1 : 0;
         $valData['mentor']    = isset($valData['mentor'])   ? 1 : 0;
 
-        $valData['force']     = Helper::getRandomForce($valData['force']);
+        $valData['force']     = RandomNames::getRandomForce($valData['force']);
 
-        $vlr                  = Helper::getRandomSalary($valData['force'], $valData['mentor']);
+        $vlr                  = RandomNames::getRandomSalary($valData['force'], $valData['mentor']);
         $valData['salary']    = $vlr[0];
         $valData['pass']      = $vlr[1];
 
