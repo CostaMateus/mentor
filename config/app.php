@@ -238,7 +238,9 @@ return [
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
-        'Helper' => App\Helpers\Helper::class,
+        'Fixture'     => App\Helpers\Fixture::class,
+        'Helper'      => App\Helpers\Helper::class,
+        'RandomNames' => App\Helpers\RandomNames::class,
 
     ],
 

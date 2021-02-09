@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Faker\Factory;
 use App\Models\Team;
 use App\Models\Player;
-use App\Helpers\Helper;
+use App\Helpers\RandomNames;
 use Illuminate\Database\Seeder;
 
 class PlayersSeeder extends Seeder
@@ -86,13 +86,13 @@ class PlayersSeeder extends Seeder
             $age_birthday = PlayersSeeder::getBirthday($faker);
             $name_sex     = PlayersSeeder::getNameAndSex($country);
 
-            $nickname     = Helper::getNicknames($faker->randomElement($opsNicks));
+            $nickname     = RandomNames::getNicknames($faker->randomElement($opsNicks));
 
             foreach ($oriData as $d)
             {
                 if ( strcasecmp ($nickname, $d['nickname']) == 0 )
                 {
-                    $nickname = Helper::getNicknames($faker->randomElement($opsNicks));
+                    $nickname = RandomNames::getNicknames($faker->randomElement($opsNicks));
                 }
             }
 
@@ -101,7 +101,7 @@ class PlayersSeeder extends Seeder
                 if ( strcasecmp ($nickname, $d['nickname']) == 0 )
                 {
                     // dump ( '1: ' . $nickname );
-                    $nickname = Helper::getNicknames($faker->randomElement($opsNicks));
+                    $nickname = RandomNames::getNicknames($faker->randomElement($opsNicks));
                     // dump ( '2: ' . $nickname );
                 }
             }
@@ -177,13 +177,13 @@ class PlayersSeeder extends Seeder
     {
         if (rand(0, 1))
         {
-            $name = Helper::getNameAndSex(true, $country);
+            $name = RandomNames::getNameAndSex(true, $country);
 
             $sex  = 'M';
         }
         else
         {
-            $name = Helper::getNameAndSex(false, $country);
+            $name = RandomNames::getNameAndSex(false, $country);
             $sex  = 'F';
         }
 

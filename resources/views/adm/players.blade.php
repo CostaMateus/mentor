@@ -285,7 +285,7 @@
                             <td class="text-center"                              >{{ $player->age }}</td>
                             <td class="text-center"                              >{{ $player->sex }}</td>
                             <td class="text-center" >
-                                <img class="my-auto flag" src="{{ asset("images/flags") . '/' . $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ Helper::getNameCountry($player->nationality) }}" width="30px" height="30px">
+                                <img class="my-auto flag" src="{{ asset("images/flags") . '/' . $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ RandomNames::getNameCountry($player->nationality) }}" width="30px" height="30px">
                             </td>
                             <td class="text-center" >
                                 {{-- @if ($player->attribute->contract == null) --}}
