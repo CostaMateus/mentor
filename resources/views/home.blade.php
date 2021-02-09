@@ -19,23 +19,17 @@
 
         #team-infos h1,
         #team-infos h3 { text-decoration: underline; }
-        #team-infos .bg-default,
-        #players-table .bg-default { height: 406px; }
-        #player-infos .bg-default,
-        #game-infos .bg-default,
-        #adm-infos .bg-default { height: 307px; }
-        #player-infos .bg-default .row,
-        #game-infos .bg-default .row,
-        #adm-infos .bg-default .row { margin-top: auto; margin-bottom: auto; }
+
+        /* #team-infos .bg-default, */
+        #players-card .bg-default { height: 400px; }
 
         .table-mentor th,
-        .table-mentor td      { padding: .4rem; }
-        .table-mentor th      { background-color: #F8F9FA !important; position: sticky; top: 0; }
-        .table-mentor .icon-a { width: 5%; text-align: center; }
-        .table-mentor .icon-b { width: 15%; }
-        .table-mentor .icon-c { width: 25%; }
-        .table-mentor .icon-d { width: 10%; text-align: center; }
-        .table-mentor .icon-e { width: 30%; text-align: center !important; }
+        .table-mentor td { padding: .4rem; vertical-align: middle; }
+        .table-mentor th { background-color: #F8F9FA !important; position: sticky; top: 0; }
+
+        #players-table {
+            border: none !important;
+        }
 
     </style>
 @endsection
@@ -44,297 +38,143 @@
 
     <div class="container-fluid">
 
-        <div class="row">
+        <div class="row d-flex flex-row align-items-stretch">
+
             {{-- TEAM INFOS --}}
             <div id="team-infos" class="col-12 col-md-5 col-lg-4 px-2 pr-md-1 pb-1">
-                <div class="p-2 bg-default">
-                    <div class="row pb-2" >
-                        <div class="col-6 mt-2 px-0">
-                            <a href="/" >
-                                <img src="{{ asset('images/game/leagues/teams/cblol_fla.png') }}" class="m-auto d-block bg-img-team" />
-                            </a>
-                        </div>
-                        <div class="col-6 text-center my-auto">
-                            <h1>FLA</h1>
-                            <h3>Flamengo eSports</h3>
-                        </div>
-                    </div>
+                <div class="p-2 bg-default h-100">
+                    <div class="row h-100">
+                        <div class="col my-auto">
 
-                    <div class="row py-2" >
-                        <div class="col-12 text-center" >
-                            <h4>CBLOL 2019 - 1ª Etapa</h4>
-                            <h5>Posição atual: <strong>1°</strong></h5>
-                            <h5>Treinador: <a class="text-info" href="/">Mateus "kemns" Costa</a></h5>
-                        </div>
-                    </div>
-
-                    <div class="row py-2" >
-                        <div class="col-12 col-md-10 mx-auto ">
-                            <h6>Confiança da diretoria: </h6>
-                        </div>
-                        <div class="col-12 col-md-10 mx-auto ">
-                            <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
+                            <div class="row pb-2" >
+                                <div class="col-6 mt-2 px-0">
+                                    <a href="/" >
+                                        <img src="{{ asset('images/game/leagues/teams/' . $team->image) }}" alt="{{ $team->initials }}" class="m-auto d-block bg-img-team" />
+                                    </a>
+                                </div>
+                                <div class="col-6 text-center my-auto">
+                                    <h1>{{ $team->initials }}</h1>
+                                    <h3>{{ $team->name }}</h3>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row py-2" >
-                        <div class="col-12 col-md-10 mx-auto ">
-                            <h6>Confiança da torcida: </h6>
-                        </div>
-                        <div class="col-12 col-md-10 mx-auto ">
-                            <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
+                            <div class="row py-2" >
+                                <div class="col-12 text-center" >
+                                    <h4>CBLOL 20?? - ?ª Etapa</h4>
+                                    <h5>Posição atual: <strong>?°</strong></h5>
+                                    <h6>Treinador: <a class="text-info" href="/">{{ $player->name . ' \'' . $player->nickname . '\' ' . $player->lastname }}</a></h6>
+                                </div>
                             </div>
+
+                            <div class="row py-2" >
+                                <div class="col-12 col-md-10 mx-auto ">
+                                    <h6>Confiança da diretoria: </h6>
+                                </div>
+                                <div class="col-12 col-md-10 mx-auto ">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{ $trust->board }}%">{{ $trust->board }}%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row py-2" >
+                                <div class="col-12 col-md-10 mx-auto ">
+                                    <h6>Confiança da torcida: </h6>
+                                </div>
+                                <div class="col-12 col-md-10 mx-auto ">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{ $trust->fans }}%">{{ $trust->fans }}%</div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- PLAYERS TABLE --}}
-            <div id="players-table" class="col-12 col-md-7 col-lg-8 px-2 pl-md-1 py-1 pt-md-0">
+            {{-- PLAYERS CARD --}}
+            <div id="players-card" class="col-12 col-md-7 col-lg-8 px-2 pl-md-1 py-1 pt-md-0">
                 <div class="table-responsive bg-default">
-                    <table class="table table-borderless table-hover mb-0 table-mentor">
+                    <table id="players-table" class="table table-borderless table-striped mb-0 table-mentor" data-toggle="table" >
                         <thead class="bg-light ">
                             <tr>
-                                <th class="icon-a text-center" > </th>
-                                <th class="icon-b" title="Posição" >Posição</th>
-                                <th class="icon-c" title="Nick"    >Jogador</th>
-                                <th class="icon-d" title="Força"   >Força</th>
-                                <th class="icon-e" title="Energia" >Energia</th>
+                                <th class="nick"                  data-field="nick"   data-sortable="true" title="Nick"               >Jogador</th>
+                                <th class="energy"                data-field="energy" data-sortable="true" title="Energia"            >Energia</th>
+                                <th class="text-center force"     data-field="force"  data-sortable="true" title="Força"              >F</th>
+                                <th class="text-center role"      data-field="role1"  data-sortable="true" title="Posição primária"   >1ª</th>
+                                <th class="text-center secondary" data-field="role2"  data-sortable="true" title="Posição secundária" >2ª</th>
+                                <th class="text-center salary"    data-field="salary" data-sortable="true" title="Salário (R$)"       >Salário</th>
+                                <th class="text-center pass"      data-field="pass"   data-sortable="true" title="Passe (R$)"         >Passe</th>
+                                <th class="text-center age"       data-field="age"    data-sortable="true" title="Idade"              >I.</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Topo</td>
-                                <td class="icon-c" >Robo</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" style="width: 100%">100%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Selva</td>
-                                <td class="icon-c" >Shrimp</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="90" style="width: 90%">90%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Meio</td>
-                                <td class="icon-c" >Goku</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" style="width: 80%">80%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="active">
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Atirador</td>
-                                <td class="icon-c" >brTT</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" style="width: 70%">70%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Suporte</td>
-                                <td class="icon-c" >Luci</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" style="width: 60%">60%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_b.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Atirador</td>
-                                <td class="icon-c" >Juzinho</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="width: 50%">50%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_b.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Suporte</td>
-                                <td class="icon-c" >Reven</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" style="width: 40%">40%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Topo</td>
-                                <td class="icon-c" >Robo</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" style="width: 100%">100%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Selva</td>
-                                <td class="icon-c" >Shrimp</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="90" style="width: 90%">90%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Meio</td>
-                                <td class="icon-c" >Goku</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" style="width: 80%">80%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="active">
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Atirador</td>
-                                <td class="icon-c" >brTT</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" style="width: 70%">70%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_v.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Suporte</td>
-                                <td class="icon-c" >Luci</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" style="width: 60%">60%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_b.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Atirador</td>
-                                <td class="icon-c" >Juzinho</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="width: 50%">50%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="icon-a text-center" >
-                                    <img src="{{ asset('images/game/shirt/camisa_b.png') }}" width="15" height="14">
-                                </td>
-                                <td class="icon-b" >Suporte</td>
-                                <td class="icon-c" >Reven</td>
-                                <td class="icon-d" >50</td>
-                                <td class="icon-e align-middle" >
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" style="width: 40%">40%</div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach ($team->players as $p)
+                                @if (!$p->mentor)
+                                    @php
+                                        $rolTx1 = $p->attribute->role;
+                                        $rolTx2 = $p->attribute->secondary_role;
+
+                                        $role1  = Helper::formatteRole($rolTx1);
+                                        $role2  = Helper::formatteRole($rolTx2);
+                                    @endphp
+
+                                    <tr id="p-{{ $p->id }}" >
+                                        <td class="nick"                                               >{{ $p->name }} <b>'{{ $p->nickname }}'</b> {{ $p->lastname }}</td>
+                                        <td class="energy align-middle" >
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                                    aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" style="width: {{ $p->attribute->energy }}%">{{ $p->attribute->energy }}%</div>
+                                            </div>
+                                        </td>
+                                        <td class="force     text-center"                              >{{ $p->attribute->force }}</td>
+                                        <td class="role      text-center text-bold text-{{ $rolTx1 }}" >{{ $role1 }}</td>
+                                        <td class="secondary text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
+                                        <td class="salary    text-center"                              >{{ Helper::formatSalary($p->attribute->salary) }}</td>
+                                        <td class="pass      text-center"                              >{{ Helper::formatSalary($p->attribute->pass) }}</td>
+                                        <td class="age       text-center"                              >{{ $p->age }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
 
+        </div>
+
+        <div class="row d-flex flex-row align-items-stretch">
+
             {{-- PLAYER INFOS --}}
-            <div id="player-infos" class="col-12 col-md-6 col-lg-4 px-2 pr-md-1 py-1" >
-                <div class="p-2 bg-default">
-                    <div class="row">
+            <div id="player-infos" class="col-12 col-md-6 col-lg-4 px-2 pr-md-1 pt-1 pb-2" >
+                <div class="p-2 bg-default h-100">
+                    <div class="row h-100">
                         <div class="col-12 col-md-6 my-auto">
-                            <h3 class="mb-0 text-center" title="Felipe Gonçalves - Brasileiro" >brTT - BR</h3>
+                            <h3 id="p-infos-name" class="mb-0 text-center" title="" ></h3>
                             <div class="mx-auto my-2">
                                 <a class="btn btn-info btn-block btn-sm" href="" data-toggle="modal" data-target="#default" >Hist. Carreira</a>
                             </div>
                             <div class="mx-auto my-2">
-                                <a class="btn btn-info btn-block btn-sm disabled" href="/" title="">Vender</a>
+                                <a class="btn btn-info btn-block btn-sm disabled" href="#" title="">Vender</a>
                             </div>
                             <div class="mx-auto my-2">
-                                <a class="btn btn-info btn-block btn-sm disabled" href="/" title="">Contrato</a>
+                                <a class="btn btn-info btn-block btn-sm disabled" href="#" title="">Contrato</a>
                             </div>
                             <div class="mx-auto my-2">
-                                <a class="btn btn-info btn-block btn-sm disabled" href="/" title="">Aposentar</a>
+                                <a class="btn btn-info btn-block btn-sm disabled" href="#" title="">Aposentar</a>
                             </div>
                             <div class="mx-auto my-2">
-                                <a class="btn btn-primary btn-block btn-sm disabled" href="/" title="">Treinar</a>
+                                <a class="btn btn-primary btn-block btn-sm disabled" href="#" title="">Treinar</a>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 my-auto text-center">
-                            <p class="mb-0 pb-2" title="Posição" >Posição: Atirador</p>
-                            <p class="mb-0 pb-2" title="Idade">Idade: 27</p>
-                            <p class="mb-0 pb-2" title="Força tática">Força: 50</p>
-                            <p class="mb-0 pb-2" >Valor do passe:<br>R$ 205.009,90</p>
-                            <p class="mb-0 pb-2" >Salário:<br>R$ 2.500,99</p>
+                            <p id="p-infos-role"   class="mb-0 pb-2" title="Posição primária" ></p>
+                            <p id="p-infos-secund" class="mb-0 pb-2" title="Posição secundária" ></p>
+                            <p id="p-infos-age"    class="mb-0 pb-2" title="Idade" ></p>
+                            <p id="p-infos-force"  class="mb-0 pb-2" title="Força tática" ></p>
+                            <p id="p-infos-salary" class="mb-0 pb-2" ></p>
+                            <p id="p-infos-pass"   class="mb-0 pb-2" ></p>
                             <!-- <p class="mb-0 pb-2" >Favoritos:<br><u>Draven</u> e <u>Ezreal</u></p> -->
                         </div>
                     </div>
@@ -342,8 +182,8 @@
             </div>
 
             {{-- GAME INFOS --}}
-            <div id="game-infos" class="col-12 col-md-6 col-lg-4 px-2 px-md-1 py-1" >
-                <div class="p-2 bg-default">
+            <div id="game-infos" class="col-12 col-md-6 col-lg-4 px-2 pl-md-1 px-lg-1 pt-1 pb-2" >
+                <div class="p-2 bg-default h-100">
                     <div class="row">
                         <div class="col-12 text-center">
                             <h3>Próximo jogo:
@@ -352,17 +192,32 @@
                                 </a>
                             </h3>
                         </div>
-                        <div class="col-6 text-center my-auto">
-                            <a href="/">
-                                <img src="{{ asset('images/game/leagues/teams/cblol_itz.png') }}" class="m-auto d-block bg-img-team" >
-                            </a>
-                            <h6>INTZ (6°)</h6>
-                        </div>
-                        <div class="col-6 text-center my-auto">
-                            <h5>CBLoL 2019<br>1ª Etapa</h5>
-                            <h6>Semana 3 - Dia 1</h6>
-                            <small>26/01/19</small>
-                        </div>
+                        @foreach ($matchups as $m)
+                            @if ($m->winner_team_id == null)
+                                @php
+                                    $adv = ($team->id == $m->blue_team_id) ? $m->red_team_id : $m->blue_team_id;
+                                @endphp
+
+                                @if ($team->id == $m->blue_team_id || $team->id == $m->red_team_id)
+                                    <div class="col-6 text-center my-auto">
+                                        @foreach ($teams as $t)
+                                            @if ($t->id == $adv)
+                                                <a href="/">
+                                                    <img src="{{ asset('images/game/leagues/teams') . '/' . $t->image }}" class="m-auto d-block bg-img-team w-50 " >
+                                                </a>
+                                                <h6>{{ $t->initials}} (?°)</h6>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <div class="col-6 text-center my-auto">
+                                        <h6>Rodada {{ $m->round }}</h6>
+                                        <small>{{ Helper::formatDate($m->date) }}</small>
+                                    </div>
+
+                                    @break
+                                @endif
+                            @endif
+                        @endforeach
                         <div class="col-12 text-center mt-4 mb-2">
                             <a class="btn btn-info btn-lg" href="/" >
                                 ESCALAR TIME
@@ -373,11 +228,11 @@
             </div>
 
             {{-- ADM INFOS --}}
-            <div id="adm-infos" class="col-12 col-lg-4 px-2 pl-md-1 py-1" >
-                <div class="p-2 bg-default">
+            <div id="adm-infos" class="col-12 col-lg-4 px-2 pl-lg-1 pt-1 pb-2" >
+                <div class="p-2 bg-default h-100">
                     <div class="row">
                         <div class="col-8 pb-2 " >
-                            <h4 class="mb-0 text-left" >Jogadores: 11/15</h4>
+                            <h4 class="mb-0 text-left" >Jogadores: {{ $total_p }}/15</h4>
                         </div>
                         <div class="col-4 pb-2 " >
                             <p class="mb-0 text-right" >23/01/2019</p>
@@ -398,6 +253,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         {{-- <div class="row">
@@ -491,17 +347,8 @@
             </div>
         </div> --}}
 
-        {{-- <div class="row mt-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
-                    <div class="card-body">
-                        You are logged in!
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
+
 
     {{-- Modal teste --}}
     <div id="default" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
@@ -521,4 +368,39 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+
+        // Bootstrap Table
+        getbootstrapTable('players-table', {
+            locale: 'pt-br',
+        });
+
+        $(document).ready(function () {
+            let t = $('tbody tr').first().attr('id');
+            $('#' + t).click();
+        });
+
+        $('[id*=p-]').on('click', function (e) {
+            let id = $(this).attr('id').split('p-')[1];
+            let players = {!! $team->players !!};
+
+            players.forEach(p => {
+                if (p.id == id)
+                {
+                    $('#p-infos-name').html(p.nickname).attr('title', `${p.name} ${p.lastname}`);
+                    $('#p-infos-role').html(   `1ª p.:               ${formatteRoleFull(p.attribute.role)[0]}`);
+                    $('#p-infos-secund').html( `2ª p.:               ${formatteRoleFull(p.attribute.secondary_role)[0]}`);
+                    $('#p-infos-age').html(    `Idade:               ${p.age}`);
+                    $('#p-infos-force').html(  `Força:               ${p.attribute.force}`);
+                    $('#p-infos-salary').html( `Salário:<br>R$       ${formatCurrency(p.attribute.salary)}`);
+                    $('#p-infos-pass').html(   `Valor do passe<br>R$ ${formatCurrency(p.attribute.pass)}`);
+                }
+            });
+        });
+
+    </script>
+
 @endsection
