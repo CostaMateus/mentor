@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\Trust;
 use App\Models\League;
 use App\Models\Player;
+use App\Models\Matchup;
 use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,9 +38,41 @@ class HomeController extends Controller
             return redirect('/novo');
         }
 
-        return view('home');
+        $player->load('attribute');
+
+        $team     = Team::find($player->team_id)->load('players');
+
+        $matchups = Matchup::where('division_id', $team->division_id)->get();
+
+        $teams    = Team::where('division_id', $team->division_id)->get();
+
+        $trust    = Trust::where('player_id', $player->id)->first();
+
+        $count    = 0;
+
+        foreach ($team->players as $p) {
+            if (!$p->mentor)
+            {
+                $p->load('attribute');
+                $count++;
+            }
+        }
+
+        return view('home', [
+            'player'   => $player,
+            'team'     => $team,
+            'teams'    => $teams,
+            'matchups' => $matchups,
+            'total_p'  => $count,
+            'trust'    => $trust
+        ]);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function newGame()
     {
         return view('new-game', [
