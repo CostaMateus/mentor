@@ -27,6 +27,7 @@ class Helper
                 break;
         }
     }
+
     public static function formatteRoleFull($role)
     {
         switch (strtolower($role)) {
@@ -69,5 +70,43 @@ class Helper
     public static function formatDate($date)
     {
         return (new DateTime($date))->format('d/m/Y');
+    }
+
+    public static function formatteFinance($cat)
+    {
+        switch ($cat) {
+            case 'in_awards':
+                return 'Prêmios';
+                break;
+            case 'in_fines':
+                return 'Juros';
+                break;
+            case 'in_loan':
+                return 'Empréstimos';
+                break;
+            case 'in_selling_players':
+                return 'Venda de jogadores';
+                break;
+            case 'in_sponsorships':
+                return 'Patrocínios';
+                break;
+            case 'in_supporter_partner':
+                return 'Sócio torcedor';
+                break;
+
+            case 'out_buying_players':
+                return 'Compra de jogadores';
+                break;
+            case 'out_fines':
+                return 'Juros';
+                break;
+            case 'out_loan':
+                return 'Empréstimo';
+                break;
+            case 'out_salary':
+                return 'Salários';
+                break;
+
+        }
     }
 }
