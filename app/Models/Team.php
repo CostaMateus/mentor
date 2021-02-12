@@ -38,4 +38,12 @@ class Team extends Model
     {
         return $this->belongsToMany('App\Models\Trophy', 'team_trophy');
     }
+
+    /**
+     * Pega as finanças do time
+     */
+    public function finance()
+    {
+        return $this->hasMany('App\Models\Finance');
+    }
 }
