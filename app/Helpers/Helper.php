@@ -87,11 +87,17 @@ class Helper
             case 'in_selling_players':
                 return 'Venda de jogadores';
                 break;
+            case 'in_several':
+                return 'Diversos';
+                break;
             case 'in_sponsorships':
                 return 'Patrocínios';
                 break;
             case 'in_supporter_partner':
                 return 'Sócio torcedor';
+                break;
+            case 'in_last_month':
+                return 'Mês anterior';
                 break;
 
             case 'out_buying_players':
@@ -105,6 +111,12 @@ class Helper
                 break;
             case 'out_salary':
                 return 'Salários';
+                break;
+            case 'out_several':
+                return 'Diversos';
+                break;
+            case 'out_last_month':
+                return 'Mês anterior';
                 break;
 
         }
