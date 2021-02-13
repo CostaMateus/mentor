@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\Trust;
 use App\Models\League;
 use App\Models\Player;
+use App\Models\Finance;
 use App\Models\Matchup;
 use App\Models\Division;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class HomeController extends Controller
 
         $player->load('attribute');
 
-        $team     = Team::find($player->team_id)->load('players');
+        $team     = Team::find($player->team_id)->load('players', 'finance');
 
         $matchups = Matchup::where('division_id', $team->division_id)->get();
 
@@ -48,8 +49,9 @@ class HomeController extends Controller
 
         $trust    = Trust::where('player_id', $player->id)->first();
 
-        $count    = 0;
+        $finances = Finance::where('team_id', $team->id)->get();
 
+        $count    = 0;
         foreach ($team->players as $p) {
             if (!$p->mentor)
             {
@@ -58,13 +60,31 @@ class HomeController extends Controller
             }
         }
 
+        $income = 0;
+        $expens = 0;
+        foreach ($finances as $f) {
+            if ($f->type)
+            {
+                $income += $f->value;
+            }
+            else
+            {
+                $expens += $f->value;
+            }
+        }
+        $total = $income - $expens;
+
         return view('home', [
             'player'   => $player,
             'team'     => $team,
             'teams'    => $teams,
             'matchups' => $matchups,
             'total_p'  => $count,
-            'trust'    => $trust
+            'trust'    => $trust,
+            'finances' => $finances,
+            'income'   => $income,
+            'expenses' => $expens,
+            'total'    => $total,
         ]);
     }
 
