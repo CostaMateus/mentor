@@ -31,6 +31,12 @@
             border: none !important;
         }
 
+        #tb-team-finances .tb-title { text-align: right !important; width: 50%; }
+        #tb-team-finances .tb-value { text-align: left !important;  width: 50%; }
+        #tb-team-finances #income   tbody tr:last-child,
+        #tb-team-finances #expenses tbody tr:last-child,
+        #tb-team-finances #total    tbody tr:last-child { background-color: rgba(0, 0, 0, .05); }
+
     </style>
 @endsection
 
@@ -239,12 +245,12 @@
                         </div>
                         <div class="col-12 py-2" >
                             <h4 class="mb-0 text-left" >Caixa:
-                                <a class="text-info" href="" data-toggle="modal" data-target="#teamFinancesModal" >
-                                    <strong><u>R$ 148 mil</u></strong>
+                                <a class="text-info" href="" data-toggle="modal" data-target="#team-finances" >
+                                    <strong><u>R$ {{ Helper::formatSalary($total) }}</u></strong>
                                 </a>
                             </h4>
                         </div>
-                        <div class="col-12 pt-2" >
+                        <div class="col-12 pt-2 d-none" >
                             <!-- <h4 class="text-left" >Notificações: <a href="msgs.html" class="text-info"><strong>sem novas notificações</strong></a></h4> -->
                             <h4 class="mb-0 text-left" >Notificações:
                                 <a href="msgs.html" class="" ><span class="badge badge-info">2 novas</span></a>
@@ -368,6 +374,10 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal finance --}}
+    @include('home-parts.finance')
+
 @endsection
 
 @section('scripts')
