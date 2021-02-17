@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div id="modal-convite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="t-convite" aria-hidden="true">
+    {{-- <div id="modal-convite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="t-convite" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('scripts')
