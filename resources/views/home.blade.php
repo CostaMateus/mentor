@@ -66,7 +66,7 @@
 
                             <div class="row py-2" >
                                 <div class="col-12 text-center" >
-                                    <h4>CBLOL 20?? - ?ª Etapa</h4>
+                                    <h4>CBLOL {{ Helper::getYear($matchups[0]->date) }} - {{ $matchups[0]->split }}ª Etapa</h4>
                                     <h5>Posição atual: <strong>?°</strong></h5>
                                     <h6>Treinador: <a class="text-info" href="/">{{ $player->name . ' \'' . $player->nickname . '\' ' . $player->lastname }}</a></h6>
                                 </div>
@@ -122,8 +122,8 @@
                                         $rolTx1 = $p->attribute->role;
                                         $rolTx2 = $p->attribute->secondary_role;
 
-                                        $role1  = Helper::formatteRole($rolTx1);
-                                        $role2  = Helper::formatteRole($rolTx2);
+                                        $role1  = Helper::formatRole($rolTx1);
+                                        $role2  = Helper::formatRole($rolTx2);
                                     @endphp
 
                                     <tr id="p-{{ $p->id }}" >
@@ -246,7 +246,7 @@
                         <div class="col-12 py-2" >
                             <h4 class="mb-0 text-left" >Caixa:
                                 <a class="text-info" href="" data-toggle="modal" data-target="#team-finances" >
-                                    <strong><u>R$ {{ Helper::formatSalary($total) }}</u></strong>
+                                    <strong><u>R$ {{ Helper::formatSalary($finances->last()->value) }}</u></strong>
                                 </a>
                             </h4>
                         </div>
@@ -401,8 +401,8 @@
                 if (p.id == id)
                 {
                     $('#p-infos-name').html(p.nickname).attr('title', `${p.name} ${p.lastname}`);
-                    $('#p-infos-role').html(   `1ª p.:               ${formatteRoleFull(p.attribute.role)[0]}`);
-                    $('#p-infos-secund').html( `2ª p.:               ${formatteRoleFull(p.attribute.secondary_role)[0]}`);
+                    $('#p-infos-role').html(   `1ª p.:               ${formatRoleFull(p.attribute.role)[0]}`);
+                    $('#p-infos-secund').html( `2ª p.:               ${formatRoleFull(p.attribute.secondary_role)[0]}`);
                     $('#p-infos-age').html(    `Idade:               ${p.age}`);
                     $('#p-infos-force').html(  `Força:               ${p.attribute.force}`);
                     $('#p-infos-salary').html( `Salário:<br>R$       ${formatCurrency(p.attribute.salary)}`);

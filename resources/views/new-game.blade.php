@@ -392,7 +392,7 @@
                     success: function ( data ) {
                         console.log( data );
 
-                        location.href = '{{ url("/") }}';
+                        location.href = `{{ url("/conf") }}?i=${data.id}&u=${data.user_id}`;
                     },
                     error: function ( err ) {
                         if ( err.status == 422 )

@@ -21,9 +21,9 @@
                             </thead>
                             <tbody class="customScrollbar">
                                 @foreach ($finances as $f)
-                                    @if ($f->type)
+                                    @if ($f->type && $f->category != 'balance')
                                         <tr>
-                                            <td class="tb-title" >{{ Helper::formatteFinance($f->category) }}</td>
+                                            <td class="tb-title" >{{ Helper::formatFinance($f->category) }}</td>
                                             <td class="tb-value" >{{ Helper::formatSalary($f->value) }}</td>
                                         </tr>
                                     @endif
@@ -46,9 +46,9 @@
                             </thead>
                             <tbody class="customScrollbar">
                                 @foreach ($finances as $f)
-                                    @if (!$f->type)
+                                    @if (!$f->type && $f->category != 'balance')
                                         <tr>
-                                            <td class="tb-title" >{{ Helper::formatteFinance($f->category) }}</td>
+                                            <td class="tb-title" >{{ Helper::formatFinance($f->category) }}</td>
                                             <td class="tb-value" >{{ Helper::formatSalary($f->value) }}</td>
                                         </tr>
                                     @endif
@@ -80,7 +80,7 @@
                                 </tr>
                                 <tr>
                                     <td class="tb-title" ><strong>Saldo</strong>:</td>
-                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($total) }}</strong></td>
+                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($finances->last()->value) }}</strong></td>
                                 </tr>
                             </tbody>
                         </table>

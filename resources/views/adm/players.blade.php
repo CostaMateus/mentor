@@ -243,8 +243,8 @@
                             $rolTx1 = $player->role;
                             $rolTx2 = $player->secondary_role;
 
-                            $role1  = Helper::formatteRole($rolTx1);
-                            $role2  = Helper::formatteRole($rolTx2);
+                            $role1  = Helper::formatRole($rolTx1);
+                            $role2  = Helper::formatRole($rolTx2);
 
                             $formt  = date_format(new DateTime( $player->contract ), "d/m/Y");
 
@@ -730,10 +730,10 @@
             let team_initials = (player.team_initials) ? player.team_initials : '';
 
             let rolTx1        = player.role;
-            let role1         = formatteRoleFull(rolTx1)[0];
+            let role1         = formatRoleFull(rolTx1)[0];
 
             let rolTx2        = player.secondary_role;
-            let role2         = formatteRoleFull(rolTx2)[0];
+            let role2         = formatRoleFull(rolTx2)[0];
 
             let force         = player.force;
             let energy        = player.energy;

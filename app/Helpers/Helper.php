@@ -7,7 +7,7 @@ use DateTime;
 class Helper
 {
 
-    public static function formatteRole($role)
+    public static function formatRole($role)
     {
         switch (strtolower($role)) {
             case 'top':
@@ -28,7 +28,7 @@ class Helper
         }
     }
 
-    public static function formatteRoleFull($role)
+    public static function formatRoleFull($role)
     {
         switch (strtolower($role)) {
             case 'top':
@@ -72,7 +72,7 @@ class Helper
         return (new DateTime($date))->format('d/m/Y');
     }
 
-    public static function formatteFinance($cat)
+    public static function formatFinance($cat)
     {
         switch ($cat) {
             case 'in_awards':
@@ -120,5 +120,10 @@ class Helper
                 break;
 
         }
+    }
+
+    public static function getYear($date)
+    {
+        return explode('-', $date)[0];
     }
 }

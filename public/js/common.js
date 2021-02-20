@@ -56,7 +56,7 @@ window.getNameCountry = function(countries, code)
 }
 
 
-window.formatteRole = function(role)
+window.formatRole = function(role)
 {
     switch (role.toLowerCase()) {
         case 'top':
@@ -73,7 +73,7 @@ window.formatteRole = function(role)
 }
 
 
-window.formatteRoleFull = function(role)
+window.formatRoleFull = function(role)
 {
     switch (role.toLowerCase()) {
         case 'top':

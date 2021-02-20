@@ -273,12 +273,12 @@
 
             players.forEach(player => {
                 let rolTx1  = player.attribute.role;
-                let aux_r   = formatteRoleFull(rolTx1);
+                let aux_r   = formatRoleFull(rolTx1);
                 let role1   = aux_r[0];
                 let order   = aux_r[1];
 
                 let rolTx2  = player.attribute.secondary_role;
-                let role2   = formatteRoleFull(rolTx2)[0];
+                let role2   = formatRoleFull(rolTx2)[0];
 
                 let force   = player.attribute.force;
                 let energy  = player.attribute.energy;
