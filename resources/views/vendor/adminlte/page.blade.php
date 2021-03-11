@@ -17,8 +17,8 @@
         table tr td {
             vertical-align: middle!important;
         }
-        .bg-img-team     { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; }
-        .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; }
+        .bg-img-team     { background-color: #ABB9C0; border-radius: 4px; max-height: 140px; max-width: 140px; padding: 5px; }
+        .bg-img-team-max { background-color: #ABB9C0; border-radius: 10px; max-height: 400px; max-width: 400px; padding: 5px; }
         #icon-team .modal-body,
         #icon-league .modal-body { border-radius: .3rem; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5); }
 
