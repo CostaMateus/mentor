@@ -15,7 +15,7 @@
         .container, .container-fluid { margin-top: 58px; }
 
         .bg-default { background-color:#F2F2F2; }
-        .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; }
+        .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; padding: 5px}
 
         #team-infos h1,
         #team-infos h3 { text-decoration: underline; }
@@ -30,12 +30,29 @@
         #players-table {
             border: none !important;
         }
+        #players-table tbody tr:hover {
+            cursor: pointer;
+        }
 
         #tb-team-finances .tb-title { text-align: right !important; width: 50%; }
         #tb-team-finances .tb-value { text-align: left !important;  width: 50%; }
         #tb-team-finances #income   tbody tr:last-child,
         #tb-team-finances #expenses tbody tr:last-child,
         #tb-team-finances #total    tbody tr:last-child { background-color: rgba(0, 0, 0, .05); }
+
+
+        #rankingModal table .tb-icon img  { width:30px; }
+        #rankingModal table .tb-icon      { padding:10px 0px 10px 7px; margin:auto 0; }
+        #rankingModal table .tb-icon,
+        #rankingModal table .tb-position  { text-align:center; width:5%; }
+        #rankingModal table .tb-color     { width:.25%; padding:0 1.5px; }
+        #rankingModal table .tb-name      { text-align:left; width:50%; }
+        #rankingModal table .tb-ps        { text-align:center; width:10%; }
+        #rankingModal .color-final        { color:#56B600; }
+        #rankingModal .color-climbing     { color:#9F2487; }
+        #rankingModal .color-pre-climbing { color:#2B2FD0; }
+        #rankingModal .color-promotion    { color:#7f7871; }
+        #rankingModal .color-demotion     { color:#DC3545; }
 
     </style>
 @endsection
@@ -67,7 +84,7 @@
                             <div class="row py-2" >
                                 <div class="col-12 text-center" >
                                     <h4>CBLOL {{ Helper::getYear($matchups[0]->date) }} - {{ $matchups[0]->split }}ª Etapa</h4>
-                                    <h5>Posição atual: <strong>?°</strong></h5>
+                                    <h5>Posição atual: <strong>{{ $team->position }}°</strong></h5>
                                     <h6>Treinador: <a class="text-info" href="/">{{ $player->name . ' \'' . $player->nickname . '\' ' . $player->lastname }}</a></h6>
                                 </div>
                             </div>
@@ -198,32 +215,19 @@
                                 </a>
                             </h3>
                         </div>
-                        @foreach ($matchups as $m)
-                            @if ($m->winner_team_id == null)
-                                @php
-                                    $adv = ($team->id == $m->blue_team_id) ? $m->red_team_id : $m->blue_team_id;
-                                @endphp
 
-                                @if ($team->id == $m->blue_team_id || $team->id == $m->red_team_id)
-                                    <div class="col-6 text-center my-auto">
-                                        @foreach ($teams as $t)
-                                            @if ($t->id == $adv)
-                                                <a href="/">
-                                                    <img src="{{ asset('images/game/leagues/teams') . '/' . $t->image }}" class="m-auto d-block bg-img-team w-50 " >
-                                                </a>
-                                                <h6>{{ $t->initials}} (?°)</h6>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="col-6 text-center my-auto">
-                                        <h6>Rodada {{ $m->round }}</h6>
-                                        <small>{{ Helper::formatDate($m->date) }}</small>
-                                    </div>
+                        <div class="col-6 text-center my-auto">
+                            <a href="/">
+                                <img src="{{ asset('images/game/leagues/teams') . '/' . $nextMatch['adv']->image }}" class="m-auto d-block bg-img-team w-50 "
+                                     onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/teams') . '/default.png' }}';">
+                            </a>
+                            <h6>{{ $nextMatch['adv']->initials}} ({{ $nextMatch['position'] }}°)</h6>
+                        </div>
+                        <div class="col-6 text-center my-auto">
+                            <h6>Rodada {{ $nextMatch['matchup']->round }}</h6>
+                            <small>{{ Helper::formatDate($nextMatch['matchup']->date) }}</small>
+                        </div>
 
-                                    @break
-                                @endif
-                            @endif
-                        @endforeach
                         <div class="col-12 text-center mt-4 mb-2">
                             <a class="btn btn-info btn-lg" href="/" >
                                 ESCALAR TIME
@@ -238,7 +242,7 @@
                 <div class="p-2 bg-default h-100">
                     <div class="row">
                         <div class="col-8 pb-2 " >
-                            <h4 class="mb-0 text-left" >Jogadores: {{ $total_p }}/15</h4>
+                            <h4 class="mb-0 text-left" >Jogadores: {{ $total_ply }}/15</h4>
                         </div>
                         <div class="col-4 pb-2 " >
                             <p class="mb-0 text-right" >23/01/2019</p>
@@ -377,6 +381,8 @@
 
     {{-- Modal finance --}}
     @include('home-parts.finance')
+    {{-- Modal rankings --}}
+    @include('home-parts.rankings')
 
 @endsection
 
@@ -391,6 +397,15 @@
         $(document).ready(function () {
             let t = $('tbody tr').first().attr('id');
             $('#' + t).click();
+
+            // $('#league_id').val({{ session('p_league_id') }}).trigger('change');
+            // $('#division_id').val({{ session('p_division_id') }}).trigger('change');
+        });
+
+        // OPEN ranking modal
+        $('#btnRankingModal').on('click', function (e) {
+            $('#league_id').val({{ session('p_league_id') }}).trigger('change');
+            $('#division_id').val({{ session('p_division_id') }}).trigger('change');
         });
 
         $('[id*=p-]').on('click', function (e) {
@@ -410,6 +425,72 @@
                 }
             });
         });
+
+
+        $('#league_id').on('change', function () {
+            $('#division_id').removeAttr('disabled');
+            insertDivisions(this.value);
+        });
+        $('#division_id').on('change', function () {
+            insertTeams(this.value);
+        });
+
+        {{-- INSERT DIVISIONS --}}
+        insertDivisions = function (id)
+        {
+            const divisions = {!! $divisions !!};
+            let opts        = '';
+
+            divisions.forEach(division => {
+                if (division.league_id == {{ session('p_league_id') }})
+                {
+                    let selected = (division.id == {{ session('p_division_id') }}) ? 'selected' : '';
+                    opts += '<option value="' + division.id + '" ' + selected + ' >' + division.initials + '</option>';
+                }
+            });
+
+            $('#division_id').html(opts);
+        }
+
+        {{-- INSERT TEAMS --}}
+        insertTeams = function (division_id)
+        {
+            let tr           = '';
+            const teams      = {!! $teams !!};
+            const rankings   = JSON.parse('{!! json_encode($rankings) !!}');
+            let team_ranking = [];
+
+            for (let i = 0; i < 10; i++) {
+                team_ranking.push(rankings[division_id][i]);
+            }
+            team_ranking.sort((a, b) => a.position - b.position );
+
+            team_ranking.forEach(e => {
+                let team;
+                teams.forEach(t => {
+                    if (t.id == e.team_id)
+                    {
+                        team = t;
+                    }
+                });
+
+                tr += `
+                    <tr>
+                        <td class="tb-position"                 >${e.position}</td>
+                        <td class="tb-color " ></td>
+                        <td class="tb-icon" >
+                            <img src="{{ asset('images/game/leagues/teams') }}/${team.image}" class="img-fluid mx-auto d-block"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/teams') . '/default.png' }}';" />
+                        </td>
+                        <td class="tb-name" >${team.name}</td>
+                        <td class="tb-ps"   >${e.victories}</td>
+                        <td class="tb-ps"   >${e.defeats}</td>
+                    </tr>
+                `;
+            });
+
+            $('#tbRanking table tbody').html(tr);
+        }
 
     </script>
 
