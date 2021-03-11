@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountriesSeeder::class,
             UsersSeeder::class,
-            // CodesSeeder::class,
             LeaguesSeeder::class,
             TeamsSeeder::class,
             PlayersSeeder::class,
