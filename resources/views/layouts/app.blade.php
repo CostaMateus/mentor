@@ -179,7 +179,7 @@
 
                     {{-- ranking --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="" data-toggle="modal" data-target="#default" >Classificação</a>
+                        <a id="btnRankingModal" class="nav-link" href="" data-toggle="modal" data-target="#rankingModal" >Classificação</a>
                     </li>
 
                     {{-- trainings --}}
