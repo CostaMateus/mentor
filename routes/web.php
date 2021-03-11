@@ -18,6 +18,8 @@ Route::get('/callback', 'LoginController@callback')->name('google.callback');
 
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
+// Route::get('/load', 'TestController@load'); // rota de teste
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('welcome');
@@ -25,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/novo', 'HomeController@newGame')->name('new-game');
+    Route::get('/conf', 'HomeController@setConfigs')->name('set-configs');
 
     Route::get('/admin', function () {
         return view('adm.home');
@@ -54,5 +57,5 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    Route::get('/teste', 'TestController@index');
+    // Route::get('/teste', 'TestController@index'); // rota de teste
 });
