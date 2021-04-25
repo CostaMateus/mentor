@@ -65,10 +65,7 @@ class HomeController extends Controller
             return $p->mentor != 1;
         })->count();
 
-        foreach ($rankings[$team->division_id] as $auxT)
-        {
-            if ($team->id == $auxT['team_id']) $team->position = $auxT['position'];
-        }
+        $team->position = collect($rankings[$team->division_id])->where('team_id', $team->id)->first()['position'];
 
         return view('home', [
             'leagues'   => League::where('special', 0)->orderBy('name')->get(),
@@ -371,7 +368,7 @@ class HomeController extends Controller
 
     protected function calcRankings($teams, $matchups)
     {
-        $i = 0;
+        $i   = 0;
         $aux = array();
         foreach ($teams as $t)
         {
