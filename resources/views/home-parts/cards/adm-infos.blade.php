@@ -12,14 +12,16 @@
                         <div class="col-12 py-2" >
                             <h4 class="mb-0 text-left" >Caixa:
                                 <a class="text-info" href="" data-toggle="modal" data-target="#team-finances" >
-                                    <strong><u>R$ {{ Helper::formatSalary($finances->last()->value) }}</u></strong>
+                                    <strong><u>R$ {{ Helper::formatSalary($finances->total) }}</u></strong>
                                 </a>
                             </h4>
                         </div>
                         <div class="col-12 pt-2 d-none" >
-                            <!-- <h4 class="text-left" >Notificações: <a href="msgs.html" class="text-info"><strong>sem novas notificações</strong></a></h4> -->
+                            <h4 class="text-left" >Notificações:
+                                <a href="" class="text-info"><strong>sem novas notificações</strong></a>
+                            </h4>
                             <h4 class="mb-0 text-left" >Notificações:
-                                <a href="msgs.html" class="" ><span class="badge badge-info">2 novas</span></a>
+                                <a href="" class="" ><span class="badge badge-info">2 novas</span></a>
                             </h4>
                         </div>
                     </div>

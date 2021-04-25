@@ -20,7 +20,7 @@
                                 </tr>
                             </thead>
                             <tbody class="customScrollbar">
-                                @foreach ($finances as $f)
+                                @foreach ($finances->details as $f)
                                     @if ($f->type && $f->category != 'balance')
                                         <tr>
                                             <td class="tb-title" >{{ Helper::formatFinance($f->category) }}</td>
@@ -30,7 +30,7 @@
                                 @endforeach
                                 <tr>
                                     <td class="tb-title" ><strong>Total receita</strong>:</td>
-                                    <td class="tb-value" >{{ Helper::formatSalary($income) }}</td>
+                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($finances->income) }}</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -45,7 +45,7 @@
                                 </tr>
                             </thead>
                             <tbody class="customScrollbar">
-                                @foreach ($finances as $f)
+                                @foreach ($finances->details as $f)
                                     @if (!$f->type && $f->category != 'balance')
                                         <tr>
                                             <td class="tb-title" >{{ Helper::formatFinance($f->category) }}</td>
@@ -55,7 +55,7 @@
                                 @endforeach
                                 <tr>
                                     <td class="tb-title" ><strong>Total despesas</strong>:</td>
-                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($expenses) }}</strong></td>
+                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($finances->expenses) }}</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -72,15 +72,15 @@
                             <tbody class="customScrollbar">
                                 <tr>
                                     <td class="tb-title" >Receita:</td>
-                                    <td class="tb-value" >{{ Helper::formatSalary($income) }}</td>
+                                    <td class="tb-value" >{{ Helper::formatSalary($finances->income) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="tb-title" >Despesa:</td>
-                                    <td class="tb-value" >{{ Helper::formatSalary($expenses) }}</td>
+                                    <td class="tb-value" >{{ Helper::formatSalary($finances->expenses) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="tb-title" ><strong>Saldo</strong>:</td>
-                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($finances->last()->value) }}</strong></td>
+                                    <td class="tb-value" ><strong>{{ Helper::formatSalary($finances->total) }}</strong></td>
                                 </tr>
                             </tbody>
                         </table>
