@@ -35,12 +35,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $player = Player::where('user_id', Auth::user()->id)->first();
+        $player   = Player::where('user_id', Auth::user()->id)->first();
 
-        if (is_null($player))
-        {
-            return redirect('/novo');
-        }
+        if (is_null($player)) return redirect('/novo');
 
         $player->load('attribute');
 
@@ -63,35 +60,14 @@ class HomeController extends Controller
 
         $trust    = Trust::where('player_id', $player->id)->first();
 
-        $finances = Finance::where('team_id', $team->id)->get();
-
-        $count    = 0;
-        foreach ($team->players as $p) {
-            if (!$p->mentor)
-            {
-                $p->load('attribute');
-                $count++;
-            }
-        }
-
-        $income = 0;
-        $expens = 0;
-        foreach ($finances as $f) {
-            if ($f->type)
-            {
-                $income += $f->value;
-            }
-            else
-            {
-                $expens += $f->value;
-            }
-        }
-        $total = $income - $expens;
+        $count    = $team->players->filter(function ($p) {
+            $p->load('attribute');
+            return $p->mentor != 1;
+        })->count();
 
         foreach ($rankings[$team->division_id] as $auxT)
         {
-            if ($team->id == $auxT['team_id'])
-                $team->position = $auxT['position'];
+            if ($team->id == $auxT['team_id']) $team->position = $auxT['position'];
         }
 
         return view('home', [
@@ -109,10 +85,7 @@ class HomeController extends Controller
             'total_ply' => $count,
             'trust'     => $trust,
 
-            'finances'  => $finances,
-            'income'    => $income,
-            'expenses'  => $expens,
-            'total'     => $total,
+            'finances'  => $this->getFinances($team->id),
         ]);
     }
 
@@ -140,17 +113,11 @@ class HomeController extends Controller
     {
         $req = $request->all();
 
-        if (!isset($req['u']) && !isset($re['i']))
-        {
-            return redirect('/');
-        }
+        if (!isset($req['u']) && !isset($re['i'])) return redirect('/');
 
         $player = Player::where('user_id', Auth::user()->id)->first();
 
-        if (is_null($player))
-        {
-            return redirect('/novo');
-        }
+        if (is_null($player)) return redirect('/novo');
 
         $this->seedFinancesForAllTeams();
         $this->seedMatchsForAllTeams();
@@ -158,6 +125,7 @@ class HomeController extends Controller
 
         return redirect('/');
     }
+
 
 
     protected function seedMatchsForAllTeams()
@@ -194,8 +162,7 @@ class HomeController extends Controller
                 // começa no sábado
                 // adiciona um dia, jogo no domingo
                 // adiciona mais 6 dias, jogo no proximo sabado
-                if ($round > 1)
-                    ($round % 2 == 0) ? $dateMatchup->addDays(1) : $dateMatchup->addDays(6);
+                if ($round > 1) ($round % 2 == 0) ? $dateMatchup->addDays(1) : $dateMatchup->addDays(6);
 
                 foreach ($rounds as $matchup)
                 {
@@ -216,7 +183,7 @@ class HomeController extends Controller
             }
 
             // volta
-            foreach ($schedule as $key => $rounds)
+            foreach ($schedule as $rounds)
             {
                 // intervalo de 2 semanas
                 if ($round == 11)
@@ -357,13 +324,9 @@ class HomeController extends Controller
                 if ($t->id == $f['team_id'])
                 {
                     if ($f['type'])
-                    {
                         $in += $f['value'];
-                    }
                     else
-                    {
                         $out += $f['value'];
-                    }
                 }
             }
 
@@ -392,8 +355,7 @@ class HomeController extends Controller
 
                 foreach ($rankings as $auxT)
                 {
-                    if ($adv == $auxT['team_id'])
-                        $p = $auxT['position'];
+                    if ($adv == $auxT['team_id']) $p = $auxT['position'];
                 }
 
                 return [
@@ -403,6 +365,8 @@ class HomeController extends Controller
                 ];
             }
         }
+
+        return null;
     }
 
     protected function calcRankings($teams, $matchups)
@@ -454,6 +418,30 @@ class HomeController extends Controller
         }
 
         return $aux;
+    }
+
+    protected function getFinances($team_id)
+    {
+        $details = Finance::where('team_id', $team_id)->get();
+
+        $income = 0;
+        $expens = 0;
+        foreach ($details as $f)
+        {
+            if ($f->type)
+                $income += $f->value;
+            else
+                $expens += $f->value;
+        }
+
+        $total = $income - $expens;
+
+        return (object) [
+            'details'  => $details,
+            'income'   => $income,
+            'expenses' => $expens,
+            'total'    => $total
+        ];
     }
 }
 
