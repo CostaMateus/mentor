@@ -48,8 +48,8 @@ class HomeController extends Controller
             'p_team_id'     => $team->id
         ]);
 
-
-        $matchups = Matchup::where('division_id', $team->division_id)->get();
+        // $matchups = Matchup::where('division_id', $team->division_id)->get();
+        $matchups = Matchup::get();
 
         // $teams    = Team::where('division_id', $team->division_id)->get();
         $teams    = Team::orderBy('league_id')->orderBy(DB::raw('ISNULL(division_id), division_id'), 'ASC')->orderBy('name')->get();
@@ -170,7 +170,7 @@ class HomeController extends Controller
                         "division_id"    => $division_id,
                         "blue_team_id"   => $matchup[0],
                         "red_team_id"    => $matchup[1],
-                        "winner_team_id" => null,
+                        "winner_team_id" => rand($matchup[0], $matchup[1]),
                         "created_at"     => $dateCreate,
                         "updated_at"     => $dateCreate,
                     ];
@@ -368,6 +368,8 @@ class HomeController extends Controller
 
     protected function calcRankings($teams, $matchups)
     {
+        // dd($teams, $matchups);
+
         $i   = 0;
         $aux = array();
         foreach ($teams as $t)
