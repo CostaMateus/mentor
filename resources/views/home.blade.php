@@ -22,9 +22,12 @@
 
         #team-infos   .bg-default,
         #players-card .bg-default { min-height: 405px; }
-        #player-infos .bg-default,
-        #game-infos   .bg-default,
-        #adm-infos    .bg-default { min-height: 270px; }
+
+        @media (min-width: 992px) {
+            #player-infos .bg-default,
+            #game-infos   .bg-default,
+            #adm-infos    .bg-default { min-height: 270px; }
+        }
 
         .table-mentor th,
         .table-mentor td { padding: .4rem; vertical-align: middle; }
@@ -208,6 +211,8 @@
     {{-- Modal final-stats --}}
     @if ($nextMatch == null)
     @include('home-parts.final-stats')
+    @else
+    @include('home-parts.next-match')
     @endif
 
 @endsection
@@ -327,4 +332,5 @@
 
     </script>
 
+    @yield('compl_js')
 @endsection
