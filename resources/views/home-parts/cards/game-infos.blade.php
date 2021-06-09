@@ -1,6 +1,6 @@
 
             {{-- GAME INFOS --}}
-            <div id="game-infos" class="col-12 col-md-6 col-lg-4 px-2 pl-md-1 px-lg-1 pt-1 pb-2" >
+            <div id="game-infos" class="col-12 col-md-6 col-lg-4 px-2 pl-md-1 px-lg-1 pt-1 pb-1 pb-lg-2" >
                 <div class="p-2 bg-default h-100">
                     <div class="row">
                         @if ($nextMatch != null)
@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="col-12 text-center mt-4 mb-2">
-                                <a class="btn btn-info btn-lg" href="/" >
+                                <a class="btn btn-info btn-lg" href="" data-toggle="modal" data-target="#nextmatchModal" >
                                     ESCALAR TIME
                                 </a>
                             </div>
