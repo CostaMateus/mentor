@@ -170,7 +170,7 @@
                             Finanças
                         </a>
                         <div class="dropdown-menu" aria-labelledby="financesDropdown">
-                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Finanças do time</a>
+                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#team-finances" >Finanças do time</a>
                             <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Empréstimo bancário</a>
                             <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Patrocinadores</a>
                             <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Loja</a>
