@@ -1,6 +1,6 @@
 
             {{-- PLAYER INFOS --}}
-            <div id="player-infos" class="col-12 col-md-6 col-lg-4 px-2 pr-md-1 pt-1 pb-2" >
+            <div id="player-infos" class="col-12 col-md-6 col-lg-4 px-2 pr-md-1 pt-1 pb-1 pb-lg-2" >
                 <div class="p-2 bg-default h-100">
                     <div class="row h-100">
                         <div class="col-12 col-md-6 my-auto">
