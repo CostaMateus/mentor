@@ -38,7 +38,7 @@
                             <td class="text-center" >{{ $loop->iteration }}</td>
                             <td class="text-center" >
                                 <button type="button" class="btn icon-league" data-image="{{ $league->image }}">
-                                    <img class="bg-img-team" src="{{ asset('images/game/leagues/' . $league->image) }}"
+                                    <img class="bg-img-team" src="{{ asset("images/game/leagues/" . $league->image) }}"
                                          onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/default.png') }}';"
                                          alt="{{ $league->initials }}" width="50px" height="50px">
                                 </button>
@@ -48,11 +48,7 @@
                             <td class="text-center" >{{ $league->nrdivisions }}</td>
 
                             <td class="text-center" >
-                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}"
-                                                                                  data-name="{{ $league->name }}"
-                                                                                  data-nrd="{{ $league->nrdivisions }}"
-                                                                                  data-image="{{ $league->image }}"
-                                                                                  data-initials="">
+                                <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -68,19 +64,26 @@
                                 </button>
                             </td>
                         </tr>
+
+                        {{-- SEE --}}
+                        @include('adm/partials.modal-see', [
+                            "modal_id"   => "see-league-$league->id",
+                            "title_id"   => "see-league-$league->id-title",
+                            "title_name" => $league->name,
+                            "image_path" => asset("images/game/leagues"),
+                            "image_name" => $league->image,
+                            "image_alt"  => $league->initials,
+                            "part"       => "league",
+                            "data"       => [
+                                "divisions" => $league->divisions,
+                                "teams"     => $league->teams
+                            ],
+                        ])
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    {{-- SEE --}}
-    @include('adm/partials.modal-see', [
-        'modalId' => 'see-league',
-        'title'   => 'see-league-title',
-        'image'   => 'see-league-image',
-        'body'    => 'league-divisions',
-    ])
 
     {{-- NEW --}}
     <div id="new-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-league-title" aria-hidden="true" >
@@ -212,137 +215,48 @@
 @section('js')
     <script>
         // Bootstrap Table
-        getbootstrapTable('leagues-table', {
-            locale: 'pt-br',
+        getbootstrapTable("leagues-table", {
+            locale: "pt-br",
             // height: 710,
-            // pageSize: '25',
-            // pagination: 'true',
-            // paginationVAlign: 'top',
-            // pageList: [25, 50, 100, 200, 'All'],
+            // pageSize: "25",
+            // pagination: "true",
+            // paginationVAlign: "top",
+            // pageList: [25, 50, 100, 200, "All"],
         });
 
         // SEE
-        $(document).on('click', '.see-league', function() {
-            let id        = $(this).data('id');
-            let name      = $(this).data('name');
-            let nrd       = $(this).data('nrd');
-            let image     = $(this).data('image');
-            let divisions = {!! $divisions !!};
-            let teams     = {!! $teams !!};
-            let html      = '';
-
-            divisions.forEach(division => {
-                if (division.league_id == id)
-                {
-                    html += `
-                        <div class="col-12 col-md-6 border">
-                            <div class="row my-2">
-                                <div class="col-12">
-                                    <p class="h6 text-bold">${division.name}</p>
-                                </div>`;
-
-                    if (countTeamsInDivision(teams, division.id))
-                    {
-                        teams.forEach(team => {
-                            if (team.league_id == id && team.division_id == division.id)
-                            {
-                                let path   = '{{ asset("images/game/leagues/teams") }}';
-
-                                html += `
-                                <div class="col-6 my-1 d-flex">
-                                    <div class="my-auto">
-                                        <img class="bg-img-team p-1 mr-1" src="${path}/${team.image}" onerror="this.onerror=null;this.src='${path}/default.png';" alt="${team.initials}" width="50px" height="50px">
-                                    </div>
-                                    <div class="flex-fill align-self-center">
-                                        <p class="mb-0" >${team.name}</p>
-                                    </div>
-                                </div>`;
-                            }
-                        });
-                    }
-                    else
-                    {
-                        html += `<div class="col-6 my-1 d-flex"><p class="mb-0">Nenhum time encontrado.<p></div>`;
-                    }
-
-                    html += `
-                            </div>
-                        </div>`;
-                }
-            });
-
-            if (checkTeamsWithoutDivisions(teams))
-            {
-                html += `
-                    <div class="col-12 col-md-6 border">
-                        <div class="row my-2">
-                            <div class="col-12">
-                                <p class="h6 text-bold" >Sem divisão</p>
-                            </div>`;
-
-                teams.forEach(team => {
-                    if (team.league_id == id && team.division_id == null)
-                    {
-                        let path   = '{{ asset("images/game/leagues/teams") }}';
-
-                        team.image = ``;
-
-                        html += `
-                            <div class="col-6 my-1 d-flex">
-                                <div class="my-auto">
-                                    <img class="bg-img-team p-1 mr-1" src="${path}/${team.image}" onerror="this.onerror=null;this.src='${path}/default.png';" alt="${team.initials}" width="50px" height="50px">
-                                </div>
-                                <div class="flex-fill align-self-center">
-                                    <p class="mb-0" >${team.name}</p>
-                                </div>
-                            </div>`;
-                    }
-                });
-                html += `
-                        </div>
-                    </div>`;
-            }
-
-            if (nrd == 1) {
-                $('#league-divisions').addClass('justify-content-center');
-            }
-            $('#league-divisions').html(html);
-
-            let path = '{{ asset("images/game/leagues") }}';
-
-            $('#see-league-image').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`).attr('alt', name);
-
-            $('#see-league-title').html(name);
-            $('#see-league').modal('show');
+        $(document).on("click", ".see-league", function() {
+            let id = $(this).data("id");
+            $(`#see-league-${id}`).modal("show");
         });
 
         // NEW
-        $(document).on('click', '.new-league', function() {
-            $('#new-league').find('#name').val('');
-            $('#new-league').find('#initials').val('');
-            $('#new-league').find('#nrdivisions').val('').removeAttr('disabled');
-            $('#new-league').modal('show');
+        $(document).on("click", ".new-league", function() {
+            $("#new-league").find("#name").val("");
+            $("#new-league").find("#initials").val("");
+            $("#new-league").find("#nrdivisions").val("").removeAttr("disabled");
+            $("#new-league").modal("show");
         });
 
         // EDIT
-        $(document).on('click', '.edit-league', function() {
-            let id      = $(this).data('id');
+        $(document).on("click", ".edit-league", function() {
+            let id      = $(this).data("id");
 
-            $('#edit-league-form').attr('action', '{{ url("/leagues") }}' + '/' + id + '/update').attr('method', 'POST');
+            $("#edit-league-form").attr("action", `{{ url("/leagues") }}/${id}/update`).attr("method", "POST");
 
             $.ajax({
-                type: 'GET',
-                url: '{{ url("/leagues") }}' + '/' + id,
+                type: "GET",
+                url: `{{ url("leagues") }}/${id}`,
                 success: function ( data ) {
                     // console.log( data );
                     let league = data;
 
-                    $('#edit-league').find('#edit-league-title').html('Editar liga');
-                    $('#edit-league').find('#name').html(league.name).val(league.name);
-                    $('#edit-league').find('#initials').html(league.initials).val(league.initials);
-                    $('#edit-league').find('#nrdivisions').html(league.nrdivisions).val(league.nrdivisions).attr('disabled', 'disabled');
-                    $('#edit-league').find('#image').html(league.image).val();
-                    $('#edit-league').modal('show');
+                    $("#edit-league").find("#edit-league-title").html("Editar liga");
+                    $("#edit-league").find("#name").html(league.name).val(league.name);
+                    $("#edit-league").find("#initials").html(league.initials).val(league.initials);
+                    $("#edit-league").find("#nrdivisions").html(league.nrdivisions).val(league.nrdivisions).attr("disabled", "disabled");
+                    $("#edit-league").find("#image").html(league.image).val();
+                    $("#edit-league").modal("show");
                 },
                 error: function ( err ) {
                     console.log( err );
@@ -351,25 +265,26 @@
         });
 
         // DEL
-        $(document).on('click', '.del-league', function() {
-            $('#del-league-title').html($(this).data('name'));
-            $('#del-league-form').attr('data-id', $(this).data('id'));
-            $('#del-league').modal('show');
+        $(document).on("click", ".del-league", function() {
+            $("#del-league-title").html($(this).data("name"));
+            $("#del-league-form").attr("data-id", $(this).data("id"));
+            $("#del-league").modal("show");
         });
-        $('#del-league-form').on('submit', function(e) {
+        $("#del-league-form").on("submit", function(e) {
             e.preventDefault();
-            let url  = '{{ url("/leagues") }}' + '/' + $(this).data('id');
-            let data = $('#del-league-form').serialize();
+            let id   = $(this).data("id");
+            let url  = `{{ url("leagues") }}/${id}`;
+            let data = $("#del-league-form").serialize();
             deleteItem(url, data);
         });
 
         // ICON
-        $(document).on('click', '.icon-league', function() {
-            let path  = '{{ asset("images/game/leagues") }}';
-            let image = $(this).data('image');
+        $(document).on("click", ".icon-league", function() {
+            let path  = "{{ asset("images/game/leagues") }}";
+            let image = $(this).data("image");
 
-            $('#icon-league').find('img').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`);
-            $('#icon-league').modal('show');
+            $("#icon-league").find("img").attr("src", `${path}/${image}`).attr("onerror", `this.onerror=null;this.src="${path}/default.png";`);
+            $("#icon-league").modal("show");
         });
 
     </script>
