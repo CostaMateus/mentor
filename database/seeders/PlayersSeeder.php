@@ -64,7 +64,7 @@ class PlayersSeeder extends Seeder
 
         $teamCntry = $faker->randomElement($countries);
 
-        $y         = ($team != null) ? 6 : rand(50,100);
+        $y         = ($team != null) ? 8 : rand(50,100);
 
         $data      = [];
 
