@@ -90,7 +90,7 @@ return [
     'layout_boxed'         => null,
     'layout_fixed_sidebar' => true, // menu lateral fixo
     'layout_fixed_navbar'  => true, // menu superior fixo
-    'layout_fixed_footer'  => true, // footer fixo
+    'layout_fixed_footer'  => false, // footer fixo
 
     /*
     |--------------------------------------------------------------------------
