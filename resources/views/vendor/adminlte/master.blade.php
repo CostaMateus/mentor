@@ -41,7 +41,7 @@
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+        <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
     @endif
 
 </head>
@@ -61,6 +61,8 @@
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])
+
+        <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
     @endif
