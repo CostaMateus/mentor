@@ -12,7 +12,7 @@ class League extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'initials', 'nrdivisions', 'image',
+        "name", "initials", "nrdivisions", "image",
     ];
 
     /**
@@ -20,6 +20,14 @@ class League extends Model
      */
     public function divisions()
     {
-        return $this->hasMany('App\Models\Division');
+        return $this->hasMany("App\Models\Division");
+    }
+
+    /**
+     * Pega os Times que pertencem a essa Liga.
+     */
+    public function teams()
+    {
+        return $this->hasMany("App\Models\Team");
     }
 }
