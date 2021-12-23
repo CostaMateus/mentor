@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\TrophyController;
+use App\Http\Controllers\DivisionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,47 +21,48 @@
 
 Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);
 
-Route::get('/redirect', 'LoginController@redirect')->name('google.redirect');
-Route::get('/callback', 'LoginController@callback')->name('google.callback');
+Route::get('/redirect', [LoginController::class, 'redirect'])->name('google.redirect');
+Route::get('/callback', [LoginController::class, 'callback'])->name('google.callback');
 
-Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::get('/logout',   [LoginController::class, 'logout'])->name('logout');
 
 // Route::get('/load', 'TestController@load'); // rota de teste
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', 'HomeController@index')->name('welcome');
+    Route::get('/',                  [HomeController::class, 'index'])->name('welcome');
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home',              [HomeController::class, 'index'])->name('home');
 
-    Route::get('/novo', 'HomeController@newGame')->name('new-game');
-    Route::get('/conf', 'HomeController@setConfigs')->name('set-configs');
+    Route::get('/novo',              [HomeController::class, 'newGame'])->name('new-game');
+    Route::get('/conf',              [HomeController::class, 'setConfigs'])->name('set-configs');
 
     Route::get('/admin', function () {
         return view('adm.home');
     })->name('admin.home');
 
-    Route::get('/mentors', 'PlayerController@listMentors')->name('player.mentor');
+    Route::get('/mentors',           [PlayerController::class, 'listMentors'])->name('player.mentor');
 
-    Route::apiresource('/players', 'PlayerController');
-    Route::post('/players/{player}', 'PlayerController@update')->name('player.update');
+    Route::apiresource('/players',   PlayerController::class);
+    Route::post('/players/{player}', [PlayerController::class, 'update'])->name('player.update');
 
-    Route::apiresource('/trophies', 'TrophyController');
+    Route::apiresource('/trophies',  TrophyController::class);
 
-    Route::apiresource('/teams', 'TeamController');
-    Route::post('/teams/{team}', 'TeamController@update')->name('team.update');
+    Route::apiresource('/teams',     TeamController::class);
+    Route::post('/teams/{team}',     [TeamController::class, 'update'])->name('team.update');
 
     Route::prefix('leagues')->group(function () {
 
-        Route::get('/specials', 'LeagueController@specials');
+        Route::get('/specials',        [LeagueController::class, 'specials']);
 
-        Route::apiresource('/', 'LeagueController')->parameters(['' => 'league']);
-        Route::post('{league}/update', 'LeagueController@update');
+        Route::apiresource('/',        LeagueController::class)->parameters(['' => 'league']);
+        Route::post('{league}/update', [LeagueController::class, 'update']);
 
         Route::prefix('{league}/divisions')->group(function () {
 
-            Route::apiresource('/', 'DivisionController')->parameters(['' => 'division']);
-            Route::apiresource('{division}/teams', 'TeamController')->parameters(['' => 'team']);
+            Route::apiresource('/',                DivisionController::class)->parameters(['' => 'division']);
+            Route::apiresource('{division}/teams', TeamController::class)->parameters(['' => 'team']);
+
         });
     });
 
