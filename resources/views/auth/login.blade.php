@@ -23,24 +23,27 @@
 @section('content')
     <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-center">
-            <div class="card" style="width: 20rem;">
-                <div class="card-body p-3">
-                    <h3 class="card-title text-center mb-3">Mentor</h3>
-                    {{-- <h6 class="card-subtitle mb-3 text-muted text-center">Login</h6> --}}
+            <div class="section">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-body p-3">
+                        <h3 class="card-title text-center mb-3">Mentor</h3>
+                        {{-- <h6 class="card-subtitle mb-3 text-muted text-center">Login</h6> --}}
 
-                    <a href="/redirect" class="btn btn-mentor btn-block">
-                        <img src="{{ asset('images/login/g.png') }}" alt="" width="30" height="30" title="Bootstrap">
-                        Entrar com o Google
-                    </a>
+                        <a href="/redirect" class="btn btn-mentor btn-block">
+                            <img src="{{ asset('images/login/g.png') }}" alt="" width="30" height="30" title="Bootstrap">
+                            Entrar com o Google
+                        </a>
 
-                    @if (session('error'))
-                        <div class="text-danger text-center pt-1">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                        @if (session('error'))
+                            <div class="text-danger text-center pt-1">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
-                    {{-- <a id="convite" href="#" class="card-link text-mentor mt-3">Tenho convite</a> --}}
+                        {{-- <a id="convite" href="#" class="card-link text-mentor mt-3">Tenho convite</a> --}}
+                    </div>
                 </div>
+                <p class="text-white text-center h6 mt-3 mb-0" >&copy; {{ date("Y") }} CostaMateus</p>
             </div>
         </div>
     </div>
