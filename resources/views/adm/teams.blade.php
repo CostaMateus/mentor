@@ -51,15 +51,12 @@
                             </td>
                             <td class=""            >{{ $team->name }}</td>
                             <td class="text-center" >{{ $team->initials }}</td>
-                            <td class="text-center" >{{ $team->league_initials }}</td>
-                            <td class="text-center" >{{ $team->division_initials }}</td>
-                            <td class="text-center" >{{ $team->total_players }}</td>
+                            <td class="text-center" >{{ $team->league->initials }}</td>
+                            <td class="text-center" >{{ is_null($team->division) ? "" : $team->division->initials }}</td>
+                            <td class="text-center" >{{ $team->players->count() }}</td>
 
                             <td class="text-center" >
-                                <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}"
-                                                                                data-name="{{ $team->name }}"
-                                                                                data-initials="{{ $team->initials }}"
-                                                                                data-image="{{ $team->image }}">
+                                <button class="btn btn-link text-dark see-team" data-id="{{ $team->id }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
@@ -75,19 +72,25 @@
                                 </button>
                             </td>
                         </tr>
+
+                        {{-- SEE --}}
+                        @include('adm/partials/modal-see', [
+                            "modal_id"   => "see-team-$team->id",
+                            "title_id"   => "see-team-$team->id-title",
+                            "title_name" => $team->name,
+                            "image_path" => asset("images/game/leagues/teams"),
+                            "image_name" => $team->image,
+                            "image_alt"  => $team->initials,
+                            "part"       => "team",
+                            "data"       => [
+                                "players" => $team->players
+                            ],
+                        ])
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    {{-- SEE --}}
-    @include('adm/partials.modal-see', [
-        'modalId' => 'see-team',
-        'title'   => 'see-team-title',
-        'image'   => 'see-team-image',
-        'body'    => 'team-players',
-    ])
 
     {{-- NEW --}}
     <div id="new-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-team-title" aria-hidden="true" >
@@ -258,80 +261,10 @@
 
         // SEE
         $(document).on('click', '.see-team', function() {
-            let id        = $(this).data('id');
-            let name      = $(this).data('name');
-            let initials  = $(this).data('initials');
-            let image     = $(this).data('image');
-            let players   = {!! $players !!};
-            let countries = {!! $countries !!};
-            let html      = '';
-            let count     = 0;
 
-            html += `
-                <div class="col-12 border">
-                    <div class="row my-2">`;
+            let id = $(this).data("id");
+            $(`#see-team-${id}`).modal("show");
 
-            players.forEach(player => {
-                let rolTx1  = player.attribute.role;
-                let aux_r   = formatRoleFull(rolTx1);
-                let role1   = aux_r[0];
-                let order   = aux_r[1];
-
-                let rolTx2  = player.attribute.secondary_role;
-                let role2   = formatRoleFull(rolTx2)[0];
-
-                let force   = player.attribute.force;
-                let energy  = player.attribute.energy;
-                let salary  = formatCurrency(player.attribute.salary);
-                let pass    = formatCurrency(player.attribute.pass);
-
-                let country = getNameCountry(countries, player.nationality);
-
-                if (player.team_id == id)
-                {
-                    let ctt  = formatDate(player.attribute.contract);
-
-                    let flag = '{{ asset("images/flags") }}';
-
-                    count++;
-                    html += `
-                        <div class="col-6 my-1 d-flex order-${((player.mentor) ? '0' : order)}">
-                            <div class="my-auto mr-1">
-                                <i class="fas fa-user" ${((player.mentor) ? '' : 'style="color:#6c757d;"')} ></i>
-                            </div>
-                            <div class="flex-fill align-self-center striped p-2">
-                                <p class="mb-0 small" title="Posição primária e secundária" >
-                                    ${((player.mentor) ? '<strong>Treinador</strong> | ' : '' )}
-                                    1ª pos. <strong class="text-${rolTx1}" >${role1}</strong> |
-                                    2º pos. <strong class="text-${rolTx2}" >${role2}</strong>
-                                </p>
-                                <p class="mb-0 " >${player.name} "<strong>${player.nickname}</strong>" ${player.lastname}</p>
-                                <p class="mb-0 " >Sexo: ${player.sex} | Idade: ${player.age} | Nacionalidade: <img src="${flag}/${country[0]}_64.png" alt="${country[0]}" title="${country[1]}" width="20px" height="20px"></p>
-                                <p class="mb-0 " >Força: ${force} | Energia: ${energy}%</p>
-                                <p class="mb-0 " >Salário: R$ ${salary} | Passe: R$ ${pass}</p>
-                                <p class="mb-0 " >Contrato até: ${ctt}</p>
-                            </div>
-                        </div>`;
-                }
-            });
-
-            html += `
-                    </div>
-                </div>`;
-
-            if ( count == 0 )
-            {
-                html = `<div class="col-12 border text-center"><p class="mt-3 mb-0">Nenhum jogadore encontrado.<p></div>`;
-            }
-
-            $('#team-players').html(html);
-
-            let path = '{{ asset("images/game/leagues/teams") }}';
-
-            $('#see-team-image').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`).attr('alt', initials);
-
-            $('#see-team-title').html(name + " - " + initials);
-            $('#see-team').modal('show');
         });
 
         // NEW
