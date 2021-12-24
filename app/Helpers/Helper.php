@@ -48,6 +48,36 @@ class Helper
                 break;
         }
     }
+    public static function formatRoleFull2($role)
+    {
+        switch (strtolower($role))
+        {
+            case "top":
+                return [ "Topo", 1 ];
+            break;
+
+            case "jng":
+                return [ "Selva", 2 ];
+            break;
+
+            case "mid":
+                return [ "Meio", 3 ];
+            break;
+
+            case "adc":
+                return [ "Atirador", 4 ];
+            break;
+
+            case "sup":
+                return [ "Suporte", 5 ];
+            break;
+        }
+    }
+
+    public static function formatCurrency($value)
+    {
+        return number_format($value, 2, ",", ".");
+    }
 
     public static function formatSalary($value)
     {
@@ -291,5 +321,14 @@ class Helper
         shuffle($quotas);
 
         return array_slice($quotas, 0, $n);
+    }
+
+    public static function hasTeamWithoutDivision($teams)
+    {
+        $teams = json_decode(json_encode($teams), true);
+
+        return array_filter($teams, function($team) {
+            return is_null($team["division_id"]);
+        });
     }
 }
