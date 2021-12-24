@@ -69,7 +69,7 @@
                                         <select id="search_nationality" class="form-control form-control-sm" name="nationality" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
                                             @foreach ($countries as $c)
-                                                <option value="{{ $c->code }}" @if (session('nationality') == $c->code) selected @endif >{{ $c->name }}</option>
+                                                <option value="{{ $c->code }}" @if (session("nationality") == $c->code) selected @endif >{{ $c->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -81,10 +81,10 @@
                                         <small for="search_age" class="text-muted">Idade</small>
                                         <select id="search_age" class="form-control form-control-sm" name="age" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session('age') == 1) selected @endif >16 a 20</option>
-                                            <option value="2" @if (session('age') == 2) selected @endif >21 a 25</option>
-                                            <option value="3" @if (session('age') == 3) selected @endif >26 a 30</option>
-                                            <option value="4" @if (session('age') == 4) selected @endif >31+</option>
+                                            <option value="1" @if (session("age") == 1) selected @endif >16 a 20</option>
+                                            <option value="2" @if (session("age") == 2) selected @endif >21 a 25</option>
+                                            <option value="3" @if (session("age") == 3) selected @endif >26 a 30</option>
+                                            <option value="4" @if (session("age") == 4) selected @endif >31+</option>
                                         </select>
                                     </div>
                                 </div>
@@ -95,8 +95,8 @@
                                         <small for="search_sex" class="text-muted">Sexo</small>
                                         <select id="search_sex" class="form-control form-control-sm" name="sex" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="F" @if (session('sex') == 'F') selected @endif >Feminino</option>
-                                            <option value="M" @if (session('sex') == 'M') selected @endif >Masculino</option>
+                                            <option value="F" @if (session("sex") == "F") selected @endif >Feminino</option>
+                                            <option value="M" @if (session("sex") == "M") selected @endif >Masculino</option>
                                         </select>
                                     </div>
                                 </div>
@@ -108,10 +108,10 @@
                                         <small for="search_contract" class="text-muted">Situação para venda</small>
                                         <select id="search_contract" class="form-control form-control-sm" name="contract" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session('contract') == 1) selected @endif >Contratos expirados</option>
-                                            <option value="2" @if (session('contract') == 2) selected @endif >Contratos a vencer</option>
-                                            <option value="3" @if (session('contract') == 3) selected @endif >Contratos expirados e a vencer</option>
-                                            <option value="4" @if (session('contract') == 4) selected @endif >Livres, sem contrato</option>
+                                            <option value="1" @if (session("contract") == 1) selected @endif >Contratos expirados</option>
+                                            <option value="2" @if (session("contract") == 2) selected @endif >Contratos a vencer</option>
+                                            <option value="3" @if (session("contract") == 3) selected @endif >Contratos expirados e a vencer</option>
+                                            <option value="4" @if (session("contract") == 4) selected @endif >Livres, sem contrato</option>
                                         </select>
                                     </div>
                                 </div>
@@ -127,12 +127,12 @@
                                         <small for="search_pass" class="text-muted">Passe (R$)</small>
                                         <select id="search_pass" class="form-control form-control-sm" name="pass" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session('pass') == 1) selected @endif >1 mil a 4 mil</option>
-                                            <option value="2" @if (session('pass') == 2) selected @endif >5 mil a 8 mil</option>
-                                            <option value="3" @if (session('pass') == 3) selected @endif >9 mil a 12 mil</option>
-                                            <option value="4" @if (session('pass') == 4) selected @endif >13 mil a 16 mil</option>
-                                            <option value="5" @if (session('pass') == 5) selected @endif >17 mil a 20 mil</option>
-                                            <option value="6" @if (session('pass') == 6) selected @endif >+21 mil</option>
+                                            <option value="1" @if (session("pass") == 1) selected @endif >1 mil a 4 mil</option>
+                                            <option value="2" @if (session("pass") == 2) selected @endif >5 mil a 8 mil</option>
+                                            <option value="3" @if (session("pass") == 3) selected @endif >9 mil a 12 mil</option>
+                                            <option value="4" @if (session("pass") == 4) selected @endif >13 mil a 16 mil</option>
+                                            <option value="5" @if (session("pass") == 5) selected @endif >17 mil a 20 mil</option>
+                                            <option value="6" @if (session("pass") == 6) selected @endif >+21 mil</option>
                                         </select>
                                     </div>
                                 </div>
@@ -143,11 +143,11 @@
                                         <small for="search_role" class="text-muted">1ª Posição</small>
                                         <select id="search_role" class="form-control form-control-sm" name="role1" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="top" class="text-top" @if (session('role1') == 'top') selected @endif >Topo</option>
-                                            <option value="jng" class="text-jng" @if (session('role1') == 'jng') selected @endif >Selva</option>
-                                            <option value="mid" class="text-mid" @if (session('role1') == 'mid') selected @endif >Meio</option>
-                                            <option value="adc" class="text-adc" @if (session('role1') == 'adc') selected @endif >Atirador</option>
-                                            <option value="sup" class="text-sup" @if (session('role1') == 'sup') selected @endif >Suporte</option>
+                                            <option value="top" class="text-top" @if (session("role1") == "top") selected @endif >Topo</option>
+                                            <option value="jng" class="text-jng" @if (session("role1") == "jng") selected @endif >Selva</option>
+                                            <option value="mid" class="text-mid" @if (session("role1") == "mid") selected @endif >Meio</option>
+                                            <option value="adc" class="text-adc" @if (session("role1") == "adc") selected @endif >Atirador</option>
+                                            <option value="sup" class="text-sup" @if (session("role1") == "sup") selected @endif >Suporte</option>
                                         </select>
                                     </div>
                                 </div>
@@ -158,11 +158,11 @@
                                         <small for="search_secondary_role" class="text-muted">2ª Posição</small>
                                         <select id="search_secondary_role" class="form-control form-control-sm" name="role2" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="top" class="text-top" @if (session('role2') == 'top') selected @endif >Topo</option>
-                                            <option value="jng" class="text-jng" @if (session('role2') == 'jng') selected @endif >Selva</option>
-                                            <option value="mid" class="text-mid" @if (session('role2') == 'mid') selected @endif >Meio</option>
-                                            <option value="adc" class="text-adc" @if (session('role2') == 'adc') selected @endif >Atirador</option>
-                                            <option value="sup" class="text-sup" @if (session('role2') == 'sup') selected @endif >Suporte</option>
+                                            <option value="top" class="text-top" @if (session("role2") == "top") selected @endif >Topo</option>
+                                            <option value="jng" class="text-jng" @if (session("role2") == "jng") selected @endif >Selva</option>
+                                            <option value="mid" class="text-mid" @if (session("role2") == "mid") selected @endif >Meio</option>
+                                            <option value="adc" class="text-adc" @if (session("role2") == "adc") selected @endif >Atirador</option>
+                                            <option value="sup" class="text-sup" @if (session("role2") == "sup") selected @endif >Suporte</option>
                                         </select>
                                     </div>
                                 </div>
@@ -173,11 +173,11 @@
                                         <small for="search_force" class="text-muted">Força</small>
                                         <select id="search_force" class="form-control form-control-sm" name="force" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session('force') == 1) selected @endif >1 a 10</option>
-                                            <option value="2" @if (session('force') == 2) selected @endif >11 a 30</option>
-                                            <option value="3" @if (session('force') == 3) selected @endif >31 a 50</option>
-                                            <option value="4" @if (session('force') == 4) selected @endif >51 a 70</option>
-                                            <option value="5" @if (session('force') == 5) selected @endif >71 a 100</option>
+                                            <option value="1" @if (session("force") == 1) selected @endif >1 a 10</option>
+                                            <option value="2" @if (session("force") == 2) selected @endif >11 a 30</option>
+                                            <option value="3" @if (session("force") == 3) selected @endif >31 a 50</option>
+                                            <option value="4" @if (session("force") == 4) selected @endif >51 a 70</option>
+                                            <option value="5" @if (session("force") == 5) selected @endif >71 a 100</option>
                                         </select>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                                         <select id="search_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%">
                                             <option value="" selected >Qualquer...</option>
                                             @foreach ($leagues as $league)
-                                                <option value="{{ $league->id }}" @if (session('league_id') == $league->id) selected @endif >{{ $league->initials }}</option>
+                                                <option value="{{ $league->id }}" @if (session("league_id") == $league->id) selected @endif >{{ $league->initials }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -250,21 +250,16 @@
 
                             if ( $player->contract != null )
                             {
-                                $a = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-                                $d = date('d');
-                                $m = date('m');
-                                $y = date('Y');
-
-                                $today = date($y . '-' . $m . '-' . $d);
-                                $nextM = date($y . '-' . $a[ $m + 0 ] . '-' . $d); // $a[ $m - 1 ] == $m === pega o msm mês dentro do array // $a[ ( $m - 1 ) + 1 ] == $m + 1 === pega o mês seguinte, só que formatado
+                                $today = date("Y-m-d");
+                                $nextM = date("Y-m-d", strtotime("+1 month"));
 
                                 if ( $today >= $player->contract)
                                 {
-                                    $expired = 'EX'; //expirado
+                                    $expired = "EX"; //expirado
                                 }
                                 else if ( $player->contract < $nextM)
                                 {
-                                    $expired = 'AV'; //a vencer
+                                    $expired = "AV"; //a vencer
                                 }
                             }
                         @endphp
@@ -285,15 +280,15 @@
                             <td class="text-center"                              >{{ $player->age }}</td>
                             <td class="text-center"                              >{{ $player->sex }}</td>
                             <td class="text-center" >
-                                <img class="my-auto flag" src="{{ asset("images/flags") . '/' . $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ RandomNames::getNameCountry($player->nationality) }}" width="30px" height="30px">
+                                <img class="my-auto flag" src="{{ asset("images/flags") . "/" . $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ RandomNames::getNameCountry($player->nationality) }}" width="30px" height="30px">
                             </td>
                             <td class="text-center" >
                                 {{-- @if ($player->attribute->contract == null) --}}
                                 @if ($player->contract == null)
                                     <i class="fas fa-check" style="color: #080" ></i>
-                                @elseif (isset($expired) && $expired == 'EX')
+                                @elseif (isset($expired) && $expired == "EX")
                                     <i class="fas fa-check" style="color: #DC3545" title="Contrato expirado em {{ $formt }}" ></i>
-                                @elseif (isset($expired) && $expired == 'AV')
+                                @elseif (isset($expired) && $expired == "AV")
                                     <i class="fas fa-check" style="color: #FFC107" title="Contrato termina em {{ $formt }}" ></i>
                                 @else
                                 @endif
@@ -682,13 +677,13 @@
     @include('adm/partials.filters')
     <script>
         // Bootstrap Table
-        getbootstrapTable('players-table', {
-            locale: 'pt-br',
+        getbootstrapTable("players-table", {
+            locale: "pt-br",
             // height: 710,
-            // pageSize: '100',
-            // pagination: 'true',
-            // paginationVAlign: 'top',
-            // pageList: [100, 200, 300, 500, 'All'],
+            // pageSize: "100",
+            // pagination: "true",
+            // paginationVAlign: "top",
+            // pageList: [100, 200, 300, 500, "All"],
         });
 
         $("#nationality").select2();
@@ -702,8 +697,8 @@
         $("#division_id").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
-        $(document).on('click', '.see-player', function() {
-            let id        = $(this).data('id');
+        $(document).on("click", ".see-player", function() {
+            let id        = $(this).data("id");
             let players   = {!! $players !!};
             let teams     = {!! $teams !!};
             let countries = {!! $countries !!};
@@ -760,49 +755,49 @@
                     <p class="mb-0 " >Time atual: <strong>${team_name}</strong></p>
                 </div>`;
 
-            $('#player-attr').html(html);
+            $("#player-attr").html(html);
 
-            let path = '{{ asset("images/game/leagues/teams") }}';
+            let path = "{{ asset("images/game/leagues/teams") }}";
 
-            $('#see-player-image').attr('src', `${path}/${team_image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`).attr('alt', team_initials);
+            $("#see-player-image").attr("src", `${path}/${team_image}`).attr("onerror", `this.onerror=null;this.src="${path}/default.png";`).attr("alt", team_initials);
 
-            $('#see-player-title').html(player.name + ' "<strong>' + player.nickname + '</strong>" ' + player.lastname);
-            $('#see-player').modal('show');
+            $("#see-player-title").html(`${player.name} <strong>${player.nickname}</strong> ${player.lastname}`);
+            $("#see-player").modal("show");
         });
 
         // NEW
-        $(document).on('click', '.new-player', function() {
-            $('#name').val('');
-            $('#lastname').val('');
-            $('#nickname').val('');
-            $('#age').val('');
-            $('#mentor').prop( "checked", false );
-            $('#nationality').val('').trigger('change');
-            $('#sex').val('').trigger('change');
-            $('#force').val('').trigger('change');
-            $('#role').val('').trigger('change');
-            $('#secondary_role').val('').trigger('change');
+        $(document).on("click", ".new-player", function() {
+            $("#name").val("");
+            $("#lastname").val("");
+            $("#nickname").val("");
+            $("#age").val("");
+            $("#mentor").prop( "checked", false );
+            $("#nationality").val("").trigger("change");
+            $("#sex").val("").trigger("change");
+            $("#force").val("").trigger("change");
+            $("#role").val("").trigger("change");
+            $("#secondary_role").val("").trigger("change");
 
-            $('#new-player').modal('show');
+            $("#new-player").modal("show");
         });
-        $('#league_id').on('change', function () {
-            $('#division_id').removeAttr('disabled');
-            insertDivisions('division_id', false, this.value);
+        $("#league_id").on("change", function () {
+            $("#division_id").removeAttr("disabled");
+            insertDivisions("division_id", false, this.value);
         });
-        $('#division_id').on('change', function () {
-            $('#team_id').removeAttr('disabled');
-            insertTeams('team_id', false, this.value);
+        $("#division_id").on("change", function () {
+            $("#team_id").removeAttr("disabled");
+            insertTeams("team_id", false, this.value);
         });
-        $('#new-player-form').on('submit', function(e) {
+        $("#new-player-form").on("submit", function(e) {
             e.preventDefault();
 
             clearInvalid();
             clearSpan();
 
             $.ajax({
-                type: 'POST',
-                url: '{{ url("/players") }}',
-                data: $('#new-player-form').serialize(),
+                type: "POST",
+                url: "{{ url("/players") }}",
+                data: $("#new-player-form").serialize(),
                 success: function ( data ) {
                     // console.log( data );
                     location.reload();
@@ -818,7 +813,7 @@
         });
 
         // EDIT
-        $(document).on('click', '.edit-player', function() {
+        $(document).on("click", ".edit-player", function() {
             $("#edit_nationality").select2();
             $("#edit_sex").select2({ minimumResultsForSearch: Infinity });
             $("#edit_force").select2({ minimumResultsForSearch: Infinity });
@@ -828,129 +823,129 @@
             $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
             $("#edit_team_id").select2({ minimumResultsForSearch: Infinity });
 
-            let id      = $(this).data('id');
+            let id      = $(this).data("id");
 
-            $('#edit-player-form').attr('action', '{{ url("/players") }}' + '/' + id).attr('method', 'POST');
+            $("#edit-player-form").attr("action", `{{ url("/players") }}/${id}`).attr("method", "POST");
 
             $.ajax({
-                type: 'GET',
-                url: '{{ url("/players") }}' + '/' + id,
+                type: "GET",
+                url: "{{ url("/players") }}" + "/" + id,
                 success: function ( data ) {
                     // console.log( data );
                     let player = data;
 
-                    $('#edit-player-title').html('Editar jogador: ' + player.name + ' "' + player.nickname + '" ' + player.lastname);
+                    $("#edit-player-title").html("Editar jogador: " + player.name + " "" + player.nickname + "" " + player.lastname);
 
                     // var newOption = new Option(player.attribute.force, player.attribute.force, true, true);
                     var newOption = new Option(player.force, player.force, true, true);
-                    $('#edit_force').append(newOption).trigger('change').attr('disabled', 'disabled');
+                    $("#edit_force").append(newOption).trigger("change").attr("disabled", "disabled");
 
-                    $('#edit_name').val(player.name);
-                    $('#edit_lastname').val(player.lastname);
-                    $('#edit_nickname').val(player.nickname);
-                    $('#edit_age').val(player.age);
-                    $('#edit_mentor').prop( "checked", (player.mentor ? true : false) );
-                    $('#edit_nationality').val(player.nationality).trigger('change');
-                    $('#edit_sex').val(player.sex).trigger('change');
+                    $("#edit_name").val(player.name);
+                    $("#edit_lastname").val(player.lastname);
+                    $("#edit_nickname").val(player.nickname);
+                    $("#edit_age").val(player.age);
+                    $("#edit_mentor").prop( "checked", (player.mentor ? true : false) );
+                    $("#edit_nationality").val(player.nationality).trigger("change");
+                    $("#edit_sex").val(player.sex).trigger("change");
 
-                    // $('#edit_role').val(player.attribute.role).trigger('change');
-                    $('#edit_role').val(player.role).trigger('change');
-                    selectRoleWithColor( document.getElementById('select2-edit_role-container') );
+                    // $("#edit_role").val(player.attribute.role).trigger("change");
+                    $("#edit_role").val(player.role).trigger("change");
+                    selectRoleWithColor( document.getElementById("select2-edit_role-container") );
 
-                    // $('#edit_secondary_role').val(player.attribute.secondary_role).trigger('change');
-                    $('#edit_secondary_role').val(player.secondary_role).trigger('change');
-                    selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
+                    // $("#edit_secondary_role").val(player.attribute.secondary_role).trigger("change");
+                    $("#edit_secondary_role").val(player.secondary_role).trigger("change");
+                    selectRoleWithColor( document.getElementById("select2-edit_secondary_role-container") );
 
                     if (player.team)
                     {
-                        $('#edit_add_team').prop( "checked", true );
-                        $('.edit_add_team').removeClass('d-none');
+                        $("#edit_add_team").prop( "checked", true );
+                        $(".edit_add_team").removeClass("d-none");
 
-                        $('#edit_league_id').val(player.team.league_id).trigger('change');
+                        $("#edit_league_id").val(player.team.league_id).trigger("change");
 
-                        insertDivisions('edit_division_id', true, player.team.league_id, player.team.division_id);
-                        $('#edit_division_id').removeAttr('disabled');
+                        insertDivisions("edit_division_id", true, player.team.league_id, player.team.division_id);
+                        $("#edit_division_id").removeAttr("disabled");
 
-                        insertTeams('edit_team_id', (player.team.division_id ? true : false), (player.team.division_id ? player.team.division_id : 0), player.team.id);
-                        $('#edit_team_id').removeAttr('disabled');
+                        insertTeams("edit_team_id", (player.team.division_id ? true : false), (player.team.division_id ? player.team.division_id : 0), player.team.id);
+                        $("#edit_team_id").removeAttr("disabled");
                     }
                     else
                     {
-                        $('#edit_add_team').prop( "checked", false );
-                        $('.edit_add_team').addClass('d-none');
+                        $("#edit_add_team").prop( "checked", false );
+                        $(".edit_add_team").addClass("d-none");
 
-                        $('#edit_league_id').val('').trigger('change');
-                        $('#edit_division_id').val('').trigger('change').attr('disabled', 'disabled');
-                        $('#edit_team_id').val('').trigger('change').attr('disabled', 'disabled');
+                        $("#edit_league_id").val("").trigger("change");
+                        $("#edit_division_id").val("").trigger("change").attr("disabled", "disabled");
+                        $("#edit_team_id").val("").trigger("change").attr("disabled", "disabled");
                     }
 
-                    $('#edit-player').modal('show');
+                    $("#edit-player").modal("show");
                 },
                 error: function ( err ) {
                     console.log( err );
                 }
             });
         });
-        $('#edit_league_id').on('change', function () {
-            $('#edit_division_id').removeAttr('disabled');
-            insertDivisions('edit_division_id', false, this.value);
+        $("#edit_league_id").on("change", function () {
+            $("#edit_division_id").removeAttr("disabled");
+            insertDivisions("edit_division_id", false, this.value);
         });
-        $('#edit_division_id').on('change', function () {
-            $('#edit_team_id').removeAttr('disabled');
-            insertTeams('edit_team_id', false, this.value);
+        $("#edit_division_id").on("change", function () {
+            $("#edit_team_id").removeAttr("disabled");
+            insertTeams("edit_team_id", false, this.value);
         });
 
         // DEL
-        $(document).on('click', '.del-player', function() {
-            $('#del-player-title').html($(this).data('name'));
-            $('#del-player-form').attr('data-id', $(this).data('id'));
-            $('#del-player').modal('show');
+        $(document).on("click", ".del-player", function() {
+            $("#del-player-title").html($(this).data("name"));
+            $("#del-player-form").attr("data-id", $(this).data("id"));
+            $("#del-player").modal("show");
         });
-        $('#del-player-form').on('submit', function(e) {
+        $("#del-player-form").on("submit", function(e) {
             e.preventDefault();
 
-            let url  = '{{ url("/players") }}' + '/' + $(this).data('id');
-            let data = $('#del-player-form').serialize();
+            let url  = "{{ url("/players") }}" + "/" + $(this).data("id");
+            let data = $("#del-player-form").serialize();
             deleteItem(url, data);
         });
 
 
-        $('#role').on('change', function() {
-            selectRoleWithColor( document.getElementById('select2-role-container') );
+        $("#role").on("change", function() {
+            selectRoleWithColor( document.getElementById("select2-role-container") );
         });
-        $('#edit_role').on('change', function() {
-            selectRoleWithColor( document.getElementById('select2-edit_role-container') );
+        $("#edit_role").on("change", function() {
+            selectRoleWithColor( document.getElementById("select2-edit_role-container") );
         });
-        $('#search_role').on('change', function() {
-            selectRoleWithColor( document.getElementById('select2-search_role-container') );
+        $("#search_role").on("change", function() {
+            selectRoleWithColor( document.getElementById("select2-search_role-container") );
         });
-        $('#secondary_role').on('change', function() {
-            selectRoleWithColor( document.getElementById('select2-secondary_role-container') );
+        $("#secondary_role").on("change", function() {
+            selectRoleWithColor( document.getElementById("select2-secondary_role-container") );
         });
-        $('#edit_secondary_role').on('change', function() {
-            selectRoleWithColor( document.getElementById('select2-edit_secondary_role-container') );
+        $("#edit_secondary_role").on("change", function() {
+            selectRoleWithColor( document.getElementById("select2-edit_secondary_role-container") );
         });
-        $('#search_secondary_role').on('change', function() {
-            selectRoleWithColor( document.getElementById('select2-search_secondary_role-container') );
+        $("#search_secondary_role").on("change", function() {
+            selectRoleWithColor( document.getElementById("select2-search_secondary_role-container") );
         });
-        $('#add_team').on('change', function() {
-            if ( $(this).is(':checked'))
+        $("#add_team").on("change", function() {
+            if ( $(this).is(":checked"))
             {
-                $('.add_team').removeClass('d-none');
+                $(".add_team").removeClass("d-none");
             }
             else
             {
-                $('.add_team').addClass('d-none');
+                $(".add_team").addClass("d-none");
             }
         });
-        $('#edit_add_team').on('change', function() {
-            if ( $(this).is(':checked'))
+        $("#edit_add_team").on("change", function() {
+            if ( $(this).is(":checked"))
             {
-                $('.edit_add_team').removeClass('d-none');
+                $(".edit_add_team").removeClass("d-none");
             }
             else
             {
-                $('.edit_add_team').addClass('d-none');
+                $(".edit_add_team").addClass("d-none");
             }
         });
 
@@ -958,64 +953,64 @@
         insertDivisions = function (id, edit = false, league_id, division_id)
         {
             let divisions = {!! $divisions !!};
-            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
+            let opts      = "<option value="" " + (edit ? "" : "selected") + " disabled hidden >Selecione...</option>";
 
             divisions.forEach(division => {
                 if (division.league_id == league_id)
                 {
-                    let selected = (division.id == division_id) ? 'selected' : '';
-                    opts += '<option value="' + division.id + '" ' + selected + ' >' + division.name + '</option>';
+                    let selected = (division.id == division_id) ? "selected" : "";
+                    opts += "<option value="" + division.id + "" " + selected + " >" + division.name + "</option>";
                 }
             });
 
-            opts += '<option value="0"' + ((division_id === null ) ? 'selected' : '') + '>Sem divisão</option>';
+            opts += "<option value="0"" + ((division_id === null ) ? "selected" : "") + ">Sem divisão</option>";
 
-            $('#' + id).html(opts);
+            $("#" + id).html(opts);
         }
 
         // INSERT DIVISIONS
         insertTeams = function (id, edit = false, division_id, team_id)
         {
             let teams = {!! $teams !!};
-            let opts  = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
+            let opts  = "<option value="" " + (edit ? "" : "selected") + " disabled hidden >Selecione...</option>";
 
             teams.forEach(team => {
                 if (team.division_id == division_id)
                 {
-                    let selected = (team.id == team_id) ? 'selected' : '';
-                    opts += '<option value="' + team.id + '" ' + selected + ' >' + team.name + '</option>';
+                    let selected = (team.id == team_id) ? "selected" : "";
+                    opts += "<option value="" + team.id + "" " + selected + " >" + team.name + "</option>";
                 }
 
                 if (team.division_id === null && division_id == 0)
                 {
-                    let selected = (team.id == team_id) ? 'selected' : '';
-                    opts += '<option value="' + team.id + '" ' + selected + ' >' + team.name + '</option>';
+                    let selected = (team.id == team_id) ? "selected" : "";
+                    opts += "<option value="" + team.id + "" " + selected + " >" + team.name + "</option>";
                 }
             });
 
-            $('#' + id).html(opts);
+            $("#" + id).html(opts);
         }
 
         selectRoleWithColor = function (elem)
         {
-            switch ( $(elem).attr('title') ) {
-                case 'Topo':
-                    $(elem).css('color', '#F8C300').addClass('text-bold');
+            switch ( $(elem).attr("title") ) {
+                case "Topo":
+                    $(elem).css("color", "#F8C300").addClass("text-bold");
                     break;
-                case 'Selva':
-                    $(elem).css('color', '#A652BB').addClass('text-bold');
+                case "Selva":
+                    $(elem).css("color", "#A652BB").addClass("text-bold");
                     break;
-                case 'Meio':
-                    $(elem).css('color', '#0099E1').addClass('text-bold');
+                case "Meio":
+                    $(elem).css("color", "#0099E1").addClass("text-bold");
                     break;
-                case 'Atirador':
-                    $(elem).css('color', '#F93A2F').addClass('text-bold');
+                case "Atirador":
+                    $(elem).css("color", "#F93A2F").addClass("text-bold");
                     break;
-                case 'Suporte':
-                    $(elem).css('color', '#00C09A').addClass('text-bold');
+                case "Suporte":
+                    $(elem).css("color", "#00C09A").addClass("text-bold");
                     break;
                 default:
-                    $(elem).css('color', '#444').removeClass('text-bold');
+                    $(elem).css("color", "#444").removeClass("text-bold");
                     break;
             }
         }
