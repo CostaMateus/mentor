@@ -12,8 +12,8 @@ class Player extends Model
      * @var array
      */
     protected $fillable = [
-        'team_id', 'name', 'lastname', 'nickname', 'nationality', 'age',
-        'birthday', 'sex', 'employed', 'coach', 'user_id',
+        "team_id", "name", "lastname", "nickname", "nationality", "age",
+        "birthday", "sex", "employed", "coach", "user_id",
     ];
 
     /**
@@ -21,7 +21,7 @@ class Player extends Model
      */
     public function attribute()
     {
-        return $this->hasOne('App\Models\Attribute');
+        return $this->hasOne("App\Models\Attribute");
     }
 
     /**
@@ -29,6 +29,14 @@ class Player extends Model
      */
     public function team()
     {
-        return $this->belongsTo('App\Models\Team');
+        return $this->belongsTo("App\Models\Team");
+    }
+
+    /**
+     * Pega o País da qual esse Jogador faz parte.
+     */
+    public function country()
+    {
+        return $this->belongsTo("App\Models\Country", "nationality", "code");
     }
 }
