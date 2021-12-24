@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
@@ -12,15 +13,23 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'division_id', 'name', 'initials', 'image',
+        "league_id", "division_id", "name", "initials", "image",
     ];
+
+    /**
+     * Pega a Liga da qual esse Time faz parte.
+     */
+    public function league()
+    {
+        return $this->belongsTo("App\Models\League");
+    }
 
     /**
      * Pega a Divisão da qual esse Time faz parte.
      */
-    public function divison()
+    public function division()
     {
-        return $this->belongsTo('App\Models\Division');
+        return $this->belongsTo("App\Models\Division");
     }
 
     /**
@@ -28,7 +37,7 @@ class Team extends Model
      */
     public function players()
     {
-        return $this->hasMany('App\Models\Player');
+        return $this->hasMany("App\Models\Player");
     }
 
     /**
@@ -36,7 +45,7 @@ class Team extends Model
      */
     public function trophies()
     {
-        return $this->belongsToMany('App\Models\Trophy', 'team_trophy');
+        return $this->belongsToMany("App\Models\Trophy", "team_trophy");
     }
 
     /**
@@ -44,6 +53,6 @@ class Team extends Model
      */
     public function finance()
     {
-        return $this->hasMany('App\Models\Finance');
+        return $this->hasMany("App\Models\Finance");
     }
 }
