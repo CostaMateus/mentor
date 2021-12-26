@@ -13,21 +13,20 @@ class CreateAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("attributes", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->bigInteger('player_id')
+            $table->bigInteger("player_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("players");
 
-            $table->enum('role',           array('top', 'jng', 'mid', 'adc', 'sup'));
-            $table->enum('secondary_role', array('top', 'jng', 'mid', 'adc', 'sup'));
-            $table->integer('force');
-            $table->integer('energy')->default(100);
-            $table->double('salary', 11, 2);
-            $table->double('pass', 11, 2);
-            $table->date('contract')->nullable();
+            $table->enum("role",           array("top", "jng", "mid", "adc", "sup"));
+            $table->enum("secondary_role", array("top", "jng", "mid", "adc", "sup"));
+            $table->integer("force");
+            $table->integer("energy")->default(100);
+            $table->double("salary", 11, 2);
+            $table->double("pass", 11, 2);
 
             $table->timestamps();
         });
@@ -40,6 +39,6 @@ class CreateAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists("attributes");
     }
 }

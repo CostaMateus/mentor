@@ -13,22 +13,21 @@ class CreateTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("teams", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->bigInteger('league_id')
+            $table->bigInteger("league_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("leagues");
-            $table->bigInteger('division_id')
+            $table->bigInteger("division_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("divisions")
-                  ->nullable();
+                  ->on("divisions")->nullable();
 
-            $table->string('name')->unique();
-            $table->string('initials')->unique();
-            $table->string('image')->default('default.png');
+            $table->string("name")->unique();
+            $table->string("initials")->unique();
+            $table->string("image")->default("default.png");
 
             $table->timestamps();
         });
@@ -41,6 +40,6 @@ class CreateTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists("teams");
     }
 }

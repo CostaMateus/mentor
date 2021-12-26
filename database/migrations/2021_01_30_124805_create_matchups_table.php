@@ -13,33 +13,31 @@ class CreateMatchupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('matchups', function (Blueprint $table) {
+        Schema::create("matchups", function (Blueprint $table) {
             $table->id();
 
-            $table->integer('split');
-            $table->integer('round');
-            $table->date('date');
+            $table->integer("split");
+            $table->integer("round");
+            $table->date("date");
 
-            $table->bigInteger('division_id')
+            $table->bigInteger("division_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("divisions")
-                  ->nullable();
+                  ->on("divisions")->nullable();
 
-            $table->bigInteger('blue_team_id')
+            $table->bigInteger("blue_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("teams");
-            $table->bigInteger('red_team_id')
+            $table->bigInteger("red_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("teams");
 
-            $table->bigInteger('winner_team_id')
+            $table->bigInteger("winner_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("teams")
-                  ->nullable();
+                  ->on("teams")->nullable();
 
             $table->timestamps();
         });
@@ -52,6 +50,6 @@ class CreateMatchupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matchups');
+        Schema::dropIfExists("matchups");
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateLeaguesTable extends Migration
 {
@@ -13,14 +14,15 @@ class CreateLeaguesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leagues', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("leagues", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->string('name')->unique();
-            $table->string('initials')->unique();
-            $table->integer('nrdivisions')->default(1);
-            $table->string('image')->default('deafult.png');
-            $table->boolean('special')->default(0);
+            $table->string("name")->unique();
+            $table->string("initials")->unique();
+            $table->integer("nrdivisions")->default(1);
+            $table->integer("nrparticipants")->default(8);
+            $table->boolean("special")->default(0);
+            $table->string("image")->default("deafult.png");
 
             $table->timestamps();
         });
@@ -33,6 +35,6 @@ class CreateLeaguesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leagues');
+        Schema::dropIfExists("leagues");
     }
 }

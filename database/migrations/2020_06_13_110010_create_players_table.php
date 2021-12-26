@@ -13,28 +13,31 @@ class CreatePlayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('players', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("players", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->bigInteger('team_id')
+            $table->bigInteger("team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("teams")->default(0);
+                  ->on("teams")->nullable()->default(null);
 
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('nickname')->unique();
-            $table->string('nationality')->default('BR');
-            $table->integer('age');
-            $table->date('birthday');
-            $table->string('sex')->default('M');
-            $table->boolean('employed')->default(false);
-            $table->boolean('mentor')->default(false);
+            $table->string("name");
+            $table->string("lastname");
+            $table->string("nickname")->unique();
 
-            $table->bigInteger('user_id')
+            $table->bigInteger("country_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("users")->default(0);
+                  ->on("countries")->default(30); // BRASIL
+
+            $table->date("birthday");
+            $table->string("sex")->default("M");
+            $table->boolean("mentor")->default(false);
+
+            $table->bigInteger("user_id")
+                  ->unsigned()->index()
+                  ->foreign()->references("id")
+                  ->on("users")->nullable()->default(null);
 
             $table->timestamps();
         });
@@ -47,6 +50,6 @@ class CreatePlayersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('players');
+        Schema::dropIfExists("players");
     }
 }

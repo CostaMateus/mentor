@@ -13,16 +13,17 @@ class CreateDivisionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("divisions", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->bigInteger('league_id')
+            $table->bigInteger("league_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("leagues");
 
-            $table->string('name')->unique();
-            $table->string('initials');
+            $table->string("name")->unique();
+            $table->string("initials");
+            $table->integer("nrparticipants")->default(10);
 
             $table->timestamps();
         });
@@ -35,6 +36,6 @@ class CreateDivisionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists("divisions");
     }
 }

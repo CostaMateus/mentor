@@ -13,25 +13,26 @@ class CreateHistoryTransferTable extends Migration
      */
     public function up()
     {
-        Schema::create('history_transfers', function (Blueprint $table) {
+        Schema::create("history_transfers", function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('player_id')
+            $table->bigInteger("player_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("players");
 
-            $table->bigInteger('seller_team_id')
+            $table->bigInteger("seller_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("teams");
 
-            $table->bigInteger('buyer_team_id')
+            $table->bigInteger("buyer_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("teams");
 
-            $table->double('value', 11, 2)->nullable();
+            $table->double("value", 11, 2);
+            $table->date("date");
 
             $table->timestamps();
         });
@@ -44,6 +45,6 @@ class CreateHistoryTransferTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history_transfers');
+        Schema::dropIfExists("history_transfers");
     }
 }

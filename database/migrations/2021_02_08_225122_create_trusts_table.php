@@ -13,16 +13,16 @@ class CreateTrustsTable extends Migration
      */
     public function up()
     {
-        Schema::create('trusts', function (Blueprint $table) {
+        Schema::create("trusts", function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('player_id')
+            $table->bigInteger("player_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
                   ->on("players");
 
-            $table->integer('board')->default(100);
-            $table->integer('fans')->default(80);
+            $table->integer("board")->default(100);
+            $table->integer("fans")->default(80);
 
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ class CreateTrustsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trusts');
+        Schema::dropIfExists("trusts");
     }
 }

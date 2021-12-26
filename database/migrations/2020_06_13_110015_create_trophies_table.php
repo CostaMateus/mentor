@@ -13,11 +13,11 @@ class CreateTrophiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('trophies', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("trophies", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->string('name');
-            $table->string('image')->default('deafult.png');
+            $table->string("name");
+            $table->string("image")->default("deafult.png");
 
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateTrophiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trophies');
+        Schema::dropIfExists("trophies");
     }
 }

@@ -13,20 +13,20 @@ class CreateTeamTrophyTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_trophy', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("team_trophy", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->bigInteger('team_id')
+            $table->bigInteger("team_id")
                     ->unsigned()->index()
                     ->foreign()->references("id")
                     ->on("teams");
 
-            $table->bigInteger('trophy_id')
+            $table->bigInteger("trophy_id")
                     ->unsigned()->index()
                     ->foreign()->references("id")
                     ->on("trophies");
 
-            $table->date('won');
+            $table->date("won");
         });
     }
 
@@ -37,6 +37,6 @@ class CreateTeamTrophyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('team_trophy');
+        Schema::dropIfExists("team_trophy");
     }
 }

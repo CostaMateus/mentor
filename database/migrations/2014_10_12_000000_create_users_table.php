@@ -13,17 +13,17 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("users", function (Blueprint $table) {
+            $table->bigIncrements("id");
 
-            $table->string('google_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('email')->unique();
-            $table->boolean('verify')->default(false);
-            $table->boolean('active')->default(true);
-            $table->string('picture')->nullable();
-            $table->string('password')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string("google_id")->nullable();
+            $table->string("name")->nullable();
+            $table->string("email")->unique();
+            $table->boolean("verify")->default(false);
+            $table->boolean("active")->default(true);
+            $table->string("picture")->nullable();
+            $table->string("password")->nullable();
+            $table->timestamp("email_verified_at")->nullable();
 
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists("users");
     }
 }
