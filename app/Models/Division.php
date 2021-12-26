@@ -12,7 +12,10 @@ class Division extends Model
      * @var array
      */
     protected $fillable = [
-        'league_id', 'name', 'initials',
+        "league_id",
+        "name",
+        "initials",
+        "nrparticipants",
     ];
 
     /**
@@ -20,7 +23,7 @@ class Division extends Model
      */
     public function league()
     {
-        return $this->belongsTo('App\Models\League');
+        return $this->belongsTo("App\Models\League");
     }
 
     /**
@@ -28,6 +31,6 @@ class Division extends Model
      */
     public function teams()
     {
-        return $this->hasMany('App\Models\Team');
+        return $this->hasMany("App\Models\Team");
     }
 }

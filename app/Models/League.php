@@ -12,7 +12,12 @@ class League extends Model
      * @var array
      */
     protected $fillable = [
-        "name", "initials", "nrdivisions", "image",
+        "name",
+        "initials",
+        "nrdivisions",
+        "nrparticipants",
+        "special",
+        "image",
     ];
 
     /**

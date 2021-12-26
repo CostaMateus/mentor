@@ -12,7 +12,10 @@ class Country extends Model
      * @var array
      */
     protected $fillable = [
-        "name", "code", "code3", "formal"
+        "name",
+        "code",
+        "code3",
+        "formal",
     ];
 
     /**
@@ -20,6 +23,6 @@ class Country extends Model
      */
     public function players()
     {
-        return $this->hasMany("App\Models\Player", "code", "nationality");
+        return $this->hasMany("App\Models\Player");
     }
 }

@@ -12,8 +12,15 @@ class Player extends Model
      * @var array
      */
     protected $fillable = [
-        "team_id", "name", "lastname", "nickname", "nationality", "age",
-        "birthday", "sex", "employed", "coach", "user_id",
+        "team_id",
+        "name",
+        "lastname",
+        "nickname",
+        "country_id",
+        "birthday",
+        "sex",
+        "mentor",
+        "user_id",
     ];
 
     /**
@@ -22,6 +29,14 @@ class Player extends Model
     public function attribute()
     {
         return $this->hasOne("App\Models\Attribute");
+    }
+
+    /**
+     * Pega o Atributo referente a esse jogador/treinador.
+     */
+    public function contract()
+    {
+        return $this->hasOne("App\Models\Contract");
     }
 
     /**

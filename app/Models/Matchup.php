@@ -15,7 +15,13 @@ class Matchup extends Model
      * @var array
      */
     protected $fillable = [
-        'split', 'round', 'date', 'division_id', 'blue_team_id', 'red_team_id', 'winner_team_id'
+        "split",
+        "round",
+        "date",
+        "division_id",
+        "blue_team_id",
+        "red_team_id",
+        "winner_team_id",
     ];
 
 }

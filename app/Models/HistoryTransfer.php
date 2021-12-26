@@ -9,7 +9,7 @@ class HistoryTransfer extends Model
 {
     use HasFactory;
 
-    protected $table = 'history_transfers';
+    protected $table = "history_transfers";
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,11 @@ class HistoryTransfer extends Model
      * @var array
      */
     protected $fillable = [
-        'player_id', 'seller_team_id', 'buyer_team_id', 'value',
+        "player_id",
+        "seller_team_id",
+        "buyer_team_id",
+        "value",
+        "date",
     ];
 
 }

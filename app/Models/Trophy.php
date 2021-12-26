@@ -12,7 +12,8 @@ class Trophy extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'image'
+        "name",
+        "image"
     ];
 
     /**
@@ -20,6 +21,6 @@ class Trophy extends Model
      */
     public function teams()
     {
-        return $this->belongsToMany('App\Models\Team', 'team_trophy');
+        return $this->belongsToMany("App\Models\Team", "team_trophy");
     }
 }

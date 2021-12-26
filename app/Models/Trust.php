@@ -15,6 +15,8 @@ class Trust extends Model
      * @var array
      */
     protected $fillable = [
-        'player_id', 'board', 'fans'
+        "player_id",
+        "board",
+        "fans"
     ];
 }
