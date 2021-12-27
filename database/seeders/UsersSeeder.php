@@ -17,19 +17,15 @@ class UsersSeeder extends Seeder
     {
         User::truncate();
 
-        $timestamp = date('Y-m-d');
-
         $data[] = [
-                'google_id'         => null,
-                'name'              => null,
-                'email'             => 'costa.mack95@gmail.com',
-                'verify'            => false,
-                'active'            => true,
-                'picture'           => null,
-                'password'          => Hash::make('password'),
-                'email_verified_at' => null,
-                'created_at'        => $timestamp,
-                'updated_at'        => $timestamp
+                "google_id"         => null,
+                "name"              => "Mateus Costa",
+                "email"             => "costa.mack95@gmail.com",
+                "verify"            => false,
+                "active"            => true,
+                "picture"           => null,
+                "password"          => Hash::make("password"),
+                "email_verified_at" => null,
         ];
 
         User::insert($data);

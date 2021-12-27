@@ -15,33 +15,22 @@ class TrophiesSeeder extends Seeder
     public function run()
     {
         Trophy::truncate();
-        $timestamp = date('Y-m-d');
 
         $data = [
             [
-                'name'       => 'World Championship',
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
+                "name" => "World Championship",
             ],
             [
-                'name'       => 'Mid-Season Invitational',
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
+                "name" => "Mid-Season Invitational",
             ],
             [
-                'name'       => 'Rift Rivals',
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
+                "name" => "Rift Rivals",
             ],
             [
-                'name'       => 'Spring Split',
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
+                "name" => "Spring Split",
             ],
             [
-                'name'       => 'Summer Split',
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp
+                "name" => "Summer Split",
             ],
         ];
 

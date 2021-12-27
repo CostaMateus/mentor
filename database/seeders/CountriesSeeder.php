@@ -14,9 +14,7 @@ class CountriesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->truncate();
-
-        $timestamp = date('Y-m-d');
+        DB::table("countries")->truncate();
 
         $data = [
             [
@@ -1455,6 +1453,6 @@ class CountriesSeeder extends Seeder
             ]
         ];
 
-        DB::table('countries')->insert($data);
+        DB::table("countries")->insert($data);
     }
 }

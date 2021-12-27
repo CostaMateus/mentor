@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use DateTime;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CodesSeeder;
 use Database\Seeders\TeamsSeeder;
@@ -27,7 +28,8 @@ class DatabaseSeeder extends Seeder
             TeamsSeeder::class,
             PlayersSeeder::class,
             AttributesSeeder::class,
-            // TrophiesSeeder::class,
+            ContractsSeeder::class,
+            TrophiesSeeder::class,
         ]);
     }
 }
