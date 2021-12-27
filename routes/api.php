@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\TeamController;
+use App\Http\Controllers\Api\LeagueController;
+use App\Http\Controllers\Api\DivisionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,26 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
+// Route::middleware(["auth"])->group(function () {
+
+    Route::name("league.")->prefix("leagues")->group(function () {
+
+        Route::post("/{league}", [LeagueController::class, "update"])->name("update");
+        Route::apiresource("/",   LeagueController::class)->parameters(["" => "league"]);
+
+        Route::name("division.")->prefix("{league}/divisions")->group(function () {
+
+            Route::post("/{division}", [DivisionController::class, "update"])->name("update");
+            Route::apiresource("/",     DivisionController::class)->parameters(["" => "division"]);
+
+            Route::name("team.")->prefix("{division}/teams")->group(function () {
+
+                Route::post("/{team}",  [TeamController::class, "update"])->name("update");
+                Route::apiresource("/",  TeamController::class)->parameters(["" => "team"]);
+
+            });
+        });
+
+    });
+
 // });
