@@ -17,7 +17,7 @@ use App\Http\Controllers\Api\DivisionController;
 
 // Route::middleware(["auth"])->group(function () {
 
-    Route::name("league.")->prefix("leagues")->group(function () {
+    Route::name("api.league.")->prefix("leagues")->group(function () {
 
         Route::post("/{league}", [LeagueController::class, "update"])->name("update");
         Route::apiresource("/",   LeagueController::class)->parameters(["" => "league"]);
