@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 class LeagueController extends Controller
 {
     /**
-     * Retorna todos as ligas normais
+     * Retorna todos as ligas, com suas divisões e times.
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
@@ -20,13 +20,8 @@ class LeagueController extends Controller
         return League::with("divisions", "teams")->orderBy("name")->get();
     }
 
-    public function store(LeagueRequest $request)
-    {
-
-    }
-
     /**
-     * Retorna uma liga.
+     * Retorna uma liga com suas divisões e times.
      *
      * @param  \App\Models\League  $league
      * @return \App\Models\League
@@ -36,6 +31,55 @@ class LeagueController extends Controller
         return $league->load("divisions", "teams");
     }
 
+    /**
+     * Cria uma liga e suas divisões.
+     *
+     * @param LeagueRequest $request
+     * @return \App\Models\League
+     */
+    public function store(LeagueRequest $request)
+    {
+        $val_data = $request->validated();
+
+        if (isset($request->image))
+        {
+            $image_name = strtolower($val_data["initials"]) . "." . $request->image->extension();
+
+            $request->image->move(public_path("images/game/leagues"), $image_name);
+            $val_data["image"] = $image_name;
+        }
+
+        $val_data["nrparticipants"] = (isset($val_data["nrdivisions"])) ? ($val_data["nrdivisions"] + 1) * 10 : 20;
+
+        $league = League::create($val_data);
+
+        $data   = [];
+        $time   = date("Y-m-d H:i:s");
+
+        for ($i = 1; $i <= $league->nrdivisions; $i++)
+        {
+            $data[] = [
+                "league_id"      => $league->id,
+                "name"           => $league->initials . " " . $i . "ª Divisão",
+                "initials"       => $i . "ª D",
+                "nrparticipants" => 10,
+                "created_at"     => $time,
+                "updated_at"     => $time,
+            ];
+        }
+
+        Division::insert($data);
+
+        return $league->load("divisions", "teams");
+    }
+
+    /**
+     * Atualiza uma liga e suas divisões, caso não tenha times associados a ela.
+     *
+     * @param LeagueRequest $request
+     * @param League $league
+     * @return \App\Models\League
+     */
     public function update(LeagueRequest $request, League $league)
     {
         $val_data = $request->validated();
@@ -44,48 +88,115 @@ class LeagueController extends Controller
 
         if ($league->teams->count() == 0)
         {
+            // Atualiza logo da liga
             if (isset($request->image))
             {
+                File::delete(public_path("images/game/leagues/") . $league->image);
+
                 $image_name = strtolower($val_data["initials"]) . "." . $request->image->extension();
 
-                if (file_exists(public_path("images/game/leagues/" . $image_name)))
-                {
-                    File::delete(public_path("images/game/leagues/") . $league->image);
-                }
-
                 $request->image->move(public_path("images/game/leagues"), $image_name);
+
                 $val_data["image"] = $image_name;
             }
+
+            // Atualiza quantidade de divisões da liga, o nome e sigla da divisão
+            if ($val_data["nrdivisions"] > $league->nrdivisions)
+            {
+                $data = [];
+                $time = date("Y-m-d H:i:s");
+
+                for ($i = $league->nrdivisions + 1; $i <= $val_data["nrdivisions"]; $i++)
+                {
+                    $data[] = [
+                        "league_id"      => $league->id,
+                        "name"           => $val_data["initials"] . " " . $i . "ª Divisão",
+                        "initials"       => $i . "ª D",
+                        "nrparticipants" => 10,
+                        "created_at"     => $time,
+                        "updated_at"     => $time,
+                    ];
+                }
+
+                Division::insert($data);
+            }
+            else if ($val_data["nrdivisions"] < $league->nrdivisions)
+            {
+                foreach ($league->divisions as $key => $division)
+                {
+                    if (($key + 1) <= $val_data["nrdivisions"]) continue;
+
+                    $division->delete();
+                }
+            }
+
+            // Recarrega as divisões
+            $league->load("divisions");
+
+            // Atualiza o nome das divisões, com a sigla atual da liga
+            foreach ($league->divisions as $key => $division)
+            {
+                $i = $key + 1;
+                $division->name = $val_data["initials"] . " " . $i . "ª Divisão";
+                $division->save();
+            }
+
+            $val_data["nrparticipants"] = (isset($val_data["nrdivisions"])) ? ($val_data["nrdivisions"] + 1) * 10 : 20;
 
             $league->fill($val_data);
             $league->save();
         }
         else
         {
-            // retornar error 422;
+            return response()->json([
+                "message" => "Unable to update this league",
+                "errors"  => [
+                    "update" => [
+                        "Unable to update this league"
+                    ]
+                ]
+            ], 422);
         }
 
         return $league;
     }
 
     /**
-     * Exclui uma liga e suas divisoes, se tiver.
+     * Exclui uma liga e suas divisões, caso não tenha times associados a ela.
      *
      * @param  \App\Models\League  $league
      * @return \App\Models\League
      */
     public function destroy(League $league)
     {
-        if ($league->image != "default.png")
+        $league->load("divisions", "teams");
+
+        if ($league->teams->count() == 0)
         {
-            File::delete(public_path("images/game/leagues/") . $league->image);
+            if ($league->image != "default.png")
+            {
+                File::delete(public_path("images/game/leagues/") . $league->image);
+            }
+
+            if ($league->divisions->count() > 0)
+            {
+                $league->divisions->delete();
+            }
+
+            $league->delete();
+
+            return $league;
         }
-
-        $league->load("divisions");
-        $league->divisions()->delete();
-        $league->delete();
-
-        return $league;
+        else
+        {
+            return response()->json([
+                "message" => "Unable to delete this league",
+                "errors"  => [
+                    "destroy" => [
+                        "Unable to delete this league"
+                    ]
+                ]
+            ], 422);
+        }
     }
-
 }
