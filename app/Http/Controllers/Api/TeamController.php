@@ -16,27 +16,29 @@ class TeamController extends Controller
      */
     public function index()
     {
-
+        return Team::with("league", "division", "players", "trophies")->orderBy("name")->get();
     }
 
     /**
      * Retorna um time com seus jogadores de uma determinada liga.
      *
-     * @param  Team $team
+     * @param  League   $league
+     * @param  Team     $team
      * @return Team
      */
-    public function show(Team $team)
+    public function show(League $league, Team $team)
     {
-
+        return $team->load("league", "division", "players", "trophies");
     }
 
     /**
      * Cria um time.
      *
      * @param  TeamRequest  $request
+     * @param  League       $league
      * @return Team
      */
-    public function store(TeamRequest $request)
+    public function store(TeamRequest $request, League $league)
     {
 
     }
@@ -57,10 +59,11 @@ class TeamController extends Controller
     /**
      * Exclui um time. Os jogadores associados ao time ficaram disponíveis.
      *
-     * @param  Team $team
+     * @param  League   $league
+     * @param  Team     $team
      * @return Team
      */
-    public function destroy(Team $team)
+    public function destroy(League $league, Team $team)
     {
 
     }
