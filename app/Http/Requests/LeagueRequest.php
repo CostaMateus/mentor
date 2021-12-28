@@ -39,7 +39,7 @@ class LeagueRequest extends FormRequest
             ],
             "nrdivisions"    => "nullable|numeric",
             "nrparticipants" => "nullable|numeric",
-            "special"        => "nullable|numeric",
+            "special"        => "nullable|numeric|min:0|max:1",
             "image"          => "nullable|file|mimes:jpeg,png,jpg|max:2048"
         ];
     }
