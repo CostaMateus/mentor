@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 class LeagueController extends Controller
 {
     /**
-     * Retorna todos as ligas, com suas divisões e times.
+     * Retorna todas as ligas, com suas divisões e times.
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
@@ -23,8 +23,8 @@ class LeagueController extends Controller
     /**
      * Retorna uma liga com suas divisões e times.
      *
-     * @param  \App\Models\League  $league
-     * @return \App\Models\League
+     * @param  League   $league
+     * @return League
      */
     public function show(League $league)
     {
@@ -34,8 +34,8 @@ class LeagueController extends Controller
     /**
      * Cria uma liga e suas divisões.
      *
-     * @param LeagueRequest $request
-     * @return \App\Models\League
+     * @param  LeagueRequest    $request
+     * @return League
      */
     public function store(LeagueRequest $request)
     {
@@ -76,9 +76,9 @@ class LeagueController extends Controller
     /**
      * Atualiza uma liga e suas divisões, caso não tenha times associados a ela.
      *
-     * @param LeagueRequest $request
-     * @param League $league
-     * @return \App\Models\League
+     * @param  LeagueRequest    $request
+     * @param  League           $league
+     * @return League
      */
     public function update(LeagueRequest $request, League $league)
     {
@@ -164,8 +164,8 @@ class LeagueController extends Controller
     /**
      * Exclui uma liga e suas divisões, caso não tenha times associados a ela.
      *
-     * @param  \App\Models\League  $league
-     * @return \App\Models\League
+     * @param  League   $league
+     * @return League
      */
     public function destroy(League $league)
     {
