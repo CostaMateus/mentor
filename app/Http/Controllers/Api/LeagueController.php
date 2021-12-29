@@ -169,18 +169,11 @@ class LeagueController extends Controller
      */
     public function destroy(League $league)
     {
-        $league->load("divisions", "teams");
-
         if ($league->teams->count() == 0)
         {
             if ($league->image != "default.png")
             {
                 File::delete(public_path("images/game/leagues/") . $league->image);
-            }
-
-            if ($league->divisions->count() > 0)
-            {
-                $league->divisions->delete();
             }
 
             $league->delete();
