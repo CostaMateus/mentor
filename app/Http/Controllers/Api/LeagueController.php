@@ -176,6 +176,7 @@ class LeagueController extends Controller
                 File::delete(public_path("images/game/leagues/") . $league->image);
             }
 
+            $league->divisions()->delete();
             $league->delete();
 
             return $league;
