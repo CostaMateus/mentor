@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Team;
-use App\Models\League;
 use App\Http\Requests\TeamRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class TeamController extends Controller
 {
@@ -16,7 +16,10 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return Team::with("league", "division", "players", "trophies")->orderBy("name")->get();
+        return Team::with("league", "division", "players", "trophies")
+                   ->orderByRaw("ISNULL(division_id), division_id ASC")
+                   ->orderBy("name")
+                   ->get();
     }
 
     /**
@@ -61,6 +64,19 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
+        foreach ($team->players as $player)
+        {
+            $player->team_id = null;
+            $player->save();
+        }
 
+        if ($team->image != "default.png")
+        {
+            File::delete(public_path("images/game/leagues/teams/") . $team->image);
+        }
+
+        $team->delete();
+
+        return $team;
     }
 }
