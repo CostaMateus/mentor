@@ -14,7 +14,7 @@ class CreateTeamTrophyTable extends Migration
     public function up()
     {
         Schema::create("team_trophy", function (Blueprint $table) {
-            $table->bigIncrements("id");
+            $table->id();
 
             $table->bigInteger("team_id")
                     ->unsigned()->index()

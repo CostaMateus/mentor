@@ -14,6 +14,7 @@ class CreateContractsTable extends Migration
     public function up()
     {
         Schema::create("contracts", function (Blueprint $table) {
+            $table->id();
 
             $table->bigInteger("team_id")
                   ->unsigned()->index()

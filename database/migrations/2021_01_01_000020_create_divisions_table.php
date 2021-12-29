@@ -14,12 +14,13 @@ class CreateDivisionsTable extends Migration
     public function up()
     {
         Schema::create("divisions", function (Blueprint $table) {
-            $table->bigIncrements("id");
+            $table->id();
 
             $table->bigInteger("league_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("leagues");
+                  ->on("leagues")
+                  ->onDelete("cascade");
 
             $table->string("name")->unique();
             $table->string("initials");

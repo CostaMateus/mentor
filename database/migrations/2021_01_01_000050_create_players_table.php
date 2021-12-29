@@ -14,12 +14,13 @@ class CreatePlayersTable extends Migration
     public function up()
     {
         Schema::create("players", function (Blueprint $table) {
-            $table->bigIncrements("id");
+            $table->id();
 
             $table->bigInteger("team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("teams")->nullable()->default(null);
+                  ->on("teams")
+                  ->nullable()->default(null);
 
             $table->string("name");
             $table->string("lastname");
@@ -28,7 +29,8 @@ class CreatePlayersTable extends Migration
             $table->bigInteger("country_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("countries")->default(30); // BRASIL
+                  ->on("countries")
+                  ->default(30); // BRASIL
 
             $table->date("birthday");
             $table->string("sex")->default("M");
@@ -37,7 +39,8 @@ class CreatePlayersTable extends Migration
             $table->bigInteger("user_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("users")->nullable()->default(null);
+                  ->on("users")
+                  ->nullable()->default(null);
 
             $table->timestamps();
         });

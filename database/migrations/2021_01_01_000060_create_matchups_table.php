@@ -23,7 +23,8 @@ class CreateMatchupsTable extends Migration
             $table->bigInteger("division_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("divisions")->nullable();
+                  ->on("divisions")
+                  ->nullable();
 
             $table->bigInteger("blue_team_id")
                   ->unsigned()->index()

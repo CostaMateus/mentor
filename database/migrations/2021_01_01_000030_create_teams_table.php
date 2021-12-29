@@ -14,7 +14,7 @@ class CreateTeamsTable extends Migration
     public function up()
     {
         Schema::create("teams", function (Blueprint $table) {
-            $table->bigIncrements("id");
+            $table->id();
 
             $table->bigInteger("league_id")
                   ->unsigned()->index()
@@ -24,7 +24,8 @@ class CreateTeamsTable extends Migration
             $table->bigInteger("division_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("divisions")->nullable();
+                  ->on("divisions")
+                  ->nullable();
 
             $table->string("name")->unique();
             $table->string("initials")->unique();

@@ -25,12 +25,14 @@ class CreateHistoryTransferTable extends Migration
             $table->bigInteger("seller_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("teams");
+                  ->on("teams")
+                  ->onDelete("cascade");
 
             $table->bigInteger("buyer_team_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("teams");
+                  ->on("teams")
+                  ->onDelete("cascade");
 
             $table->double("value", 11, 2);
             $table->date("date");

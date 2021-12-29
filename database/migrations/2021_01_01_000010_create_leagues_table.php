@@ -15,7 +15,7 @@ class CreateLeaguesTable extends Migration
     public function up()
     {
         Schema::create("leagues", function (Blueprint $table) {
-            $table->bigIncrements("id");
+            $table->id();
 
             $table->string("name")->unique();
             $table->string("initials")->unique();
