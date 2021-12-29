@@ -27,7 +27,6 @@ class TeamRequest extends FormRequest
         return [
             "league_id"   => "required|string",
             "division_id" => "required|string",
-            "image"       => "nullable|file|mimes:jpeg,png,jpg|max:2048",
             "name"        => [
                 "required",
                 "string",
@@ -40,6 +39,7 @@ class TeamRequest extends FormRequest
                 "max:5",
                 Rule::unique("teams", "initials")->ignore($this->team)
             ],
+            "image"       => "nullable|file|mimes:jpeg,png,jpg|max:2048",
         ];
     }
 
@@ -51,10 +51,12 @@ class TeamRequest extends FormRequest
     public function messages()
     {
         return [
-            "name.required"     => "Este campo é obrigatório.",
-            "name.unique"       => "Esse nome já está em uso.",
-            "initials.required" => "Este campo é obrigatório.",
-            "initials.unique"   => "Essa sigla já está em uso.",
+            "league_id.required"   => "Selecione uma liga.",
+            "division_id.required" => "Selecione uma divisão.",
+            "name.required"        => "Este campo é obrigatório.",
+            "name.unique"          => "Esse nome já está em uso.",
+            "initials.required"    => "Este campo é obrigatório.",
+            "initials.unique"      => "Essa sigla já está em uso.",
         ];
     }
 }
