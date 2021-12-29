@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContractsTable extends Migration
+class CreateTrustsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,21 @@ class CreateContractsTable extends Migration
      */
     public function up()
     {
-        Schema::create("contracts", function (Blueprint $table) {
-
-            $table->bigInteger("team_id")
-                  ->unsigned()->index()
-                  ->foreign()->references("id")
-                  ->on("teams");
+        Schema::create("trusts", function (Blueprint $table) {
+            $table->id();
 
             $table->bigInteger("player_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("players");
+                  ->on("players")
+                  ->onDelete("cascade");
 
-            $table->date("start");
-            $table->date("end");
-            $table->integer("duration")->default(3); // em meses
+            $table->integer("board")->default(100);
+            $table->integer("fans")->default(80);
 
             $table->timestamps();
         });
+
     }
 
     /**
@@ -40,6 +37,6 @@ class CreateContractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("contracts");
+        Schema::dropIfExists("trusts");
     }
 }

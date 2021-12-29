@@ -19,7 +19,8 @@ class CreateAttributesTable extends Migration
             $table->bigInteger("player_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("players");
+                  ->on("players")
+                  ->onDelete("cascade");
 
             $table->enum("role",           array("top", "jng", "mid", "adc", "sup"));
             $table->enum("secondary_role", array("top", "jng", "mid", "adc", "sup"));

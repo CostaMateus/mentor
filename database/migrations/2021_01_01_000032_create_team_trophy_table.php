@@ -19,12 +19,14 @@ class CreateTeamTrophyTable extends Migration
             $table->bigInteger("team_id")
                     ->unsigned()->index()
                     ->foreign()->references("id")
-                    ->on("teams");
+                    ->on("teams")
+                    ->onDelete("cascade");
 
             $table->bigInteger("trophy_id")
                     ->unsigned()->index()
                     ->foreign()->references("id")
-                    ->on("trophies");
+                    ->on("trophies")
+                    ->onDelete("cascade");
 
             $table->date("won");
         });

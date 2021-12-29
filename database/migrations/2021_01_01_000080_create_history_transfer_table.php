@@ -19,7 +19,8 @@ class CreateHistoryTransferTable extends Migration
             $table->bigInteger("player_id")
                   ->unsigned()->index()
                   ->foreign()->references("id")
-                  ->on("players");
+                  ->on("players")
+                  ->onDelete("cascade");
 
             $table->bigInteger("seller_team_id")
                   ->unsigned()->index()
