@@ -41,7 +41,23 @@ class TeamController extends Controller
      */
     public function store(TeamRequest $request)
     {
+        $val_data = $request->validated();
 
+        if (isset($request->image))
+        {
+            $image_name = strtolower($val_data["initials"]) . "." . $request->image->extension();
+
+            $request->image->move(public_path("images/game/leagues/teams"), $image_name);
+            $val_data["image"] = $image_name;
+        }
+
+        $val_data["initials"] = strtoupper($val_data["initials"]);
+
+        $team = Team::create($val_data);
+
+        // criar dados financeiros
+
+        return $team;
     }
 
     /**
