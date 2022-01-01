@@ -27,18 +27,8 @@ class TeamRequest extends FormRequest
         return [
             "league_id"   => "required|string",
             "division_id" => "required|string",
-            "name"        => [
-                "required",
-                "string",
-                "max:64",
-                Rule::unique("teams", "name")->ignore($this->team)
-            ],
-            "initials"    => [
-                "required",
-                "string",
-                "max:5",
-                Rule::unique("teams", "initials")->ignore($this->team)
-            ],
+            "name"        => "required|string|max:64|" . Rule::unique("teams", "name")->ignore($this->team),
+            "initials"    => "required|string|max:5|" . Rule::unique("teams", "initials")->ignore($this->team),
             "image"       => "nullable|file|mimes:jpeg,png,jpg|max:2048",
         ];
     }

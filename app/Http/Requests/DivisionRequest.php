@@ -25,19 +25,9 @@ class DivisionRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"           => [
-                "required",
-                "string",
-                "max:64",
-                Rule::unique("divisions", "name")->ignore($this->league)
-            ],
-            "initials"       => [
-                "required",
-                "string",
-                "max:5",
-                Rule::unique("divisions", "initials")->ignore($this->league)
-            ],
-            "nrparticipants" => "nullable|numeric",
+            "name"           => "required|string|max:64|" . Rule::unique("divisions", "name")->ignore($this->league),
+            "initials"       => "required|string|max:5|" . Rule::unique("divisions", "initials")->ignore($this->league),
+            "nrparticipants" => "nullable|integer",
         ];
     }
 

@@ -25,21 +25,11 @@ class LeagueRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"           => [
-                "required",
-                "string",
-                "max:64",
-                Rule::unique("leagues", "name")->ignore($this->league)
-            ],
-            "initials"       => [
-                "required",
-                "string",
-                "max:5",
-                Rule::unique("leagues", "initials")->ignore($this->league)
-            ],
-            "nrdivisions"    => "nullable|numeric",
-            "special"        => "nullable|numeric|min:0|max:1",
-            "image"          => "nullable|file|mimes:jpeg,png,jpg|max:2048"
+            "name"        => "required|string|max:64|" . Rule::unique("leagues", "name")->ignore($this->league),
+            "initials"    => "required|string|max:5|" . Rule::unique("leagues", "initials")->ignore($this->league),
+            "nrdivisions" => "nullable|integer",
+            "special"     => "nullable|integer|min:0|max:1",
+            "image"       => "nullable|file|mimes:jpeg,png,jpg|max:2048"
         ];
     }
 
