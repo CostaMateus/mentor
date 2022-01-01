@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use DateTime;
+use Faker\Factory;
 
 class Helper
 {
@@ -330,5 +331,83 @@ class Helper
         return array_filter($teams, function($team) {
             return is_null($team["division_id"]);
         });
+    }
+
+    public static function convertDate(string $date)
+    {
+        $date = explode("/", $date);
+        $date = array_reverse($date);
+        $date = implode("-", $date);
+
+        return $date;
+    }
+
+    public static function randomForce(string $opt)
+    {
+        switch ($opt)
+        {
+            case 3:
+                return self::generateForce(40, 75);
+            break;
+
+            case 2:
+                return self::generateForce(20, 65);
+            break;
+
+            case 1:
+            default:
+                return self::generateForce(1, 40);
+            break;
+        }
+    }
+
+    private static function generateForce(int $f1, int $f2)
+    {
+        $faker = Factory::create();
+        $force = 0;
+
+        for ($i = 0; $i < 5; $i++)
+            $force += $faker->numberBetween($f1, $f2);
+
+        return (int) ($force / 5);
+    }
+
+    public static function randomSalary(int $force, bool $mentor)
+    {
+        $faker  = Factory::create();
+
+        $salary = ($mentor) ? $faker->randomFloat(2, 6500, 8500) :
+                    (($force > 70) ? $faker->randomFloat(2, 7000, 8000) :
+                        (($force > 60) ? $faker->randomFloat(2, 6000, 7250) :
+                            (($force > 50) ? $faker->randomFloat(2, 5000, 6250) :
+                                (($force > 40) ? $faker->randomFloat(2, 4000, 5250) :
+                                    (($force > 30) ? $faker->randomFloat(2, 3000, 4250) :
+                                        $faker->randomFloat(2, 2000, 3250))))));
+
+        $pass   = $salary * $faker->randomFloat(2, 1, 3);
+
+        return [
+            "salary" => round($salary, 0),
+            "pass"   => round($pass,   0)
+        ];
+    }
+
+    public static function randomContract()
+    {
+        $faker    = Factory::create();
+
+        $duration = $faker->randomElement([3, 6, 9, 12]);
+
+        // A data de inicio não pode ser a data de inicio da temporado do jogo.
+        // Tem que ser a data corrente do sistema do jogo.
+        // No momento ela não existe.
+        $start    = config("mentor.start_date");
+        $end      = date("Y-m-d", strtotime("+$duration month", strtotime($start)));
+
+        return [
+            "start"    => $start,
+            "end"      => $end,
+            "duration" => $duration,
+        ];
     }
 }
