@@ -51,7 +51,7 @@
             @else
 
                 <div class="col-12 col-md-6 mx-auto">
-                    <p class="my-3 text-center">Nenhum jogador encontrado.<p></div>
+                    <p class="my-3 text-center">Nenhum jogador encontrado.<p>
                 </div>
 
             @endif
