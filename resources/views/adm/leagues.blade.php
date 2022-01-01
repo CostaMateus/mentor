@@ -3,7 +3,9 @@
 @section('title_prefix', 'Ligas')
 
 @section('css')
-    <style></style>
+    <style>
+        .form-check-input { margin-top: 0.4rem !important; }
+    </style>
 @endsection
 
 @section('content_header')
@@ -27,6 +29,8 @@
                         <th class=""            data-field="name"     data-sortable="true" >Nome</th>
                         <th class="text-center" data-field="initials" data-sortable="true" >Sigla</th>
                         <th class="text-center" data-field="nrd"      data-sortable="true" >Nº divisões</th>
+                        <th class="text-center" data-field="nrdTeams" data-sortable="true" >Nº times</th>
+                        <th class="text-center" data-field="special"  data-sortable="true" >Especial</th>
                         <th class="text-center"                                            >Ver</th>
                         <th class="text-center"                                            >Editar</th>
                         <th class="text-center"                                            >Excluir</th>
@@ -46,6 +50,12 @@
                             <td class=""            >{{ $league->name }}</td>
                             <td class="text-center" >{{ $league->initials }}</td>
                             <td class="text-center" >{{ $league->nrdivisions }}</td>
+                            <td class="text-center" >{{ $league->nrparticipants }}</td>
+                            <td class="text-center" >
+                                @if ($league->special)
+                                    <i class="fas fa-check"></i>
+                                @endif
+                            </td>
 
                             <td class="text-center" >
                                 <button class="btn btn-link text-dark see-league" data-id="{{ $league->id }}">
@@ -86,7 +96,7 @@
     </div>
 
     {{-- NEW --}}
-    <div id="new-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-league-title" aria-hidden="true" >
+    <div id="new-league" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="new-league-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -96,7 +106,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-league-form" action="{{ url("/leagues") }}" method="POST" enctype="multipart/form-data" >
+                    <form id="new-league-form">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -117,7 +127,13 @@
                             <div class="col-12 col-md-6 pl-md-2">
                                 <div class="form-group">
                                     <label for="nrdivisions" class="text-muted">Nº de divisões</label>
-                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" max="4" step="1">
+                                    <select id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" style="width: 100%" >
+                                        <option value="">Selecione...</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
                                     <span id="span_nrdivisions" class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -126,13 +142,25 @@
                                 <div class="form-group">
                                     <label for="image" class="text-muted">Imagem</label>
                                     <input id="image" type="file" class="form-control-file" name="image">
+                                    <span id="span_image" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group form-check">
+                                    <input class="form-check-input my-auto" type="checkbox" id="special" name="special" value="true" >
+                                    <label class="form-check-label my-auto" for="special" >
+                                        É uma liga especial?
+                                    </label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Criar</button>
+                                <button type="submit" class="btn btn-success btn-sm btn-block" >
+                                    Criar <i class="ml-2 d-none fas fa-spinner fa-spin text-white"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -142,7 +170,7 @@
     </div>
 
     {{-- EDIT --}}
-    <div id="edit-league" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-league-title" aria-hidden="true" >
+    {{-- <div id="edit-league" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit-league-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -195,7 +223,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- DELETE --}}
     @include('adm/partials.modal-delete', [
@@ -217,11 +245,6 @@
         // Bootstrap Table
         getbootstrapTable("leagues-table", {
             locale: "pt-br",
-            // height: 710,
-            // pageSize: "25",
-            // pagination: "true",
-            // paginationVAlign: "top",
-            // pageList: [25, 50, 100, 200, "All"],
         });
 
         // SEE
@@ -237,32 +260,79 @@
             $("#new-league").find("#nrdivisions").val("").removeAttr("disabled");
             $("#new-league").modal("show");
         });
+        $("#new-league-form").on("submit", function(e) {
+            e.preventDefault();
 
-        // EDIT
-        $(document).on("click", ".edit-league", function() {
-            let id      = $(this).data("id");
+            clearInvalid();
+            disableFields();
 
-            $("#edit-league-form").attr("action", `{{ url("/leagues") }}/${id}/update`).attr("method", "POST");
+            var url      = "{{ route("api.league.store") }}";
+            var formData = new FormData(this);
+            var btn      = $(this).find("button");
+
+            btn.addClass("disabled").find("i").removeClass("d-none");
 
             $.ajax({
-                type: "GET",
-                url: `{{ url("leagues") }}/${id}`,
-                success: function ( data ) {
-                    // console.log( data );
-                    let league = data;
-
-                    $("#edit-league").find("#edit-league-title").html("Editar liga");
-                    $("#edit-league").find("#name").html(league.name).val(league.name);
-                    $("#edit-league").find("#initials").html(league.initials).val(league.initials);
-                    $("#edit-league").find("#nrdivisions").html(league.nrdivisions).val(league.nrdivisions).attr("disabled", "disabled");
-                    $("#edit-league").find("#image").html(league.image).val();
-                    $("#edit-league").modal("show");
+                url: url,
+                type: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: "multipart/form-data",
+                success: function (data) {
+                    // console.log(data);
+                    window.location.reload();
                 },
-                error: function ( err ) {
-                    console.log( err );
+                error: function (err) {
+                    console.log(err);
+
+                    clearInvalid();
+                    enableFields();
+                    showErrors(err);
+
+                    btn.removeClass("disabled").find("i").addClass("d-none");
                 }
             });
         });
+
+
+
+        // // EDIT
+        // $(document).on("click", ".edit-league", function() {
+        //     let id      = $(this).data("id");
+
+        //     $("#edit-league-form").attr("action", `{{ url("/leagues") }}/${id}/update`).attr("method", "POST");
+
+        //     $.ajax({
+        //         type: "GET",
+        //         url: `{{ url("leagues") }}/${id}`,
+        //         success: function ( data ) {
+        //             // console.log( data );
+        //             let league = data;
+
+        //             $("#edit-league").find("#edit-league-title").html("Editar liga");
+        //             $("#edit-league").find("#name").html(league.name).val(league.name);
+        //             $("#edit-league").find("#initials").html(league.initials).val(league.initials);
+        //             $("#edit-league").find("#nrdivisions").html(league.nrdivisions).val(league.nrdivisions).attr("disabled", "disabled");
+        //             $("#edit-league").find("#image").html(league.image).val();
+        //             $("#edit-league").modal("show");
+        //         },
+        //         error: function ( err ) {
+        //             console.log( err );
+
+        //             clearInvalid();
+
+        //             if (err.status == 422)
+        //             {
+        //                 $.each(err.responseJSON.errors, function (key, error) {
+        //                     $(`#${key}`).addClass("is-invalid");
+        //                     $(`#span_${key}`).html(error);
+        //                 });
+        //             }
+        //         }
+        //     });
+        // });
 
         // DEL
         $(document).on("click", ".del-league", function() {
@@ -273,9 +343,12 @@
         $("#del-league-form").on("submit", function(e) {
             e.preventDefault();
             let id   = $(this).data("id");
-            let url  = `{{ url("leagues") }}/${id}`;
+            let url  = `{{ url("api/leagues") }}/${id}`;
             let data = $("#del-league-form").serialize();
-            deleteItem(url, data);
+            var btn  = $(this).find("button");
+            btn.addClass("disabled").find("i").removeClass("d-none");
+
+            deleteItem(url, data, btn);
         });
 
         // ICON
