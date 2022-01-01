@@ -1,7 +1,7 @@
 
 <div class="row">
 
-    @foreach ($data["divisions"] as $division)
+    @forelse ($data["divisions"] as $division)
 
         <div class="col-12 col-md-6 border">
             <div class="row my-2">
@@ -9,7 +9,7 @@
                     <p class="h6 text-bold">{{ $division->name }}</p>
                 </div>
 
-                @foreach ($data["teams"] as $team)
+                @forelse ($data["teams"] as $team)
 
                     @if ($division->id == $team->division_id)
 
@@ -27,15 +27,27 @@
 
                     @endif
 
+                @empty
 
-                @endforeach
+                    <div class="col-12 col-md-6 mx-auto">
+                        <p class="my-3 text-center">Nenhum time encontrado.<p>
+                    </div>
+
+                @endforelse
 
             </div>
         </div>
 
-    @endforeach
+    @empty
 
-    @if (Helper::hasTeamWithoutDivision($data["teams"]))
+        <div class="col-12 col-md-6 mx-auto">
+            <p class="my-3 text-center">Nenhuma divisão encontrada.<p>
+        </div>
+
+    @endforelse
+
+
+    @if (($data["divisions"]->count() > 0) && Helper::hasTeamWithoutDivision($data["teams"]))
 
         <div class="col-12 col-md-6 border">
             <div class="row my-2">
@@ -60,7 +72,6 @@
                         </div>
 
                     @endif
-
 
                 @endforeach
 
