@@ -82,9 +82,10 @@ class TeamController extends Controller
     {
         foreach ($team->players as $player)
         {
-            $player->team_id = null;
-            $player->save();
+            $player->contract->delete();
         }
+
+        $team->players()->update(["team_id" => null]);
 
         if ($team->image != "default.png")
         {
