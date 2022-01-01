@@ -20,21 +20,21 @@ use App\Http\Controllers\Api\DivisionController;
 
     Route::name("api.league.")->prefix("leagues")->group(function () {
 
-        Route::post("/{league}", [LeagueController::class, "update"])->name("update");
+        Route::post("/{league}", [LeagueController::class, "update"])->name("post");
         Route::apiresource("/",   LeagueController::class)->parameters(["" => "league"]);
 
     });
 
     Route::name("api.team.")->prefix("teams")->group(function () {
 
-        Route::post("/{team}",  [TeamController::class, "update"])->name("update");
+        Route::post("/{team}",  [TeamController::class, "update"])->name("post");
         Route::apiresource("/",  TeamController::class)->parameters(["" => "team"]);
 
     });
 
     Route::name("api.player.")->prefix("players")->group(function () {
 
-        Route::post("/{player}",  [PlayerController::class, "update"])->name("update");
+        Route::post("/{player}",  [PlayerController::class, "update"])->name("post");
         Route::apiresource("/",  PlayerController::class)->parameters(["" => "player"]);
 
     });
