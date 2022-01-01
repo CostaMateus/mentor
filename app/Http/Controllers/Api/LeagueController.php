@@ -49,7 +49,9 @@ class LeagueController extends Controller
             $val_data["image"] = $image_name;
         }
 
-        $val_data["nrparticipants"] = (isset($val_data["nrdivisions"])) ? ($val_data["nrdivisions"] + 1) * 10 : 20;
+        $val_data["special"]        = (isset($val_data["special"]))     ? 1 : 0;
+        $val_data["nrdivisions"]    = (isset($val_data["nrdivisions"])) ? $val_data["nrdivisions"] : 1;
+        $val_data["nrparticipants"] = ($val_data["nrdivisions"] + 1) * 10;
 
         $league = League::create($val_data);
 
