@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\TeamController;
 use App\Http\Controllers\Api\LeagueController;
+use App\Http\Controllers\Api\PlayerController;
 use App\Http\Controllers\Api\DivisionController;
 
 /*
@@ -28,6 +29,13 @@ use App\Http\Controllers\Api\DivisionController;
 
         Route::post("/{team}",  [TeamController::class, "update"])->name("update");
         Route::apiresource("/",  TeamController::class)->parameters(["" => "team"]);
+
+    });
+
+    Route::name("api.player.")->prefix("players")->group(function () {
+
+        Route::post("/{player}",  [PlayerController::class, "update"])->name("update");
+        Route::apiresource("/",  PlayerController::class)->parameters(["" => "player"]);
 
     });
 
