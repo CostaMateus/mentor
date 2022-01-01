@@ -5,17 +5,18 @@ window.getbootstrapTable = function(id, options)
 }
 
 // Delete data
-window.deleteItem = function(url, data)
+window.deleteItem = function(url, data, btn)
 {
     $.ajax({
-        type: 'DELETE',
+        type: "DELETE",
         url: url,
         data: data,
         success: function (data) {
-            location.reload();
+            window.location.reload();
         },
-        error: function (error) {
-            console.log(error.statusText);
+        error: function (err) {
+            console.log(err);
+            btn.removeClass("disabled").find("i").addClass("d-none");
         }
     });
 }
@@ -139,4 +140,15 @@ window.showErrors = function(e) {
         let elem = $('#' + key);
         if (elem.next().find('.select2')) elem.next().find('.select2-selection').addClass('has-error');
     });
+}
+
+// Desativa os campos enquanto processa os dados
+window.disableFields = function () {
+    $("input").attr("readonly", true);
+    $("select").attr("disabled", true);
+}
+// Reativa os campos após processar os dados
+window.enableFields = function () {
+    $("input").removeAttr("readonly", true);
+    $("select").removeAttr("disabled", true);
 }
