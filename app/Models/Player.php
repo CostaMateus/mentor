@@ -52,6 +52,6 @@ class Player extends Model
      */
     public function country()
     {
-        return $this->belongsTo("App\Models\Country", "nationality", "code");
+        return $this->belongsTo("App\Models\Country");
     }
 }
