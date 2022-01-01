@@ -9,14 +9,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="{{ $formId }}" action="#" method="#" >
+                    <form id="{{ $formId }}">
                         @csrf
                         <div class="row">
                             <div class="col-12 text-center">
                                 <p>{{ $text }}</p>
                             </div>
                             <div class="col-3 mx-auto">
-                                <button type="submit" class="btn btn-danger btn-sm btn-block" >Confirmar</button>
+                                <button type="submit" class="btn btn-danger btn-sm btn-block" >
+                                    Confirmar <i class="ml-2 d-none fas fa-spinner fa-spin text-white"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
