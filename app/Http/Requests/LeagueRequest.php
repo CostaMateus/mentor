@@ -27,8 +27,8 @@ class LeagueRequest extends FormRequest
         return [
             "name"        => "required|string|max:64|" . Rule::unique("leagues", "name")->ignore($this->league),
             "initials"    => "required|string|max:5|" . Rule::unique("leagues", "initials")->ignore($this->league),
-            "nrdivisions" => "nullable|integer",
-            "special"     => "nullable|integer|min:0|max:1",
+            "nrdivisions" => "nullable|integer|max:4",
+            "special"     => "nullable|string",
             "image"       => "nullable|file|mimes:jpeg,png,jpg|max:2048"
         ];
     }
@@ -43,8 +43,12 @@ class LeagueRequest extends FormRequest
         return [
             "name.required"     => "Este campo é obrigatório.",
             "name.unique"       => "Esse nome já está em uso.",
+            "name.max"          => "O nome não pode ter mais de 64 caracteres.",
             "initials.required" => "Este campo é obrigatório.",
             "initials.unique"   => "Essa sigla já está em uso.",
+            "initials.max"      => "A sigla não pode ter mais de 5 caracteres.",
+            "image.mimes"       => "A imagem deve ser um arquivo do tipo: jpeg, png, jpg.",
+            "nrdivisions.max"   => "O número máximo são 4 divisões.",
         ];
     }
 }
