@@ -24,6 +24,13 @@
                         $salary  = Helper::formatCurrency($player->attribute->salary);
                         $pass    = Helper::formatCurrency($player->attribute->pass);
 
+                        $d1      = new DateTime($player->birthday);
+                        // A data de comparação não pode ser a data de inicio da temporado do jogo.
+                        // Tem que ser a data corrente do sistema do jogo.
+                        // No momento ela não existe.
+                        $d2      = new DateTime(config("mentor.start_date"));
+                        $age     = $d1->diff($d2);
+
                         $country = $player->country;
                         $ctt     = Helper::formatDate($player->attribute->contract);
                     @endphp
@@ -39,7 +46,7 @@
                                 2º pos. <strong class="text-{{ $rolTx2 }}" >{{ $role2 }}</strong>
                             </p>
                             <p class="mb-0 " >{{ $player->name }} "<strong>{{ $player->nickname }}</strong>" {{ $player->lastname }}</p>
-                            <p class="mb-0 " >Sexo: {{ $player->sex }} | Idade: {{ $player->age }} | Nacionalidade: <img src="{{ asset("images/flags") }}/{{ $country->code }}_64.png" alt="{{ $country->code }}" title="{{ $country->name }}" width="20px" height="20px"></p>
+                            <p class="mb-0 " >Sexo: {{ $player->sex }} | Idade: {{ $age->y }} | Nacionalidade: <img src="{{ asset("images/flags") }}/{{ $country->code }}_64.png" alt="{{ $country->code }}" title="{{ $country->name }}" width="20px" height="20px"></p>
                             <p class="mb-0 " >Força: {{ $force }} | Energia: {{ $energy }}%</p>
                             <p class="mb-0 " >Salário: R$ {{ $salary }} | Passe: R$ {{ $pass }}</p>
                             <p class="mb-0 " >Contrato até: {{ $ctt }}</p>
