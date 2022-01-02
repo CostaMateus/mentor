@@ -22,7 +22,7 @@ class CreateLeaguesTable extends Migration
             $table->integer("nrdivisions")->default(1);
             $table->integer("nrparticipants")->default(8);
             $table->boolean("special")->default(0);
-            $table->string("image")->default("deafult.png");
+            $table->string("image")->default("default.png");
 
             $table->timestamps();
         });
