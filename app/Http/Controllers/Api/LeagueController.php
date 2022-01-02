@@ -112,6 +112,14 @@ class LeagueController extends Controller
                 $data = [];
                 $time = date("Y-m-d H:i:s");
 
+                foreach ($league->divisions as $key => $division)
+                {
+                    // Atualiza o nome das divisões, com a sigla atual da liga
+                    $i = $key + 1;
+                    $division->name = $val_data["initials"] . " " . $i . "ª Divisão";
+                    $division->save();
+                }
+
                 for ($i = $league->nrdivisions + 1; $i <= $val_data["nrdivisions"]; $i++)
                 {
                     $data[] = [
