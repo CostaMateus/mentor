@@ -66,8 +66,7 @@
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-danger del-team" data-id="{{ $team->id }}"
-                                                                                  data-name="{{ $team->name }}">
+                                <button class="btn btn-link text-danger del-team" data-id="{{ $team->id }}" data-name="{{ $team->name }}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -110,9 +109,9 @@
                                 <div class="form-group">
                                     <label for="league_id" class="text-muted">Liga *</label>
                                     <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" required >
-                                        <option value="">Selecione...</option>
+                                        <option value="" >Selecione...</option>
                                         @foreach ($leagues as $league)
-                                            <option value="{{ $league->id }}.{{ $league->initials }}">{{ $league->name }}</option>
+                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
                                         @endforeach
                                     </select>
                                     <span id="span_league_id" class="text-danger"></span>
@@ -126,7 +125,7 @@
                                             @foreach ($league->divisions as $division)
                                                 <option value="{{ $division->id }}">{{ $division->name }}</option>
                                             @endforeach
-                                            <option value="0">Sem divisão</option>
+                                            <option value="0" >Sem divisão</option>
                                         </select>
                                         <span id="span_{{ $league->id }}_division_id" class="text-danger"></span>
                                     </div>
@@ -157,7 +156,9 @@
 
                         <div class="row">
                             <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Criar</button>
+                                <button type="submit" class="btn btn-success btn-sm btn-block" >
+                                    Criar <i class="ml-2 d-none fas fa-spinner fa-spin text-white"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -271,16 +272,22 @@
 
         // NEW
         $(document).on("click", ".new-team", function() {
-            $("#new-team-form").attr("action", "{{ url("/teams") }}");
-            $("#new-team-form").attr("method", "POST");
-
             $("#new-team").find("#name").val("");
             $("#new-team").find("#initials").val("");
             $("#new-team").find("#nrdivisions").val("").removeAttr("disabled");
             $("#new-team").modal("show");
         });
+        $("#new-team-form").on("submit", function(e) {
+            e.preventDefault();
+
+            var url      = "{{ route("api.team.store") }}";
+            var formData = new FormData(this);
+            var btn      = $(this).find("button");
+
+            window.submitData(url, formData, btn);
+        });
         $("#league_id").on("change", function () {
-            let id = this.value.split(".")[0];
+            let id = this.value;
             $("[id^=dv_opt_]").addClass("d-none");
             $(`#dv_opt_${id}`).removeClass("d-none");
         });
