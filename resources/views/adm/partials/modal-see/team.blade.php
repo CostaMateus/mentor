@@ -32,7 +32,7 @@
                         $age     = $d1->diff($d2);
 
                         $country = $player->country;
-                        $ctt     = Helper::formatDate($player->attribute->contract);
+                        $ctt     = Helper::convertDate($player->contract->end, true);
                     @endphp
 
                     <div class="col-6 my-1 d-flex order-{{ $order }}">
