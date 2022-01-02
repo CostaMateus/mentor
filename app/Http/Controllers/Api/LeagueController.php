@@ -90,6 +90,10 @@ class LeagueController extends Controller
 
         if ($league->teams->count() == 0)
         {
+            $val_data["special"]        = (isset($val_data["special"]))     ? 1 : 0;
+            $val_data["nrdivisions"]    = (isset($val_data["nrdivisions"])) ? $val_data["nrdivisions"] : 1;
+            $val_data["nrparticipants"] = ($val_data["nrdivisions"] + 1) * 10;
+
             // Atualiza logo da liga
             if (isset($request->image))
             {
@@ -122,28 +126,23 @@ class LeagueController extends Controller
 
                 Division::insert($data);
             }
-            else if ($val_data["nrdivisions"] < $league->nrdivisions)
+            else if ($val_data["nrdivisions"] <= $league->nrdivisions)
             {
                 foreach ($league->divisions as $key => $division)
                 {
-                    if (($key + 1) <= $val_data["nrdivisions"]) continue;
+                    if (($key + 1) <= $val_data["nrdivisions"])
+                    {
+                        // Atualiza o nome das divisões, com a sigla atual da liga
+                        $i = $key + 1;
+                        $division->name = $val_data["initials"] . " " . $i . "ª Divisão";
+                        $division->save();
+
+                        continue;
+                    }
 
                     $division->delete();
                 }
             }
-
-            // Recarrega as divisões
-            $league->load("divisions");
-
-            // Atualiza o nome das divisões, com a sigla atual da liga
-            foreach ($league->divisions as $key => $division)
-            {
-                $i = $key + 1;
-                $division->name = $val_data["initials"] . " " . $i . "ª Divisão";
-                $division->save();
-            }
-
-            $val_data["nrparticipants"] = (isset($val_data["nrdivisions"])) ? ($val_data["nrdivisions"] + 1) * 10 : 20;
 
             $league->fill($val_data);
             $league->save();
@@ -154,7 +153,7 @@ class LeagueController extends Controller
                 "message" => "Unable to update this league",
                 "errors"  => [
                     "update" => [
-                        "Unable to update this league"
+                        "Essa liga não pode ser atualizada, pois há times associados a ela."
                     ]
                 ]
             ], 422);
@@ -189,7 +188,7 @@ class LeagueController extends Controller
                 "message" => "Unable to delete this league",
                 "errors"  => [
                     "destroy" => [
-                        "Unable to delete this league"
+                        "Essa liga não pode ser excluída, pois há times associados a ela."
                     ]
                 ]
             ], 422);
