@@ -230,7 +230,7 @@
             var formData = new FormData(this);
             var btn      = $(this).find("button");
 
-            window.submitLeagueData(url, formData, btn);
+            window.submitData(url, formData, btn);
         });
 
         // EDIT
@@ -247,7 +247,7 @@
             var formData = new FormData(this);
             var btn      = $(`#edit-league-${id}-form`).find("button");
 
-            window.submitLeagueData(url, formData, btn, `${id}_edit_`);
+            window.submitData(url, formData, btn, id, `${id}_edit_`);
         });
 
         // DEL
