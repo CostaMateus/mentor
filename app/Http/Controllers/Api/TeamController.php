@@ -18,7 +18,8 @@ class TeamController extends Controller
     {
         return Team::with("league", "division", "players", "trophies")
                    ->orderByRaw("ISNULL(division_id), division_id ASC")
-                   ->orderBy("name")
+                   ->orderBy("league_id")->orderBy("division_id")
+                   ->orderBy("name")->orderBy("initials")
                    ->get();
     }
 
@@ -51,7 +52,8 @@ class TeamController extends Controller
             $val_data["image"] = $image_name;
         }
 
-        $val_data["initials"] = strtoupper($val_data["initials"]);
+        $val_data["division_id"] = ($val_data["division_id"] == 0) ? null : $val_data["division_id"];
+        $val_data["initials"]    = strtoupper($val_data["initials"]);
 
         $team = Team::create($val_data);
 
