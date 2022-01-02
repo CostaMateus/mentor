@@ -19,11 +19,13 @@ class TeamController extends Controller
     // public function index(Request $request, $division_id)
     public function index(Request $request)
     {
+        $leagues = League::with("divisions")->orderBy("name")->get();
+
         $data    = Team::with("league", "division", "players", "trophies")
                        ->orderByRaw("ISNULL(division_id), division_id ASC")
-                       ->orderBy("name")
+                       ->orderBy("league_id")->orderBy("division_id")
+                       ->orderBy("name")->orderBy("initials")
                        ->get();
-        $leagues = League::with("divisions")->orderBy("name")->get();
 
         return view("adm.teams", compact("data", "leagues"));
     }
