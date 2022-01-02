@@ -116,11 +116,11 @@ window.clearSpan = function () {
 }
 
 // Mostrar erros
-window.showErrors = function(e, prefix = "") {
+window.showErrors = function(e, id = "", prefix = "") {
     $.each(e.responseJSON.errors, function (key, error) {
         let pk = (prefix === "") ? key : prefix + key;
 
-        if (key == "update")  $("#update_invalid").removeClass("d-none").find("p").html(error[0]);
+        if (key == "update")  $(`#${id}_update_invalid`).removeClass("d-none").find("p").html(error[0]);
         if (key == "destroy") $("#delete_invalid").removeClass("d-none").find("p").html(error[0]);
 
         $("#" + pk).addClass("is-invalid");
@@ -161,8 +161,8 @@ window.deleteItem = function(url, data, btn)
     });
 }
 
-// Cria ou atualiza uma liga
-window.submitLeagueData = function (url, formData, btn, prefix = "") {
+// Cria ou atualiza uma liga/time/jogador
+window.submitData = function (url, formData, btn, id = "", prefix = "") {
 
     btn.addClass("disabled").find("i").removeClass("d-none");
 
@@ -186,7 +186,7 @@ window.submitLeagueData = function (url, formData, btn, prefix = "") {
 
             clearInvalid();
             enableFields();
-            showErrors(err, prefix);
+            showErrors(err, id, prefix);
 
             btn.removeClass("disabled").find("i").addClass("d-none");
         }
