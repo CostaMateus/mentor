@@ -4,22 +4,6 @@ window.getbootstrapTable = function(id, options)
     $('#' + id).bootstrapTable(options);
 }
 
-// Delete data
-window.deleteItem = function(url, data, btn)
-{
-    $.ajax({
-        type: "DELETE",
-        url: url,
-        data: data,
-        success: function (data) {
-            window.location.reload();
-        },
-        error: function (err) {
-            console.log(err);
-            btn.removeClass("disabled").find("i").addClass("d-none");
-        }
-    });
-}
 
 
 window.formatCurrency = function(value)
@@ -132,13 +116,18 @@ window.clearSpan = function () {
 }
 
 // Mostrar erros
-window.showErrors = function(e) {
+window.showErrors = function(e, prefix = "") {
     $.each(e.responseJSON.errors, function (key, error) {
-        $('#' + key).addClass('is-invalid');
-        $('#span_' + key).html(error[0]);
+        let pk = (prefix === "") ? key : prefix + key;
 
-        let elem = $('#' + key);
-        if (elem.next().find('.select2')) elem.next().find('.select2-selection').addClass('has-error');
+        if (key == "update")  $("#update_invalid").removeClass("d-none").find("p").html(error[0]);
+        if (key == "destroy") $("#delete_invalid").removeClass("d-none").find("p").html(error[0]);
+
+        $("#" + pk).addClass("is-invalid");
+        $("#span_" + pk).html(error[0]);
+
+        let elem = $("#" + pk);
+        if (elem.next().find(".select2")) elem.next().find(".select2-selection").addClass("has-error");
     });
 }
 
@@ -151,4 +140,55 @@ window.disableFields = function () {
 window.enableFields = function () {
     $("input").removeAttr("readonly", true);
     $("select").removeAttr("disabled", true);
+}
+
+// Delete data
+window.deleteItem = function(url, data, btn)
+{
+    $.ajax({
+        type: "DELETE",
+        url: url,
+        data: data,
+        success: function (data) {
+            window.location.reload();
+        },
+        error: function (err) {
+            console.log(err);
+
+            showErrors(err);
+            btn.removeClass("disabled").find("i").addClass("d-none");
+        }
+    });
+}
+
+// Cria ou atualiza uma liga
+window.submitLeagueData = function (url, formData, btn, prefix = "") {
+
+    btn.addClass("disabled").find("i").removeClass("d-none");
+
+    clearInvalid();
+    disableFields();
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        enctype: "multipart/form-data",
+        success: function (data) {
+            // console.log(data);
+            window.location.reload();
+        },
+        error: function (err) {
+            console.log(err);
+
+            clearInvalid();
+            enableFields();
+            showErrors(err, prefix);
+
+            btn.removeClass("disabled").find("i").addClass("d-none");
+        }
+    });
 }
