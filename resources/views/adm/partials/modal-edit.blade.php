@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="row">
-                            <div id="update_invalid" class="col-12 text-center d-none">
+                            <div id="{{ $id }}_update_invalid" class="col-12 text-center d-none">
                                 <p class="text-danger" ></p>
                             </div>
                             <div class="col-6 pl-2 ml-auto">
