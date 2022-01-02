@@ -68,8 +68,7 @@
                                 </button>
                             </td>
                             <td class="text-center" >
-                                <button class="btn btn-link text-danger del-league" data-id="{{ $league->id }}"
-                                                                                    data-name="{{ $league->name }}" >
+                                <button class="btn btn-link text-danger del-league" data-id="{{ $league->id }}" data-name="{{ $league->name }}" >
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -87,6 +86,24 @@
                             "data"       => [
                                 "divisions" => $league->divisions,
                                 "teams"     => $league->teams
+                            ],
+                        ])
+
+                        {{-- EDIT --}}
+                        @include('adm/partials.modal-edit', [
+                            "modal_id"   => "edit-league-$league->id",
+                            "form_id"    => "edit-league-$league->id-form",
+                            "title_id"   => "edit-league-$league->id-title",
+                            "title_name" => $league->name,
+                            "image_path" => asset("images/game/leagues"),
+                            "image_name" => $league->image,
+                            "image_alt"  => $league->initials,
+                            "id"         => $league->id,
+                            "data"       => [
+                                "edit_name"        => $league->name,
+                                "edit_initials"    => $league->initials,
+                                "edit_nrdivisions" => $league->nrdivisions,
+                                "edit_special"     => $league->special,
                             ],
                         ])
                     @endforeach
@@ -148,7 +165,7 @@
 
                             <div class="col-12">
                                 <div class="form-group form-check">
-                                    <input class="form-check-input my-auto" type="checkbox" id="special" name="special" value="true" >
+                                    <input class="form-check-input my-auto" type="checkbox" id="special" name="special" >
                                     <label class="form-check-label my-auto" for="special" >
                                         É uma liga especial?
                                     </label>
@@ -169,73 +186,19 @@
         </div>
     </div>
 
-    {{-- EDIT --}}
-    {{-- <div id="edit-league" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit-league-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="edit-league-title"></h5>
-                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="edit-league-form" action="" method="" enctype="multipart/form-data" >
-                        @csrf
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="name" class="text-muted">Nome da liga *</label>
-                                    <input type="text" id="name" class="form-control form-control-sm" name="name" required >
-                                    <span id="span_name" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 pr-md-2">
-                                <div class="form-group">
-                                    <label for="initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="initials" class="form-control form-control-sm" name="initials" required >
-                                    <span id="span_initials" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6 pl-md-2">
-                                <div class="form-group">
-                                    <label for="nrdivisions" class="text-muted">Nº de divisões</label>
-                                    <input type="number" id="nrdivisions" class="form-control form-control-sm" name="nrdivisions" min="1" max="4" step="1">
-                                    <span id="span_nrdivisions" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="image" class="text-muted">Imagem</label>
-                                    <input id="image" type="file" class="form-control-file" name="image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Salvar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     {{-- DELETE --}}
     @include('adm/partials.modal-delete', [
-        'modalId' => 'del-league',
-        'titleId' => 'del-league-title',
-        'title'   => 'Apagar liga',
-        'formId'  => 'del-league-form',
-        'text'    => 'Deseja realmente apagar essa liga?',
+        "modal_id"   => "del-league",
+        "form_id"    => "del-league-form",
+        "title_id"   => "del-league-title",
+        "title_name" => "Excluir liga",
+        "text"       => "Deseja realmente excluir essa liga?",
     ])
 
     {{-- ICON --}}
-    @include('adm/partials.modal-icon', ['modalId' => 'icon-league'])
+    @include('adm/partials.modal-icon', [
+        "modal_id"   => "icon-league"
+    ])
 @stop
 
 @include('adm.footer')
@@ -263,76 +226,29 @@
         $("#new-league-form").on("submit", function(e) {
             e.preventDefault();
 
-            clearInvalid();
-            disableFields();
-
             var url      = "{{ route("api.league.store") }}";
             var formData = new FormData(this);
             var btn      = $(this).find("button");
 
-            btn.addClass("disabled").find("i").removeClass("d-none");
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                enctype: "multipart/form-data",
-                success: function (data) {
-                    // console.log(data);
-                    window.location.reload();
-                },
-                error: function (err) {
-                    console.log(err);
-
-                    clearInvalid();
-                    enableFields();
-                    showErrors(err);
-
-                    btn.removeClass("disabled").find("i").addClass("d-none");
-                }
-            });
+            window.submitLeagueData(url, formData, btn);
         });
 
+        // EDIT
+        $(document).on("click", ".edit-league", function() {
+            let id = $(this).data("id");
+            $(`#edit-league-${id}-form`).attr("data-id", id);
+            $(`#edit-league-${id}`).modal("show");
+        });
+        $("form.edit-form").on("submit", function(e) {
+            e.preventDefault();
 
+            let id       = $(this).data("id");
+            let url      = `{{ url("api/leagues") }}/${id}`;
+            var formData = new FormData(this);
+            var btn      = $(`#edit-league-${id}-form`).find("button");
 
-        // // EDIT
-        // $(document).on("click", ".edit-league", function() {
-        //     let id      = $(this).data("id");
-
-        //     $("#edit-league-form").attr("action", `{{ url("/leagues") }}/${id}/update`).attr("method", "POST");
-
-        //     $.ajax({
-        //         type: "GET",
-        //         url: `{{ url("leagues") }}/${id}`,
-        //         success: function ( data ) {
-        //             // console.log( data );
-        //             let league = data;
-
-        //             $("#edit-league").find("#edit-league-title").html("Editar liga");
-        //             $("#edit-league").find("#name").html(league.name).val(league.name);
-        //             $("#edit-league").find("#initials").html(league.initials).val(league.initials);
-        //             $("#edit-league").find("#nrdivisions").html(league.nrdivisions).val(league.nrdivisions).attr("disabled", "disabled");
-        //             $("#edit-league").find("#image").html(league.image).val();
-        //             $("#edit-league").modal("show");
-        //         },
-        //         error: function ( err ) {
-        //             console.log( err );
-
-        //             clearInvalid();
-
-        //             if (err.status == 422)
-        //             {
-        //                 $.each(err.responseJSON.errors, function (key, error) {
-        //                     $(`#${key}`).addClass("is-invalid");
-        //                     $(`#span_${key}`).html(error);
-        //                 });
-        //             }
-        //         }
-        //     });
-        // });
+            window.submitLeagueData(url, formData, btn, `${id}_edit_`);
+        });
 
         // DEL
         $(document).on("click", ".del-league", function() {
@@ -359,6 +275,5 @@
             $("#icon-league").find("img").attr("src", `${path}/${image}`).attr("onerror", `this.onerror=null;this.src="${path}/default.png";`);
             $("#icon-league").modal("show");
         });
-
     </script>
 @endsection
