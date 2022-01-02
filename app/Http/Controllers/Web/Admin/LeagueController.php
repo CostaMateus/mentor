@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
-use App\Models\Team;
 use App\Models\League;
-use App\Models\Division;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 
 class LeagueController extends Controller
 {
