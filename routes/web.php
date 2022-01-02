@@ -83,7 +83,11 @@ Route::get("/logout",   [LoginController::class, "logout"])->name("custom.logout
 
 Route::middleware(["auth"])->group(function () {
 
-    Route::get("/admin",   [HomeController::class, "home"])->name("admin.home");
-    Route::get("/leagues", [LeagueController::class, "index"])->name("leagues.index");
+    Route::name("admin.")->prefix("admin")->group(function () {
+
+        Route::get("/",        [HomeController::class, "home"])->name("admin.home");
+        Route::get("/leagues", [LeagueController::class, "index"])->name("admin.leagues.index");
+
+    });
 
 });

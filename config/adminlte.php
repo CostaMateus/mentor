@@ -242,29 +242,24 @@ return [
             'text'    => 'Cadastros',
             'icon'    => 'fas fa-fw fa-folder-open',
             'submenu' => [
-                // [
-                //     'text' => 'Ligas especiais',
-                //     'url' => '/leagues/specials',
-                //     'icon' => 'fas fa-fw fa-chess-rook',
-                // ],
                 [
                     'text' => 'Ligas',
-                    'url'  => '/leagues',
+                    'url'  => '/admin/leagues',
                     'icon' => 'fas fa-fw fa-cubes',
                 ],
                 [
                     'text' => 'Times',
-                    'url'  => '/teams',
+                    'url'  => '/admin/teams',
                     'icon' => 'fas fa-fw fa-cube',
                 ],
                 [
                     'text' => 'Jogadores',
-                    'url'  => '/players',
+                    'url'  => '/admin/players',
                     'icon' => 'fas fa-fw fa-users',
                 ],
                 [
                     'text' => 'Troféus',
-                    'url'  => '/trophies',
+                    'url'  => '/admin/trophies',
                     'icon' => 'fas fa-fw fa-trophy',
                 ],
             ],
