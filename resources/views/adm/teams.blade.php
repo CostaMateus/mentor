@@ -103,7 +103,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="new-team-form" action="" method="" enctype="multipart/form-data" >
+                    <form id="new-team-form" >
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -118,13 +118,20 @@
                                     <span id="span_league_id" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="division_id" class="text-muted">Divisão *</label>
-                                    <select id="division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled required ></select>
-                                    <span id="span_division_id" class="text-danger"></span>
+                            @foreach ($leagues as $league)
+                                <div id="dv_opt_{{ $league->id }}" class="col-12 d-none">
+                                    <div class="form-group">
+                                        <label for="{{ $league->id }}_division_id" class="text-muted">Divisão *</label>
+                                        <select id="{{ $league->id }}_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" required >
+                                            @foreach ($league->divisions as $division)
+                                                <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                            @endforeach
+                                            <option value="0">Sem divisão</option>
+                                        </select>
+                                        <span id="span_{{ $league->id }}_division_id" class="text-danger"></span>
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                             <div class="col-12 col-md-6 pr-md-2">
                                 <div class="form-group">
                                     <label for="name" class="text-muted">Nome do time *</label>
@@ -228,15 +235,17 @@
 
     {{-- DELETE --}}
     @include('adm/partials.modal-delete', [
-        'modalId' => 'del-team',
-        'titleId' => 'del-team-title',
-        'title'   => 'Apagar time',
-        'formId'  => 'del-team-form',
-        'text'    => 'Deseja realmente apagar essa liga?',
+        "modal_id"   => "del-team",
+        "form_id"    => "del-team-form",
+        "title_id"   => "del-team-title",
+        "title_name" => "Excluir time",
+        "text"       => "Deseja realmente excluir esse time?",
     ])
 
     {{-- ICON --}}
-    @include('adm/partials.modal-icon', ['modalId' => 'icon-team'])
+    @include('adm/partials.modal-icon', [
+        "modal_id"   => "icon-team"
+    ])
 @stop
 
 @include('adm.footer')
@@ -244,13 +253,8 @@
 @section('js')
     <script>
         // Bootstrap Table
-        getbootstrapTable('teams-table', {
-            locale: 'pt-br',
-            // height: 710,
-            // pageSize: '25',
-            // pagination: 'true',
-            // paginationVAlign: 'top',
-            // pageList: [25, 50, 100, 200, 'All'],
+        getbootstrapTable("teams-table", {
+            locale: "pt-br",
         });
 
         $("#league_id").select2({ minimumResultsForSearch: Infinity });
@@ -260,52 +264,50 @@
         $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
-        $(document).on('click', '.see-team', function() {
-
+        $(document).on("click", ".see-team", function() {
             let id = $(this).data("id");
             $(`#see-team-${id}`).modal("show");
-
         });
 
         // NEW
-        $(document).on('click', '.new-team', function() {
-            $('#new-team-form').attr('action', '{{ url("/teams") }}');
-            $('#new-team-form').attr('method', 'POST');
+        $(document).on("click", ".new-team", function() {
+            $("#new-team-form").attr("action", "{{ url("/teams") }}");
+            $("#new-team-form").attr("method", "POST");
 
-            $('#new-team').find('#name').val('');
-            $('#new-team').find('#initials').val('');
-            $('#new-team').find('#nrdivisions').val('').removeAttr('disabled');
-            $('#new-team').modal('show');
+            $("#new-team").find("#name").val("");
+            $("#new-team").find("#initials").val("");
+            $("#new-team").find("#nrdivisions").val("").removeAttr("disabled");
+            $("#new-team").modal("show");
         });
-        $('#league_id').on('change', function () {
-            $('#division_id').removeAttr('disabled');
-            insertDivisions('division_id', false, this.value.split('.')[0]);
+        $("#league_id").on("change", function () {
+            let id = this.value.split(".")[0];
+            $("[id^=dv_opt_]").addClass("d-none");
+            $(`#dv_opt_${id}`).removeClass("d-none");
         });
 
         // EDIT
-        $(document).on('click', '.edit-team', function() {
-            let id      = $(this).data('id');
+        $(document).on("click", ".edit-team", function() {
+            let id = $(this).data("id");
 
-            $('#edit-team-form').attr('action', '{{ url("/teams") }}' + '/' + id).attr('method', 'POST');
+            $("#edit-team-form").attr("action", `{{ url("/teams") }}/${id}`).attr("method", "POST");
 
             $.ajax({
-                type: 'GET',
-                url: '{{ url("/teams") }}' + '/' + id,
+                type: "GET",
+                url: `{{ url("/teams") }}/${id}`,
                 success: function ( data ) {
                     // console.log( data );
                     let team = data[0];
+                    let edit = $("#edit-team");
 
-                    let edit = $('#edit-team');
+                    edit.find("#edit-team-title").html("Editar time: " + team.name);
+                    $("#edit_league_id").attr("disabled", "").val(team.league_id).trigger("change");
+                    $("#edit_league_id_hidden").val(team.league_id + "." + team.league_initials);
 
-                    edit.find('#edit-team-title').html('Editar time: ' + team.name);
-                    $('#edit_league_id').attr('disabled', '').val(team.league_id).trigger('change');
-                    $('#edit_league_id_hidden').val(team.league_id + '.' + team.league_initials);
+                    insertDivisions("edit_division_id", true, team.league_id, team.division_id);
 
-                    insertDivisions('edit_division_id', true, team.league_id, team.division_id);
-
-                    edit.find('#edit_name').val(team.name);
-                    edit.find('#edit_initials').val(team.initials);
-                    edit.modal('show');
+                    edit.find("#edit_name").val(team.name);
+                    edit.find("#edit_initials").val(team.initials);
+                    edit.modal("show");
                 },
                 error: function ( err ) {
                     console.log( err );
@@ -314,49 +316,26 @@
         });
 
         // DEL
-        $(document).on('click', '.del-team', function() {
-            $('#del-team-title').html($(this).data('name'));
-            $('#del-team-form').attr('data-id', $(this).data('id'));
-            $('#del-team').modal('show');
+        $(document).on("click", ".del-team", function() {
+            $("#del-team-title").html($(this).data("name"));
+            $("#del-team-form").attr("data-id", $(this).data("id"));
+            $("#del-team").modal("show");
         });
-        $('#del-team-form').on('submit', function(e) {
+        $("#del-team-form").on("submit", function(e) {
             e.preventDefault();
-
-            let url  = '{{ url("/teams") }}' + '/' + $(this).data('id');
-            let data = $('#del-team-form').serialize();
+            let id   = $(this).data("id");
+            let url  = `{{ url("/teams") }}/${id}`;
+            let data = $("#del-team-form").serialize();
             deleteItem(url, data);
         });
 
         // ICON - Team
-        $(document).on('click', '.icon-team', function() {
-            let path  = '{{ asset("images/game/leagues/teams") }}';
-            let image = $(this).data('image');
+        $(document).on("click", ".icon-team", function() {
+            let path  = "{{ asset("images/game/leagues/teams") }}";
+            let image = $(this).data("image");
 
-            $('#icon-team').find('img').attr('src', `${path}/${image}`).attr('onerror', `this.onerror=null;this.src="${path}/default.png";`);
-            $('#icon-team').modal('show');
+            $("#icon-team").find("img").attr("src", `${path}/${image}`).attr("onerror", `this.onerror=null;this.src="${path}/default.png";`);
+            $("#icon-team").modal("show");
         });
-
-
-        // INSERT DIVISIONS
-        insertDivisions = function (id, edit = false, league_id, division_id)
-        {
-            let divisions = {!! $divisions !!};
-            let opts      = '<option value="" ' + (edit ? '' : 'selected') + ' disabled hidden >Selecione...</option>';
-
-            divisions.forEach(division => {
-                if (division.league_id == league_id)
-                {
-                    let selected = (division.id == division_id) ? 'selected' : '';
-                    opts += '<option value="' + division.id + '" ' + selected + ' >' + division.name + '</option>';
-                }
-            });
-
-            opts += '<option value="0"' + ((division_id === null) ? 'selected' : '') + '>Sem divisão</option>';
-
-            $('#' + id).html(opts);
-            $('#' + id).select2({ minimumResultsForSearch: Infinity });
-        }
-
-
     </script>
 @endsection
