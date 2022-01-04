@@ -16,8 +16,8 @@
                 <div class="modal-body py-2">
                     @php
                         $arr = [
-                            'image_path' => $image_path,
-                            'data'       => $data
+                            "image_path" => $image_path,
+                            "data"       => $data
                         ];
                     @endphp
 

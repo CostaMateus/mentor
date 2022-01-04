@@ -13,67 +13,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="{{ $form_id }}" class="edit-form" >
-                        @csrf
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="{{ $id }}_edit_name" class="text-muted">Nome da liga *</label>
-                                    <input type="text" id="{{ $id }}_edit_name" class="form-control form-control-sm" name="name" value="{{ $data["edit_name"] }}" required >
-                                    <span id="span_{{ $id }}_edit_name" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 pr-md-2">
-                                <div class="form-group">
-                                    <label for="{{ $id }}_edit_initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="{{ $id }}_edit_initials" class="form-control form-control-sm" name="initials" value="{{ $data["edit_initials"] }}" required >
-                                    <span id="span_{{ $id }}_edit_initials" class="invalid-feedback"></span>
-                                </div>
-                            </div>
+                    @php
+                        $arr = [
+                            "form_id" => $form_id,
+                            "id"      => $id,
+                            "leagues" => (isset($data["leagues"])) ? $data["leagues"] : "",
+                            "data"    => $data
+                        ];
+                    @endphp
 
-                            <div class="col-12 col-md-6 pl-md-2">
-                                <div class="form-group">
-                                    <label for="{{ $id }}_edit_nrdivisions" class="text-muted">Nº de divisões</label>
-                                    <select id="{{ $id }}_edit_nrdivisions" class="form-control form-control-sm" name="nrdivisions" style="width: 100%" >
-                                        <option value="0" >Selecione...</option>
-                                        <option value="1" @if ($data["edit_nrdivisions"] == 1) selected @endif >1</option>
-                                        <option value="2" @if ($data["edit_nrdivisions"] == 2) selected @endif >2</option>
-                                        <option value="3" @if ($data["edit_nrdivisions"] == 3) selected @endif >3</option>
-                                        <option value="4" @if ($data["edit_nrdivisions"] == 4) selected @endif >4</option>
-                                    </select>
-                                    <span id="span_nrdivisions" class="invalid-feedback"></span>
-                                </div>
-                            </div>
+                    @if ($part === "league")
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="{{ $id }}_edit_image" class="text-muted">Imagem</label>
-                                    <input id="{{ $id }}_edit_image" type="file" class="form-control-file" name="image">
-                                    <span id="span_{{ $id }}_edit_image" class="invalid-feedback"></span>
-                                </div>
-                            </div>
+                        @include('adm/partials/modal-edit.league', $arr)
 
-                            <div class="col-12">
-                                <div class="form-group form-check">
-                                    <input class="form-check-input my-auto" type="checkbox" id="{{ $id }}_edit_special" name="special" @if ($data["edit_special"]) checked @endif >
-                                    <label class="form-check-label my-auto" for="{{ $id }}_edit_special" >
-                                        É uma liga especial?
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    @elseif ($part === "team")
 
-                        <div class="row">
-                            <div id="{{ $id }}_update_invalid" class="col-12 text-center d-none">
-                                <p class="text-danger" ></p>
-                            </div>
-                            <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >
-                                    Salvar <i class="ml-2 d-none fas fa-spinner fa-spin text-white"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        @include('adm/partials/modal-edit.team', $arr)
+
+                    @endif
+
                 </div>
             </div>
         </div>
