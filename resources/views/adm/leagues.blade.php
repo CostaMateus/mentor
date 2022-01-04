@@ -98,6 +98,7 @@
                             "image_path" => asset("images/game/leagues"),
                             "image_name" => $league->image,
                             "image_alt"  => $league->initials,
+                            "part"       => "league",
                             "id"         => $league->id,
                             "data"       => [
                                 "edit_name"        => $league->name,
@@ -209,6 +210,9 @@
         getbootstrapTable("leagues-table", {
             locale: "pt-br",
         });
+
+        $("#nrdivisions").select2({ minimumResultsForSearch: Infinity });
+        $("[id$='_edit_nrdivisions']").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
         $(document).on("click", ".see-league", function() {
