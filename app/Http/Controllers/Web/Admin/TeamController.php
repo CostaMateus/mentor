@@ -11,13 +11,11 @@ use App\Http\Controllers\Controller;
 class TeamController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the list of teams.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    // public function index(Request $request, $division_id)
-    public function index(Request $request)
+    public function index()
     {
         $leagues = League::with("divisions")->orderBy("name")->get();
 
