@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Team;
+use App\Models\Division;
 use App\Http\Requests\TeamRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -71,7 +72,66 @@ class TeamController extends Controller
      */
     public function update(TeamRequest $request, Team $team)
     {
+        $val_data = $request->validated();
 
+        if (isset($request->image))
+        {
+            $image_name = strtolower($val_data["initials"]) . "." . $request->image->extension();
+
+            $request->image->move(public_path("images/game/leagues/teams"), $image_name);
+            $val_data["image"] = $image_name;
+        }
+
+        $val_data["division_id"] = ($val_data["division_id"] == 0) ? null : $val_data["division_id"];
+        $val_data["initials"]    = strtoupper($val_data["initials"]);
+
+        if ($val_data["division_id"] == null || $val_data["division_id"] == $team->division_id)
+        {
+            $team->fill($val_data);
+            $team->save();
+
+            return $team;
+        }
+        else
+        {
+            $division = Division::where("id", $val_data["division_id"])->first();
+
+            if ($division->league_id == $val_data["league_id"])
+            {
+                if ($division->teams->count() < 10)
+                {
+                    $team->fill($val_data);
+                    $team->save();
+
+                    return $team;
+                }
+                else
+                {
+                    return response()->json([
+                        "message" => "Unable to update this team",
+                        "errors"  => [
+                            "division_id" => [
+                                "Essa divisão está cheia."
+                            ]
+                        ]
+                    ], 422);
+                }
+            }
+            else
+            {
+                return response()->json([
+                    "message" => "Unable to update this team",
+                    "errors"  => [
+                        "league_id" => [
+                            "A liga escolhida não tem a divisão selecionada."
+                        ],
+                        "division_id" => [
+                            "A divisão selecionada não pertence a liga escolhida."
+                        ]
+                    ]
+                ], 422);
+            }
+        }
     }
 
     /**
