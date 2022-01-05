@@ -251,8 +251,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/bootstrap-table.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/locale/bootstrap-table-pt-BR.min.js"></script>
 
-        <script src="{{ asset('js/common.js') }}"></script>
-
         @yield('scripts')
+
+        <script src="{{ asset('js/common.js') }}"></script>
     </body>
 </html>

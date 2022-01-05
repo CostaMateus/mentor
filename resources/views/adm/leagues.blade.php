@@ -211,9 +211,6 @@
             locale: "pt-br",
         });
 
-        $("#nrdivisions").select2({ minimumResultsForSearch: Infinity });
-        $("[id$='_edit_nrdivisions']").select2({ minimumResultsForSearch: Infinity });
-
         // SEE
         $(document).on("click", ".see-league", function() {
             let id = $(this).data("id");
