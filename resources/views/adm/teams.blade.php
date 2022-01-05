@@ -85,6 +85,26 @@
                                 "players" => $team->players
                             ],
                         ])
+
+                        {{-- EDIT --}}
+                        @include('adm/partials.modal-edit', [
+                            "modal_id"   => "edit-team-$team->id",
+                            "form_id"    => "edit-team-$team->id-form",
+                            "title_id"   => "edit-team-$team->id-title",
+                            "title_name" => $team->name,
+                            "image_path" => asset("images/game/leagues/teams"),
+                            "image_name" => $team->image,
+                            "image_alt"  => $team->initials,
+                            "part"       => "team",
+                            "id"         => $team->id,
+                            "data"       => [
+                                "leagues"          => $leagues,
+                                "edit_name"        => $team->name,
+                                "edit_initials"    => $team->initials,
+                                "edit_league_id"   => $team->league_id,
+                                "edit_division_id" => $team->division_id,
+                            ],
+                        ])
                     @endforeach
                 </tbody>
             </table>
@@ -118,10 +138,10 @@
                                 </div>
                             </div>
                             @foreach ($leagues as $league)
-                                <div id="dv_opt_{{ $league->id }}" class="col-12 d-none">
+                                <div id="division_league_{{ $league->id }}" class="col-12 d-none">
                                     <div class="form-group">
                                         <label for="{{ $league->id }}_division_id" class="text-muted">Divisão *</label>
-                                        <select id="{{ $league->id }}_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" required >
+                                        <select id="{{ $league->id }}_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" disabled required >
                                             @foreach ($league->divisions as $division)
                                                 <option value="{{ $division->id }}">{{ $division->name }}</option>
                                             @endforeach
@@ -167,73 +187,6 @@
         </div>
     </div>
 
-    {{-- EDIT --}}
-    <div id="edit-team" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-team-title" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="edit-team-title" class="modal-title"></h5>
-                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="edit-team-form" action="" method="" enctype="multipart/form-data" >
-                        @csrf
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="edit_league_id" class="text-muted">Liga *</label>
-                                    <select id="edit_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" required >
-                                        <option value="">Selecione...</option>
-                                        @foreach ($leagues as $league)
-                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <input type="hidden" id="edit_league_id_hidden" name="league_id">
-                                    <span id="span_league_id" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="edit_division_id" class="text-muted">Divisão *</label>
-                                    <select id="edit_division_id" class="form-control form-control-sm" name="division_id" style="width: 100%" required ></select>
-                                    <span id="span_division_id" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 pr-md-2">
-                                <div class="form-group">
-                                    <label for="edit_name" class="text-muted">Nome do time *</label>
-                                    <input type="text" id="edit_name" class="form-control form-control-sm" name="name" required >
-                                    <span id="span_name" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 pl-md-2">
-                                <div class="form-group">
-                                    <label for="edit_initials" class="text-muted">Sigla *</label>
-                                    <input type="text" id="edit_initials" class="form-control form-control-sm" name="initials" required >
-                                    <span id="span_initials" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="form-group">
-                                    <label for="edit_image" class="text-muted">Imagem</label>
-                                    <input id="edit_image" type="file" class="form-control-file" name="image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6 pl-2 ml-auto">
-                                <button type="submit" class="btn btn-success btn-sm btn-block" >Salvar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     {{-- DELETE --}}
     @include('adm/partials.modal-delete', [
         "modal_id"   => "del-team",
@@ -257,12 +210,6 @@
         getbootstrapTable("teams-table", {
             locale: "pt-br",
         });
-
-        $("#league_id").select2({ minimumResultsForSearch: Infinity });
-        $("#division_id").select2({ minimumResultsForSearch: Infinity });
-
-        $("#edit_league_id").select2({ minimumResultsForSearch: Infinity });
-        $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
         $(document).on("click", ".see-team", function() {
@@ -288,38 +235,35 @@
         });
         $("#league_id").on("change", function () {
             let id = this.value;
-            $("[id^=dv_opt_]").addClass("d-none");
-            $(`#dv_opt_${id}`).removeClass("d-none");
+            $("[id^=division_league_]").addClass("d-none").find("select").attr("disabled", true);
+            $(`#division_league_${id}`).removeClass("d-none").find("select").removeAttr("disabled");
+        });
+
+        $(".edit_league").on("change", function () {
+            let league_id = this.value;
+            let team_id   = $(this).data("id");
+
+            $(`[id^=${team_id}_division_]`).addClass("d-none").find("select").attr("disabled", true);
+            $(`#${team_id}_division_${league_id}`).removeClass("d-none");
+            $(`#${team_id}_edit_${league_id}_division_id`).removeAttr("disabled");
         });
 
         // EDIT
         $(document).on("click", ".edit-team", function() {
             let id = $(this).data("id");
+            $(`#${id}_edit_league_id`).change();
+            $(`#edit-team-${id}-form`).attr("data-id", id);
+            $(`#edit-team-${id}`).modal("show");
+        });
+        $("form.edit-form").on("submit", function(e) {
+            e.preventDefault();
 
-            $("#edit-team-form").attr("action", `{{ url("/teams") }}/${id}`).attr("method", "POST");
+            let id       = $(this).data("id");
+            let url      = `{{ url("api/teams") }}/${id}`;
+            var formData = new FormData(this);
+            var btn      = $(`#edit-team-${id}-form`).find("button");
 
-            $.ajax({
-                type: "GET",
-                url: `{{ url("/teams") }}/${id}`,
-                success: function ( data ) {
-                    // console.log( data );
-                    let team = data[0];
-                    let edit = $("#edit-team");
-
-                    edit.find("#edit-team-title").html("Editar time: " + team.name);
-                    $("#edit_league_id").attr("disabled", "").val(team.league_id).trigger("change");
-                    $("#edit_league_id_hidden").val(team.league_id + "." + team.league_initials);
-
-                    insertDivisions("edit_division_id", true, team.league_id, team.division_id);
-
-                    edit.find("#edit_name").val(team.name);
-                    edit.find("#edit_initials").val(team.initials);
-                    edit.modal("show");
-                },
-                error: function ( err ) {
-                    console.log( err );
-                }
-            });
+            window.submitData(url, formData, btn, id, `${id}_edit_`, );
         });
 
         // DEL
