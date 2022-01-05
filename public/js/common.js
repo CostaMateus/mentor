@@ -1,3 +1,7 @@
+(function () {
+    $('select:not(.not-select2):not(.nvl)').select2({ minimumResultsForSearch: Infinity });
+}());
+
 // Bootstrap table
 window.getbootstrapTable = function(id, options)
 {
@@ -103,7 +107,6 @@ window.checkTeamsWithoutDivisions = function(teams)
     return (count > 0) ? true : false;
 }
 
-
 // Limpa campos
 window.clearInvalid = function () {
     $('input, select').removeClass('is-invalid');
@@ -123,6 +126,12 @@ window.showErrors = function(e, id = "", prefix = "") {
         if (key == "update")  $(`#${id}_update_invalid`).removeClass("d-none").find("p").html(error[0]);
         if (key == "destroy") $("#delete_invalid").removeClass("d-none").find("p").html(error[0]);
 
+        if (prefix !== "" && key == "division_id")
+        {
+            let league_id = $(`#${id}_edit_league_id`).val();
+            pk = `${prefix + league_id}_${key}`;
+        }
+
         $("#" + pk).addClass("is-invalid");
         $("#span_" + pk).html(error[0]);
 
@@ -138,8 +147,14 @@ window.disableFields = function () {
 }
 // Reativa os campos após processar os dados
 window.enableFields = function () {
-    $("input").removeAttr("readonly", true);
-    $("select").removeAttr("disabled", true);
+    $("input").removeAttr("readonly");
+
+    $("select").each((i, el) => {
+        if (!$(`#${el.id}`).parent().parent().hasClass("d-none"))
+        {
+            $(`#${el.id}`).removeAttr("disabled");
+        }
+    });
 }
 
 // Delete data
