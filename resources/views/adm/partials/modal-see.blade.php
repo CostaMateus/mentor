@@ -3,10 +3,12 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img class="bg-img-team mr-2 my-auto"
-                         src="{{ $image_path }}/{{ $image_name }}"
-                         onerror="this.onerror=null;this.src='{{ $image_path }}/default.png';"
-                         alt="{{ $image_alt }}" width="30px" height="30px">
+                    @if ($image_path)
+                        <img class="bg-img-team mr-2 my-auto"
+                            src="{{ $image_path }}/{{ $image_name }}"
+                            onerror="this.onerror=null;this.src='{{ $image_path }}/default.png';"
+                            alt="{{ $image_alt }}" width="30px" height="30px">
+                    @endif
 
                     <p id="{{ $title_id }}" class="modal-title my-auto h4">{{ $title_name }}</p>
                     <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
@@ -28,6 +30,10 @@
                     @elseif ($part === "team")
 
                         @include('adm/partials/modal-see.team', $arr)
+
+                    @elseif ($part === "player")
+
+                        @include('adm/partials/modal-see.player', $arr)
 
                     @endif
                 </div>
