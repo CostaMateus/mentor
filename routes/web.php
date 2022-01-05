@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TrophyController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\Web\Admin\HomeController;
 use App\Http\Controllers\Web\Admin\TeamController;
 use App\Http\Controllers\Web\Admin\LeagueController;
-use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\TrophyController;
-use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\Web\Admin\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,7 +87,8 @@ Route::middleware(["auth"])->group(function () {
 
         Route::get("/",        [HomeController::class, "home"])->name("admin.home");
         Route::get("/leagues", [LeagueController::class, "index"])->name("admin.leagues.index");
-        Route::get("/teams",   [TeamController::class, "index"])->name("admin.leagues.index");
+        Route::get("/teams",   [TeamController::class, "index"])->name("admin.teams.index");
+        Route::get("/players", [PlayerController::class, "index"])->name("admin.players.index");
 
     });
 
