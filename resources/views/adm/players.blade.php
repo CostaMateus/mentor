@@ -30,13 +30,6 @@
             </button>
         </div>
 
-        {{-- PAGINAÇÃO --}}
-        <div class="col-12">
-            @include('adm/partials.pagination', [
-                'pp' => [100, 200, 300, 500],
-            ])
-        </div>
-
         {{-- FILTROS --}}
         <div class="col-12">
             <div id="searchCollapse" class="collapse show">
@@ -219,7 +212,7 @@
                         <th class="text-center" data-field="age"         data-sortable="true" title="Idade"                      >I.</th>
                         <th class="text-center" data-field="sex"         data-sortable="true" title="Sexo"                       >Sexo</th>
                         <th class="text-center" data-field="nationality" data-sortable="true" title="Nacionalidade"              >Nac.</th>
-                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação">Venda</th>
+                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação">A venda</th>
                         <th class="text-center"                                               >Ações</th>
                         {{-- <th class="text-center"                                               >Ver</th> --}}
                         {{-- <th class="text-center"                                               >Editar</th> --}}
@@ -228,106 +221,106 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $player)
-                        @if ($player->employed)
-                            @foreach ($teams as $t)
-                                @if ($t->id == $player->team_id)
-                                    @php
-                                        $player->team_initials = $t->initials
-                                    @endphp
-                                @endif
-                            @endforeach
-                        @endif
                         @php
-                            // $rolTx1 = $player->attribute->role;
-                            // $rolTx2 = $player->attribute->secondary_role;
-                            $rolTx1 = $player->role;
-                            $rolTx2 = $player->secondary_role;
+                            $rolTx1   = $player->attribute->role;
+                            $rolTx2   = $player->attribute->secondary_role;
 
-                            $role1  = Helper::formatRole($rolTx1);
-                            $role2  = Helper::formatRole($rolTx2);
+                            $role1    = Helper::formatRoleFull2($rolTx1)[0];
+                            $role2    = Helper::formatRoleFull2($rolTx2)[0];
 
-                            $formt  = date_format(new DateTime( $player->contract ), "d/m/Y");
+                            $force    = $player->attribute->force;
+                            $energy   = $player->attribute->energy;
+                            $salary   = Helper::formatSalary($player->attribute->salary);
+                            $pass     = Helper::formatSalary($player->attribute->pass);
 
-                            if ( $player->contract != null )
+                            $birthday = new DateTime($player->birthday);
+                            // A data de comparação não pode ser a data de inicio da temporado do jogo.
+                            // Tem que ser a data corrente do sistema do jogo.
+                            // No momento ela não existe.
+                            $today    = new DateTime(config("mentor.start_date"));
+                            $age      = $birthday->diff($today);
+
+                            $contract = ($player->contract) ? $player->contract->end : null;
+
+                            if ( $contract != null )
                             {
-                                $today = date("Y-m-d");
-                                $nextM = date("Y-m-d", strtotime("+1 month"));
+                                $end   = new DateTime($contract);
+                                $nextM = new DateTime(config("mentor.start_date"));
+                                $nextM = $nextM->modify("+1 month");
 
-                                if ( $today >= $player->contract)
-                                {
-                                    $expired = "EX"; //expirado
-                                }
-                                else if ( $player->contract < $nextM)
-                                {
-                                    $expired = "AV"; //a vencer
-                                }
+                                // EXD: expirado, ETD: vence hoje, EIN: vence em
+                                $expired = ($today > $end) ? "EXD" : (($today == $end) ? "ETD" : (($end <= $nextM) ? "EIN" : ""));
                             }
+
+                            $contract = ($contract) ? Helper::convertDate($contract, true) : null;
                         @endphp
 
                         <tr>
                             <td class="text-center"                              >{{ $loop->iteration }}</td>
                             <td class=""                                         >{{ $player->name }} "{{ $player->nickname }}" {{ $player->lastname }}</td>
-                            <td class="text-center" >
-                                @if ($player->employed)
-                                    {{ $player->team_initials }}
-                                @endif
-                            </td>
+                            <td class="text-center"                              >@if ($player->team_id) {{ $player->team->initials }} @endif</td>
                             <td class="text-center"                              >{{ $player->force }}</td>
                             <td class="text-center text-bold text-{{ $rolTx1 }}" >{{ $role1 }}</td>
                             <td class="text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
-                            <td class="text-center"                              >{{ Helper::formatSalary($player->salary) }}</td>
-                            <td class="text-center"                              >{{ Helper::formatSalary($player->pass) }}</td>
-                            <td class="text-center"                              >{{ $player->age }}</td>
+                            <td class="text-center"                              >{{ $salary }}</td>
+                            <td class="text-center"                              >{{ $pass }}</td>
+                            <td class="text-center"                              >{{ $age->y }}</td>
                             <td class="text-center"                              >{{ $player->sex }}</td>
                             <td class="text-center" >
-                                <img class="my-auto flag" src="{{ asset("images/flags") . "/" . $player->nationality }}_64.png" alt="{{ $player->nationality }}" title="{{ RandomNames::getNameCountry($player->nationality) }}" width="30px" height="30px">
+                                <img class="my-auto flag" src="{{ asset("images/flags") . "/" . $player->country->code }}_64.png"
+                                    alt="{{ $player->country->code }}" title="{{ $player->country->name }}" width="30px" height="30px">
                             </td>
                             <td class="text-center" >
-                                {{-- @if ($player->attribute->contract == null) --}}
                                 @if ($player->contract == null)
+                                    {{-- disponível para contratação --}}
                                     <i class="fas fa-check" style="color: #080" ></i>
-                                @elseif (isset($expired) && $expired == "EX")
-                                    <i class="fas fa-check" style="color: #DC3545" title="Contrato expirado em {{ $formt }}" ></i>
-                                @elseif (isset($expired) && $expired == "AV")
-                                    <i class="fas fa-check" style="color: #FFC107" title="Contrato termina em {{ $formt }}" ></i>
-                                @else
+                                @elseif ($expired == "EXD")
+                                    {{-- contrato vencido --}}
+                                    <i class="fas fa-check" style="color: #DC3545" title="Contrato expirado em {{ $contract }}" ></i>
+                                @elseif ($expired == "ETD")
+                                    {{-- contrato vendendo hoje --}}
+                                    <i class="fas fa-check" style="color: #ff7707" title="Contrato termina hoje" ></i>
+                                @elseif ($expired == "EIN")
+                                    {{-- contrato perto de vencer --}}
+                                    <i class="fas fa-check" style="color: #FFC107" title="Contrato termina em {{ $contract }} dia(s)" ></i>
                                 @endif
-
                             </td>
 
                             <td class="text-center d-flex justify-content-between" >
                                 <button class="btn btn-link text-dark see-player" data-id="{{ $player->id }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                            {{-- </td>
-                            <td class="text-center" > --}}
                                 <button class="btn btn-link text-primary edit-player" data-id="{{ $player->id }}" >
                                     <i class="fas fa-edit"></i>
                                 </button>
-                            {{-- </td>
-                            <td class="text-center" > --}}
                                 <button class="btn btn-link text-danger del-player" data-id="{{ $player->id }}"
-                                                                                    data-name="{{ $player->name }} '{{ $player->nickname }}' {{ $player->lastname }}" >
+                                    data-name="{{ $player->name }} '{{ $player->nickname }}' {{ $player->lastname }}" >
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
                         </tr>
+
+                        {{-- SEE --}}
+                        @include('adm/partials.modal-see', [
+                            "modal_id"   => "see-player-$player->id",
+                            "title_id"   => "see-player-$player->id-title",
+                            "title_name" => "$player->name \"$player->nickname\" $player->lastname",
+                            "image_path" => "",
+                            "image_name" => "",
+                            "image_alt"  => "",
+                            "part"       => "player",
+                            "data"       => [
+                                "player" => $player,
+                            ],
+                        ])
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
-    {{-- SEE --}}
-    @include('adm/partials.modal-see', [
-        'modalId' => 'see-player',
-        'title'   => 'see-player-title',
-        'image'   => 'see-player-image',
-        'body'    => 'player-attr',
-    ])
-
     {{-- NEW --}}
-    <div id="new-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-player-title" aria-hidden="true" >
+    {{-- <div id="new-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-player-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -412,7 +405,6 @@
                                         <option value="1"> 1...40</option>
                                         <option value="2">20...60</option>
                                         <option value="3">40...75</option>
-                                        {{-- <option value="4">60...100</option> --}}
                                     </select>
                                     <p class="small mt-2 mb-0 text-muted">Salário e passe iniciais são de acordo com o valor da força</p>
                                     <span id="span_force" class="text-danger"></span>
@@ -491,10 +483,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- EDIT --}}
-    <div id="edit-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-player-title" aria-hidden="true" >
+    {{-- <div id="edit-player" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="edit-player-title" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -579,7 +571,6 @@
                                         <option value="1"> 1...40</option>
                                         <option value="2">20...60</option>
                                         <option value="3">40...75</option>
-                                        {{-- <option value="4">60...100</option> --}}
                                     </select>
                                     <p class="small mt-2 mb-0 text-muted">Salário e passe iniciais são de acordo com o valor da força</p>
                                     <span id="span_edit_force" class="text-danger"></span>
@@ -658,15 +649,15 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- DELETE --}}
     @include('adm/partials.modal-delete', [
-        'modalId' => 'del-player',
-        'titleId' => 'del-player-title',
-        'title'   => 'Apagar jogador',
-        'formId'  => 'del-player-form',
-        'text'    => 'Deseja realmente apagar esse(a) jogador(a)?',
+        "modal_id"   => "del-player",
+        "form_id"    => "del-player-form",
+        "title_id"   => "del-player-title",
+        "title_name" => "Excluir jogador",
+        "text"       => "Deseja realmente excluir esse(a) jogador(a)?",
     ])
 
 @stop
@@ -679,221 +670,143 @@
         // Bootstrap Table
         getbootstrapTable("players-table", {
             locale: "pt-br",
-            // height: 710,
-            // pageSize: "100",
-            // pagination: "true",
-            // paginationVAlign: "top",
-            // pageList: [100, 200, 300, 500, "All"],
         });
-
-        $("#nationality").select2();
-        $("#sex").select2({ minimumResultsForSearch: Infinity });
-        $("#role").select2({ minimumResultsForSearch: Infinity });
-        $("#force").select2({ minimumResultsForSearch: Infinity });
-        $("#secondary_role").select2({ minimumResultsForSearch: Infinity });
-
-        $("#team_id").select2({ minimumResultsForSearch: Infinity });
-        $("#league_id").select2({ minimumResultsForSearch: Infinity });
-        $("#division_id").select2({ minimumResultsForSearch: Infinity });
 
         // SEE
         $(document).on("click", ".see-player", function() {
-            let id        = $(this).data("id");
-            let players   = {!! $players !!};
-            let teams     = {!! $teams !!};
-            let countries = {!! $countries !!};
-            let html;
-            let player;
-
-            players.forEach(p => {
-                if (p.id == id)
-                {
-                    player = p;
-                    teams.forEach(t => {
-                        if (t.id == player.team_id)
-                        {
-                            player.team_name     = t.name;
-                            player.team_image    = t.image;
-                            player.team_initials = t.initials;
-                        }
-                    });
-                }
-            });
-
-            let team_name     = (player.team_name)     ? player.team_name     : '';
-            let team_image    = (player.team_image)    ? player.team_image    : '';
-            let team_initials = (player.team_initials) ? player.team_initials : '';
-
-            let rolTx1        = player.role;
-            let role1         = formatRoleFull(rolTx1)[0];
-
-            let rolTx2        = player.secondary_role;
-            let role2         = formatRoleFull(rolTx2)[0];
-
-            let force         = player.force;
-            let energy        = player.energy;
-            let salary        = formatCurrency(player.salary);
-            let pass          = formatCurrency(player.pass);
-
-            let country       = getNameCountry(countries, player.nationality);
-            let birthday      = formatDate(player.birthday);
-
-            let flag          = '{{ asset("images/flags") }}';
-
-            html = `
-                <div class="col-12 border py-2 text-center">
-                    <p class="mb-1 " >Nacionalidade: <img src="${flag}/${country[0]}_64.png" alt="${country[0]}" title="${country[1]}" width="20px" height="20px"></p>
-                    <p class="mb-1 " >Sexo: <strong>${player.sex}</strong></p>
-                    <p class="mb-1 " >Idade: <strong>${player.age}</strong></p>
-                    <p class="mb-1 " >Aniversário: <strong>${birthday}</strong></p>
-                    <p class="mb-1 " >Posição primária: <strong class="text-${rolTx1}" >${role1}</strong></p>
-                    <p class="mb-1 " >Posição secundária: <strong class="text-${rolTx2}" >${role2}</strong></p>
-                    <p class="mb-1 " >Força: <strong>${force}</strong></p>
-                    <p class="mb-1 " >Energia: <strong>${energy}%</strong></p>
-                    <p class="mb-1 " >Salário: <strong>R$ ${salary}</strong></p>
-                    <p class="mb-1 " >Passe: <strong>R$ ${pass}</strong></p>
-                    <p class="mb-0 " >Time atual: <strong>${team_name}</strong></p>
-                </div>`;
-
-            $("#player-attr").html(html);
-
-            let path = "{{ asset("images/game/leagues/teams") }}";
-
-            $("#see-player-image").attr("src", `${path}/${team_image}`).attr("onerror", `this.onerror=null;this.src="${path}/default.png";`).attr("alt", team_initials);
-
-            $("#see-player-title").html(`${player.name} <strong>${player.nickname}</strong> ${player.lastname}`);
-            $("#see-player").modal("show");
+            let id = $(this).data("id");
+            $(`#see-player-${id}`).modal("show");
         });
 
-        // NEW
-        $(document).on("click", ".new-player", function() {
-            $("#name").val("");
-            $("#lastname").val("");
-            $("#nickname").val("");
-            $("#age").val("");
-            $("#mentor").prop( "checked", false );
-            $("#nationality").val("").trigger("change");
-            $("#sex").val("").trigger("change");
-            $("#force").val("").trigger("change");
-            $("#role").val("").trigger("change");
-            $("#secondary_role").val("").trigger("change");
+        // // NEW
+        // $(document).on("click", ".new-player", function() {
+        //     $("#name").val("");
+        //     $("#lastname").val("");
+        //     $("#nickname").val("");
+        //     $("#age").val("");
+        //     $("#mentor").prop( "checked", false );
+        //     $("#nationality").val("").trigger("change");
+        //     $("#sex").val("").trigger("change");
+        //     $("#force").val("").trigger("change");
+        //     $("#role").val("").trigger("change");
+        //     $("#secondary_role").val("").trigger("change");
 
-            $("#new-player").modal("show");
-        });
-        $("#league_id").on("change", function () {
-            $("#division_id").removeAttr("disabled");
-            insertDivisions("division_id", false, this.value);
-        });
-        $("#division_id").on("change", function () {
-            $("#team_id").removeAttr("disabled");
-            insertTeams("team_id", false, this.value);
-        });
-        $("#new-player-form").on("submit", function(e) {
-            e.preventDefault();
+        //     $("#new-player").modal("show");
+        // });
+        // $("#league_id").on("change", function () {
+        //     $("#division_id").removeAttr("disabled");
+        //     insertDivisions("division_id", false, this.value);
+        // });
+        // $("#division_id").on("change", function () {
+        //     $("#team_id").removeAttr("disabled");
+        //     insertTeams("team_id", false, this.value);
+        // });
+        // $("#new-player-form").on("submit", function(e) {
+        //     e.preventDefault();
 
-            clearInvalid();
-            clearSpan();
+        //     clearInvalid();
+        //     clearSpan();
 
-            $.ajax({
-                type: "POST",
-                url: "{{ url("/players") }}",
-                data: $("#new-player-form").serialize(),
-                success: function ( data ) {
-                    // console.log( data );
-                    location.reload();
-                },
-                error: function ( err ) {
-                    if ( err.status == 422 )
-                    {
-                        showErrors( err );
-                    }
-                    console.log( err );
-                }
-            });
-        });
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "{{ url("/players") }}",
+        //         data: $("#new-player-form").serialize(),
+        //         success: function ( data ) {
+        //             // console.log( data );
+        //             location.reload();
+        //         },
+        //         error: function ( err ) {
+        //             if ( err.status == 422 )
+        //             {
+        //                 showErrors( err );
+        //             }
+        //             console.log( err );
+        //         }
+        //     });
+        // });
 
-        // EDIT
-        $(document).on("click", ".edit-player", function() {
-            $("#edit_nationality").select2();
-            $("#edit_sex").select2({ minimumResultsForSearch: Infinity });
-            $("#edit_force").select2({ minimumResultsForSearch: Infinity });
-            $("#edit_role").select2({ minimumResultsForSearch: Infinity });
-            $("#edit_secondary_role").select2({ minimumResultsForSearch: Infinity });
-            $("#edit_league_id").select2({ minimumResultsForSearch: Infinity });
-            $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
-            $("#edit_team_id").select2({ minimumResultsForSearch: Infinity });
+        // // EDIT
+        // $(document).on("click", ".edit-player", function() {
+        //     $("#edit_nationality").select2();
+        //     $("#edit_sex").select2({ minimumResultsForSearch: Infinity });
+        //     $("#edit_force").select2({ minimumResultsForSearch: Infinity });
+        //     $("#edit_role").select2({ minimumResultsForSearch: Infinity });
+        //     $("#edit_secondary_role").select2({ minimumResultsForSearch: Infinity });
+        //     $("#edit_league_id").select2({ minimumResultsForSearch: Infinity });
+        //     $("#edit_division_id").select2({ minimumResultsForSearch: Infinity });
+        //     $("#edit_team_id").select2({ minimumResultsForSearch: Infinity });
 
-            let id      = $(this).data("id");
+        //     let id      = $(this).data("id");
 
-            $("#edit-player-form").attr("action", `{{ url("/players") }}/${id}`).attr("method", "POST");
+        //     $("#edit-player-form").attr("action", `{{ url("/players") }}/${id}`).attr("method", "POST");
 
-            $.ajax({
-                type: "GET",
-                url: "{{ url("/players") }}" + "/" + id,
-                success: function ( data ) {
-                    // console.log( data );
-                    let player = data;
+        //     $.ajax({
+        //         type: "GET",
+        //         url: `{{ url("/players") }}/${id}`,
+        //         success: function ( data ) {
+        //             // console.log( data );
+        //             let player = data;
 
-                    $("#edit-player-title").html("Editar jogador: " + player.name + " "" + player.nickname + "" " + player.lastname);
+        //             $("#edit-player-title").html(`Editar jogador: ${player.name} "${player.nickname}" ${player.lastname}`);
 
-                    // var newOption = new Option(player.attribute.force, player.attribute.force, true, true);
-                    var newOption = new Option(player.force, player.force, true, true);
-                    $("#edit_force").append(newOption).trigger("change").attr("disabled", "disabled");
+        //             // var newOption = new Option(player.attribute.force, player.attribute.force, true, true);
+        //             var newOption = new Option(player.force, player.force, true, true);
+        //             $("#edit_force").append(newOption).trigger("change").attr("disabled", "disabled");
 
-                    $("#edit_name").val(player.name);
-                    $("#edit_lastname").val(player.lastname);
-                    $("#edit_nickname").val(player.nickname);
-                    $("#edit_age").val(player.age);
-                    $("#edit_mentor").prop( "checked", (player.mentor ? true : false) );
-                    $("#edit_nationality").val(player.nationality).trigger("change");
-                    $("#edit_sex").val(player.sex).trigger("change");
+        //             $("#edit_name").val(player.name);
+        //             $("#edit_lastname").val(player.lastname);
+        //             $("#edit_nickname").val(player.nickname);
+        //             $("#edit_age").val(player.age);
+        //             $("#edit_mentor").prop( "checked", (player.mentor ? true : false) );
+        //             $("#edit_nationality").val(player.nationality).trigger("change");
+        //             $("#edit_sex").val(player.sex).trigger("change");
 
-                    // $("#edit_role").val(player.attribute.role).trigger("change");
-                    $("#edit_role").val(player.role).trigger("change");
-                    selectRoleWithColor( document.getElementById("select2-edit_role-container") );
+        //             // $("#edit_role").val(player.attribute.role).trigger("change");
+        //             $("#edit_role").val(player.role).trigger("change");
+        //             selectRoleWithColor( document.getElementById("select2-edit_role-container") );
 
-                    // $("#edit_secondary_role").val(player.attribute.secondary_role).trigger("change");
-                    $("#edit_secondary_role").val(player.secondary_role).trigger("change");
-                    selectRoleWithColor( document.getElementById("select2-edit_secondary_role-container") );
+        //             // $("#edit_secondary_role").val(player.attribute.secondary_role).trigger("change");
+        //             $("#edit_secondary_role").val(player.secondary_role).trigger("change");
+        //             selectRoleWithColor( document.getElementById("select2-edit_secondary_role-container") );
 
-                    if (player.team)
-                    {
-                        $("#edit_add_team").prop( "checked", true );
-                        $(".edit_add_team").removeClass("d-none");
+        //             if (player.team)
+        //             {
+        //                 $("#edit_add_team").prop( "checked", true );
+        //                 $(".edit_add_team").removeClass("d-none");
 
-                        $("#edit_league_id").val(player.team.league_id).trigger("change");
+        //                 $("#edit_league_id").val(player.team.league_id).trigger("change");
 
-                        insertDivisions("edit_division_id", true, player.team.league_id, player.team.division_id);
-                        $("#edit_division_id").removeAttr("disabled");
+        //                 insertDivisions("edit_division_id", true, player.team.league_id, player.team.division_id);
+        //                 $("#edit_division_id").removeAttr("disabled");
 
-                        insertTeams("edit_team_id", (player.team.division_id ? true : false), (player.team.division_id ? player.team.division_id : 0), player.team.id);
-                        $("#edit_team_id").removeAttr("disabled");
-                    }
-                    else
-                    {
-                        $("#edit_add_team").prop( "checked", false );
-                        $(".edit_add_team").addClass("d-none");
+        //                 insertTeams("edit_team_id", (player.team.division_id ? true : false), (player.team.division_id ? player.team.division_id : 0), player.team.id);
+        //                 $("#edit_team_id").removeAttr("disabled");
+        //             }
+        //             else
+        //             {
+        //                 $("#edit_add_team").prop( "checked", false );
+        //                 $(".edit_add_team").addClass("d-none");
 
-                        $("#edit_league_id").val("").trigger("change");
-                        $("#edit_division_id").val("").trigger("change").attr("disabled", "disabled");
-                        $("#edit_team_id").val("").trigger("change").attr("disabled", "disabled");
-                    }
+        //                 $("#edit_league_id").val("").trigger("change");
+        //                 $("#edit_division_id").val("").trigger("change").attr("disabled", "disabled");
+        //                 $("#edit_team_id").val("").trigger("change").attr("disabled", "disabled");
+        //             }
 
-                    $("#edit-player").modal("show");
-                },
-                error: function ( err ) {
-                    console.log( err );
-                }
-            });
-        });
-        $("#edit_league_id").on("change", function () {
-            $("#edit_division_id").removeAttr("disabled");
-            insertDivisions("edit_division_id", false, this.value);
-        });
-        $("#edit_division_id").on("change", function () {
-            $("#edit_team_id").removeAttr("disabled");
-            insertTeams("edit_team_id", false, this.value);
-        });
+        //             $("#edit-player").modal("show");
+        //         },
+        //         error: function ( err ) {
+        //             console.log( err );
+        //         }
+        //     });
+        // });
+        // $("#edit_league_id").on("change", function () {
+        //     $("#edit_division_id").removeAttr("disabled");
+        //     insertDivisions("edit_division_id", false, this.value);
+        // });
+        // $("#edit_division_id").on("change", function () {
+        //     $("#edit_team_id").removeAttr("disabled");
+        //     insertTeams("edit_team_id", false, this.value);
+        // });
 
         // DEL
         $(document).on("click", ".del-player", function() {
@@ -903,10 +816,13 @@
         });
         $("#del-player-form").on("submit", function(e) {
             e.preventDefault();
+            let id   = $(this).data("id");
+            let url  = `{{ url("api/players") }}/${id}`;
+            let data = $("#del-league-form").serialize();
+            var btn  = $(this).find("button");
+            btn.addClass("disabled").find("i").removeClass("d-none");
 
-            let url  = "{{ url("/players") }}" + "/" + $(this).data("id");
-            let data = $("#del-player-form").serialize();
-            deleteItem(url, data);
+            deleteItem(url, data, btn);
         });
 
 
@@ -953,17 +869,17 @@
         insertDivisions = function (id, edit = false, league_id, division_id)
         {
             let divisions = {!! $divisions !!};
-            let opts      = "<option value="" " + (edit ? "" : "selected") + " disabled hidden >Selecione...</option>";
+            let opts      = "<option value='" + (edit ? "" : "selected") + "' disabled hidden >Selecione...</option>";
 
             divisions.forEach(division => {
                 if (division.league_id == league_id)
                 {
                     let selected = (division.id == division_id) ? "selected" : "";
-                    opts += "<option value="" + division.id + "" " + selected + " >" + division.name + "</option>";
+                    opts += "<option value='" + division.id + "' " + selected + " >" + division.name + "</option>";
                 }
             });
 
-            opts += "<option value="0"" + ((division_id === null ) ? "selected" : "") + ">Sem divisão</option>";
+            opts += "<option value='0'" + ((division_id === null ) ? "selected" : "") + ">Sem divisão</option>";
 
             $("#" + id).html(opts);
         }
@@ -972,19 +888,19 @@
         insertTeams = function (id, edit = false, division_id, team_id)
         {
             let teams = {!! $teams !!};
-            let opts  = "<option value="" " + (edit ? "" : "selected") + " disabled hidden >Selecione...</option>";
+            let opts  = "<option value='' " + (edit ? "" : "selected") + " disabled hidden >Selecione...</option>";
 
             teams.forEach(team => {
                 if (team.division_id == division_id)
                 {
                     let selected = (team.id == team_id) ? "selected" : "";
-                    opts += "<option value="" + team.id + "" " + selected + " >" + team.name + "</option>";
+                    opts += "<option value='" + team.id + "' " + selected + " >" + team.name + "</option>";
                 }
 
                 if (team.division_id === null && division_id == 0)
                 {
                     let selected = (team.id == team_id) ? "selected" : "";
-                    opts += "<option value="" + team.id + "" " + selected + " >" + team.name + "</option>";
+                    opts += "<option value='" + team.id + "' " + selected + " >" + team.name + "</option>";
                 }
             });
 
