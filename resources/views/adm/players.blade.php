@@ -21,7 +21,7 @@
 @section('content')
     <div class="row">
         {{-- NOVO e FILTRO --}}
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-2">
             <button type="button" class="btn btn-secondary btn-sm new-player mr-1" >
                 <i class="fas fa-plus "></i> Novo jogador
             </button>
@@ -33,161 +33,149 @@
         {{-- FILTROS --}}
         <div class="col-12">
             <div id="searchCollapse" class="collapse show">
-                <div class="card card-body p-3">
+                <div class="card card-body p-3 mb-0">
                     <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="row">
-
-                                {{-- NAME NICKNAME LASTNAME --}}
-                                <div class="col-12 mt-3 mt-md-0">
-                                    <form id="search_form" method="GET" class="">
-                                        <div class="form-group mb-0">
-                                            <small for="search_name" class="text-muted">Buscar por nome, sobrenome e apelido</small>
-                                            <div class="input-group">
-                                                <input type="text" id="search_name" class="form-control form-control-sm" name="name" placeholder="@if (session('name')) {{ session('name') }} @endif" aria-describedby="name">
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                                        <i class="fas fa-search "></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                        {{-- NAME NICKNAME LASTNAME --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2 mt-md-0">
+                            <form id="search_form" >
+                                <div class="form-group mb-0">
+                                    <small for="search_name" class="text-muted">Buscar por nome</small>
+                                    <div class="input-group">
+                                        <input type="text" id="search_name" class="form-control form-control-sm" name="name" value="@if (session('name')) {{ session('name') }} @endif" aria-describedby="name">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                                <i class="fas fa-search "></i>
+                                            </button>
                                         </div>
-                                    </form>
-                                </div>
-
-                                {{-- NACIONALIDADE --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_nationality" class="text-muted">Nacionalidade</small>
-                                        <select id="search_nationality" class="form-control form-control-sm" name="nationality" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            @foreach ($countries as $c)
-                                                <option value="{{ $c->code }}" @if (session("nationality") == $c->code) selected @endif >{{ $c->name }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
+                            </form>
+                        </div>
 
-                                {{-- IDADE --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_age" class="text-muted">Idade</small>
-                                        <select id="search_age" class="form-control form-control-sm" name="age" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session("age") == 1) selected @endif >16 a 20</option>
-                                            <option value="2" @if (session("age") == 2) selected @endif >21 a 25</option>
-                                            <option value="3" @if (session("age") == 3) selected @endif >26 a 30</option>
-                                            <option value="4" @if (session("age") == 4) selected @endif >31+</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {{-- SEXO --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_sex" class="text-muted">Sexo</small>
-                                        <select id="search_sex" class="form-control form-control-sm" name="sex" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="F" @if (session("sex") == "F") selected @endif >Feminino</option>
-                                            <option value="M" @if (session("sex") == "M") selected @endif >Masculino</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                {{-- DISPONIVEL PARA VENDA --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_contract" class="text-muted">Situação para venda</small>
-                                        <select id="search_contract" class="form-control form-control-sm" name="contract" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session("contract") == 1) selected @endif >Contratos expirados</option>
-                                            <option value="2" @if (session("contract") == 2) selected @endif >Contratos a vencer</option>
-                                            <option value="3" @if (session("contract") == 3) selected @endif >Contratos expirados e a vencer</option>
-                                            <option value="4" @if (session("contract") == 4) selected @endif >Livres, sem contrato</option>
-                                        </select>
-                                    </div>
-                                </div>
-
+                        {{-- NACIONALIDADE --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="form-group mb-0">
+                                <small for="search_country" class="text-muted">Nacionalidade</small>
+                                <select id="search_country" class="form-control form-control-sm" name="country" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    @foreach ($countries as $c)
+                                        <option value="{{ $c->id }}" @if (session("country") == $c->id) selected @endif >{{ $c->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <div class="row">
 
-                                {{-- VALOR PASSE --}}
-                                <div class="col-12 mt-3 mt-md-0">
-                                    <div class="form-group mb-0">
-                                        <small for="search_pass" class="text-muted">Passe (R$)</small>
-                                        <select id="search_pass" class="form-control form-control-sm" name="pass" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session("pass") == 1) selected @endif >1 mil a 4 mil</option>
-                                            <option value="2" @if (session("pass") == 2) selected @endif >5 mil a 8 mil</option>
-                                            <option value="3" @if (session("pass") == 3) selected @endif >9 mil a 12 mil</option>
-                                            <option value="4" @if (session("pass") == 4) selected @endif >13 mil a 16 mil</option>
-                                            <option value="5" @if (session("pass") == 5) selected @endif >17 mil a 20 mil</option>
-                                            <option value="6" @if (session("pass") == 6) selected @endif >+21 mil</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        {{-- SEXO --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="form-group mb-0">
+                                <small for="search_sex" class="text-muted">Sexo</small>
+                                <select id="search_sex" class="form-control form-control-sm" name="sex" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="F" @if (session("sex") == "F") selected @endif >Feminino</option>
+                                    <option value="M" @if (session("sex") == "M") selected @endif >Masculino</option>
+                                </select>
+                            </div>
+                        </div>
 
-                                {{-- !ª POSIÇÃO --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_role" class="text-muted">1ª Posição</small>
-                                        <select id="search_role" class="form-control form-control-sm" name="role1" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="top" class="text-top" @if (session("role1") == "top") selected @endif >Topo</option>
-                                            <option value="jng" class="text-jng" @if (session("role1") == "jng") selected @endif >Selva</option>
-                                            <option value="mid" class="text-mid" @if (session("role1") == "mid") selected @endif >Meio</option>
-                                            <option value="adc" class="text-adc" @if (session("role1") == "adc") selected @endif >Atirador</option>
-                                            <option value="sup" class="text-sup" @if (session("role1") == "sup") selected @endif >Suporte</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        {{-- IDADE --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="form-group mb-0">
+                                <small for="search_age" class="text-muted">Idade</small>
+                                <select id="search_age" class="form-control form-control-sm" name="age" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1" @if (session("age") == 1) selected @endif >16 a 20</option>
+                                    <option value="2" @if (session("age") == 2) selected @endif >21 a 25</option>
+                                    <option value="3" @if (session("age") == 3) selected @endif >26 a 30</option>
+                                    <option value="4" @if (session("age") == 4) selected @endif >31+</option>
+                                </select>
+                            </div>
+                        </div>
 
-                                {{-- 2ª POSIÇÃO --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_secondary_role" class="text-muted">2ª Posição</small>
-                                        <select id="search_secondary_role" class="form-control form-control-sm" name="role2" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="top" class="text-top" @if (session("role2") == "top") selected @endif >Topo</option>
-                                            <option value="jng" class="text-jng" @if (session("role2") == "jng") selected @endif >Selva</option>
-                                            <option value="mid" class="text-mid" @if (session("role2") == "mid") selected @endif >Meio</option>
-                                            <option value="adc" class="text-adc" @if (session("role2") == "adc") selected @endif >Atirador</option>
-                                            <option value="sup" class="text-sup" @if (session("role2") == "sup") selected @endif >Suporte</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        {{-- DISPONIVEL PARA VENDA --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="form-group mb-0">
+                                <small for="search_contract" class="text-muted">Situação para venda</small>
+                                <select id="search_contract" class="form-control form-control-sm" name="contract" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1" @if (session("contract") == 1) selected @endif >Contratos expirados</option>
+                                    <option value="2" @if (session("contract") == 2) selected @endif >Contratos a vencer</option>
+                                    <option value="3" @if (session("contract") == 3) selected @endif >Contratos expirados e a vencer</option>
+                                    <option value="4" @if (session("contract") == 4) selected @endif >Livres, sem contrato</option>
+                                </select>
+                            </div>
+                        </div>
 
-                                {{-- FORÇA --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_force" class="text-muted">Força</small>
-                                        <select id="search_force" class="form-control form-control-sm" name="force" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            <option value="1" @if (session("force") == 1) selected @endif >1 a 10</option>
-                                            <option value="2" @if (session("force") == 2) selected @endif >11 a 30</option>
-                                            <option value="3" @if (session("force") == 3) selected @endif >31 a 50</option>
-                                            <option value="4" @if (session("force") == 4) selected @endif >51 a 70</option>
-                                            <option value="5" @if (session("force") == 5) selected @endif >71 a 100</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        {{-- VALOR PASSE --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2 mt-md-0">
+                            <div class="form-group mb-0">
+                                <small for="search_pass" class="text-muted">Passe (R$)</small>
+                                <select id="search_pass" class="form-control form-control-sm" name="pass" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1" @if (session("pass") == 1) selected @endif >1 mil a 4 mil</option>
+                                    <option value="2" @if (session("pass") == 2) selected @endif >5 mil a 8 mil</option>
+                                    <option value="3" @if (session("pass") == 3) selected @endif >9 mil a 12 mil</option>
+                                    <option value="4" @if (session("pass") == 4) selected @endif >13 mil a 16 mil</option>
+                                    <option value="5" @if (session("pass") == 5) selected @endif >17 mil a 20 mil</option>
+                                    <option value="6" @if (session("pass") == 6) selected @endif >+21 mil</option>
+                                </select>
+                            </div>
+                        </div>
 
-                                {{-- ATUANDO NA --}}
-                                <div class="col-12 mt-3">
-                                    <div class="form-group mb-0">
-                                        <small for="search_league_id" class="text-muted">Atuando na</small>
-                                        <select id="search_league_id" class="form-control form-control-sm" name="league_id" style="width: 100%">
-                                            <option value="" selected >Qualquer...</option>
-                                            @foreach ($leagues as $league)
-                                                <option value="{{ $league->id }}" @if (session("league_id") == $league->id) selected @endif >{{ $league->initials }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                        {{-- !ª POSIÇÃO --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="form-group mb-0">
+                                <small for="search_role1" class="text-muted">1ª Posição</small>
+                                <select id="search_role1" class="form-control form-control-sm" name="role1" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="top" class="text-top" @if (session("role1") == "top") selected @endif >Topo</option>
+                                    <option value="jng" class="text-jng" @if (session("role1") == "jng") selected @endif >Selva</option>
+                                    <option value="mid" class="text-mid" @if (session("role1") == "mid") selected @endif >Meio</option>
+                                    <option value="adc" class="text-adc" @if (session("role1") == "adc") selected @endif >Atirador</option>
+                                    <option value="sup" class="text-sup" @if (session("role1") == "sup") selected @endif >Suporte</option>
+                                </select>
+                            </div>
+                        </div>
 
+                        {{-- 2ª POSIÇÃO --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="form-group mb-0">
+                                <small for="search_role2" class="text-muted">2ª Posição</small>
+                                <select id="search_role2" class="form-control form-control-sm" name="role2" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="top" class="text-top" @if (session("role2") == "top") selected @endif >Topo</option>
+                                    <option value="jng" class="text-jng" @if (session("role2") == "jng") selected @endif >Selva</option>
+                                    <option value="mid" class="text-mid" @if (session("role2") == "mid") selected @endif >Meio</option>
+                                    <option value="adc" class="text-adc" @if (session("role2") == "adc") selected @endif >Atirador</option>
+                                    <option value="sup" class="text-sup" @if (session("role2") == "sup") selected @endif >Suporte</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- FORÇA --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-0">
+                            <div class="form-group mb-0">
+                                <small for="search_force" class="text-muted">Força</small>
+                                <select id="search_force" class="form-control form-control-sm" name="force" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    <option value="1" @if (session("force") == 1) selected @endif >1 a 10</option>
+                                    <option value="2" @if (session("force") == 2) selected @endif >11 a 30</option>
+                                    <option value="3" @if (session("force") == 3) selected @endif >31 a 50</option>
+                                    <option value="4" @if (session("force") == 4) selected @endif >51 a 70</option>
+                                    <option value="5" @if (session("force") == 5) selected @endif >71 a 100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- ATUANDO NA --}}
+                        <div class="col-6 col-md-4 col-lg-3 mb-0">
+                            <div class="form-group mb-0">
+                                <small for="search_league" class="text-muted">Atuando na</small>
+                                <select id="search_league" class="form-control form-control-sm" name="league" style="width: 100%">
+                                    <option value="" selected >Qualquer...</option>
+                                    @foreach ($leagues as $league)
+                                        <option value="{{ $league->id }}" @if (session("league") == $league->id) selected @endif >{{ $league->initials }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -197,26 +185,23 @@
         </div>
 
         {{-- TABELA --}}
-        <div class="col-12 table-responsive pb-2">
+        <div class="col table-responsive pb-2">
             <table id="players-table" class="table table-striped table-sm" data-toggle="table" >
                 <thead>
                     <tr class="bg-light">
-                        <th class="text-center" data-field="id"          data-sortable="true" >#</th>
-                        <th class=""            data-field="name"        data-sortable="true" title="Nome 'Apelido' Sobrenome"   >Nome</th>
-                        <th class="text-center" data-field="employed"    data-sortable="true" title="Time"                       >Time</th>
-                        <th class="text-center" data-field="force"       data-sortable="true" title="Força"                      >F</th>
-                        <th class="text-center" data-field="role1"       data-sortable="true" title="Posição primária"           >1ª</th>
-                        <th class="text-center" data-field="role2"       data-sortable="true" title="Posição secundária"         >2ª</th>
-                        <th class="text-center" data-field="salary"      data-sortable="true" title="Salário (R$)"               >Salário</th>
-                        <th class="text-center" data-field="pass"        data-sortable="true" title="Passe (R$)"                 >Passe</th>
-                        <th class="text-center" data-field="age"         data-sortable="true" title="Idade"                      >I.</th>
-                        <th class="text-center" data-field="sex"         data-sortable="true" title="Sexo"                       >Sexo</th>
-                        <th class="text-center" data-field="nationality" data-sortable="true" title="Nacionalidade"              >Nac.</th>
-                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação">A venda</th>
-                        <th class="text-center"                                               >Ações</th>
-                        {{-- <th class="text-center"                                               >Ver</th> --}}
-                        {{-- <th class="text-center"                                               >Editar</th> --}}
-                        {{-- <th class="text-center"                                               >Excluir</th> --}}
+                        <th class="text-center" data-field="id"          data-sortable="true"                                     >#</th>
+                        <th class="text-nowrap" data-field="name"        data-sortable="true" title="Nome 'Apelido' Sobrenome"    >Nome</th>
+                        <th class="text-center" data-field="employed"    data-sortable="true" title="Time"                        >Time</th>
+                        <th class="text-center" data-field="force"       data-sortable="true" title="Força"                       >F</th>
+                        <th class="text-center" data-field="role1"       data-sortable="true" title="Posição primária"            >1ª</th>
+                        <th class="text-center" data-field="role2"       data-sortable="true" title="Posição secundária"          >2ª</th>
+                        <th class="text-center" data-field="salary"      data-sortable="true" title="Salário (R$)"                >Salário</th>
+                        <th class="text-center" data-field="pass"        data-sortable="true" title="Passe (R$)"                  >Passe</th>
+                        <th class="text-center" data-field="age"         data-sortable="true" title="Idade"                       >I.</th>
+                        <th class="text-center" data-field="sex"         data-sortable="true" title="Sexo"                        >Sexo</th>
+                        <th class="text-center" data-field="nationality" data-sortable="true" title="Nacionalidade"               >Nac.</th>
+                        <th class="text-center" data-field="available"   data-sortable="true" title="Disponível para contratação" >A venda</th>
+                        <th class="text-center"                                                                                   >Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -259,7 +244,7 @@
                             <td class="text-center"                              >{{ $loop->iteration }}</td>
                             <td class=""                                         >{{ $player->name }} "{{ $player->nickname }}" {{ $player->lastname }}</td>
                             <td class="text-center"                              >@if ($player->team_id) {{ $player->team->initials }} @endif</td>
-                            <td class="text-center"                              >{{ $player->force }}</td>
+                            <td class="text-center"                              >{{ $player->attribute->force }}</td>
                             <td class="text-center text-bold text-{{ $rolTx1 }}" >{{ $role1 }}</td>
                             <td class="text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
                             <td class="text-center"                              >{{ $salary }}</td>
@@ -286,7 +271,7 @@
                                 @endif
                             </td>
 
-                            <td class="text-center d-flex justify-content-between" >
+                            <td class="text-center d-flex justify-content-around" >
                                 <button class="btn btn-link text-dark see-player" data-id="{{ $player->id }}">
                                     <i class="fas fa-eye"></i>
                                 </button>
@@ -670,6 +655,10 @@
         // Bootstrap Table
         getbootstrapTable("players-table", {
             locale: "pt-br",
+            pageSize: "25",
+            pagination: "true",
+            paginationVAlign: "top",
+            pageList: [],
         });
 
         // SEE
@@ -905,30 +894,6 @@
             });
 
             $("#" + id).html(opts);
-        }
-
-        selectRoleWithColor = function (elem)
-        {
-            switch ( $(elem).attr("title") ) {
-                case "Topo":
-                    $(elem).css("color", "#F8C300").addClass("text-bold");
-                    break;
-                case "Selva":
-                    $(elem).css("color", "#A652BB").addClass("text-bold");
-                    break;
-                case "Meio":
-                    $(elem).css("color", "#0099E1").addClass("text-bold");
-                    break;
-                case "Atirador":
-                    $(elem).css("color", "#F93A2F").addClass("text-bold");
-                    break;
-                case "Suporte":
-                    $(elem).css("color", "#00C09A").addClass("text-bold");
-                    break;
-                default:
-                    $(elem).css("color", "#444").removeClass("text-bold");
-                    break;
-            }
         }
 
     </script>
