@@ -209,6 +209,10 @@
         // Bootstrap Table
         getbootstrapTable("leagues-table", {
             locale: "pt-br",
+            pageSize: "25",
+            pagination: "true",
+            paginationVAlign: "top",
+            pageList: [],
         });
 
         // SEE

@@ -209,6 +209,10 @@
         // Bootstrap Table
         getbootstrapTable("teams-table", {
             locale: "pt-br",
+            pageSize: "25",
+            pagination: "true",
+            paginationVAlign: "top",
+            pageList: [],
         });
 
         // SEE
