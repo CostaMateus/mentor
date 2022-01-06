@@ -207,3 +207,29 @@ window.submitData = function (url, formData, btn, id = "", prefix = "") {
         }
     });
 }
+
+// Muda a cor do campo
+window.selectRoleWithColor = function (e)
+{
+    switch ( $(e).attr("title") )
+    {
+        case "Topo":
+            $(e).css("color", "#F8C300").addClass("text-bold");
+        break;
+        case "Selva":
+            $(e).css("color", "#A652BB").addClass("text-bold");
+        break;
+        case "Meio":
+            $(e).css("color", "#0099E1").addClass("text-bold");
+        break;
+        case "Atirador":
+            $(e).css("color", "#F93A2F").addClass("text-bold");
+        break;
+        case "Suporte":
+            $(e).css("color", "#00C09A").addClass("text-bold");
+        break;
+        default:
+            $(e).css("color", "#444").removeClass("text-bold");
+        break;
+    }
+}
