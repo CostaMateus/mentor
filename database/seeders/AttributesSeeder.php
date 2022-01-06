@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Faker\Factory;
+use App\Models\Trust;
 use App\Models\Player;
 use App\Models\Attribute;
 use Illuminate\Database\Seeder;
@@ -27,8 +28,10 @@ class AttributesSeeder extends Seeder
         $i         = 0;
 
         $data      = [];
+        $trust     = [];
 
-        foreach($players as $p) {
+        foreach($players as $p)
+        {
             $force = $faker->numberBetween(25, 75);
 
             if ($force > 70)
@@ -60,6 +63,12 @@ class AttributesSeeder extends Seeder
             {
                 $force  = $faker->numberBetween(60, 75);
                 $salary = $faker->randomFloat(2, 6500, 8500);
+
+                $trust[] = [
+                    "player_id" => $p->id,
+                    "board"     => 100,
+                    "fans"      => 80
+                ];
             }
 
             $pass   = $salary * $faker->randomFloat(2, 1, 3);
@@ -82,5 +91,6 @@ class AttributesSeeder extends Seeder
         }
 
         Attribute::insert($data);
+        Trust::insert($trust);
     }
 }
