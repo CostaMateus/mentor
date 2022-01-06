@@ -257,11 +257,11 @@ return [
                     'url'  => '/admin/players',
                     'icon' => 'fas fa-fw fa-users',
                 ],
-                [
-                    'text' => 'Troféus',
-                    'url'  => '/admin/trophies',
-                    'icon' => 'fas fa-fw fa-trophy',
-                ],
+                // [
+                //     'text' => 'Troféus',
+                //     'url'  => '/admin/trophies',
+                //     'icon' => 'fas fa-fw fa-trophy',
+                // ],
             ],
         ],
 
@@ -318,12 +318,12 @@ return [
                 [
                     'type'     => 'js',
                     'asset'    => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js',
                 ],
                 [
                     'type'     => 'css',
                     'asset'    => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.css',
                 ],
             ],
         ],
@@ -335,17 +335,17 @@ return [
                 [
                     'type'     => 'css',
                     'asset'    => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/bootstrap-table.css',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/bootstrap-table.min.css',
                 ],
                 [
                     'type'     => 'js',
                     'asset'    => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/bootstrap-table.min.js',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/bootstrap-table.min.js',
                 ],
                 [
                     'type'     => 'js',
                     'asset'    => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/locale/bootstrap-table-pt-BR.min.js',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/locale/bootstrap-table-pt-BR.min.js',
                 ],
             ],
         ],
