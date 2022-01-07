@@ -72,11 +72,7 @@ use App\Http\Controllers\Web\Admin\PlayerController;
 
 
 
-Auth::routes([
-    "register" => false,
-    "reset"    => false,
-    "confirm"  => false
-]);
+Auth::routes([ "register" => false, "reset" => false, "confirm" => false ]);
 
 Route::get("/redirect", [LoginController::class, "redirect"])->name("google.redirect");
 Route::get("/callback", [LoginController::class, "callback"])->name("google.callback");
@@ -86,13 +82,16 @@ Route::middleware(["auth"])->group(function () {
 
     Route::name("admin.")->prefix("admin")->group(function () {
 
-        Route::get("/",        [AdminHomeController::class, "home"])->name("admin.home");
-        Route::get("/leagues", [LeagueController::class, "index"])->name("admin.leagues.index");
-        Route::get("/teams",   [TeamController::class, "index"])->name("admin.teams.index");
-        Route::get("/players", [PlayerController::class, "index"])->name("admin.players.index");
+        Route::get("/",        [AdminHomeController::class, "home"])->name("home");
+        Route::get("/leagues", [LeagueController::class,    "index"])->name("leagues.index");
+        Route::get("/teams",   [TeamController::class,      "index"])->name("teams.index");
+        Route::get("/players", [PlayerController::class,    "index"])->name("players.index");
 
     });
 
-    Route::get("/", [WebHomeController::class, "index"])->name("home");
+    Route::get("/",     [WebHomeController::class, "index"])->name("home1");
+    Route::get("/home", [WebHomeController::class, "index"])->name("home");
+    Route::get("/novo", [WebHomeController::class, "newGame"])->name("new-game");
+    Route::get("/conf", [WebHomeController::class, "setConfigs"])->name("set-configs");
 
 });
