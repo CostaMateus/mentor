@@ -7,7 +7,7 @@
                             <h4 class="mb-0 text-left" >Jogadores: {{ $total_ply }}/15</h4>
                         </div>
                         <div class="col-4 pb-2 " >
-                            <p class="mb-0 text-right" >23/01/2019</p>
+                            <p class="mb-0 text-right" >{{ Helper::convertDate(config("mentor.start_date"), true) }}</p>
                         </div>
                         <div class="col-12 py-2" >
                             <h4 class="mb-0 text-left" >Caixa:
