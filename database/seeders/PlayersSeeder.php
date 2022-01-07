@@ -25,17 +25,18 @@ class PlayersSeeder extends Seeder
 
             $teams  = Team::get();
 
-            $data[] = [
-                "team_id"    => 2,
-                "name"       => "Mateus",
-                "lastname"   => "Costa",
-                "nickname"   => "lkemns",
-                "country_id" => 30,
-                "birthday"   => date("1995-04-06"),
-                "sex"        => "M", // M or F
-                "mentor"     => true,
-                "user_id"    => 1,
-            ];
+            $data   = [];
+            // $data[] = [
+            //     "team_id"    => 2,
+            //     "name"       => "Mateus",
+            //     "lastname"   => "Costa",
+            //     "nickname"   => "lkemns",
+            //     "country_id" => 30,
+            //     "birthday"   => date("1995-04-06"),
+            //     "sex"        => "M", // M or F
+            //     "mentor"     => true,
+            //     "user_id"    => 1,
+            // ];
 
             foreach ($teams as $team)
             {
@@ -71,12 +72,12 @@ class PlayersSeeder extends Seeder
 
         foreach(range(1, $y) as $i)
         {
-            $team_id      = ($team == null) ? null : $team->id;
-            $country      = ($team == null) ? $faker->numberBetween(1, 239) : (($team->id == 2) ? 30 : $teamCntry);// 30 == BRASIL
+            $team_id  = ($team == null) ? null : $team->id;
+            $country  = ($team == null) ? $faker->numberBetween(1, 239) : (($team->id == 2) ? 30 : $teamCntry); // 30 == BRASIL
 
-            $name_sex     = $this->getNameAndSex($country);
+            $name_sex = $this->getNameAndSex($country);
 
-            $nickname     = RandomNames::getNicknames($faker->randomElement($opsNicks));
+            $nickname = RandomNames::getNicknames($faker->randomElement($opsNicks));
 
             foreach ($oriData as $d)
             {
@@ -94,7 +95,7 @@ class PlayersSeeder extends Seeder
                 }
             }
 
-            $data[]       = [
+            $data[]   = [
                 "team_id"    => $team_id,
                 "name"       => $name_sex["firstName"],
                 "lastname"   => $name_sex["lastName"],

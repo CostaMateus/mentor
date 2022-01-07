@@ -64,11 +64,11 @@ class AttributesSeeder extends Seeder
                 $force  = $faker->numberBetween(60, 75);
                 $salary = $faker->randomFloat(2, 6500, 8500);
 
-                $trust[] = [
-                    "player_id" => $p->id,
-                    "board"     => 100,
-                    "fans"      => 80
-                ];
+                // $trust[] = [
+                //     "player_id" => $p->id,
+                //     "board"     => 100,
+                //     "fans"      => 80
+                // ];
             }
 
             $pass   = $salary * $faker->randomFloat(2, 1, 3);
@@ -91,6 +91,6 @@ class AttributesSeeder extends Seeder
         }
 
         Attribute::insert($data);
-        Trust::insert($trust);
+        // Trust::insert($trust);
     }
 }
