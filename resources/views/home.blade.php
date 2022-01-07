@@ -219,57 +219,51 @@
 
 @section('scripts')
     <script>
-
         @if ($nextMatch === null)
-            $('#finalStatsModal').modal('show');
+            $("#finalStatsModal").modal("show");
         @endif
 
-        // Bootstrap Table
-        getbootstrapTable('players-table', {
-            locale: 'pt-br',
-        });
-
         $(document).ready(function () {
-            let t = $('tbody tr').first().attr('id');
-            $('#' + t).click();
+            let t = $("tbody tr").first().attr("id");
+            $(`#${t}`).click();
 
-            // $('#league_id').val({{ session('p_league_id') }}).trigger('change');
-            // $('#division_id').val({{ session('p_division_id') }}).trigger('change');
+            // $("#league_id").val({{ session("p_league_id") }}).trigger("change");
+            // $("#division_id").val({{ session("p_division_id") }}).trigger("change");
         });
 
         // OPEN ranking modal
-        $('#btnRankingModal').on('click', function (e) {
+        $("#btnRankingModal").on("click", function (e) {
             $("#league_id").select2({ minimumResultsForSearch: Infinity });
             $("#division_id").select2({ minimumResultsForSearch: Infinity });
 
-            $('#league_id').val({{ session('p_league_id') }}).trigger('change');
-            $('#division_id').val({{ session('p_division_id') }}).trigger('change');
+            $("#league_id").val({{ session("p_league_id") }}).trigger("change");
+            $("#division_id").val({{ session("p_division_id") }}).trigger("change");
         });
 
-        $('[id*=p-]').on('click', function (e) {
-            let id = $(this).attr('id').split('p-')[1];
+        $("[id*=p-]").on("click", function (e) {
+            let id = $(this).attr("id").split("p-")[1];
             let players = {!! $team->players !!};
 
             players.forEach(p => {
                 if (p.id == id)
                 {
-                    $('#p-infos-name').html(p.nickname).attr('title', `${p.name} ${p.lastname}`);
-                    $('#p-infos-role').html(   `1ª p.:               ${formatRoleFull(p.attribute.role)[0]}`);
-                    $('#p-infos-secund').html( `2ª p.:               ${formatRoleFull(p.attribute.secondary_role)[0]}`);
-                    $('#p-infos-age').html(    `Idade:               ${p.age}`);
-                    $('#p-infos-force').html(  `Força:               ${p.attribute.force}`);
-                    $('#p-infos-salary').html( `Salário:<br>R$       ${formatCurrency(p.attribute.salary)}`);
-                    $('#p-infos-pass').html(   `Valor do passe<br>R$ ${formatCurrency(p.attribute.pass)}`);
+                    $("#p-infos-name").html(p.nickname).attr("title", `${p.name} ${p.lastname}`);
+                    $("#p-infos-role").html(   `1ª p.:               ${formatRoleFull(p.attribute.role)[0]}`);
+                    $("#p-infos-secund").html( `2ª p.:               ${formatRoleFull(p.attribute.secondary_role)[0]}`);
+                    $("#p-infos-age").html(    `Idade:               ${p.age}`);
+                    $("#p-infos-force").html(  `Força:               ${p.attribute.force}`);
+                    $("#p-infos-salary").html( `Salário:<br>R$       ${formatCurrency(p.attribute.salary)}`);
+                    $("#p-infos-pass").html(   `Valor do passe<br>R$ ${formatCurrency(p.attribute.pass)}`);
                 }
             });
         });
 
 
-        $('#league_id').on('change', function () {
-            $('#division_id').removeAttr('disabled');
+        $("#league_id").on("change", function () {
+            $("#division_id").removeAttr("disabled");
             insertDivisions(this.value);
         });
-        $('#division_id').on('change', function () {
+        $("#division_id").on("change", function () {
             insertTeams(this.value);
         });
 
@@ -277,39 +271,37 @@
         insertDivisions = function (id)
         {
             const divisions = {!! $divisions !!};
-            let opts        = '';
+            let opts        = "";
 
             divisions.forEach(division => {
-                if (division.league_id == {{ session('p_league_id') }})
+                if (division.league_id == {{ session("p_league_id") }})
                 {
-                    let selected = (division.id == {{ session('p_division_id') }}) ? 'selected' : '';
-                    opts += '<option value="' + division.id + '" ' + selected + ' >' + division.initials + '</option>';
+                    let selected = (division.id == {{ session("p_division_id") }}) ? "selected" : "";
+                    opts += "<option value="" + division.id + "" " + selected + " >" + division.initials + "</option>";
                 }
             });
 
-            $('#division_id').html(opts);
+            $("#division_id").html(opts);
         }
 
         {{-- INSERT TEAMS --}}
         insertTeams = function (division_id)
         {
-            let tr           = '';
+            let tr           = "";
             const teams      = {!! $teams !!};
-            const rankings   = JSON.parse('{!! json_encode($rankings) !!}');
+            const rankings   = JSON.parse("{!! json_encode($rankings) !!}");
             let team_ranking = [];
 
             for (let i = 0; i < 10; i++) {
                 team_ranking.push(rankings[division_id][i]);
             }
-            team_ranking.sort((a, b) => a.position - b.position );
+
+            team_ranking.sort((a, b) => a.position - b.position);
 
             team_ranking.forEach(e => {
                 let team;
                 teams.forEach(t => {
-                    if (t.id == e.team_id)
-                    {
-                        team = t;
-                    }
+                    if (t.id == e.team_id) team = t;
                 });
 
                 tr += `
@@ -317,8 +309,8 @@
                         <td class="tb-position"                 >${e.position}</td>
                         <td class="tb-color " ></td>
                         <td class="tb-icon" >
-                            <img src="{{ asset('images/game/leagues/teams') }}/${team.image}" class="img-fluid mx-auto d-block"
-                                    onerror="this.onerror=null;this.src='{{ asset('images/game/leagues/teams') . '/default.png' }}';" />
+                            <img src="{{ asset("images/game/leagues/teams") }}/${team.image}" class="img-fluid mx-auto d-block"
+                                onerror="this.onerror=null;this.src='{{ asset("images/game/leagues/teams") }}/default.png';" />
                         </td>
                         <td class="tb-name" >${team.name}</td>
                         <td class="tb-ps"   >${e.victories}</td>
@@ -327,7 +319,7 @@
                 `;
             });
 
-            $('#tbRanking table tbody').html(tr);
+            $("#tbRanking table tbody").html(tr);
         }
 
     </script>
