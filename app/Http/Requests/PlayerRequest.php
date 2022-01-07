@@ -62,7 +62,7 @@ class PlayerRequest extends FormRequest
             "birthday.required"        => "Este campo é obrigatório.",
             "role.required"            => "Este campo é obrigatório.",
             "secondary_role.required"  => "Este campo é obrigatório.",
-            "secondary_role.different" => "Posição secundária não podem ser igual a primária",
+            "secondary_role.different" => "Posição secundária não pode ser igual a primária",
             "force.required"           => "Este campo é obrigatório.",
         ];
     }
