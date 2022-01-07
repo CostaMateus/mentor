@@ -95,12 +95,12 @@
 
                                                 <tr id="nm-{{ $p->id }}" >
                                                     <td class="text-center" >
-                                                        <img class="my-auto flag" src="{{ asset("images/flags") . '/' . $p->nationality }}_64.png" alt="{{ $p->nationality }}" title="{{ RandomNames::getNameCountry($p->nationality) }}" width="25px" height="25px">
+                                                        <img class="my-auto flag" src="{{ asset("images/flags/") }}/{{ $p->country->code }}_64.png" alt="{{ $p->country->code }}" title="{{ $p->country->name }}" width="25px" height="25px">
                                                     </td>
-                                                    <td class="nick"                                               ><b>{{ $p->nickname }}</b></td>
-                                                    <td class="energy    text-center"                              >{{ $p->attribute->energy }}%</td>
-                                                    <td class="force     text-center"                              >{{ $p->attribute->force }}</td>
-                                                    <td class="role      text-center text-bold text-{{ $rolTx1 }}" >
+                                                    <td class="nick"                                          ><b>{{ $p->nickname }}</b></td>
+                                                    <td class="energy text-center"                            >{{ $p->attribute->energy }}%</td>
+                                                    <td class="force text-center"                             >{{ $p->attribute->force }}</td>
+                                                    <td class="role text-center text-bold text-{{ $rolTx1 }}" >
                                                         <label class="mb-0" for="r-check-{{ $p->id }}">
                                                             {{ $role1 }}
                                                             <input id="r-check-{{ $p->id }}" type="checkbox" value="{{ $p->id }}" name="{{ $rolTx1 }}">
@@ -133,29 +133,28 @@
 
     @section('compl_js')
         <script>
-            $('.role input').on('click', function () {
+            $(".role input").on("click", function () {
                 const id       = $(this).val();
-                const checkbox = $(this).attr('name');
+                const checkbox = $(this).attr("name");
 
-                $(`#nm-${id} .secondary input`).prop( 'checked', false );
+                $(`#nm-${id} .secondary input`).prop( "checked", false );
 
-                $( `.role      input[name=${checkbox}]` ).not(this).prop( 'checked', false );
-                $( `.secondary input[name=${checkbox}]` ).prop( 'checked', false );
+                $(`.role      input[name=${checkbox}]`).not(this).prop( "checked", false );
+                $(`.secondary input[name=${checkbox}]`).prop( "checked", false );
 
                 console.log($(":checkbox:checked").length);
             });
 
-            $('.secondary input').on('click', function () {
+            $(".secondary input").on("click", function () {
                 const id       = $(this).val();
-                const checkbox = $(this).attr('name');
+                const checkbox = $(this).attr("name");
 
-                $(`#nm-${id} .role input`).prop( 'checked', false );
+                $(`#nm-${id} .role input`).prop( "checked", false );
 
-                $( `.role      input[name=${checkbox}]` ).prop( 'checked', false );
-                $( `.secondary input[name=${checkbox}]` ).not(this).prop( 'checked', false );
+                $(`.role      input[name=${checkbox}]`).prop( "checked", false );
+                $(`.secondary input[name=${checkbox}]`).not(this).prop( "checked", false );
 
                 console.log($(":checkbox:checked").length);
             });
-
         </script>
     @endsection
