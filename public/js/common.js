@@ -108,14 +108,14 @@ window.checkTeamsWithoutDivisions = function(teams)
 }
 
 // Limpa campos
-window.clearInvalid = function () {
-    $('input, select').removeClass('is-invalid');
-    $('.select2-selection.select2-selection--single').removeClass('has-error');
+window.clearInvalid = function (){
+    $("input, select").removeClass("is-invalid");
+    $(".select2-selection.select2-selection--single").css("border-color", "");
 }
 
 // Limpa mensagens de erro
 window.clearSpan = function () {
-    $('[id*=span_]').html('');
+    $("[id*=span_]").html("");
 }
 
 // Mostrar erros
@@ -132,11 +132,14 @@ window.showErrors = function(e, id = "", prefix = "") {
             pk = `${prefix + league_id}_${key}`;
         }
 
-        $("#" + pk).addClass("is-invalid");
-        $("#span_" + pk).html(error[0]);
-
         let elem = $("#" + pk);
-        if (elem.next().find(".select2")) elem.next().find(".select2-selection").addClass("has-error");
+        if (elem.hasClass("select2-hidden-accessible"))
+        {
+            elem.siblings(".select2-container").find(".select2-selection").css("border-color", "#dc3545");
+        }
+
+        elem.addClass("is-invalid");
+        $("#span_" + pk).addClass("error_message").html(error[0]);
     });
 }
 
