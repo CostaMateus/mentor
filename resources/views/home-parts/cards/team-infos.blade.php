@@ -19,15 +19,13 @@
 
                             <div class="row py-2" >
                                 <div class="col-12 text-center" >
-                                    @php
-                                        $leagueInitials = $leagues->filter(function ($l) {
-                                            return $l->id == session('p_league_id');
-                                        })->toArray()[0]['initials'];
-                                    @endphp
-
-                                    <h4>{{ $leagueInitials }} {{ Helper::getYear($matchups[0]->date) }} - {{ $matchups[0]->split }}ª Etapa</h4>
+                                    @if (!empty($matchups[0]))
+                                        <h4>{{ $team->league->initials }} {{ Helper::getYear($matchups[0]->date) }} - {{ $matchups[0]->split }}ª Etapa</h4>
+                                    @else
+                                        <h4>{{ $team->league->initials }} {{ Helper::getYear(config("mentor.start_date")) }}</h4>
+                                    @endif
                                     <h5>Posição atual: <strong>{{ $team->position }}°</strong></h5>
-                                    <h6>Treinador: <a class="text-info" href="/">{{ $player->name . ' \'' . $player->nickname . '\' ' . $player->lastname }}</a></h6>
+                                    <h6>Treinador: <a class="text-info" href="/">{{ $player->name . " '" . $player->nickname . "' " . $player->lastname }}</a></h6>
                                 </div>
                             </div>
 
