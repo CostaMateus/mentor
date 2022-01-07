@@ -19,15 +19,22 @@
                             @foreach ($team->players as $p)
                                 @if (!$p->mentor)
                                     @php
-                                        $rolTx1 = $p->attribute->role;
-                                        $rolTx2 = $p->attribute->secondary_role;
+                                        $rolTx1   = $p->attribute->role;
+                                        $rolTx2   = $p->attribute->secondary_role;
 
-                                        $role1  = Helper::formatRole($rolTx1);
-                                        $role2  = Helper::formatRole($rolTx2);
+                                        $role1    = Helper::formatRole($rolTx1);
+                                        $role2    = Helper::formatRole($rolTx2);
+
+                                        $birthday = new DateTime($player->birthday);
+                                        // A data de comparação não pode ser a data de inicio da temporado do jogo.
+                                        // Tem que ser a data corrente do sistema do jogo.
+                                        // No momento ela não existe.
+                                        $today    = new DateTime(config("mentor.start_date"));
+                                        $age      = $birthday->diff($today);
                                     @endphp
 
                                     <tr id="p-{{ $p->id }}" >
-                                        <td class="nick"                                               >{{ $p->name }} <b>'{{ $p->nickname }}'</b> {{ $p->lastname }}</td>
+                                        <td class="nick" >{{ $p->name }} <b>'{{ $p->nickname }}'</b> {{ $p->lastname }}</td>
                                         <td class="energy align-middle" >
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -39,7 +46,7 @@
                                         <td class="secondary text-center text-bold text-{{ $rolTx2 }}" >{{ $role2 }}</td>
                                         <td class="salary    text-center"                              >{{ Helper::formatSalary($p->attribute->salary) }}</td>
                                         <td class="pass      text-center"                              >{{ Helper::formatSalary($p->attribute->pass) }}</td>
-                                        <td class="age       text-center"                              >{{ $p->age }}</td>
+                                        <td class="age       text-center"                              >{{ $age->y }}</td>
                                     </tr>
                                 @endif
                             @endforeach
