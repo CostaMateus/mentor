@@ -108,7 +108,12 @@
         </style>
         @yield('css')
 
-        <title>@yield('title') | {{ config('app.name', 'Mentor') }}</title>
+        {{-- Title --}}
+        <title>
+            @yield('title_prefix',  config('mentor.title_prefix',  ''))
+            @yield('title',         config('mentor.title',         ''))
+            @yield('title_postfix', config('mentor.title_postfix', ''))
+        </title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-mentor bg-mentor fixed-top">
