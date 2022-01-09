@@ -64,6 +64,8 @@
 
 @section('content')
 
+    @include('home-parts.menu')
+
     <div class="container-fluid">
 
         <div class="row d-flex flex-row align-items-stretch">
