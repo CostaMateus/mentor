@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
+@section('title_prefix', 'Home')
 @section('title')
-    Home
-@endsection
+@section('title_posfix')
 
 @section('css')
     <style>
