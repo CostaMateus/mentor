@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Config;
 
 class HomeController extends Controller
 {
@@ -52,6 +53,7 @@ class HomeController extends Controller
         ]);
 
         // $matchups = Matchup::where("division_id", $team->division_id)->get();
+        // $matchups = Division::with("matchups")->get();
         $matchups = Matchup::get();
 
         // $teams    = Team::where("division_id", $team->division_id)->get();
@@ -124,6 +126,31 @@ class HomeController extends Controller
         StartNewGame::seedTrustForAllMentors();
 
         return redirect("/");
+    }
+
+    public function loadingGame(Request $request)
+    {
+        $leagues = League::with("divisions")->get();
+
+        foreach ($leagues as &$league)
+        {
+            foreach ($league->divisions as &$division)
+            {
+                $d = $division->load("matchups");
+
+                foreach ($d->matchups as &$matchup)
+                {
+                    $matchup->load("teamBlue", "teamRed");
+                }
+            }
+        }
+
+        return view("matchups", compact("leagues"));
+    }
+
+    public function game(Request $request)
+    {
+        dd($request->all());
     }
 
 
@@ -228,4 +255,5 @@ class HomeController extends Controller
             "total"    => $total
         ];
     }
+
 }
