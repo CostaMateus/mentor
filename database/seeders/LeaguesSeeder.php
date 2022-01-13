@@ -27,6 +27,14 @@ class LeaguesSeeder extends Seeder
                 "special"        => 0,
                 "image"          => "cblol.png",
             ],
+            [
+                "name"           => "LoL European Championship",
+                "initials"       => "LEC",
+                "nrdivisions"    => 2,
+                "nrparticipants" => 30,
+                "special"        => 0,
+                "image"          => "lec.png",
+            ],
             // [
             //     "name"           => "LoL Champions Korea",
             //     "initials"       => "LCK",
@@ -50,14 +58,6 @@ class LeaguesSeeder extends Seeder
             //     "nrparticipants" => 30,
             //     "special"        => 0,
             //     "image"          => "lcs.png",
-            // ],
-            // [
-            //     "name"           => "LoL European Championship",
-            //     "initials"       => "LEC",
-            //     "nrdivisions"    => 2,
-            //     "nrparticipants" => 30,
-            //     "special"        => 0,
-            //     "image"          => "lec.png",
             // ],
             // [
             //     "name"           => "LoL Japan League",
