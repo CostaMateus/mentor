@@ -6,13 +6,12 @@
 
 @section('css')
     <style>
+        .container, .container-fluid { margin-top: 58px; }
+
         .mentorScrollbar::-webkit-scrollbar { width:10px; height:10px; }
         .mentorScrollbar::-webkit-scrollbar-track { background: #EEE; }
         .mentorScrollbar::-webkit-scrollbar-thumb { background: #AAA; }
         .mentorScrollbar::-webkit-scrollbar-thumb:hover { background: #888; }
-
-        body { background-color: #395A6A; }
-        .container, .container-fluid { margin-top: 58px; }
 
         .bg-default { background-color:#F2F2F2; }
         .bg-img-team { background-color: #ABB9C0; border-radius: 10px; max-height: 140px; max-width: 140px; padding: 5px}
@@ -235,11 +234,10 @@
 
         // OPEN ranking modal
         $("#btnRankingModal").on("click", function (e) {
-            $("#league_id").select2({ minimumResultsForSearch: Infinity });
-            $("#division_id").select2({ minimumResultsForSearch: Infinity });
-
             $("#league_id").val({{ session("p_league_id") }}).trigger("change");
             $("#division_id").val({{ session("p_division_id") }}).trigger("change");
+
+            $("#rankingModal").modal("show");
         });
 
         $("[id*=p-]").on("click", function (e) {
@@ -269,7 +267,7 @@
             insertTeams(this.value);
         });
 
-        {{-- INSERT DIVISIONS --}}
+        // {{-- INSERT DIVISIONS --}}
         insertDivisions = function (id)
         {
             const divisions = {!! $divisions !!};
@@ -279,19 +277,19 @@
                 if (division.league_id == {{ session("p_league_id") }})
                 {
                     let selected = (division.id == {{ session("p_division_id") }}) ? "selected" : "";
-                    opts += "<option value="" + division.id + "" " + selected + " >" + division.initials + "</option>";
+                    opts += `<option value="${division.id}" ${selected} >${division.initials}</option>`;
                 }
             });
 
             $("#division_id").html(opts);
         }
 
-        {{-- INSERT TEAMS --}}
+        // {{-- INSERT TEAMS --}}
         insertTeams = function (division_id)
         {
             let tr           = "";
             const teams      = {!! $teams !!};
-            const rankings   = JSON.parse("{!! json_encode($rankings) !!}");
+            const rankings   = JSON.parse('{!! json_encode($rankings) !!}');
             let team_ranking = [];
 
             for (let i = 0; i < 10; i++) {
@@ -308,15 +306,15 @@
 
                 tr += `
                     <tr>
-                        <td class="tb-position"                 >${e.position}</td>
-                        <td class="tb-color " ></td>
-                        <td class="tb-icon" >
+                        <td class="tb-position" >${e.position}</td>
+                        <td class="tb-color"    ></td>
+                        <td class="tb-icon"     >
                             <img src="{{ asset("images/game/leagues/teams") }}/${team.image}" class="img-fluid mx-auto d-block"
                                 onerror="this.onerror=null;this.src='{{ asset("images/game/leagues/teams") }}/default.png';" />
                         </td>
-                        <td class="tb-name" >${team.name}</td>
-                        <td class="tb-ps"   >${e.victories}</td>
-                        <td class="tb-ps"   >${e.defeats}</td>
+                        <td class="tb-name"     >${team.name}</td>
+                        <td class="tb-ps"       >${e.victories}</td>
+                        <td class="tb-ps"       >${e.defeats}</td>
                     </tr>
                 `;
             });

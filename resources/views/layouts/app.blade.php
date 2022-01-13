@@ -18,11 +18,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/bootstrap-table.css">
 
         <!-- Styles -->
-        {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/mentor.css") }}" />
+
         <style>
-            .bg-mentor {
-                background-color: #0C3448;
+            .bg-mentor-nav {
+                background-color: #0C3448 !important;
             }
 
             .navbar {
@@ -115,7 +117,7 @@
             @yield('title_postfix', config('mentor.title_postfix', ''))
         </title>
     </head>
-    <body>
+    <body class="bg-mentor" >
         @yield('content')
 
         {{-- Scripts --}}

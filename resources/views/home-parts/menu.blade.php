@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-mentor bg-mentor fixed-top">
+<nav class="navbar navbar-expand-lg navbar-mentor bg-mentor-nav fixed-top">
     <a class="navbar-brand" href="/home"  height="30" >
         <img src="{{ asset("favicon.ico") }}" alt="Mentor" class="" width="35" height="35" style="opacity:.8">
         Mentor
@@ -66,7 +66,7 @@
 
             {{-- ranking --}}
             <li class="nav-item">
-                <a id="btnRankingModal" class="nav-link" href="" data-toggle="modal" data-target="#rankingModal" >Classificação</a>
+                <a id="btnRankingModal" class="nav-link" href="#" >Classificação</a>
             </li>
 
             {{-- trainings --}}
