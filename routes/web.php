@@ -94,4 +94,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/novo", [WebHomeController::class, "newGame"])->name("new-game");
     Route::get("/conf", [WebHomeController::class, "setConfigs"])->name("set-configs");
 
+    Route::post("/loading", [WebHomeController::class, "loadingGame"])->name("loading.game");
+    Route::post("/game",    [WebHomeController::class, "game"])->name("game");
+
 });
