@@ -33,4 +33,9 @@ class Division extends Model
     {
         return $this->hasMany("App\Models\Team");
     }
+
+    public function matchups()
+    {
+        return $this->hasMany("App\Models\Matchup")->whereNull("winner_team_id")->limit(5);
+    }
 }
