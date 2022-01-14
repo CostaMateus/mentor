@@ -77,7 +77,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="">
+                <form action="{{ route("loading.game") }}" method="POST" >
+                    @csrf
+                    <input type="hidden" name="team"    value="{{ session("p_team_id") }}"  >
+                    <input type="hidden" name="advTeam" value="{{ $nextMatch['adv']->id }}" >
+
                     <div id="tbnextmatch" class=" modal-body row px-0 py-0">
                         <div class="col col-lg-8 mx-auto">
                             <div class="table-responsive">
@@ -124,7 +128,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <p class="btn btn-info mb-0">Jogar</p>
+                        <button  id="game" class="btn btn-info mb-0" type="submit" disabled >Jogar</button>
                     </div>
                 </form>
             </div>
@@ -142,7 +146,7 @@
                 $(`.role      input[name=${checkbox}]`).not(this).prop( "checked", false );
                 $(`.secondary input[name=${checkbox}]`).prop( "checked", false );
 
-                console.log($(":checkbox:checked").length);
+                enableButton();
             });
 
             $(".secondary input").on("click", function () {
@@ -154,7 +158,26 @@
                 $(`.role      input[name=${checkbox}]`).prop( "checked", false );
                 $(`.secondary input[name=${checkbox}]`).not(this).prop( "checked", false );
 
-                console.log($(":checkbox:checked").length);
+                enableButton();
             });
+
+            // $("#game").on("click", function() {
+            //     if ($(":checkbox:checked").length == 5)
+            //     {
+            //         console.log($("form").serialize());
+            //     }
+            // });
+
+            enableButton = function ()
+            {
+                if ($(":checkbox:checked").length == 5)
+                {
+                    $("#game").removeAttr("disabled");
+                }
+                else
+                {
+                    $("#game").attr("disabled", true);
+                }
+            }
         </script>
     @endsection
