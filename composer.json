@@ -45,7 +45,8 @@
         "files": [
             "app/Helpers/Fixture.php",
             "app/Helpers/Helper.php",
-            "app/Helpers/RandomNames.php"
+            "app/Helpers/RandomNames.php",
+            "app/Helpers/StartNewGame.php"
         ],
         "psr-4": {
             "App\\": "app/",
