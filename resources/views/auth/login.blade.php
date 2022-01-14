@@ -79,7 +79,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+    {{-- <script>
 
         $(document).on('click', '#convite', function() {
             $('#modal-convite').modal('show');
@@ -89,5 +89,5 @@
 
             console.log($('#form-convite').serialize());
         });
-    </script>
+    </script> --}}
 @endsection
