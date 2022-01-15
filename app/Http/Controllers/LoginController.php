@@ -19,7 +19,7 @@ class LoginController extends Controller
      */
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver("google")->redirect();
     }
 
     /**
@@ -29,87 +29,64 @@ class LoginController extends Controller
      */
     public function callback()
     {
-        try {
-            $googleUser = Socialite::driver('google')->user();
-            $user       = User::where('email', $googleUser->email)->first();
+        try
+        {
+            $googleUser = Socialite::driver("google")->user();
+            $user       = User::where("email", $googleUser->email)->first();
 
             // Valida se usuário existe
-            if ($user) {
-
+            if ($user)
+            {
                 // Verifica primeiro acesso
                 if (is_null($user->google_id))
                 {
                     $user->google_id         = $googleUser->id;
                     $user->name              = $googleUser->name;
                     $user->picture           = ($googleUser->avatar) ?: null;
-                    $user->email_verified_at = ($googleUser->user['email_verified']) ? now() : false;
+                    $user->email_verified_at = ($googleUser->user["email_verified"]) ? now() : false;
                     $user->verify            = 1;
                     $user->save();
 
-                    Auth::loginUsingId($user->id);
+                    Auth::login($user);
 
-                    session()->put('user', $user);
+                    session()->put("user", $user);
                     session()->save();
 
-                    Log::info('User first loggin: ' . $user->id . ' - ' . $user->name);
+                    Log::info("User first loggin: $user->id - $user->name");
 
-                    return redirect('/novo');
+                    return redirect()->route("home");
                 }
 
                 // Verifica se usuário está ativo
                 if ($user->active)
                 {
-                    Auth::loginUsingId($user->id);
+                    Auth::login($user);
 
-                    session()->put('user', $user);
+                    session()->put("user", $user);
                     session()->save();
 
-                    Log::info('User loggin: ' . $user->id . ' - ' . $user->name);
+                    Log::info("User loggin: $user->id - $user->name");
 
-                    $player = Player::where('user_id', $user->id)->first();
-
-                    if (is_null($player))
-                    {
-                        return redirect('/novo');
-                    }
-
-                    return redirect('/');
+                    return redirect()->route("home");
                 }
                 else
                 {
-                    Log::info('User blocked trying to loggin: ' . $user->id . ' - ' . $user->name);
+                    Log::info("User blocked trying to loggin: $user->id - $user->name");
 
-                    return redirect('login')->with('error', 'Usuário bloqueado!');
+                    return redirect()->route("login")->with("error", "Usuário bloqueado!");
                 }
             }
             else
             {
-                Log::info('User not registred trying to loggin: ' . $googleUser->name . ' - ' . $googleUser->email);
+                Log::info("User not registred trying to loggin: $googleUser->name - $googleUser->email");
 
-                return redirect('login')->with('error', 'Usuário não cadastrado!');
+                return redirect()->route("login")->with("error", "Usuário não cadastrado!");
             }
         }
         catch (Exception $e) {
-            Log::warning('Something is wrong: ' . $e);
+            Log::warning("Something is wrong: " . $e);
 
-            return redirect('login');
+            return redirect()->route("login");
         }
-    }
-
-    /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
     }
 }
