@@ -76,7 +76,6 @@ Auth::routes([ "register" => false, "reset" => false, "confirm" => false ]);
 
 Route::get("/redirect", [LoginController::class, "redirect"])->name("google.redirect");
 Route::get("/callback", [LoginController::class, "callback"])->name("google.callback");
-Route::get("/logout",   [LoginController::class, "logout"])->name("custom.logout");
 
 Route::middleware(["auth"])->group(function () {
 
@@ -89,10 +88,10 @@ Route::middleware(["auth"])->group(function () {
 
     });
 
-    Route::get("/",     [WebHomeController::class, "index"])->name("home1");
-    Route::get("/home", [WebHomeController::class, "index"])->name("home");
-    Route::get("/novo", [WebHomeController::class, "newGame"])->name("new-game");
-    Route::get("/conf", [WebHomeController::class, "setConfigs"])->name("set-configs");
+    Route::get("/",         [WebHomeController::class, "index"])->name("home1");
+    Route::get("/home",     [WebHomeController::class, "index"])->name("home");
+    Route::get("/novo",     [WebHomeController::class, "newGame"])->name("new-game");
+    Route::get("/conf",     [WebHomeController::class, "setConfigs"])->name("set-configs");
 
     Route::post("/loading", [WebHomeController::class, "loadingGame"])->name("loading.game");
     Route::post("/game",    [WebHomeController::class, "game"])->name("game");
