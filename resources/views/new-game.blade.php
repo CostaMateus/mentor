@@ -177,13 +177,34 @@
             $("#country_id").select2();
 
             $("#league_id").on("change", function () {
+                clearInvalid();
+                clearSpan();
+
                 $("#division_id").removeAttr("disabled");
                 insertDivisions("division_id", this.value);
             });
             $("#division_id").on("change", function () {
+                clearInvalid();
+                clearSpan();
+
                 $("#team_id").removeAttr("disabled");
-                insertTeams("team_id", this.value);
+                insertTeams("team_id", $("#league_id").val(), this.value);
             });
+            $("#team_id").on("change", function () {
+                clearInvalid();
+                clearSpan();
+            });
+
+            showErrorLocal = function (id, text)
+            {
+                let el = $(`#${id}`);
+
+                el.addClass("is-invalid");
+                $(`#span_${id}`).addClass("error_message").html(text);
+
+                if (el.hasClass("select2-hidden-accessible"))
+                    el.siblings(".select2-container").find(".select2-selection").css("border-color", "#dc3545");
+            }
 
             // {{-- INSERT DIVISIONS --}}
             insertDivisions = function (id, league_id)
@@ -204,7 +225,7 @@
             }
 
             // {{-- INSERT TEAMS --}}
-            insertTeams = function (id, division_id)
+            insertTeams = function (id, league_id, division_id)
             {
                 let teams = {!! $teams !!};
                 let opts  = "<option selected disabled hidden >Selecione...</option>";
@@ -215,7 +236,7 @@
                         opts += `<option value="${team.id}" >${team.name}</option>`;
                     }
 
-                    if (team.division_id === null && division_id == 0)
+                    if (team.league_id == league_id && team.division_id === null && division_id == 0)
                     {
                         let selected = (team.id == team_id) ? "selected" : "";
                         opts += `<option value="${team.id}" ${selected} >${team.name}</option>`;
@@ -254,18 +275,15 @@
 
                 if (league === null)
                 {
-                    $("#league_id").addClass("is-invalid");
-                    $("#span_league_id").html("Selecione uma liga");
+                    showErrorLocal("league_id", "Selecione uma liga");
                 }
                 else if (division === null)
                 {
-                    $("#division_id").addClass("is-invalid");
-                    $("#span_division_id").html("Selecione uma divisão");
+                    showErrorLocal("division_id", "Selecione uma divisão");
                 }
                 else if (team === null)
                 {
-                    $("#team_id").addClass("is-invalid");
-                    $("#span_team_id").html("Selecione um time");
+                    showErrorLocal("team_id", "Selecione um time");
                 }
                 else
                 {
@@ -279,6 +297,7 @@
                 e.preventDefault();
 
                 let spin = $(this).find("i");
+                console.log(spin);
                 spin.removeClass("d-none");
 
                 disableFields();
@@ -310,13 +329,14 @@
                     },
                     error: function ( err ) {
                         console.log(err);
-                        clearInvalid();
+                        spin.addClass("d-none");
+
                         enableFields();
                         showErrors( err );
-                        spin.addClass("d-none");
                     }
                 });
             });
+
         </script>
 
     </body>
