@@ -227,9 +227,6 @@
         $(document).ready(function () {
             let t = $("tbody tr").first().attr("id");
             $(`#${t}`).click();
-
-            // $("#league_id").val({{ session("p_league_id") }}).trigger("change");
-            // $("#division_id").val({{ session("p_division_id") }}).trigger("change");
         });
 
         // OPEN ranking modal
@@ -240,23 +237,28 @@
             $("#rankingModal").modal("show");
         });
 
-        $("[id*=p-]").on("click", function (e) {
-            let id = $(this).attr("id").split("p-")[1];
-            let players = {!! $team->players !!};
+        window.addEventListener('click', function ( e ) {
+            const tr      = e.target.closest("tr");
+            const players = {!! $team->players !!};
 
-            players.forEach(p => {
-                if (p.id == id)
-                {
-                    $("#p-infos-name").html(p.nickname).attr("title", `${p.name} ${p.lastname}`);
-                    $("#p-infos-role").html(   `1ª p.:               ${formatRoleFull(p.attribute.role)[0]}`);
-                    $("#p-infos-secund").html( `2ª p.:               ${formatRoleFull(p.attribute.secondary_role)[0]}`);
-                    $("#p-infos-age").html(    `Idade:               ${p.age}`);
-                    $("#p-infos-force").html(  `Força:               ${p.attribute.force}`);
-                    $("#p-infos-salary").html( `Salário:<br>R$       ${formatCurrency(p.attribute.salary)}`);
-                    $("#p-infos-pass").html(   `Valor do passe<br>R$ ${formatCurrency(p.attribute.pass)}`);
-                }
-            });
-        });
+            if (tr)
+            {
+                players.forEach(p => {
+                    if (`p-${p.id}` == tr.id)
+                    {
+                        const age = $(tr).children(".age").text();
+
+                        $("#p-infos-name").html(p.nickname).attr("title", `${p.name} ${p.lastname}`);
+                        $("#p-infos-role").html(   `1ª p.:               ${formatRoleFull(p.attribute.role)[0]}`);
+                        $("#p-infos-secund").html( `2ª p.:               ${formatRoleFull(p.attribute.secondary_role)[0]}`);
+                        $("#p-infos-age").html(    `Idade:               ${age}`);
+                        $("#p-infos-force").html(  `Força:               ${p.attribute.force}`);
+                        $("#p-infos-salary").html( `Salário:<br>R$       ${formatCurrency(p.attribute.salary)}`);
+                        $("#p-infos-pass").html(   `Valor do passe<br>R$ ${formatCurrency(p.attribute.pass)}`);
+                    }
+                });
+            }
+        }, false);
 
 
         $("#league_id").on("change", function () {
