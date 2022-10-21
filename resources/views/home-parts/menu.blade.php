@@ -28,7 +28,12 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="" data-toggle="modal" data-target="#default" >Sobre o jogo</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout" >Logout</a>
+
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                 </div>
             </li>
 
