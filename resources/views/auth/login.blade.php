@@ -35,7 +35,7 @@
                         </a>
 
                         @if (session('error'))
-                            <div class="text-danger text-center pt-1">
+                            <div class="text-danger text-center pt-3">
                                 {{ session('error') }}
                             </div>
                         @endif

@@ -44,7 +44,7 @@
                         <select id="league_id" class="form-control form-control-sm" name="league_id" style="width: 100%" >
                             <option value="" selected disabled >Selecione...</option>
                             @foreach ($leagues as $league)
-                                <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                <option value="{{ $league->id }}">{{ $league->initials }} - {{ $league->name }}</option>
                             @endforeach
                         </select>
                         <span id="span_league_id" class="invalid-feedback"></span>
