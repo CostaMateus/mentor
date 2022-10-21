@@ -86,7 +86,7 @@ class LoginController extends Controller
         catch (Exception $e) {
             Log::warning("Something is wrong: " . $e);
 
-            return redirect()->route("login");
+            return redirect()->route("login")->with("error", "Erro ao acessar o banco!");
         }
     }
 }
