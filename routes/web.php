@@ -3,11 +3,12 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TrophyController;
 use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\Web\HomeController as WebHomeController;
-use App\Http\Controllers\Web\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Web\Admin\TeamController;
 use App\Http\Controllers\Web\Admin\LeagueController;
 use App\Http\Controllers\Web\Admin\PlayerController;
+use App\Http\Controllers\Web\HomeController as WebHomeController;
+use App\Http\Controllers\Web\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Web\TestControler;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,3 +98,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post("/game",    [WebHomeController::class, "game"])->name("game");
 
 });
+
+
+Route::get("/wc",    [TestControler::class, "test"]);
+Route::get("/media", [TestControler::class, "media"]);
