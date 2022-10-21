@@ -25,7 +25,7 @@
                                         $role1    = Helper::formatRole($rolTx1);
                                         $role2    = Helper::formatRole($rolTx2);
 
-                                        $birthday = new DateTime($player->birthday);
+                                        $birthday = new DateTime($p->birthday);
                                         // A data de comparação não pode ser a data de inicio da temporado do jogo.
                                         // Tem que ser a data corrente do sistema do jogo.
                                         // No momento ela não existe.
