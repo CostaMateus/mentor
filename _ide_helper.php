@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.83.5.
+ * Generated for Laravel 8.83.27.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1239,7 +1239,7 @@
          * Call the given Closure / class@method and inject its dependencies.
          *
          * @param callable|string $callback
-         * @param \Illuminate\Container\array<string,  mixed>  $parameters
+         * @param array<string, mixed> $parameters
          * @param string|null $defaultMethod
          * @return mixed 
          * @throws \InvalidArgumentException
@@ -2167,6 +2167,17 @@
         {
                         /** @var \Illuminate\Auth\SessionGuard $instance */
                         return $instance->setRequest($request);
+        }
+                    /**
+         * Get the timebox instance used by the guard.
+         *
+         * @return \Illuminate\Support\Timebox 
+         * @static 
+         */ 
+        public static function getTimebox()
+        {
+                        /** @var \Illuminate\Auth\SessionGuard $instance */
+                        return $instance->getTimebox();
         }
                     /**
          * Determine if the current user is authenticated. If not, throw an exception.
@@ -8476,12 +8487,12 @@
          * Clones a request and overrides some of its parameters.
          *
          * @return static 
-         * @param array $query The GET parameters
-         * @param array $request The POST parameters
-         * @param array $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
-         * @param array $cookies The COOKIE parameters
-         * @param array $files The FILES parameters
-         * @param array $server The SERVER parameters
+         * @param array|null $query The GET parameters
+         * @param array|null $request The POST parameters
+         * @param array|null $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
+         * @param array|null $cookies The COOKIE parameters
+         * @param array|null $files The FILES parameters
+         * @param array|null $server The SERVER parameters
          * @return static 
          * @static 
          */ 
@@ -10484,6 +10495,7 @@
      * @method static \Illuminate\Routing\RouteRegistrar prefix(string $prefix)
      * @method static \Illuminate\Routing\RouteRegistrar scopeBindings()
      * @method static \Illuminate\Routing\RouteRegistrar where(array $where)
+     * @method static \Illuminate\Routing\RouteRegistrar withoutMiddleware(array|string $middleware)
      * @see \Illuminate\Routing\Router
      */ 
         class Route {
@@ -14340,6 +14352,10 @@
             /**
      * 
      *
+     * @method array getScopes()
+     * @method \Laravel\Socialite\Contracts\Provider scopes(array|string $scopes)
+     * @method \Laravel\Socialite\Contracts\Provider setScopes(array|string $scopes)
+     * @method \Laravel\Socialite\Contracts\Provider redirectUrl(string $url)
      * @see \Laravel\Socialite\SocialiteManager
      */ 
         class Socialite {
@@ -14542,6 +14558,16 @@
         {
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->filterExceptionsUsing($filterExceptionsCallable);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function filterReportsUsing($filterReportsCallable)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->filterReportsUsing($filterReportsCallable);
         }
                     /**
          * 
